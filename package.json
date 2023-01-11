@@ -1,0 +1,12 @@
+{
+    "name": "Aislapol-NR-OPCUA-PM",
+    "description": "Implementación de Node-Red para comunicar con máquinas de producción mediante el estándar OPC UA",
+    "version": "0.0.1",
+    "dependencies": {},
+    "node-red": {
+        "settings": {
+            "flowFile": "flows.json",
+            "credentialsFile": "flows_cred.json"
+        }
+    }
+}
