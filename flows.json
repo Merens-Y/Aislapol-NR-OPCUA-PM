@@ -142,7 +142,7 @@
         "tab": "7a2333ce74658d6e",
         "order": 1,
         "disp": true,
-        "width": "15",
+        "width": "22",
         "collapse": false,
         "className": ""
     },
@@ -197,27 +197,23 @@
         "className": ""
     },
     {
-        "id": "079730b127182e3f",
-        "type": "ui_template",
-        "z": "f788a78067227a65",
-        "group": "6d1bf9e97b19ea27",
-        "name": "",
+        "id": "cacf42a215e27709",
+        "type": "ui_tab",
+        "name": "Testing",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "371b2826480241e5",
+        "type": "ui_group",
+        "name": "Testing Group",
+        "tab": "cacf42a215e27709",
         "order": 1,
-        "width": "8",
-        "height": "9",
-        "format": "<style>\n    .card {\n        /* Add rounded corners and shadow to the card */\n        border-radius: 8px;\n        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n\n        /* Add some padding and margin to the card */\n        padding: 16px;\n        margin: 16px;\n\n        /* Use flexbox to align the contents of the card */\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n    }\n\n    .machine-name {\n        font-weight: bold;\n        font-style: italic;\n    }\n\n    .card:hover {\n        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);\n        cursor: pointer;\n    }\n\n    .card-text p {\n        padding: 0.5rem;\n    }\n\n    .card .led {\n        /* Add a border and some padding to the LED */\n        border: 1px solid rgba(0, 0, 0, 0.877);\n        border-radius: 50%;\n        width: 16px;\n        height: 16px;\n        margin: 8px;\n        padding: 8px;\n        align-self: left;\n\n    }\n\n    .led-container {\n        width: 100%;\n        align-items: left;\n    }\n\n    .card .led.red {\n        /* Make the LED red when the boolean value is true */\n        background-color: rgba(255, 0, 0, 0.7);\n        align-self: left;\n    }\n\n    .card .led.green {\n        /* Make the LED green when the boolean value is false */\n        background-color: rgba(0, 255, 0, 0.7);\n        align-self: left;\n    }\n\n    .card .stats {\n        /* Add some padding and margin to the stats */\n        padding: 8px;\n        margin: 8px;\n\n        /* Use flexbox to align the stats horizontally */\n        display: flex;\n        flex-direction: row;\n        align-items: left;\n    }\n\n    .card .stats .label {\n        /* Add some margin to the labels */\n        margin: 8px;\n\n        /* Align the text to the left */\n        text-align: left;\n    }\n</style>\n\n<div class=\"card\" ng-click=\"send({payload: 1})\">\n    <!-- LED -->\n    <div class=\"led-container\">\n        <div class=\"led\" ng-class=\"{'red':!msg.payload.isRunning, 'green':msg.payload.isRunning}\"></div>\n    </div>\n\n    <!-- Machine stats -->\n    <div class=\"stats\">\n        <div class=\"card-body\">\n            <div class=\"card-text\">\n                <p class=\"machine-name\">{{msg.payload.machineName}}</p>\n                <div></div>\n                <p>Receta: {{msg.payload.recipe}}</p>\n                <p>Número de ciclos: {{msg.payload.numCycles}}</p>\n                <p>Tiempo de ciclo actual: {{msg.payload.cycleTime}}s</p>\n                <p>Tiempo mínimo de ciclo: {{msg.payload.minCycleTime}}s</p>\n                <p>Tiempo máximo de ciclo: {{msg.payload.maxCycleTime}}s</p>\n            </div>\n        </div>\n    </div>\n</div>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "resendOnRefresh": true,
-        "templateScope": "local",
-        "className": "",
-        "x": 960,
-        "y": 120,
-        "wires": [
-            [
-                "40415dec34029574"
-            ]
-        ]
+        "disp": true,
+        "width": "10",
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "f7ef1c35dcd02342",
@@ -542,26 +538,14 @@
         ]
     },
     {
-        "id": "40415dec34029574",
-        "type": "ui_ui_control",
-        "z": "f788a78067227a65",
-        "name": "",
-        "events": "all",
-        "x": 1120,
-        "y": 120,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "0ae249a0b685d2f6",
         "type": "ui_template",
         "z": "f788a78067227a65",
         "group": "0ca931ec6fb88653",
         "name": "",
         "order": 1,
-        "width": 0,
-        "height": 0,
+        "width": "22",
+        "height": "10",
         "format": "<style>\n    .main-container {\n        display: flex;\n        flex-direction: row;\n        width: 100%;\n    }\n\n    .left-container {\n        display: flex;\n        flex-direction: column;\n    }\n\n    .card p {\n        margin: 0;\n    }\n\n    .card {\n        /* Add rounded corners and shadow to the card */\n        border-radius: 8px;\n        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n\n        /* Add some padding and margin to the card */\n        padding: 16px;\n        margin: 16px;\n\n        /* Use flexbox to align the contents of the card */\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n    }\n\n    .machine-name {\n        font-weight: bold;\n        font-style: italic;\n    }\n\n    .card:hover {\n        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);\n    }\n\n    .card-text p {\n        padding: 0.5rem;\n    }\n\n    .card .led {\n        /* Add a border and some padding to the LED */\n        border: 1px solid rgba(0, 0, 0, 0.877);\n        border-radius: 50%;\n        width: 16px;\n        height: 16px;\n        margin: 8px;\n        padding: 8px;\n        align-self: left;\n\n    }\n\n    .led-container {\n        width: 100%;\n        align-items: left;\n    }\n\n    .card .led.red {\n        /* Make the LED red when the boolean value is true */\n        background-color: rgba(255, 0, 0, 0.7);\n        align-self: left;\n    }\n\n    .card .led.green {\n        /* Make the LED green when the boolean value is false */\n        background-color: rgba(0, 255, 0, 0.7);\n        align-self: left;\n    }\n\n    .card .stats {\n        /* Add some padding and margin to the stats */\n        padding: 8px;\n        margin: 8px;\n\n        /* Use flexbox to align the stats horizontally */\n        display: flex;\n        flex-direction: row;\n        align-items: left;\n    }\n\n    .card .stats .label {\n        /* Add some margin to the labels */\n        margin: 8px;\n\n        /* Align the text to the left */\n        text-align: left;\n    }\n</style>\n\n<div class=\"main-container\">\n    <div class=\"left-container card-text\">\n        <div class=\"card\">\n            <p>Tipo de matriz: {{}}</p>\n            <p>Código matriz: {{}}</p>\n            <p>Piezas por ciclo: {{}}</p>\n        </div>\n        <div class=\"card\">\n            <p>Número de ciclo: {{}}</p>\n            <p>Tiempo de ciclo: {{}}</p>\n            <p>Tiempo de ciclo anterior: {{}}</p>\n            <p>Inicio: {{}}</p>\n            <p>Término: {{}}</p>\n        </div>\n    </div>\n    <div class=\"card card-text\">\n        <p>Cantidad producida: {{}}</p>\n        <p>Horas produciendo: {{}}</p>\n        <p>Horas detenida: {{}}</p>\n        <p>Tiempo de ciclo promedio acumulado: {{}}</p>\n        <p>Tiempo de ciclo mínimo: {{}}</p>\n        <p>Tiempo de ciclo máximo: {{}}</p>\n        <p>% de utilización: {{}}</p>\n    </div>\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
@@ -691,36 +675,13 @@
         "wires": []
     },
     {
-        "id": "003fecdad0d27213",
-        "type": "ui_template",
-        "z": "f788a78067227a65",
-        "group": "8bda35d4e5cabfb0",
-        "name": "",
-        "order": 0,
-        "width": "8",
-        "height": "9",
-        "format": "<style>\n    @-webkit-keyframes pulse {\n        0% {\n            box-shadow: 0 0 8px rgb(0, 255, 0), inset 0 0 8px rgb(0, 255, 0);\n        }\n\n        50% {\n            box-shadow: 0 0 16px rgb(0, 255, 0), inset 0 0 14px rgb(0, 255, 0);\n        }\n\n        100% {\n            box-shadow: 0 0 8px rgb(0, 255, 0), inset 0 0 8px rgb(0, 255, 0);\n        }\n    }\n\n    .card {\n        /* Add rounded corners and shadow to the card */\n        border-radius: 8px;\n        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n        /* Add some padding and margin to the card */\n        padding: 16px;\n        margin: 16px;\n\n        /* Use flexbox to align the contents of the card */\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n    }\n\n    .machine-name {\n        font-weight: bold;\n        font-style: italic;\n    }\n\n    .card:hover {\n        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);\n        cursor: pointer;\n    }\n\n    .card-text p {\n        padding: 0.5rem;\n    }\n\n    .card .led {\n        /* Add a border and some padding to the LED */\n        border: 0px solid rgba(0, 0, 0, 0.164);\n        border-radius: 50%;\n        width: 16px;\n        height: 16px;\n        margin: 8px;\n        padding: 8px;\n        align-self: left;\n    }\n\n    .led-container {\n        width: 100%;\n        align-items: left;\n    }\n\n    .card .led.red {\n        /* Make the LED red when the boolean value is true */\n        background-color: rgba(255, 0, 0, 0.7);\n        align-self: left;\n        box-shadow: 0 0 8px #ff0000, inset 0 0 8px #ff0000;\n    }\n\n    .card .led.green {\n        /* Make the LED green when the boolean value is false */\n        background-color: rgb(0, 255, 0);\n        align-self: left;\n        box-shadow: 0 0 8px rgb(0, 255, 0), inset 0 0 8px rgb(0, 255, 0);\n        -webkit-animation: pulse 1s linear 0.5s infinite;\n    }\n\n    .card .stats {\n        /* Add some padding and margin to the stats */\n        padding: 8px;\n        margin: 8px;\n\n        /* Use flexbox to align the stats horizontally */\n        display: flex;\n        flex-direction: row;\n        align-items: left;\n    }\n\n    .card .stats .label {\n        /* Add some margin to the labels */\n        margin: 8px;\n\n        /* Align the text to the left */\n        text-align: left;\n    }\n</style>\n\n<div class=\"card\" ng-click=\"send({payload: 2})\">\n    <!-- LED -->\n    <div class=\"led-container\">\n        <div class=\"led\" ng-class=\"{'red':!msg.payload.isRunning, 'green':msg.payload.isRunning}\"></div>\n    </div>\n\n    <!-- Machine stats -->\n    <div class=\"stats\">\n        <div class=\"card-body\">\n            <div class=\"card-text\">\n                <p class=\"machine-name\">{{msg.payload.machineName}}</p>\n                <div></div>\n                <p>Receta: {{msg.payload.recipe}}</p>\n                <p>Número de ciclos: {{msg.payload.numCycles}}</p>\n                <p>Tiempo de ciclo actual: {{msg.payload.cycleTime}}s</p>\n                <p>Tiempo mínimo de ciclo: {{msg.payload.minCycleTime}}s</p>\n                <p>Tiempo máximo de ciclo: {{msg.payload.maxCycleTime}}s</p>\n            </div>\n        </div>\n    </div>\n</div>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "resendOnRefresh": true,
-        "templateScope": "local",
-        "className": "",
-        "x": 960,
-        "y": 220,
-        "wires": [
-            [
-                "41620427fabb1e6d"
-            ]
-        ]
-    },
-    {
         "id": "41620427fabb1e6d",
         "type": "ui_ui_control",
         "z": "f788a78067227a65",
         "name": "",
         "events": "all",
-        "x": 1120,
-        "y": 220,
+        "x": 1220,
+        "y": 120,
         "wires": [
             []
         ]
@@ -886,7 +847,7 @@
         "type": "function",
         "z": "f788a78067227a65",
         "name": "Machine 1 JSON Formating",
-        "func": "var running = msg.payload[\"ns=6;s=::OpcUA_IF:mac_status.running\"];\nvar cycleTime = msg.payload[\"ns=6;s=::OpcUA_IF:mac_status.actual_cycle_time\"] / 1000;\nvar recipe = msg.payload[\"ns=6;s=::OpcUA_IF:last_recipe\"];\nvar numCycles = msg.payload[\"ns=6;s=::OpcUA_IF:life_cycles\"];\nvar lastCycleTime = msg.payload[\"ns=6;s=::OpcUA_IF:mac_status.last_cycle_time\"] / 1000;\n\nvar minCycleTime=\"N/A\";\nvar maxCycleTime=\"N/A\";\n\n\n// set min time\nif (global.get(\"minCycleTimeMac15\")){\n    minCycleTime = Math.min(lastCycleTime, global.get(\"minCycleTimeMac15\"));\n    global.set(\"minCycleTimeMac15\", minCycleTime);\n} else{\n    global.set(\"minCycleTimeMac15\", lastCycleTime);\n};\n//set max time\nif (global.get(\"maxCycleTimeMac15\")) {\n    maxCycleTime = Math.max(lastCycleTime, global.get(\"maxCycleTimeMac15\"));\n    global.set(\"maxCycleTimeMac15\", maxCycleTime);\n} else {\n    global.set(\"maxCycleTimeMac15\", lastCycleTime);\n};\n\n\nvar machine = {\n    \"machineName\": \"Máquina 15\",\n    \"recipe\": recipe,\n    \"numCycles\": numCycles,\n    \"cycleTime\": cycleTime,\n    \"minCycleTime\": minCycleTime,\n    \"maxCycleTime\": maxCycleTime,\n    \"isRunning\": running\n};\nmsg.payload=machine;\nreturn msg;",
+        "func": "var running = msg.payload[\"ns=6;s=::OpcUA_IF:mac_status.running\"];\nvar cycleTime = msg.payload[\"ns=6;s=::OpcUA_IF:mac_status.actual_cycle_time\"] / 1000;\ncycleTime = Math.floor(cycleTime);\nvar recipe = msg.payload[\"ns=6;s=::OpcUA_IF:last_recipe\"];\nvar numCycles = msg.payload[\"ns=6;s=::OpcUA_IF:life_cycles\"];\nvar lastCycleTime = msg.payload[\"ns=6;s=::OpcUA_IF:mac_status.last_cycle_time\"] / 1000;\nlastCycleTime = Math.floor(lastCycleTime);\n\nvar minCycleTime=\"N/A\";\nvar maxCycleTime=\"N/A\";\n\n\n// set min time\nif (global.get(\"minCycleTimeMac15\")){\n    minCycleTime = Math.min(lastCycleTime, global.get(\"minCycleTimeMac15\"));\n    global.set(\"minCycleTimeMac15\", minCycleTime);\n} else{\n    global.set(\"minCycleTimeMac15\", lastCycleTime);\n};\n//set max time\nif (global.get(\"maxCycleTimeMac15\")) {\n    maxCycleTime = Math.max(lastCycleTime, global.get(\"maxCycleTimeMac15\"));\n    global.set(\"maxCycleTimeMac15\", maxCycleTime);\n} else {\n    global.set(\"maxCycleTimeMac15\", lastCycleTime);\n};\n\n\nvar machine = {\n    \"recipe\": recipe,\n    \"numCycles\": numCycles,\n    \"cycleTime\": cycleTime,\n    \"minCycleTime\": minCycleTime,\n    \"maxCycleTime\": maxCycleTime,\n    \"isRunning\": running,\n    \"warning\": false\n};\nmsg.payload=machine;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -896,8 +857,8 @@
         "y": 340,
         "wires": [
             [
-                "003fecdad0d27213",
-                "079730b127182e3f"
+                "4507e6f19479d369",
+                "f614624d5feae44d"
             ]
         ]
     },
@@ -1006,7 +967,7 @@
         "interpolate": "linear",
         "nodata": "",
         "dot": true,
-        "ymin": "",
+        "ymin": "0",
         "ymax": "",
         "removeOlder": 1,
         "removeOlderPoints": "100",
@@ -1110,5 +1071,320 @@
         "x": 350,
         "y": 980,
         "wires": []
+    },
+    {
+        "id": "ebe7bf76279201e2",
+        "type": "ui_gauge",
+        "z": "f788a78067227a65",
+        "name": "",
+        "group": "0ca931ec6fb88653",
+        "order": 4,
+        "width": "8",
+        "height": "6",
+        "gtype": "gage",
+        "title": "Presión de Aire de llenado",
+        "label": "bar",
+        "format": "{{value | number:1}}",
+        "min": "-0.5",
+        "max": "1",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "0",
+        "seg2": "0.5",
+        "diff": false,
+        "className": "",
+        "x": 1200,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "1bd9207bb04c60e1",
+        "type": "ui_gauge",
+        "z": "f788a78067227a65",
+        "name": "",
+        "group": "0ca931ec6fb88653",
+        "order": 5,
+        "width": "8",
+        "height": "6",
+        "gtype": "gage",
+        "title": "Presión de Desmoldeo",
+        "label": "bar",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 10,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 1180,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "4507e6f19479d369",
+        "type": "ui_machinecard",
+        "z": "f788a78067227a65",
+        "group": "6d1bf9e97b19ea27",
+        "order": 1,
+        "width": "8",
+        "height": "9",
+        "name": "Maquina 15",
+        "machineName": "Máquina 15",
+        "warning": "1",
+        "x": 970,
+        "y": 120,
+        "wires": [
+            [
+                "41620427fabb1e6d"
+            ]
+        ]
+    },
+    {
+        "id": "f614624d5feae44d",
+        "type": "ui_machinecard",
+        "z": "f788a78067227a65",
+        "group": "8bda35d4e5cabfb0",
+        "order": 1,
+        "width": "8",
+        "height": "9",
+        "name": "Maquina 16",
+        "machineName": "Máquina 16",
+        "warning": "2",
+        "x": 970,
+        "y": 220,
+        "wires": [
+            [
+                "41620427fabb1e6d"
+            ]
+        ]
+    },
+    {
+        "id": "a2849f5fd82c1805",
+        "type": "ui_chart",
+        "z": "f788a78067227a65",
+        "name": "",
+        "group": "0ca931ec6fb88653",
+        "order": 2,
+        "width": "10",
+        "height": "6",
+        "label": "Temperatura",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "bezier",
+        "nodata": "No Data",
+        "dot": true,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "100",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1150,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6a2c070ac330bf12",
+        "type": "ui_lineargauge",
+        "z": "f788a78067227a65",
+        "group": "0ca931ec6fb88653",
+        "order": 3,
+        "width": "2",
+        "height": "6",
+        "name": "",
+        "colorLowArea": "#ffffc0",
+        "colorMidArea": "#99ff99",
+        "colorHighArea": "#ff8080",
+        "unit": "°C",
+        "x": 1150,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "7e499c4d18dc65ee",
+        "type": "inject",
+        "z": "f788a78067227a65",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "highlimit",
+                "v": "180",
+                "vt": "num"
+            },
+            {
+                "p": "lowlimit",
+                "v": "20",
+                "vt": "num"
+            },
+            {
+                "p": "setpoint",
+                "v": "55",
+                "vt": "num"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "Temperature",
+        "payload": "60",
+        "payloadType": "num",
+        "x": 790,
+        "y": 700,
+        "wires": [
+            [
+                "f41e39ca9dd90c40"
+            ]
+        ]
+    },
+    {
+        "id": "f41e39ca9dd90c40",
+        "type": "function",
+        "z": "f788a78067227a65",
+        "name": "function 3",
+        "func": "var randTemp = Math.random()*100;\nrandTemp = Math.floor(randTemp);\nmsg.payload=randTemp;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 780,
+        "wires": [
+            [
+                "a2849f5fd82c1805",
+                "6a2c070ac330bf12"
+            ]
+        ]
+    },
+    {
+        "id": "65cbdf7aa3bc734e",
+        "type": "inject",
+        "z": "f788a78067227a65",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 790,
+        "y": 840,
+        "wires": [
+            [
+                "ac85c152db6e1eb8"
+            ]
+        ]
+    },
+    {
+        "id": "ac85c152db6e1eb8",
+        "type": "function",
+        "z": "f788a78067227a65",
+        "name": "function 4",
+        "func": "var randPress = Math.random()*1.5-0.5;\nmsg.payload=randPress;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 840,
+        "wires": [
+            [
+                "ebe7bf76279201e2"
+            ]
+        ]
+    },
+    {
+        "id": "e84d6945cb936a10",
+        "type": "inject",
+        "z": "f788a78067227a65",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 790,
+        "y": 900,
+        "wires": [
+            [
+                "c093944942501c5a"
+            ]
+        ]
+    },
+    {
+        "id": "c093944942501c5a",
+        "type": "function",
+        "z": "f788a78067227a65",
+        "name": "function 5",
+        "func": "var randPress = Math.random()*10;\nrandPress = Math.floor(randPress);\nmsg.payload=randPress;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 900,
+        "wires": [
+            [
+                "1bd9207bb04c60e1"
+            ]
+        ]
     }
 ]
