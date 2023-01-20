@@ -129,7 +129,7 @@
     {
         "id": "7a2333ce74658d6e",
         "type": "ui_tab",
-        "name": "Machine 1 Details",
+        "name": "Detalles Máquina 15",
         "icon": "dashboard",
         "order": 2,
         "disabled": false,
@@ -138,7 +138,7 @@
     {
         "id": "0ca931ec6fb88653",
         "type": "ui_group",
-        "name": "Machine 1 Details",
+        "name": "Resumen",
         "tab": "7a2333ce74658d6e",
         "order": 1,
         "disp": true,
@@ -149,7 +149,7 @@
     {
         "id": "09a29acb39ff18a9",
         "type": "ui_tab",
-        "name": "Machine 2 Details",
+        "name": "Detalles Máquina 16",
         "icon": "dashboard",
         "disabled": false,
         "hidden": false
@@ -157,7 +157,7 @@
     {
         "id": "3f5e573249780b52",
         "type": "ui_group",
-        "name": "Machine 2 Details",
+        "name": "Resumen",
         "tab": "09a29acb39ff18a9",
         "order": 1,
         "disp": true,
@@ -216,328 +216,6 @@
         "className": ""
     },
     {
-        "id": "f7ef1c35dcd02342",
-        "type": "inject",
-        "z": "f788a78067227a65",
-        "name": "isRunning = true",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "false",
-        "payloadType": "bool",
-        "x": 120,
-        "y": 900,
-        "wires": [
-            [
-                "1c3740081de26468"
-            ]
-        ]
-    },
-    {
-        "id": "b78a6ec512368a4e",
-        "type": "function",
-        "z": "f788a78067227a65",
-        "name": "Machine JSON",
-        "func": "var random_boolean = Math.random() < 0.5;\nvar machine = {\n    \"machineName\": \"Machine 1\",\n    \"numCycles\": 10,\n    \"minCycleTime\": 5,\n    \"avgCycleTime\": 10,\n    \"maxCycleTime\": 15,\n    \"isRunning\": random_boolean\n};\nmsg.payload=machine\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 340,
-        "y": 80,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "c698b95e3e138cb9",
-        "type": "function",
-        "z": "f788a78067227a65",
-        "name": "machineName",
-        "func": "msg.topic = 'Machine 01 Data';\nglobal.set(\"machineName\", msg.payload);\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 400,
-        "y": 700,
-        "wires": [
-            [
-                "48b84bb63c3f951c"
-            ]
-        ]
-    },
-    {
-        "id": "48b84bb63c3f951c",
-        "type": "function",
-        "z": "f788a78067227a65",
-        "name": "function 2",
-        "func": "msg.topic = \"update\";\nvar data = {\n    'machineName': global.get(\"machineName\") || 'default name',\n    'numCycles': global.get(\"numCycles\") || 10,\n    'minCycleTime': global.get(\"minCycleTime\") || 5,\n    'avgCycleTime': global.get(\"avgCycleTime\") || 10,\n    'maxCycleTime': global.get(\"maxCycleTime\") || 15,\n    'isRunning': global.get(\"maxCycleTime\") || true\n}\nmsg.payload = data;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 600,
-        "y": 740,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "d31817f54b628238",
-        "type": "function",
-        "z": "f788a78067227a65",
-        "name": "numCycles",
-        "func": "msg.topic = 'Machine 01 Data';\nglobal.set(\"numCycles\", msg.payload);\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 390,
-        "y": 740,
-        "wires": [
-            [
-                "48b84bb63c3f951c"
-            ]
-        ]
-    },
-    {
-        "id": "6f98be7a3b60bcce",
-        "type": "function",
-        "z": "f788a78067227a65",
-        "name": "minCycleTime",
-        "func": "msg.topic = 'Machine 01 Data';\nglobal.set(\"minCycleTime\", msg.payload);\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 400,
-        "y": 780,
-        "wires": [
-            [
-                "48b84bb63c3f951c"
-            ]
-        ]
-    },
-    {
-        "id": "a44db6920b33ea87",
-        "type": "function",
-        "z": "f788a78067227a65",
-        "name": "avgCycleTime",
-        "func": "msg.topic = 'Machine 01 Data';\nglobal.set(\"avgCycleTime\", msg.payload);\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 400,
-        "y": 820,
-        "wires": [
-            [
-                "48b84bb63c3f951c"
-            ]
-        ]
-    },
-    {
-        "id": "cb33bfebc2190795",
-        "type": "function",
-        "z": "f788a78067227a65",
-        "name": "maxCycleTime",
-        "func": "msg.topic = 'Machine 01 Data';\nglobal.set(\"maxCycleTime\", msg.payload);\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 400,
-        "y": 860,
-        "wires": [
-            [
-                "48b84bb63c3f951c"
-            ]
-        ]
-    },
-    {
-        "id": "1c3740081de26468",
-        "type": "function",
-        "z": "f788a78067227a65",
-        "name": "isRunning",
-        "func": "msg.topic = 'Machine 01 Data';\nglobal.set(\"isRunning\", msg.payload);\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 380,
-        "y": 900,
-        "wires": [
-            [
-                "48b84bb63c3f951c"
-            ]
-        ]
-    },
-    {
-        "id": "a8d415fc7a23f34d",
-        "type": "inject",
-        "z": "f788a78067227a65",
-        "name": "maxCycles = 15",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "15",
-        "payloadType": "num",
-        "x": 120,
-        "y": 860,
-        "wires": [
-            [
-                "cb33bfebc2190795"
-            ]
-        ]
-    },
-    {
-        "id": "137b224172463602",
-        "type": "inject",
-        "z": "f788a78067227a65",
-        "name": "avgCycles = 10",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "10",
-        "payloadType": "num",
-        "x": 120,
-        "y": 820,
-        "wires": [
-            [
-                "a44db6920b33ea87"
-            ]
-        ]
-    },
-    {
-        "id": "215eaa5178796d87",
-        "type": "inject",
-        "z": "f788a78067227a65",
-        "name": "minCycles = 5",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "5",
-        "payloadType": "num",
-        "x": 110,
-        "y": 780,
-        "wires": [
-            [
-                "6f98be7a3b60bcce"
-            ]
-        ]
-    },
-    {
-        "id": "e117995517d210f7",
-        "type": "inject",
-        "z": "f788a78067227a65",
-        "name": "Cycles = 10",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "10",
-        "payloadType": "num",
-        "x": 110,
-        "y": 740,
-        "wires": [
-            [
-                "d31817f54b628238"
-            ]
-        ]
-    },
-    {
-        "id": "cb5f18dd2f26190f",
-        "type": "inject",
-        "z": "f788a78067227a65",
-        "name": "machineName = \"Promass 16\"",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "Promass 16",
-        "payloadType": "str",
-        "x": 160,
-        "y": 700,
-        "wires": [
-            [
-                "c698b95e3e138cb9"
-            ]
-        ]
-    },
-    {
         "id": "0ae249a0b685d2f6",
         "type": "ui_template",
         "z": "f788a78067227a65",
@@ -557,122 +235,6 @@
         "wires": [
             []
         ]
-    },
-    {
-        "id": "dea77fd.b480f8",
-        "type": "http request",
-        "z": "f788a78067227a65",
-        "name": "",
-        "method": "PUT",
-        "ret": "obj",
-        "paytoqs": "ignore",
-        "url": "https://search-movies-gsfof3bxfx5haabad2elcueuw4.sa-east-1.es.amazonaws.com/movies/_doc/1",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "insecureHTTPParser": false,
-        "authType": "basic",
-        "senderr": false,
-        "headers": [],
-        "x": 210,
-        "y": 580,
-        "wires": [
-            [
-                "261e81ee.00f02e"
-            ]
-        ]
-    },
-    {
-        "id": "37d01ae9.869d66",
-        "type": "change",
-        "z": "f788a78067227a65",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "headers",
-                "pt": "msg",
-                "to": "{\"Content-Type\":\"application/json\"}",
-                "tot": "json"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "{\"director\":\"Burton, Tim\",\"genre\":[\"Comedy\",\"Sci-Fi\"],\"year\":1996,\"actor\":[\"Jack  Nicholson\",\"Pierce Brosnan\",\"Sarah Jessica Parker\"],\"title\":\"Mars Attacks!\"}",
-                "tot": "json"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 140,
-        "y": 520,
-        "wires": [
-            [
-                "dea77fd.b480f8"
-            ]
-        ]
-    },
-    {
-        "id": "261e81ee.00f02e",
-        "type": "debug",
-        "z": "f788a78067227a65",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 250,
-        "y": 640,
-        "wires": []
-    },
-    {
-        "id": "52ed8a0e894832d9",
-        "type": "http request",
-        "z": "f788a78067227a65",
-        "name": "",
-        "method": "GET",
-        "ret": "obj",
-        "paytoqs": "ignore",
-        "url": "https://search-movies-gsfof3bxfx5haabad2elcueuw4.sa-east-1.es.amazonaws.com/movies/_search?q=mars&pretty=true",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "insecureHTTPParser": false,
-        "authType": "basic",
-        "senderr": false,
-        "headers": [],
-        "x": 530,
-        "y": 560,
-        "wires": [
-            [
-                "66a2c7323ae15fe4"
-            ]
-        ]
-    },
-    {
-        "id": "66a2c7323ae15fe4",
-        "type": "debug",
-        "z": "f788a78067227a65",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 570,
-        "y": 620,
-        "wires": []
     },
     {
         "id": "41620427fabb1e6d",
@@ -847,7 +409,7 @@
         "type": "function",
         "z": "f788a78067227a65",
         "name": "Machine 1 JSON Formating",
-        "func": "var running = msg.payload[\"ns=6;s=::OpcUA_IF:mac_status.running\"];\nvar cycleTime = msg.payload[\"ns=6;s=::OpcUA_IF:mac_status.actual_cycle_time\"] / 1000;\ncycleTime = Math.floor(cycleTime);\nvar recipe = msg.payload[\"ns=6;s=::OpcUA_IF:last_recipe\"];\nvar numCycles = msg.payload[\"ns=6;s=::OpcUA_IF:life_cycles\"];\nvar lastCycleTime = msg.payload[\"ns=6;s=::OpcUA_IF:mac_status.last_cycle_time\"] / 1000;\nlastCycleTime = Math.floor(lastCycleTime);\n\nvar minCycleTime=\"N/A\";\nvar maxCycleTime=\"N/A\";\n\n\n// set min time\nif (global.get(\"minCycleTimeMac15\")){\n    minCycleTime = Math.min(lastCycleTime, global.get(\"minCycleTimeMac15\"));\n    global.set(\"minCycleTimeMac15\", minCycleTime);\n} else{\n    global.set(\"minCycleTimeMac15\", lastCycleTime);\n};\n//set max time\nif (global.get(\"maxCycleTimeMac15\")) {\n    maxCycleTime = Math.max(lastCycleTime, global.get(\"maxCycleTimeMac15\"));\n    global.set(\"maxCycleTimeMac15\", maxCycleTime);\n} else {\n    global.set(\"maxCycleTimeMac15\", lastCycleTime);\n};\n\n\nvar machine = {\n    \"recipe\": recipe,\n    \"numCycles\": numCycles,\n    \"cycleTime\": cycleTime,\n    \"minCycleTime\": minCycleTime,\n    \"maxCycleTime\": maxCycleTime,\n    \"isRunning\": running,\n    \"warning\": false\n};\nmsg.payload=machine;\nreturn msg;",
+        "func": "//Setting latest values\nvar running = msg.payload[\"ns=6;s=::OpcUA_IF:mac_status.running\"];\nvar cycleTime = msg.payload[\"ns=6;s=::OpcUA_IF:mac_status.actual_cycle_time\"] / 1000;\ncycleTime = Math.floor(cycleTime);\nvar recipe = msg.payload[\"ns=6;s=::OpcUA_IF:last_recipe\"];\nvar numCycles = msg.payload[\"ns=6;s=::OpcUA_IF:life_cycles\"];\nvar lastCycleTime = msg.payload[\"ns=6;s=::OpcUA_IF:mac_status.last_cycle_time\"] / 1000;\nlastCycleTime = Math.floor(lastCycleTime);\nvar warning = false;\n\n//Checking for warning state\nif (global.get(\"bLastStateMac15\")) {\n    global.set(\"bLastStateMac15\", running);\n    global.set(\"dLastChangedTimeMac15\", new Date().getTime());\n};\n\nif (running !== global.get(\"bLastStateMac15\")){\n    global.set(\"bLastStateMac15\", running);\n    global.set(\"dLastChangedTimeMac15\", new Date().getTime());\n}else{\n    let currentTime = new Date().getTime();\n    if (!running && (currentTime - global.get(\"dLastChangedTimeMac15\") > 7200000)) {\n        warning = true;\n    }\n};\n\n\nvar minCycleTime=\"N/A\";\nvar maxCycleTime=\"N/A\";\n\n\n// set min time\nif (global.get(\"minCycleTimeMac15\")){\n    minCycleTime = Math.min(lastCycleTime, global.get(\"minCycleTimeMac15\"));\n    global.set(\"minCycleTimeMac15\", minCycleTime);\n} else{\n    global.set(\"minCycleTimeMac15\", lastCycleTime);\n};\n//set max time\nif (global.get(\"maxCycleTimeMac15\")) {\n    maxCycleTime = Math.max(lastCycleTime, global.get(\"maxCycleTimeMac15\"));\n    global.set(\"maxCycleTimeMac15\", maxCycleTime);\n} else {\n    global.set(\"maxCycleTimeMac15\", lastCycleTime);\n};\n\n\nvar machine = {\n    \"recipe\": recipe,\n    \"numCycles\": numCycles,\n    \"cycleTime\": cycleTime,\n    \"minCycleTime\": minCycleTime,\n    \"maxCycleTime\": maxCycleTime,\n    \"isRunning\": running,\n    \"warning\": warning\n};\nmsg.payload=machine;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1050,7 +612,7 @@
         "name": "",
         "scope": null,
         "x": 100,
-        "y": 980,
+        "y": 40,
         "wires": [
             [
                 "3b51ffbd.c887f"
@@ -1069,7 +631,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 350,
-        "y": 980,
+        "y": 40,
         "wires": []
     },
     {
@@ -1182,7 +744,7 @@
         "interpolate": "bezier",
         "nodata": "No Data",
         "dot": true,
-        "ymin": "",
+        "ymin": "0",
         "ymax": "",
         "removeOlder": 1,
         "removeOlderPoints": "100",
@@ -1256,7 +818,7 @@
                 "vt": "num"
             }
         ],
-        "repeat": "1",
+        "repeat": "3",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
@@ -1276,14 +838,14 @@
         "type": "function",
         "z": "f788a78067227a65",
         "name": "function 3",
-        "func": "var randTemp = Math.random()*100;\nrandTemp = Math.floor(randTemp);\nmsg.payload=randTemp;\nreturn msg;",
+        "func": "function randn_bm() {\n    let u = 0, v = 0;\n    while (u === 0) u = Math.random(); //Converting [0,1) to (0,1)\n    while (v === 0) v = Math.random();\n    let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);\n    num = num / 10.0 + 0.5; // Translate to 0 -> 1\n    if (num > 1 || num < 0) return randn_bm() // resample between 0 and 1\n    return num\n}\n\nvar randTemp = randn_bm()*100;\nrandTemp = Math.floor(randTemp);\nmsg.payload=randTemp;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 940,
-        "y": 780,
+        "x": 960,
+        "y": 700,
         "wires": [
             [
                 "a2849f5fd82c1805",
@@ -1305,18 +867,19 @@
                 "vt": "str"
             }
         ],
-        "repeat": "1",
+        "repeat": "3",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 790,
+        "x": 770,
         "y": 840,
         "wires": [
             [
-                "ac85c152db6e1eb8"
+                "ac85c152db6e1eb8",
+                "c093944942501c5a"
             ]
         ]
     },
@@ -1325,7 +888,7 @@
         "type": "function",
         "z": "f788a78067227a65",
         "name": "function 4",
-        "func": "var randPress = Math.random()*1.5-0.5;\nmsg.payload=randPress;\nreturn msg;",
+        "func": "function randn_bm() {\n    let u = 0, v = 0;\n    while (u === 0) u = Math.random(); //Converting [0,1) to (0,1)\n    while (v === 0) v = Math.random();\n    let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);\n    num = num / 10.0 + 0.5; // Translate to 0 -> 1\n    if (num > 1 || num < 0) return randn_bm() // resample between 0 and 1\n    return num\n}\n\nvar randPress = randn_bm()*1.5-0.5;\nmsg.payload=randPress;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1340,40 +903,11 @@
         ]
     },
     {
-        "id": "e84d6945cb936a10",
-        "type": "inject",
-        "z": "f788a78067227a65",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "1",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 790,
-        "y": 900,
-        "wires": [
-            [
-                "c093944942501c5a"
-            ]
-        ]
-    },
-    {
         "id": "c093944942501c5a",
         "type": "function",
         "z": "f788a78067227a65",
         "name": "function 5",
-        "func": "var randPress = Math.random()*10;\nrandPress = Math.floor(randPress);\nmsg.payload=randPress;\nreturn msg;",
+        "func": "function randn_bm() {\n    let u = 0, v = 0;\n    while (u === 0) u = Math.random(); //Converting [0,1) to (0,1)\n    while (v === 0) v = Math.random();\n    let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);\n    num = num / 10.0 + 0.5; // Translate to 0 -> 1\n    if (num > 1 || num < 0) return randn_bm() // resample between 0 and 1\n    return num\n}\n\nvar randPress = randn_bm()*10;\nrandPress = Math.floor(randPress);\nmsg.payload=randPress;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
