@@ -166,26 +166,6 @@
         "className": ""
     },
     {
-        "id": "215b3d60b59062c3",
-        "type": "OpcUa-Endpoint",
-        "endpoint": "opc.tcp://192.168.1.3:4840",
-        "secpol": "None",
-        "secmode": "None",
-        "none": false,
-        "login": true,
-        "usercert": false,
-        "usercertificate": "",
-        "userprivatekey": ""
-    },
-    {
-        "id": "66dabf03.46121",
-        "type": "OpcUa-Endpoint",
-        "z": "f788a78067227a65",
-        "endpoint": "opc.tcp://localhost:53530/OPCUA/SimulationServer",
-        "none": false,
-        "login": false
-    },
-    {
         "id": "8bda35d4e5cabfb0",
         "type": "ui_group",
         "name": "Máquina 16",
@@ -270,96 +250,6 @@
         ]
     },
     {
-        "id": "6b54a3d85176dd3b",
-        "type": "OpcUa-Item",
-        "z": "f788a78067227a65",
-        "item": "ns=6;s=::OpcUA_IF:mac_status.actual_cycle_time",
-        "datatype": "Int32",
-        "value": "",
-        "name": "Item - tiempo de ciclo actual",
-        "x": 320,
-        "y": 320,
-        "wires": [
-            [
-                "6ff6c67bf3063c80"
-            ]
-        ]
-    },
-    {
-        "id": "2dd2dd3c.5d9b72",
-        "type": "inject",
-        "z": "f788a78067227a65",
-        "name": "Read",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "1",
-        "crontab": "",
-        "once": false,
-        "onceDelay": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 90,
-        "y": 320,
-        "wires": [
-            [
-                "6b54a3d85176dd3b",
-                "631749ee0c3b7f3a",
-                "0c758f34ca4c2cb8",
-                "0c53704116c78f7e",
-                "78668abcadaa0a8d"
-            ]
-        ]
-    },
-    {
-        "id": "631749ee0c3b7f3a",
-        "type": "OpcUa-Item",
-        "z": "f788a78067227a65",
-        "item": "ns=6;s=::OpcUA_IF:mac_status.running",
-        "datatype": "Boolean",
-        "value": "",
-        "name": "Item - On/Off Status",
-        "x": 300,
-        "y": 360,
-        "wires": [
-            [
-                "6ff6c67bf3063c80"
-            ]
-        ]
-    },
-    {
-        "id": "6ff6c67bf3063c80",
-        "type": "OpcUa-Client",
-        "z": "f788a78067227a65",
-        "endpoint": "215b3d60b59062c3",
-        "action": "read",
-        "deadbandtype": "a",
-        "deadbandvalue": 1,
-        "time": "5",
-        "timeUnit": "s",
-        "certificate": "n",
-        "localfile": "",
-        "localkeyfile": "",
-        "securitymode": "None",
-        "securitypolicy": "None",
-        "folderName4PKI": "",
-        "name": "",
-        "x": 560,
-        "y": 340,
-        "wires": [
-            [
-                "d1b782dc2590011a"
-            ]
-        ]
-    },
-    {
         "id": "ad647a66e5a83048",
         "type": "debug",
         "z": "f788a78067227a65",
@@ -425,47 +315,6 @@
         ]
     },
     {
-        "id": "4a13fd4f9414181c",
-        "type": "OpcUa-Item",
-        "z": "f788a78067227a65",
-        "item": "ns=6;s=::OpcUA_IF:mac_status.last_cycle_time",
-        "datatype": "Int32",
-        "value": "",
-        "name": "Item - último tiempo de ciclo",
-        "x": 320,
-        "y": 420,
-        "wires": [
-            [
-                "f141a83ecbd0aa53"
-            ]
-        ]
-    },
-    {
-        "id": "f141a83ecbd0aa53",
-        "type": "OpcUa-Client",
-        "z": "f788a78067227a65",
-        "endpoint": "215b3d60b59062c3",
-        "action": "subscribe",
-        "deadbandtype": "a",
-        "deadbandvalue": 1,
-        "time": "5",
-        "timeUnit": "s",
-        "certificate": "n",
-        "localfile": "",
-        "localkeyfile": "",
-        "securitymode": "None",
-        "securitypolicy": "None",
-        "folderName4PKI": "",
-        "name": "",
-        "x": 540,
-        "y": 420,
-        "wires": [
-            [
-                "0c8551918bfe32e2"
-            ]
-        ]
-    },
-    {
         "id": "0c8551918bfe32e2",
         "type": "function",
         "z": "f788a78067227a65",
@@ -481,35 +330,6 @@
         "wires": [
             [
                 "ebcaa41dce7ebc67"
-            ]
-        ]
-    },
-    {
-        "id": "abb133c7592b7730",
-        "type": "inject",
-        "z": "f788a78067227a65",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 110,
-        "y": 420,
-        "wires": [
-            [
-                "4a13fd4f9414181c"
             ]
         ]
     },
@@ -555,54 +375,6 @@
         "y": 420,
         "wires": [
             []
-        ]
-    },
-    {
-        "id": "0c758f34ca4c2cb8",
-        "type": "OpcUa-Item",
-        "z": "f788a78067227a65",
-        "item": "ns=6;s=::OpcUA_IF:last_recipe",
-        "datatype": "String",
-        "value": "",
-        "name": "Item - recipe",
-        "x": 270,
-        "y": 280,
-        "wires": [
-            [
-                "6ff6c67bf3063c80"
-            ]
-        ]
-    },
-    {
-        "id": "0c53704116c78f7e",
-        "type": "OpcUa-Item",
-        "z": "f788a78067227a65",
-        "item": "ns=6;s=::OpcUA_IF:life_cycles",
-        "datatype": "Int32",
-        "value": "",
-        "name": "Item - número de ciclos",
-        "x": 310,
-        "y": 240,
-        "wires": [
-            [
-                "6ff6c67bf3063c80"
-            ]
-        ]
-    },
-    {
-        "id": "78668abcadaa0a8d",
-        "type": "OpcUa-Item",
-        "z": "f788a78067227a65",
-        "item": "ns=6;s=::OpcUA_IF:mac_status.last_cycle_time",
-        "datatype": "Int32",
-        "value": "",
-        "name": "Item - último tiempo de ciclo",
-        "x": 320,
-        "y": 200,
-        "wires": [
-            [
-                "6ff6c67bf3063c80"
-            ]
         ]
     },
     {
@@ -849,7 +621,8 @@
         "wires": [
             [
                 "a2849f5fd82c1805",
-                "6a2c070ac330bf12"
+                "6a2c070ac330bf12",
+                "1d9f5463d1021b7e"
             ]
         ]
     },
@@ -898,7 +671,8 @@
         "y": 840,
         "wires": [
             [
-                "ebe7bf76279201e2"
+                "ebe7bf76279201e2",
+                "7d2b69a32e0ddecc"
             ]
         ]
     },
@@ -917,8 +691,84 @@
         "y": 900,
         "wires": [
             [
-                "1bd9207bb04c60e1"
+                "1bd9207bb04c60e1",
+                "770425216b412995"
             ]
         ]
+    },
+    {
+        "id": "1d9f5463d1021b7e",
+        "type": "ui_valuetrail",
+        "z": "f788a78067227a65",
+        "group": "0ca931ec6fb88653",
+        "order": 5,
+        "width": "8",
+        "height": "3",
+        "name": "Temperatura",
+        "label": "",
+        "unit": "°C",
+        "blur": true,
+        "minmax": true,
+        "allowtoggle": false,
+        "showvalue": true,
+        "decimals": 0,
+        "colorLine": "#ff9900",
+        "colorFromTheme": true,
+        "stroke": 2,
+        "property": "payload",
+        "pointcount": 8,
+        "x": 1150,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "7d2b69a32e0ddecc",
+        "type": "ui_valuetrail",
+        "z": "f788a78067227a65",
+        "group": "0ca931ec6fb88653",
+        "order": 5,
+        "width": "8",
+        "height": "3",
+        "name": "Presión 1",
+        "label": "",
+        "unit": "bar",
+        "blur": true,
+        "minmax": true,
+        "allowtoggle": false,
+        "showvalue": true,
+        "decimals": "1",
+        "colorLine": "#ff9900",
+        "colorFromTheme": true,
+        "stroke": 2,
+        "property": "payload",
+        "pointcount": 8,
+        "x": 1160,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "770425216b412995",
+        "type": "ui_valuetrail",
+        "z": "f788a78067227a65",
+        "group": "0ca931ec6fb88653",
+        "order": 5,
+        "width": "8",
+        "height": "3",
+        "name": "Presion 2",
+        "label": "",
+        "unit": "bar",
+        "blur": true,
+        "minmax": true,
+        "allowtoggle": false,
+        "showvalue": true,
+        "decimals": "1",
+        "colorLine": "#ff9900",
+        "colorFromTheme": true,
+        "stroke": 2,
+        "property": "payload",
+        "pointcount": 8,
+        "x": 1160,
+        "y": 980,
+        "wires": []
     }
 ]

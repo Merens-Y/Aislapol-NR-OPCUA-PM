@@ -4,7 +4,6 @@
     "version": "0.0.1",
     "dependencies": {
         "node-red-dashboard": "3.3.1",
-        "node-red-contrib-opcua": "0.2.293",
         "node-red-contrib-ui-machine-card": "1.0.5",
         "node-red-node-ui-lineargauge": "0.3.7"
     },
