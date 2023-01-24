@@ -20,7 +20,7 @@
         "id": "dcd6b90204ca17ac",
         "type": "ui_base",
         "theme": {
-            "name": "theme-custom",
+            "name": "theme-dark",
             "lightTheme": {
                 "default": "#0094CE",
                 "baseColor": "#0094CE",
@@ -44,48 +44,48 @@
             },
             "themeState": {
                 "base-color": {
-                    "default": "#4B7930",
-                    "value": "#009ee0",
+                    "default": "#097479",
+                    "value": "#097479",
                     "edited": true
                 },
                 "page-titlebar-backgroundColor": {
-                    "value": "#008ac6",
+                    "value": "#097479",
                     "edited": true
                 },
                 "page-backgroundColor": {
-                    "value": "#fafafa",
-                    "edited": false
-                },
-                "page-sidebar-backgroundColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "group-textColor": {
-                    "value": "#2dc1ff",
-                    "edited": false
-                },
-                "group-borderColor": {
-                    "value": "#ffffff",
-                    "edited": false
-                },
-                "group-backgroundColor": {
-                    "value": "#f4f4f4",
-                    "edited": true
-                },
-                "widget-textColor": {
                     "value": "#111111",
                     "edited": false
                 },
+                "page-sidebar-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#0eb8c0",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": true
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
                 "widget-backgroundColor": {
-                    "value": "#009ee0",
+                    "value": "#097479",
                     "edited": false
                 },
                 "widget-borderColor": {
-                    "value": "#f4f4f4",
+                    "value": "#333333",
                     "edited": true
                 },
                 "base-font": {
-                    "value": "Lucida Sans Unicode,Lucida Grande,sans-serif"
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
                 }
             },
             "angularTheme": {
@@ -110,8 +110,8 @@
                 "gy": 6,
                 "cx": 6,
                 "cy": 6,
-                "px": 0,
-                "py": 0
+                "px": 2,
+                "py": 2
             }
         }
     },
@@ -140,10 +140,10 @@
         "type": "ui_group",
         "name": "Resumen",
         "tab": "7a2333ce74658d6e",
-        "order": 1,
+        "order": 4,
         "disp": true,
-        "width": "22",
-        "collapse": false,
+        "width": "14",
+        "collapse": true,
         "className": ""
     },
     {
@@ -159,7 +159,7 @@
         "type": "ui_group",
         "name": "Resumen",
         "tab": "09a29acb39ff18a9",
-        "order": 1,
+        "order": 2,
         "disp": true,
         "width": "15",
         "collapse": false,
@@ -196,13 +196,83 @@
         "className": ""
     },
     {
+        "id": "aaaff17d2a6ea9c9",
+        "type": "OPCUA-IIoT-Connector",
+        "discoveryUrl": "",
+        "endpoint": "opc.tcp://192.168.1.3:4840",
+        "endpointMustExist": false,
+        "keepSessionAlive": true,
+        "loginEnabled": true,
+        "name": "Promass (15) SERVER",
+        "showErrors": false,
+        "securityPolicy": "None",
+        "securityMode": "None",
+        "individualCerts": false,
+        "publicCertificateFile": "",
+        "privateKeyFile": "",
+        "defaultSecureTokenLifetime": "",
+        "autoSelectRightEndpoint": false,
+        "strategyMaxRetry": "",
+        "strategyInitialDelay": "",
+        "strategyMaxDelay": "",
+        "strategyRandomisationFactor": "",
+        "requestedSessionTimeout": "",
+        "connectionStartDelay": "",
+        "reconnectDelay": "",
+        "maxBadSessionRequests": "10"
+    },
+    {
+        "id": "c29eb2fc36d0810a",
+        "type": "ui_group",
+        "name": "Graficos de control",
+        "tab": "7a2333ce74658d6e",
+        "order": 3,
+        "disp": true,
+        "width": "12",
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "df6503af5db3fa0d",
+        "type": "ui_group",
+        "name": "Inicio",
+        "tab": "7a2333ce74658d6e",
+        "order": 1,
+        "disp": false,
+        "width": "22",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "bafe91ab2794d8a8",
+        "type": "ui_group",
+        "name": "Inicio",
+        "tab": "09a29acb39ff18a9",
+        "order": 1,
+        "disp": false,
+        "width": "22",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "e4ec8c4ca75ccf70",
+        "type": "ui_group",
+        "name": "Válvulas de Presión",
+        "tab": "7a2333ce74658d6e",
+        "order": 2,
+        "disp": true,
+        "width": "8",
+        "collapse": true,
+        "className": ""
+    },
+    {
         "id": "0ae249a0b685d2f6",
         "type": "ui_template",
         "z": "f788a78067227a65",
         "group": "0ca931ec6fb88653",
         "name": "",
         "order": 1,
-        "width": "22",
+        "width": "14",
         "height": "10",
         "format": "<style>\n    .main-container {\n        display: flex;\n        flex-direction: row;\n        width: 100%;\n    }\n\n    .left-container {\n        display: flex;\n        flex-direction: column;\n    }\n\n    .card p {\n        margin: 0;\n    }\n\n    .card {\n        /* Add rounded corners and shadow to the card */\n        border-radius: 8px;\n        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n\n        /* Add some padding and margin to the card */\n        padding: 16px;\n        margin: 16px;\n\n        /* Use flexbox to align the contents of the card */\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n    }\n\n    .machine-name {\n        font-weight: bold;\n        font-style: italic;\n    }\n\n    .card:hover {\n        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);\n    }\n\n    .card-text p {\n        padding: 0.5rem;\n    }\n\n    .card .led {\n        /* Add a border and some padding to the LED */\n        border: 1px solid rgba(0, 0, 0, 0.877);\n        border-radius: 50%;\n        width: 16px;\n        height: 16px;\n        margin: 8px;\n        padding: 8px;\n        align-self: left;\n\n    }\n\n    .led-container {\n        width: 100%;\n        align-items: left;\n    }\n\n    .card .led.red {\n        /* Make the LED red when the boolean value is true */\n        background-color: rgba(255, 0, 0, 0.7);\n        align-self: left;\n    }\n\n    .card .led.green {\n        /* Make the LED green when the boolean value is false */\n        background-color: rgba(0, 255, 0, 0.7);\n        align-self: left;\n    }\n\n    .card .stats {\n        /* Add some padding and margin to the stats */\n        padding: 8px;\n        margin: 8px;\n\n        /* Use flexbox to align the stats horizontally */\n        display: flex;\n        flex-direction: row;\n        align-items: left;\n    }\n\n    .card .stats .label {\n        /* Add some margin to the labels */\n        margin: 8px;\n\n        /* Align the text to the left */\n        text-align: left;\n    }\n</style>\n\n<div class=\"main-container\">\n    <div class=\"left-container card-text\">\n        <div class=\"card\">\n            <p>Tipo de matriz: {{}}</p>\n            <p>Código matriz: {{}}</p>\n            <p>Piezas por ciclo: {{}}</p>\n        </div>\n        <div class=\"card\">\n            <p>Número de ciclo: {{}}</p>\n            <p>Tiempo de ciclo: {{}}</p>\n            <p>Tiempo de ciclo anterior: {{}}</p>\n            <p>Inicio: {{}}</p>\n            <p>Término: {{}}</p>\n        </div>\n    </div>\n    <div class=\"card card-text\">\n        <p>Cantidad producida: {{}}</p>\n        <p>Horas produciendo: {{}}</p>\n        <p>Horas detenida: {{}}</p>\n        <p>Tiempo de ciclo promedio acumulado: {{}}</p>\n        <p>Tiempo de ciclo mínimo: {{}}</p>\n        <p>Tiempo de ciclo máximo: {{}}</p>\n        <p>% de utilización: {{}}</p>\n    </div>\n</div>",
         "storeOutMessages": true,
@@ -250,67 +320,24 @@
         ]
     },
     {
-        "id": "ad647a66e5a83048",
-        "type": "debug",
-        "z": "f788a78067227a65",
-        "name": "Client Read value Payload",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1000,
-        "y": 500,
-        "wires": []
-    },
-    {
-        "id": "d1b782dc2590011a",
-        "type": "join",
-        "z": "f788a78067227a65",
-        "name": "",
-        "mode": "custom",
-        "build": "object",
-        "property": "payload",
-        "propertyType": "msg",
-        "key": "topic",
-        "joiner": "\\n",
-        "joinerType": "str",
-        "accumulate": true,
-        "timeout": "",
-        "count": "5",
-        "reduceRight": false,
-        "reduceExp": "",
-        "reduceInit": "",
-        "reduceInitType": "",
-        "reduceFixup": "",
-        "x": 710,
-        "y": 340,
-        "wires": [
-            [
-                "8dcfe0fe921ca3b5"
-            ]
-        ]
-    },
-    {
         "id": "8dcfe0fe921ca3b5",
         "type": "function",
         "z": "f788a78067227a65",
-        "name": "Machine 1 JSON Formating",
-        "func": "//Setting latest values\nvar running = msg.payload[\"ns=6;s=::OpcUA_IF:mac_status.running\"];\nvar cycleTime = msg.payload[\"ns=6;s=::OpcUA_IF:mac_status.actual_cycle_time\"] / 1000;\ncycleTime = Math.floor(cycleTime);\nvar recipe = msg.payload[\"ns=6;s=::OpcUA_IF:last_recipe\"];\nvar numCycles = msg.payload[\"ns=6;s=::OpcUA_IF:life_cycles\"];\nvar lastCycleTime = msg.payload[\"ns=6;s=::OpcUA_IF:mac_status.last_cycle_time\"] / 1000;\nlastCycleTime = Math.floor(lastCycleTime);\nvar warning = false;\n\n//Checking for warning state\nif (global.get(\"bLastStateMac15\")) {\n    global.set(\"bLastStateMac15\", running);\n    global.set(\"dLastChangedTimeMac15\", new Date().getTime());\n};\n\nif (running !== global.get(\"bLastStateMac15\")){\n    global.set(\"bLastStateMac15\", running);\n    global.set(\"dLastChangedTimeMac15\", new Date().getTime());\n}else{\n    let currentTime = new Date().getTime();\n    if (!running && (currentTime - global.get(\"dLastChangedTimeMac15\") > 7200000)) {\n        warning = true;\n    }\n};\n\n\nvar minCycleTime=\"N/A\";\nvar maxCycleTime=\"N/A\";\n\n\n// set min time\nif (global.get(\"minCycleTimeMac15\")){\n    minCycleTime = Math.min(lastCycleTime, global.get(\"minCycleTimeMac15\"));\n    global.set(\"minCycleTimeMac15\", minCycleTime);\n} else{\n    global.set(\"minCycleTimeMac15\", lastCycleTime);\n};\n//set max time\nif (global.get(\"maxCycleTimeMac15\")) {\n    maxCycleTime = Math.max(lastCycleTime, global.get(\"maxCycleTimeMac15\"));\n    global.set(\"maxCycleTimeMac15\", maxCycleTime);\n} else {\n    global.set(\"maxCycleTimeMac15\", lastCycleTime);\n};\n\n\nvar machine = {\n    \"recipe\": recipe,\n    \"numCycles\": numCycles,\n    \"cycleTime\": cycleTime,\n    \"minCycleTime\": minCycleTime,\n    \"maxCycleTime\": maxCycleTime,\n    \"isRunning\": running,\n    \"warning\": warning\n};\nmsg.payload=machine;\nreturn msg;",
+        "name": "Machine 15 JSON Formating",
+        "func": "//Setting latest values\n//LifeCycles[0]\nvar numCycles = msg.payload.value.results[0].value.value;\nnumCycles = numCycles-global.get(\"todayCycles\");\n//LastRecipe[1]\nvar recipe = msg.payload.value.results[1].value.value;\n\n//Running[3]\nvar running = msg.payload.value.results[3].value.value;\n\n//LastCycleTime[4]\nvar lastCycleTime = msg.payload.value.results[4].value.value / 1000;\nlastCycleTime = Math.floor(lastCycleTime);\nvar warning = false;\n\n//Checking for warning state\nif (running !== global.get(\"bLastStateMac15\")){\n    global.set(\"bLastStateMac15\", running);\n    global.set(\"dLastChangedTimeMac15\", new Date().getTime());\n}else{\n    let currentTime = new Date().getTime();\n    if (running === false && (currentTime - global.get(\"dLastChangedTimeMac15\") > 7200000)) {\n        warning = true;\n    }\n};\n\n\nvar minCycleTime=\"N/A\";\nvar maxCycleTime=\"N/A\";\n\n\n// set min time\nif (global.get(\"minCycleTimeMac15\")){\n    minCycleTime = Math.min(lastCycleTime, global.get(\"minCycleTimeMac15\"));\n    global.set(\"minCycleTimeMac15\", minCycleTime);\n} else{\n    global.set(\"minCycleTimeMac15\", lastCycleTime);\n};\n//set max time\nif (global.get(\"maxCycleTimeMac15\")) {\n    maxCycleTime = Math.max(lastCycleTime, global.get(\"maxCycleTimeMac15\"));\n    global.set(\"maxCycleTimeMac15\", maxCycleTime);\n} else {\n    global.set(\"maxCycleTimeMac15\", lastCycleTime);\n};\n\n\nvar machine = {\n    \"recipe\": recipe,\n    \"numCycles\": numCycles,\n    \"minCycleTime\": minCycleTime,\n    \"maxCycleTime\": maxCycleTime,\n    \"isRunning\": running,\n    \"warning\": warning\n};\nmsg.payload=machine;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 900,
+        "x": 700,
         "y": 340,
         "wires": [
             [
                 "4507e6f19479d369",
-                "f614624d5feae44d"
+                "f614624d5feae44d",
+                "6f9c72ab1239b008",
+                "01da6e515dc345cf"
             ]
         ]
     },
@@ -318,8 +345,8 @@
         "id": "0c8551918bfe32e2",
         "type": "function",
         "z": "f788a78067227a65",
-        "name": "Machine 1 JSON Formating",
-        "func": "var lastCycleTime = msg.payload > 500000 ? 0 : msg.payload;\n\nlastCycleTime = lastCycleTime/1000\n\nmsg.payload=lastCycleTime\nmsg.topic=\"Tiempo de ciclo\"\nreturn msg;",
+        "name": "Machine 15 JSON Formating",
+        "func": "var lastCycleTime = msg.payload.value.value.value / 1000;\n\n\nmsg.payload=lastCycleTime;\nmsg.topic=\"Tiempo de ciclo\"\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -329,7 +356,8 @@
         "y": 420,
         "wires": [
             [
-                "ebcaa41dce7ebc67"
+                "ebcaa41dce7ebc67",
+                "9af8176f55e26f0e"
             ]
         ]
     },
@@ -341,7 +369,7 @@
         "group": "6d1bf9e97b19ea27",
         "order": 2,
         "width": "12",
-        "height": "9",
+        "height": "8",
         "label": "Tiempo de Ciclo",
         "chartType": "line",
         "legend": "false",
@@ -349,7 +377,7 @@
         "interpolate": "linear",
         "nodata": "",
         "dot": true,
-        "ymin": "0",
+        "ymin": "80",
         "ymax": "",
         "removeOlder": 1,
         "removeOlderPoints": "100",
@@ -411,26 +439,26 @@
         "type": "ui_gauge",
         "z": "f788a78067227a65",
         "name": "",
-        "group": "0ca931ec6fb88653",
+        "group": "e4ec8c4ca75ccf70",
         "order": 4,
-        "width": "8",
-        "height": "6",
+        "width": "4",
+        "height": "4",
         "gtype": "gage",
-        "title": "Presión de Aire de llenado",
+        "title": "Vacío",
         "label": "bar",
         "format": "{{value | number:1}}",
         "min": "-0.5",
         "max": "1",
         "colors": [
-            "#00b500",
             "#e6e600",
+            "#00ff00",
             "#ca3838"
         ],
         "seg1": "0",
-        "seg2": "0.5",
+        "seg2": "0.9",
         "diff": false,
         "className": "",
-        "x": 1200,
+        "x": 1130,
         "y": 840,
         "wires": []
     },
@@ -439,27 +467,27 @@
         "type": "ui_gauge",
         "z": "f788a78067227a65",
         "name": "",
-        "group": "0ca931ec6fb88653",
+        "group": "e4ec8c4ca75ccf70",
         "order": 5,
-        "width": "8",
-        "height": "6",
+        "width": "4",
+        "height": "4",
         "gtype": "gage",
-        "title": "Presión de Desmoldeo",
+        "title": "Desmoldeo",
         "label": "bar",
         "format": "{{value}}",
-        "min": 0,
-        "max": 10,
+        "min": "1",
+        "max": "2",
         "colors": [
-            "#00b500",
             "#e6e600",
+            "#00ff00",
             "#ca3838"
         ],
-        "seg1": "",
-        "seg2": "",
+        "seg1": "1",
+        "seg2": "1.6",
         "diff": false,
         "className": "",
-        "x": 1180,
-        "y": 900,
+        "x": 1150,
+        "y": 980,
         "wires": []
     },
     {
@@ -472,7 +500,7 @@
         "height": "9",
         "name": "Maquina 15",
         "machineName": "Máquina 15",
-        "warning": "1",
+        "controlOutput": "1",
         "x": 970,
         "y": 120,
         "wires": [
@@ -491,7 +519,7 @@
         "height": "9",
         "name": "Maquina 16",
         "machineName": "Máquina 16",
-        "warning": "2",
+        "controlOutput": "2",
         "x": 970,
         "y": 220,
         "wires": [
@@ -505,22 +533,22 @@
         "type": "ui_chart",
         "z": "f788a78067227a65",
         "name": "",
-        "group": "0ca931ec6fb88653",
+        "group": "c29eb2fc36d0810a",
         "order": 2,
-        "width": "10",
-        "height": "6",
+        "width": "9",
+        "height": "5",
         "label": "Temperatura",
         "chartType": "line",
         "legend": "false",
-        "xformat": "HH:mm",
+        "xformat": "HH:mm:ss",
         "interpolate": "bezier",
         "nodata": "No Data",
-        "dot": true,
-        "ymin": "0",
+        "dot": false,
+        "ymin": "",
         "ymax": "",
         "removeOlder": 1,
         "removeOlderPoints": "100",
-        "removeOlderUnit": "3600",
+        "removeOlderUnit": "60",
         "cutout": 0,
         "useOneColor": false,
         "useUTC": false,
@@ -545,23 +573,6 @@
         ]
     },
     {
-        "id": "6a2c070ac330bf12",
-        "type": "ui_lineargauge",
-        "z": "f788a78067227a65",
-        "group": "0ca931ec6fb88653",
-        "order": 3,
-        "width": "2",
-        "height": "6",
-        "name": "",
-        "colorLowArea": "#ffffc0",
-        "colorMidArea": "#99ff99",
-        "colorHighArea": "#ff8080",
-        "unit": "°C",
-        "x": 1150,
-        "y": 740,
-        "wires": []
-    },
-    {
         "id": "7e499c4d18dc65ee",
         "type": "inject",
         "z": "f788a78067227a65",
@@ -573,24 +584,9 @@
             {
                 "p": "topic",
                 "vt": "str"
-            },
-            {
-                "p": "highlimit",
-                "v": "180",
-                "vt": "num"
-            },
-            {
-                "p": "lowlimit",
-                "v": "20",
-                "vt": "num"
-            },
-            {
-                "p": "setpoint",
-                "v": "55",
-                "vt": "num"
             }
         ],
-        "repeat": "3",
+        "repeat": "1",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
@@ -610,8 +606,8 @@
         "type": "function",
         "z": "f788a78067227a65",
         "name": "function 3",
-        "func": "function randn_bm() {\n    let u = 0, v = 0;\n    while (u === 0) u = Math.random(); //Converting [0,1) to (0,1)\n    while (v === 0) v = Math.random();\n    let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);\n    num = num / 10.0 + 0.5; // Translate to 0 -> 1\n    if (num > 1 || num < 0) return randn_bm() // resample between 0 and 1\n    return num\n}\n\nvar randTemp = randn_bm()*100;\nrandTemp = Math.floor(randTemp);\nmsg.payload=randTemp;\nreturn msg;",
-        "outputs": 1,
+        "func": "function randn_bm() {\n    let u = 0, v = 0;\n    while (u === 0) u = Math.random(); //Converting [0,1) to (0,1)\n    while (v === 0) v = Math.random();\n    let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);\n    num = num / 10.0 + 0.5; // Translate to 0 -> 1\n    if (num > 1 || num < 0) return randn_bm() // resample between 0 and 1\n    return num\n}\n\nvar newMsg = { payload: 50, topic: \"Límite de control inferior\" };\nvar newMsg2 = { payload: 150, topic: \"Límite de control superior\" };\n\nvar randTemp = randn_bm()*100+20;\nrandTemp = Math.floor(randTemp);\nmsg.payload=randTemp;\nreturn [msg, newMsg, newMsg2];",
+        "outputs": 3,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
@@ -620,9 +616,13 @@
         "y": 700,
         "wires": [
             [
-                "a2849f5fd82c1805",
-                "6a2c070ac330bf12",
-                "1d9f5463d1021b7e"
+                "a2849f5fd82c1805"
+            ],
+            [
+                "a2849f5fd82c1805"
+            ],
+            [
+                "a2849f5fd82c1805"
             ]
         ]
     },
@@ -652,7 +652,8 @@
         "wires": [
             [
                 "ac85c152db6e1eb8",
-                "c093944942501c5a"
+                "c093944942501c5a",
+                "b64931f59f14350e"
             ]
         ]
     },
@@ -661,7 +662,7 @@
         "type": "function",
         "z": "f788a78067227a65",
         "name": "function 4",
-        "func": "function randn_bm() {\n    let u = 0, v = 0;\n    while (u === 0) u = Math.random(); //Converting [0,1) to (0,1)\n    while (v === 0) v = Math.random();\n    let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);\n    num = num / 10.0 + 0.5; // Translate to 0 -> 1\n    if (num > 1 || num < 0) return randn_bm() // resample between 0 and 1\n    return num\n}\n\nvar randPress = randn_bm()*1.5-0.5;\nmsg.payload=randPress;\nreturn msg;",
+        "func": "function randn_bm() {\n    let u = 0, v = 0;\n    while (u === 0) u = Math.random(); //Converting [0,1) to (0,1)\n    while (v === 0) v = Math.random();\n    let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);\n    num = num / 10.0 + 0.5; // Translate to 0 -> 1\n    if (num > 1 || num < 0) return randn_bm() // resample between 0 and 1\n    return num\n}\nfunction round(value, decimals) {\n    return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);\n}\n\nvar randPress = randn_bm()*1.5-0.5;\nrandPress= round(randPress,1)\nmsg.payload=randPress;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -671,8 +672,7 @@
         "y": 840,
         "wires": [
             [
-                "ebe7bf76279201e2",
-                "7d2b69a32e0ddecc"
+                "ebe7bf76279201e2"
             ]
         ]
     },
@@ -681,94 +681,493 @@
         "type": "function",
         "z": "f788a78067227a65",
         "name": "function 5",
-        "func": "function randn_bm() {\n    let u = 0, v = 0;\n    while (u === 0) u = Math.random(); //Converting [0,1) to (0,1)\n    while (v === 0) v = Math.random();\n    let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);\n    num = num / 10.0 + 0.5; // Translate to 0 -> 1\n    if (num > 1 || num < 0) return randn_bm() // resample between 0 and 1\n    return num\n}\n\nvar randPress = randn_bm()*10;\nrandPress = Math.floor(randPress);\nmsg.payload=randPress;\nreturn msg;",
+        "func": "function randn_bm() {\n    let u = 0, v = 0;\n    while (u === 0) u = Math.random(); //Converting [0,1) to (0,1)\n    while (v === 0) v = Math.random();\n    let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);\n    num = num / 10.0 + 0.5; // Translate to 0 -> 1\n    if (num > 1 || num < 0) return randn_bm() // resample between 0 and 1\n    return num\n}\n\nfunction round(value, decimals) {\n    return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);\n}\n\nvar randPress = randn_bm()+1.0;\nrandPress = round(randPress,1);\nmsg.payload=randPress;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
         "x": 940,
-        "y": 900,
+        "y": 980,
         "wires": [
             [
-                "1bd9207bb04c60e1",
-                "770425216b412995"
+                "1bd9207bb04c60e1"
             ]
         ]
     },
     {
-        "id": "1d9f5463d1021b7e",
-        "type": "ui_valuetrail",
+        "id": "7813d7832b20707f",
+        "type": "OPCUA-IIoT-Inject",
         "z": "f788a78067227a65",
-        "group": "0ca931ec6fb88653",
-        "order": 5,
-        "width": "8",
-        "height": "3",
-        "name": "Temperatura",
-        "label": "",
-        "unit": "°C",
-        "blur": true,
-        "minmax": true,
-        "allowtoggle": false,
-        "showvalue": true,
-        "decimals": 0,
-        "colorLine": "#ff9900",
-        "colorFromTheme": true,
-        "stroke": 2,
-        "property": "payload",
-        "pointcount": 8,
-        "x": 1150,
-        "y": 660,
+        "injectType": "read",
+        "payload": "",
+        "payloadType": "date",
+        "topic": "",
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "startDelay": "",
+        "name": "",
+        "addressSpaceItems": [
+            {
+                "name": "LifeCycles",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_cycles",
+                "datatypeName": ""
+            },
+            {
+                "name": "LastRecipe",
+                "nodeId": "ns=6;s=::OpcUA_IF:last_recipe",
+                "datatypeName": ""
+            },
+            {
+                "name": "CycleTime",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.actual_cycle_time",
+                "datatypeName": ""
+            },
+            {
+                "name": "Running",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.running",
+                "datatypeName": ""
+            },
+            {
+                "name": "LastCycleTime",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.last_cycle_time",
+                "datatypeName": ""
+            }
+        ],
+        "x": 210,
+        "y": 340,
+        "wires": [
+            [
+                "a067caa19d25d48d"
+            ]
+        ]
+    },
+    {
+        "id": "a067caa19d25d48d",
+        "type": "OPCUA-IIoT-Read",
+        "z": "f788a78067227a65",
+        "attributeId": "13",
+        "maxAge": 1,
+        "depth": 1,
+        "connector": "aaaff17d2a6ea9c9",
+        "name": "Read Value",
+        "justValue": false,
+        "showStatusActivities": false,
+        "showErrors": false,
+        "parseStrings": false,
+        "historyDays": "",
+        "x": 350,
+        "y": 340,
+        "wires": [
+            [
+                "039f8eb9e82ae5cf"
+            ]
+        ]
+    },
+    {
+        "id": "039f8eb9e82ae5cf",
+        "type": "OPCUA-IIoT-Response",
+        "z": "f788a78067227a65",
+        "name": "",
+        "compressStructure": false,
+        "showStatusActivities": false,
+        "showErrors": false,
+        "activateUnsetFilter": false,
+        "activateFilters": false,
+        "negateFilter": false,
+        "filters": [],
+        "x": 490,
+        "y": 340,
+        "wires": [
+            [
+                "8dcfe0fe921ca3b5",
+                "874d55c6f8006363"
+            ]
+        ]
+    },
+    {
+        "id": "51d7fa0e28d66e16",
+        "type": "OPCUA-IIoT-Inject",
+        "z": "f788a78067227a65",
+        "injectType": "listen",
+        "payload": "{ \"interval\": 1500, \"queueSize\": 10 }",
+        "payloadType": "json",
+        "topic": "",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "startDelay": "",
+        "name": "Listen Machine 15",
+        "addressSpaceItems": [
+            {
+                "name": "LastCycleTime",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.last_cycle_time",
+                "datatypeName": ""
+            }
+        ],
+        "x": 230,
+        "y": 460,
+        "wires": [
+            [
+                "3e734995f3a4807c"
+            ]
+        ]
+    },
+    {
+        "id": "3e734995f3a4807c",
+        "type": "OPCUA-IIoT-Listener",
+        "z": "f788a78067227a65",
+        "connector": "aaaff17d2a6ea9c9",
+        "action": "subscribe",
+        "queueSize": 10,
+        "name": "",
+        "topic": "",
+        "justValue": true,
+        "useGroupItems": false,
+        "showStatusActivities": false,
+        "showErrors": false,
+        "x": 380,
+        "y": 460,
+        "wires": [
+            [
+                "8e87cb09fb42b6b2"
+            ]
+        ]
+    },
+    {
+        "id": "8e87cb09fb42b6b2",
+        "type": "OPCUA-IIoT-Response",
+        "z": "f788a78067227a65",
+        "name": "",
+        "compressStructure": true,
+        "showStatusActivities": false,
+        "showErrors": false,
+        "activateUnsetFilter": false,
+        "activateFilters": false,
+        "negateFilter": false,
+        "filters": [],
+        "x": 510,
+        "y": 460,
+        "wires": [
+            [
+                "0c8551918bfe32e2"
+            ]
+        ]
+    },
+    {
+        "id": "a0176ace469c1bb9",
+        "type": "e-mail",
+        "z": "f788a78067227a65",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "secure": true,
+        "tls": true,
+        "name": "martin.sotomayor.96@gmail.com",
+        "dname": "",
+        "x": 1400,
+        "y": 340,
         "wires": []
     },
     {
-        "id": "7d2b69a32e0ddecc",
-        "type": "ui_valuetrail",
+        "id": "6f9c72ab1239b008",
+        "type": "function",
         "z": "f788a78067227a65",
-        "group": "0ca931ec6fb88653",
-        "order": 5,
-        "width": "8",
-        "height": "3",
-        "name": "Presión 1",
-        "label": "",
-        "unit": "bar",
-        "blur": true,
-        "minmax": true,
-        "allowtoggle": false,
-        "showvalue": true,
-        "decimals": "1",
-        "colorLine": "#ff9900",
-        "colorFromTheme": true,
-        "stroke": 2,
-        "property": "payload",
-        "pointcount": 8,
-        "x": 1160,
-        "y": 940,
+        "name": "function 6",
+        "func": "var bWarning = msg.payload[\"warning\"];\nvar currentTime = new Date().getTime();\n\nif (!(global.get(\"dLastSentMail\"))){\n    global.set(\"dLastSentMail\", global.get(\"dLastChangedTimeMac15\"));\n}\n\nif (bWarning === true && (currentTime - global.get(\"dLastChangedTimeMac15\") > 7200000) && (currentTime - global.get(\"dLastSentMail\") > 7200000)){\n    var bSendMail = true;\n    global.set(\"dLastSentMail\", currentTime);\n}else{\n    var bSendMail = false;\n}\nvar message = \"Máquina 15 no ha funcionado por 2 horas. Esta es una notificación, no necesita responder.\";\nvar content = \"Notificación - Aislapol Dashboard\";\nmsg.payload = message;\nmsg.topic = content;\nmsg.bSend = bSendMail;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 960,
+        "y": 340,
+        "wires": [
+            [
+                "adbc765917d71f4b"
+            ]
+        ]
+    },
+    {
+        "id": "adbc765917d71f4b",
+        "type": "switch",
+        "z": "f788a78067227a65",
+        "name": "",
+        "property": "bSend",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1110,
+        "y": 340,
+        "wires": [
+            [
+                "a0176ace469c1bb9"
+            ],
+            [
+                "6e638d8907d9567c"
+            ]
+        ]
+    },
+    {
+        "id": "6e638d8907d9567c",
+        "type": "delay",
+        "z": "f788a78067227a65",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "15",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "15",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1260,
+        "y": 420,
+        "wires": [
+            [
+                "c3a48b8715ec94a2"
+            ]
+        ]
+    },
+    {
+        "id": "c3a48b8715ec94a2",
+        "type": "debug",
+        "z": "f788a78067227a65",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1400,
+        "y": 420,
         "wires": []
     },
     {
-        "id": "770425216b412995",
-        "type": "ui_valuetrail",
+        "id": "c2a6a82cfcfa2d9c",
+        "type": "ui_button",
         "z": "f788a78067227a65",
-        "group": "0ca931ec6fb88653",
-        "order": 5,
-        "width": "8",
-        "height": "3",
-        "name": "Presion 2",
-        "label": "",
-        "unit": "bar",
-        "blur": true,
-        "minmax": true,
-        "allowtoggle": false,
-        "showvalue": true,
-        "decimals": "1",
-        "colorLine": "#ff9900",
-        "colorFromTheme": true,
-        "stroke": 2,
-        "property": "payload",
-        "pointcount": 8,
-        "x": 1160,
-        "y": 980,
+        "name": "",
+        "group": "df6503af5db3fa0d",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Inicio",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "0",
+        "payloadType": "num",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 970,
+        "y": 60,
+        "wires": [
+            [
+                "41620427fabb1e6d"
+            ]
+        ]
+    },
+    {
+        "id": "7a4e7c89395520e4",
+        "type": "ui_button",
+        "z": "f788a78067227a65",
+        "name": "",
+        "group": "bafe91ab2794d8a8",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Inicio",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "0",
+        "payloadType": "num",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 970,
+        "y": 20,
+        "wires": [
+            [
+                "41620427fabb1e6d"
+            ]
+        ]
+    },
+    {
+        "id": "9af8176f55e26f0e",
+        "type": "debug",
+        "z": "f788a78067227a65",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 500,
         "wires": []
+    },
+    {
+        "id": "01da6e515dc345cf",
+        "type": "delay",
+        "z": "f788a78067227a65",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "15",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 850,
+        "y": 560,
+        "wires": [
+            [
+                "9af8176f55e26f0e"
+            ]
+        ]
+    },
+    {
+        "id": "111e0f018fe505f4",
+        "type": "ui_gauge",
+        "z": "f788a78067227a65",
+        "name": "",
+        "group": "e4ec8c4ca75ccf70",
+        "order": 5,
+        "width": "4",
+        "height": "4",
+        "gtype": "gage",
+        "title": "Aire de Llenado",
+        "label": "bar",
+        "format": "{{value}}",
+        "min": "1",
+        "max": "2",
+        "colors": [
+            "#e6e600",
+            "#00ff00",
+            "#ca3838"
+        ],
+        "seg1": "1",
+        "seg2": "1.6",
+        "diff": false,
+        "className": "",
+        "x": 1160,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "b64931f59f14350e",
+        "type": "function",
+        "z": "f788a78067227a65",
+        "name": "function 7",
+        "func": "function randn_bm() {\n    let u = 0, v = 0;\n    while (u === 0) u = Math.random(); //Converting [0,1) to (0,1)\n    while (v === 0) v = Math.random();\n    let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);\n    num = num / 10.0 + 0.5; // Translate to 0 -> 1\n    if (num > 1 || num < 0) return randn_bm() // resample between 0 and 1\n    return num\n}\n\nfunction round(value, decimals) {\n    return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);\n}\n\nvar randPress = randn_bm()+1.0;\nrandPress = round(randPress,1);\nmsg.payload=randPress;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 920,
+        "wires": [
+            [
+                "111e0f018fe505f4"
+            ]
+        ]
+    },
+    {
+        "id": "a99cb87c02f0fc0c",
+        "type": "cronplus",
+        "z": "f788a78067227a65",
+        "name": "",
+        "outputField": "payload",
+        "timeZone": "",
+        "persistDynamic": false,
+        "commandResponseMsgOutput": "output1",
+        "outputs": 1,
+        "options": [
+            {
+                "name": "schedule1",
+                "topic": "topic1",
+                "payloadType": "default",
+                "payload": "",
+                "expressionType": "cron",
+                "expression": "0 7 * * *",
+                "location": "",
+                "offset": "0",
+                "solarType": "all",
+                "solarEvents": "sunrise,sunset"
+            }
+        ],
+        "x": 440,
+        "y": 240,
+        "wires": [
+            [
+                "6f43828525797a13"
+            ]
+        ]
+    },
+    {
+        "id": "6f43828525797a13",
+        "type": "function",
+        "z": "f788a78067227a65",
+        "name": "Reset Cycles Counter",
+        "func": "global.set(\"todayCycles\", global.get(\"globalCycles\"));\nmsg.payload = global.get(\"todayCycles\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "874d55c6f8006363",
+        "type": "function",
+        "z": "f788a78067227a65",
+        "name": "Set Global Cycles",
+        "func": "global.set(\"globalCycles\", msg.payload.value.results[0].value.value);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 250,
+        "y": 240,
+        "wires": [
+            [
+                "a99cb87c02f0fc0c"
+            ]
+        ]
     }
 ]
