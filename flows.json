@@ -121,8 +121,8 @@
         "name": "Máquina 15",
         "tab": "0dfdf1e914c1f5cc",
         "order": 1,
-        "disp": true,
-        "width": "22",
+        "disp": false,
+        "width": "8",
         "collapse": false,
         "className": ""
     },
@@ -136,17 +136,6 @@
         "hidden": false
     },
     {
-        "id": "0ca931ec6fb88653",
-        "type": "ui_group",
-        "name": "Resumen",
-        "tab": "7a2333ce74658d6e",
-        "order": 5,
-        "disp": true,
-        "width": "12",
-        "collapse": true,
-        "className": ""
-    },
-    {
         "id": "09a29acb39ff18a9",
         "type": "ui_tab",
         "name": "Detalles Máquina 16",
@@ -155,24 +144,13 @@
         "hidden": false
     },
     {
-        "id": "3f5e573249780b52",
-        "type": "ui_group",
-        "name": "Resumen",
-        "tab": "09a29acb39ff18a9",
-        "order": 2,
-        "disp": true,
-        "width": "15",
-        "collapse": false,
-        "className": ""
-    },
-    {
         "id": "8bda35d4e5cabfb0",
         "type": "ui_group",
         "name": "Máquina 16",
         "tab": "0dfdf1e914c1f5cc",
-        "order": 2,
-        "disp": true,
-        "width": "22",
+        "order": 3,
+        "disp": false,
+        "width": "8",
         "collapse": false,
         "className": ""
     },
@@ -302,25 +280,25 @@
         "maxBadSessionRequests": "10"
     },
     {
-        "id": "0ae249a0b685d2f6",
-        "type": "ui_template",
+        "id": "6b52e155a183a995",
+        "type": "ui_group",
+        "name": "Tiempos de Ciclo Máquina 15",
+        "tab": "0dfdf1e914c1f5cc",
+        "order": 2,
+        "disp": false,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "7532c183070e251e",
+        "type": "ui_spacer",
         "z": "f788a78067227a65",
-        "group": "0ca931ec6fb88653",
-        "name": "",
-        "order": 1,
-        "width": "0",
-        "height": "0",
-        "format": "<style>\n    .main-container {\n        display: flex;\n        flex-direction: column;\n        width: 100%;\n    }\n\n    .card {\n        /* Add rounded corners and shadow to the card */\n        border-radius: 8px;\n        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n        /* Add some padding and margin to the card */\n        padding: 16px;\n        margin: 16px;\n\n        /* Use flexbox to align the contents of the card */\n        display: flex;\n        flex-direction: column;\n        align-items: left;\n    }\n\n    .spacer {\n        margin: 0;\n        padding: 0.5rem;\n    }\n\n    .card p {\n        margin: 0;\n        padding: 0.5rem;\n    }\n\n    .card:hover {\n        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);\n    }\n</style>\n\n<div class=\"main-container\">\n    <div class=\"card\">\n        <p><b>Tipo de matriz:</b> {{msg.payload.matrixType}}</p>\n        <p><b>Código matriz:</b> {{msg.payload.matrixCode}}</p>\n        <p><b>Piezas por ciclo:</b> {{msg.payload.piecesPerCycle}}</p>\n        <div class=\"spacer\"></div>\n        <p><b>Cantidad producida:</b> {{msg.payload.producedQty}}</p>\n        <p><b>Tiempo produciendo:</b> {{msg.payload.timeProducing}}</p>\n        <p><b>Tiempo detenida:</b> {{msg.payload.timeStopped}}</p>\n        <p><b>Tiempo de ciclo mínimo:</b> {{msg.payload.minCycleTime}}</p>\n        <p><b>Tiempo de ciclo máximo:</b> {{msg.payload.maxCycleTime}}</p>\n        <p><b>Porcentaje de utilización:</b> {{msg.payload.perUtilization}}%</p>\n    </div>\n</div>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "resendOnRefresh": true,
-        "templateScope": "local",
-        "className": "",
-        "x": 960,
-        "y": 160,
-        "wires": [
-            []
-        ]
+        "name": "spacer",
+        "group": "6b52e155a183a995",
+        "order": 2,
+        "width": 1,
+        "height": 1
     },
     {
         "id": "41620427fabb1e6d",
@@ -328,29 +306,8 @@
         "z": "f788a78067227a65",
         "name": "",
         "events": "all",
-        "x": 1220,
+        "x": 2100,
         "y": 120,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "ab3c3e995b11e497",
-        "type": "ui_template",
-        "z": "f788a78067227a65",
-        "group": "3f5e573249780b52",
-        "name": "",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "format": "<style>\n    .main-container {\n        display: flex;\n        flex-direction: row;\n        width: 100%;\n    }\n\n    .left-container {\n        display: flex;\n        flex-direction: column;\n    }\n\n    .card p {\n        margin: 0;\n    }\n\n    .card {\n        /* Add rounded corners and shadow to the card */\n        border-radius: 8px;\n        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\n\n        /* Add some padding and margin to the card */\n        padding: 16px;\n        margin: 16px;\n\n        /* Use flexbox to align the contents of the card */\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n    }\n\n    .machine-name {\n        font-weight: bold;\n        font-style: italic;\n    }\n\n    .card:hover {\n        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);\n    }\n\n    .card-text p {\n        padding: 0.5rem;\n    }\n\n    .card .led {\n        /* Add a border and some padding to the LED */\n        border: 1px solid rgba(0, 0, 0, 0.877);\n        border-radius: 50%;\n        width: 16px;\n        height: 16px;\n        margin: 8px;\n        padding: 8px;\n        align-self: left;\n\n    }\n\n    .led-container {\n        width: 100%;\n        align-items: left;\n    }\n\n    .card .led.red {\n        /* Make the LED red when the boolean value is true */\n        background-color: rgba(255, 0, 0, 0.7);\n        align-self: left;\n    }\n\n    .card .led.green {\n        /* Make the LED green when the boolean value is false */\n        background-color: rgba(0, 255, 0, 0.7);\n        align-self: left;\n    }\n\n    .card .stats {\n        /* Add some padding and margin to the stats */\n        padding: 8px;\n        margin: 8px;\n\n        /* Use flexbox to align the stats horizontally */\n        display: flex;\n        flex-direction: row;\n        align-items: left;\n    }\n\n    .card .stats .label {\n        /* Add some margin to the labels */\n        margin: 8px;\n\n        /* Align the text to the left */\n        text-align: left;\n    }\n</style>\n\n<div class=\"main-container\">\n    <div class=\"left-container card-text\">\n        <div class=\"card\">\n            <p>Tipo de matriz: {{}}</p>\n            <p>Código matriz: {{}}</p>\n            <p>Piezas por ciclo: {{}}</p>\n        </div>\n        <div class=\"card\">\n            <p>Número de ciclo: {{}}</p>\n            <p>Tiempo de ciclo: {{}}</p>\n            <p>Tiempo de ciclo anterior: {{}}</p>\n            <p>Inicio: {{}}</p>\n            <p>Término: {{}}</p>\n        </div>\n    </div>\n    <div class=\"card card-text\">\n        <p>Cantidad producida: {{}}</p>\n        <p>Horas produciendo: {{}}</p>\n        <p>Horas detenida: {{}}</p>\n        <p>Tiempo de ciclo promedio acumulado: {{}}</p>\n        <p>Tiempo de ciclo mínimo: {{}}</p>\n        <p>Tiempo de ciclo máximo: {{}}</p>\n        <p>% de utilización: {{}}</p>\n    </div>\n</div>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "resendOnRefresh": true,
-        "templateScope": "local",
-        "className": "",
-        "x": 960,
-        "y": 260,
         "wires": [
             []
         ]
@@ -360,22 +317,18 @@
         "type": "function",
         "z": "f788a78067227a65",
         "name": "Machine 15 JSON Formating",
-        "func": "//Setting latest values\n//LifeCycles[0]\nvar numCycles = msg.payload.value.results[0].value.value;\nnumCycles = numCycles-global.get(\"todayCycles\");\n//LastRecipe[1]\nvar recipe = msg.payload.value.results[1].value.value;\n\n//Running[3]\nvar running = msg.payload.value.results[3].value.value;\n\n//LastCycleTime[4]\nvar lastCycleTime = msg.payload.value.results[4].value.value / 1000;\nlastCycleTime = Math.floor(lastCycleTime);\nvar warning = false;\n\n//Checking for warning state\nif (running !== global.get(\"bLastStateMac15\")){\n    global.set(\"bLastStateMac15\", running);\n    global.set(\"dLastChangedTimeMac15\", new Date().getTime());\n}else{\n    let currentTime = new Date().getTime();\n    if (running === false && (currentTime - global.get(\"dLastChangedTimeMac15\") > 7200000)) {\n        warning = true;\n    }\n};\n\n\nvar minCycleTime=\"N/A\";\nvar maxCycleTime=\"N/A\";\n\n\n// set min time\nif (global.get(\"minCycleTimeMac15\")){\n    minCycleTime = Math.min(lastCycleTime, global.get(\"minCycleTimeMac15\"));\n    global.set(\"minCycleTimeMac15\", minCycleTime);\n} else{\n    global.set(\"minCycleTimeMac15\", lastCycleTime);\n};\n//set max time\nif (global.get(\"maxCycleTimeMac15\")) {\n    maxCycleTime = Math.max(lastCycleTime, global.get(\"maxCycleTimeMac15\"));\n    global.set(\"maxCycleTimeMac15\", maxCycleTime);\n} else {\n    global.set(\"maxCycleTimeMac15\", lastCycleTime);\n};\n\n\nvar machine = {\n    \"recipe\": recipe,\n    \"numCycles\": numCycles,\n    \"minCycleTime\": minCycleTime,\n    \"maxCycleTime\": maxCycleTime,\n    \"isRunning\": running,\n    \"warning\": warning\n};\nmsg.payload=machine;\nreturn msg;",
+        "func": "function formatDuration(duration) {\n    var hours = Math.floor(duration / 3600);\n    var minutes = Math.floor((duration - (hours * 3600)) / 60);\n    var seconds = duration - (hours * 3600) - (minutes * 60);\n\n    if (hours < 10) { hours = \"0\" + hours; }\n    if (minutes < 10) { minutes = \"0\" + minutes; }\n    if (seconds < 10) { seconds = \"0\" + seconds; }\n\n    return hours + ':' + minutes + ':' + seconds;\n}\nfunction round(value, decimals) {\n    return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);\n}\n\n//Setting latest values\n//LifeCycles[0]\nvar numCycles = msg.payload.value.results[0].value.value;\nnumCycles = numCycles - global.get(\"todayCycles\");\n//LastRecipe[1]\nvar recipe = msg.payload.value.results[1].value.value;\n\n//Running[3]\nvar running = msg.payload.value.results[3].value.value;\n\n//LastCycleTime[4]\nvar lastCycleTime = msg.payload.value.results[4].value.value / 1000;\nlastCycleTime = Math.floor(lastCycleTime);\nvar warning = false;\n\n//Checking for warning state\nif (running !== global.get(\"bLastStateMac15\")) {\n    global.set(\"bLastStateMac15\", running);\n    global.set(\"dLastChangedTimeMac15\", new Date().getTime());\n} else {\n    let currentTime = new Date().getTime();\n    if (running === false && (currentTime - global.get(\"dLastChangedTimeMac15\") > 7200000)) {\n        warning = true;\n    }\n};\n\n\nvar minCycleTime = \"N/A\";\nvar maxCycleTime = \"N/A\";\n\n\n// set min time\nif (global.get(\"minCycleTimeMac15\")) {\n    minCycleTime = Math.min(lastCycleTime, global.get(\"minCycleTimeMac15\"));\n    global.set(\"minCycleTimeMac15\", minCycleTime);\n} else {\n    global.set(\"minCycleTimeMac15\", lastCycleTime);\n};\n//set max time\nif (global.get(\"maxCycleTimeMac15\")) {\n    maxCycleTime = Math.max(lastCycleTime, global.get(\"maxCycleTimeMac15\"));\n    global.set(\"maxCycleTimeMac15\", maxCycleTime);\n} else {\n    global.set(\"maxCycleTimeMac15\", lastCycleTime);\n};\n//set production times\nif(running===true){\n    var timeProducing = global.get(\"statusTimeProxy\");\n    var timeStopped = global.get(\"totalDurationFalse\");\n}else{\n    var timeProducing = global.get(\"totalDurationTrue\");\n    var timeStopped = global.get(\"statusTimeProxy\");\n}\n\nvar perUtilization = timeProducing / (timeProducing + timeStopped);\nperUtilization = round(perUtilization * 100, 1);\ntimeProducing = formatDuration(timeProducing);\ntimeStopped = formatDuration(timeStopped);\n\nvar machine = {\n    \"recipe\": recipe,\n    \"numCycles\": numCycles,\n    \"minCycleTime\": minCycleTime,\n    \"maxCycleTime\": maxCycleTime,\n    \"isRunning\": running,\n    \"warning\": warning,\n    \"timeProducing\": timeProducing,\n    \"timeStopped\": timeStopped,\n    \"perUtilization\": perUtilization\n};\nmsg.payload = machine;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 700,
+        "x": 720,
         "y": 340,
         "wires": [
             [
-                "4507e6f19479d369",
-                "f614624d5feae44d",
-                "6f9c72ab1239b008",
                 "01da6e515dc345cf",
-                "1ea9e654b8e8df62",
-                "501034c81931300c"
+                "3ea352ee56317e8d"
             ]
         ]
     },
@@ -390,8 +343,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 760,
-        "y": 420,
+        "x": 700,
+        "y": 460,
         "wires": [
             [
                 "ebcaa41dce7ebc67",
@@ -404,11 +357,11 @@
         "type": "ui_chart",
         "z": "f788a78067227a65",
         "name": "",
-        "group": "6d1bf9e97b19ea27",
-        "order": 2,
+        "group": "6b52e155a183a995",
+        "order": 1,
         "width": "12",
-        "height": "7",
-        "label": "Tiempo de Ciclo",
+        "height": "9",
+        "label": "Tiempos de Ciclo Máquina 15",
         "chartType": "line",
         "legend": "false",
         "xformat": "HH:mm:ss",
@@ -437,8 +390,8 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 1000,
-        "y": 420,
+        "x": 990,
+        "y": 460,
         "wires": [
             []
         ]
@@ -496,8 +449,8 @@
         "seg2": "0.9",
         "diff": false,
         "className": "",
-        "x": 1130,
-        "y": 840,
+        "x": 570,
+        "y": 740,
         "wires": []
     },
     {
@@ -524,47 +477,9 @@
         "seg2": "1.6",
         "diff": false,
         "className": "",
-        "x": 1150,
-        "y": 980,
+        "x": 590,
+        "y": 820,
         "wires": []
-    },
-    {
-        "id": "4507e6f19479d369",
-        "type": "ui_machinecard",
-        "z": "f788a78067227a65",
-        "group": "6d1bf9e97b19ea27",
-        "order": 1,
-        "width": "8",
-        "height": "9",
-        "name": "Maquina 15",
-        "machineName": "Máquina 15",
-        "controlOutput": "1",
-        "x": 970,
-        "y": 120,
-        "wires": [
-            [
-                "41620427fabb1e6d"
-            ]
-        ]
-    },
-    {
-        "id": "f614624d5feae44d",
-        "type": "ui_machinecard",
-        "z": "f788a78067227a65",
-        "group": "8bda35d4e5cabfb0",
-        "order": 1,
-        "width": "8",
-        "height": "9",
-        "name": "Maquina 16",
-        "machineName": "Máquina 16",
-        "controlOutput": "2",
-        "x": 970,
-        "y": 220,
-        "wires": [
-            [
-                "41620427fabb1e6d"
-            ]
-        ]
     },
     {
         "id": "a2849f5fd82c1805",
@@ -604,8 +519,8 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 1150,
-        "y": 700,
+        "x": 570,
+        "y": 680,
         "wires": [
             []
         ]
@@ -629,10 +544,10 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "Temperature",
-        "payload": "60",
-        "payloadType": "num",
-        "x": 790,
-        "y": 700,
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 680,
         "wires": [
             [
                 "f41e39ca9dd90c40"
@@ -643,15 +558,15 @@
         "id": "f41e39ca9dd90c40",
         "type": "function",
         "z": "f788a78067227a65",
-        "name": "function 3",
+        "name": "Demo Temperatura",
         "func": "function randn_bm() {\n    let u = 0, v = 0;\n    while (u === 0) u = Math.random(); //Converting [0,1) to (0,1)\n    while (v === 0) v = Math.random();\n    let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);\n    num = num / 10.0 + 0.5; // Translate to 0 -> 1\n    if (num > 1 || num < 0) return randn_bm() // resample between 0 and 1\n    return num\n}\n\nvar newMsg = { payload: 50, topic: \"Límite de control inferior\" };\nvar newMsg2 = { payload: 150, topic: \"Límite de control superior\" };\n\nvar randTemp = randn_bm()*100+20;\nrandTemp = Math.floor(randTemp);\nmsg.payload=randTemp;\nreturn [msg, newMsg, newMsg2];",
         "outputs": 3,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 960,
-        "y": 700,
+        "x": 370,
+        "y": 680,
         "wires": [
             [
                 "a2849f5fd82c1805"
@@ -685,51 +600,11 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 770,
-        "y": 840,
+        "x": 110,
+        "y": 780,
         "wires": [
             [
-                "ac85c152db6e1eb8",
-                "c093944942501c5a",
-                "b64931f59f14350e"
-            ]
-        ]
-    },
-    {
-        "id": "ac85c152db6e1eb8",
-        "type": "function",
-        "z": "f788a78067227a65",
-        "name": "function 4",
-        "func": "function randn_bm() {\n    let u = 0, v = 0;\n    while (u === 0) u = Math.random(); //Converting [0,1) to (0,1)\n    while (v === 0) v = Math.random();\n    let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);\n    num = num / 10.0 + 0.5; // Translate to 0 -> 1\n    if (num > 1 || num < 0) return randn_bm() // resample between 0 and 1\n    return num\n}\nfunction round(value, decimals) {\n    return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);\n}\n\nvar randPress = randn_bm()*1.5-0.5;\nrandPress= round(randPress,1)\nmsg.payload=randPress;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 940,
-        "y": 840,
-        "wires": [
-            [
-                "ebe7bf76279201e2"
-            ]
-        ]
-    },
-    {
-        "id": "c093944942501c5a",
-        "type": "function",
-        "z": "f788a78067227a65",
-        "name": "function 5",
-        "func": "function randn_bm() {\n    let u = 0, v = 0;\n    while (u === 0) u = Math.random(); //Converting [0,1) to (0,1)\n    while (v === 0) v = Math.random();\n    let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);\n    num = num / 10.0 + 0.5; // Translate to 0 -> 1\n    if (num > 1 || num < 0) return randn_bm() // resample between 0 and 1\n    return num\n}\n\nfunction round(value, decimals) {\n    return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);\n}\n\nvar randPress = randn_bm()+1.0;\nrandPress = round(randPress,1);\nmsg.payload=randPress;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 940,
-        "y": 980,
-        "wires": [
-            [
-                "1bd9207bb04c60e1"
+                "9f864b7f1947d724"
             ]
         ]
     },
@@ -773,7 +648,7 @@
                 "datatypeName": ""
             }
         ],
-        "x": 210,
+        "x": 190,
         "y": 340,
         "wires": [
             [
@@ -795,7 +670,7 @@
         "showErrors": false,
         "parseStrings": false,
         "historyDays": "",
-        "x": 350,
+        "x": 330,
         "y": 340,
         "wires": [
             [
@@ -815,7 +690,7 @@
         "activateFilters": false,
         "negateFilter": false,
         "filters": [],
-        "x": 490,
+        "x": 470,
         "y": 340,
         "wires": [
             [
@@ -903,26 +778,26 @@
         "tls": true,
         "name": "martin.sotomayor.96@gmail.com",
         "dname": "",
-        "x": 1400,
-        "y": 340,
+        "x": 2040,
+        "y": 360,
         "wires": []
     },
     {
         "id": "6f9c72ab1239b008",
         "type": "function",
         "z": "f788a78067227a65",
-        "name": "function 6",
-        "func": "var bWarning = msg.payload[\"warning\"];\nvar currentTime = new Date().getTime();\n\nif (!(global.get(\"dLastSentMail\"))){\n    global.set(\"dLastSentMail\", global.get(\"dLastChangedTimeMac15\"));\n}\n\nif (bWarning === true && (currentTime - global.get(\"dLastChangedTimeMac15\") > 7200000) && (currentTime - global.get(\"dLastSentMail\") > 7200000)){\n    var bSendMail = true;\n    global.set(\"dLastSentMail\", currentTime);\n}else{\n    var bSendMail = false;\n}\nvar message = \"Máquina 15 no ha funcionado por 2 horas. Esta es una notificación, no necesita responder.\";\nvar content = \"Notificación - Aislapol Dashboard\";\nmsg.payload = message;\nmsg.topic = content;\nmsg.bSend = bSendMail;\nreturn msg;",
+        "name": "Notificar Correo",
+        "func": "var bWarning = msg.payload[\"warning\"];\nvar currentTime = new Date().getTime();\nvar message = \"\";\nvar content = \"\";\n\nif (!(global.get(\"dLastSentMail\"))){\n    global.set(\"dLastSentMail\", global.get(\"dLastChangedTimeMac15\"));\n}\n\nif (bWarning === true && (currentTime - global.get(\"dLastChangedTimeMac15\") > 7200000) && (currentTime - global.get(\"dLastSentMail\") > 7200000)){\n    var bSendMail = true;\n    global.set(\"dLastSentMail\", currentTime);\n}else{\n    var bSendMail = false;\n}\n\nif(bSendMail===true){\n    message = \"Máquina 15 no ha funcionado por 2 horas. Esta es una notificación, no necesita responder.\";\n    content = \"Notificación - Aislapol Dashboard\";\n    msg.payload = message;\n    msg.topic = content;\n    msg.bSend = bSendMail;\n    return msg;\n}else{\n    message = \"Máquina 15 lleva menos de 2 horas continuas sin funcionar.\";\n    content = \"Notificación - Aislapol Dashboard\";\n    msg.payload = message;\n    msg.topic = content;\n    msg.bSend = bSendMail;\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 960,
-        "y": 340,
+        "x": 1480,
+        "y": 360,
         "wires": [
             [
-                "adbc765917d71f4b"
+                "0a6035fd3041b079"
             ]
         ]
     },
@@ -944,8 +819,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 1110,
-        "y": 340,
+        "x": 1770,
+        "y": 360,
         "wires": [
             [
                 "a0176ace469c1bb9"
@@ -972,8 +847,8 @@
         "drop": true,
         "allowrate": false,
         "outputs": 1,
-        "x": 1260,
-        "y": 420,
+        "x": 1980,
+        "y": 400,
         "wires": [
             [
                 "c3a48b8715ec94a2"
@@ -992,8 +867,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1400,
-        "y": 420,
+        "x": 2140,
+        "y": 400,
         "wires": []
     },
     {
@@ -1016,7 +891,7 @@
         "payloadType": "num",
         "topic": "topic",
         "topicType": "msg",
-        "x": 1000,
+        "x": 1880,
         "y": 60,
         "wires": [
             [
@@ -1044,7 +919,7 @@
         "payloadType": "num",
         "topic": "topic",
         "topicType": "msg",
-        "x": 1000,
+        "x": 1880,
         "y": 20,
         "wires": [
             [
@@ -1057,15 +932,15 @@
         "type": "debug",
         "z": "f788a78067227a65",
         "name": "debug 2",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1020,
-        "y": 500,
+        "x": 920,
+        "y": 520,
         "wires": []
     },
     {
@@ -1085,11 +960,11 @@
         "drop": true,
         "allowrate": false,
         "outputs": 1,
-        "x": 860,
-        "y": 560,
+        "x": 980,
+        "y": 400,
         "wires": [
             [
-                "9af8176f55e26f0e"
+                "a93e3a27cbf71aaf"
             ]
         ]
     },
@@ -1117,28 +992,9 @@
         "seg2": "1.6",
         "diff": false,
         "className": "",
-        "x": 1160,
-        "y": 920,
+        "x": 600,
+        "y": 780,
         "wires": []
-    },
-    {
-        "id": "b64931f59f14350e",
-        "type": "function",
-        "z": "f788a78067227a65",
-        "name": "function 7",
-        "func": "function randn_bm() {\n    let u = 0, v = 0;\n    while (u === 0) u = Math.random(); //Converting [0,1) to (0,1)\n    while (v === 0) v = Math.random();\n    let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);\n    num = num / 10.0 + 0.5; // Translate to 0 -> 1\n    if (num > 1 || num < 0) return randn_bm() // resample between 0 and 1\n    return num\n}\n\nfunction round(value, decimals) {\n    return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);\n}\n\nvar randPress = randn_bm()+1.0;\nrandPress = round(randPress,1);\nmsg.payload=randPress;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 940,
-        "y": 920,
-        "wires": [
-            [
-                "111e0f018fe505f4"
-            ]
-        ]
     },
     {
         "id": "a99cb87c02f0fc0c",
@@ -1164,8 +1020,8 @@
                 "solarEvents": "sunrise,sunset"
             }
         ],
-        "x": 440,
-        "y": 240,
+        "x": 880,
+        "y": 160,
         "wires": [
             [
                 "6f43828525797a13"
@@ -1176,15 +1032,15 @@
         "id": "6f43828525797a13",
         "type": "function",
         "z": "f788a78067227a65",
-        "name": "Reset Cycles Counter",
-        "func": "global.set(\"todayCycles\", global.get(\"globalCycles\"));\nmsg.payload = global.get(\"todayCycles\");\n\ncontext.global.set(\"totalDurationTrue\", 0);\ncontext.global.set(\"totalDurationFalse\", 0);\nreturn msg;",
+        "name": "Reset Global Values",
+        "func": "context.global.set(\"todayCycles\", global.get(\"globalCycles\"));\ncontext.global.set(\"totalDurationTrue\", 0);\ncontext.global.set(\"totalDurationFalse\", 0);\ncontext.global.set(\"statusTimeProxy\", 0);\ncontext.global.set(\"maxCycleTimeMac15\", \"N/A\");\ncontext.global.set(\"minCycleTimeMac15\", \"N/A\");\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 620,
-        "y": 240,
+        "x": 1060,
+        "y": 160,
         "wires": [
             []
         ]
@@ -1200,8 +1056,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 250,
-        "y": 240,
+        "x": 690,
+        "y": 160,
         "wires": [
             [
                 "a99cb87c02f0fc0c"
@@ -1225,8 +1081,8 @@
         "drop": true,
         "allowrate": false,
         "outputs": 1,
-        "x": 1070,
-        "y": 600,
+        "x": 1490,
+        "y": 280,
         "wires": [
             [
                 "6d14cc8fe37e77ba"
@@ -1244,12 +1100,13 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1220,
-        "y": 600,
+        "x": 1660,
+        "y": 280,
         "wires": [
             [
                 "e4cc40628d5b4f87",
-                "643c7e5c64d75b7c"
+                "643c7e5c64d75b7c",
+                "f4fd67fabed421fc"
             ]
         ]
     },
@@ -1274,8 +1131,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 3,
-        "x": 1390,
-        "y": 680,
+        "x": 1830,
+        "y": 280,
         "wires": [
             [
                 "78701a193601b1de"
@@ -1293,14 +1150,14 @@
         "type": "function",
         "z": "f788a78067227a65",
         "name": "isTrue",
-        "func": "global.set(\"totalDurationTrue\", global.get(\"totalDurationTrue\")+1);\nreturn msg;",
+        "func": "global.set(\"statusTimeProxy\", global.get(\"statusTimeProxy\")+1);\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1550,
-        "y": 660,
+        "x": 1990,
+        "y": 260,
         "wires": [
             []
         ]
@@ -1310,35 +1167,16 @@
         "type": "function",
         "z": "f788a78067227a65",
         "name": "isFalse",
-        "func": "global.set(\"totalDurationFalse\", global.get(\"totalDurationFalse\")+1);\nreturn msg;",
+        "func": "global.set(\"statusTimeProxy\", global.get(\"statusTimeProxy\")+1);\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1560,
-        "y": 700,
+        "x": 2000,
+        "y": 300,
         "wires": [
             []
-        ]
-    },
-    {
-        "id": "501034c81931300c",
-        "type": "function",
-        "z": "f788a78067227a65",
-        "name": "Machine 15 Formatting",
-        "func": "function formatDuration(duration) {\n    var hours = Math.floor(duration / 3600);\n    var minutes = Math.floor((duration - (hours * 3600)) / 60);\n    var seconds = duration - (hours * 3600) - (minutes * 60);\n\n    if (hours < 10) { hours = \"0\" + hours; }\n    if (minutes < 10) { minutes = \"0\" + minutes; }\n    if (seconds < 10) { seconds = \"0\" + seconds; }\n\n    return hours + ':' + minutes + ':' + seconds;\n}\nfunction round(value, decimals) {\n    return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);\n}\n\nvar timeProducing = global.get(\"totalDurationTrue\");\nvar timeStopped = global.get(\"totalDurationFalse\");\nvar perUtilization = timeProducing/(timeProducing+timeStopped);\nperUtilization = round(perUtilization*100,1);\ntimeProducing = formatDuration(timeProducing);\ntimeStopped = formatDuration(timeStopped);\nvar minCycleTime = msg.payload[\"minCycleTime\"];\nvar maxCycleTime = msg.payload[\"maxCycleTime\"];\n\nvar resumen = {\n    \"matrixType\": \"\",\n    \"matrixCode\": \"\",\n    \"piecesPerCycle\": \"\",\n    \"producedQty\": \"\",\n    \"timeProducing\": timeProducing,\n    \"timeStopped\": timeStopped,\n    \"minCycleTime\": minCycleTime,\n    \"maxCycleTime\": maxCycleTime,\n    \"perUtilization\": perUtilization\n}\n\nmsg.payload = resumen\nmsg.topic = \"resumen\"\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 750,
-        "y": 280,
-        "wires": [
-            [
-                "0ae249a0b685d2f6"
-            ]
         ]
     },
     {
@@ -1368,8 +1206,223 @@
         "shape": "square",
         "showGlow": true,
         "name": "Is Running LED",
-        "x": 1400,
-        "y": 560,
+        "x": 1880,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "8774ae12fa1c781d",
+        "type": "ui_machinecard",
+        "z": "f788a78067227a65",
+        "group": "6d1bf9e97b19ea27",
+        "order": 0,
+        "width": "8",
+        "height": "10",
+        "name": "",
+        "machineName": "Máquina 15",
+        "controlOutput": "1",
+        "machineSN": "P01232",
+        "x": 1880,
+        "y": 120,
+        "wires": [
+            [
+                "41620427fabb1e6d"
+            ]
+        ]
+    },
+    {
+        "id": "9e86f08a5f8f9866",
+        "type": "comment",
+        "z": "f788a78067227a65",
+        "name": "Demo de válvulas y gráficos de control",
+        "info": "",
+        "x": 190,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "a93e3a27cbf71aaf",
+        "type": "debug",
+        "z": "f788a78067227a65",
+        "name": "debug 3",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1160,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "0a6035fd3041b079",
+        "type": "delay",
+        "z": "f788a78067227a65",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "15",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1640,
+        "y": 360,
+        "wires": [
+            [
+                "adbc765917d71f4b"
+            ]
+        ]
+    },
+    {
+        "id": "3ea352ee56317e8d",
+        "type": "link out",
+        "z": "f788a78067227a65",
+        "name": "Formato Máquina 15",
+        "mode": "link",
+        "links": [
+            "ecc4310e14c5a4c0"
+        ],
+        "x": 905,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "ecc4310e14c5a4c0",
+        "type": "link in",
+        "z": "f788a78067227a65",
+        "name": "Formato Máquina 15",
+        "links": [
+            "3ea352ee56317e8d"
+        ],
+        "x": 1315,
+        "y": 120,
+        "wires": [
+            [
+                "1ea9e654b8e8df62",
+                "6f9c72ab1239b008",
+                "8774ae12fa1c781d"
+            ]
+        ]
+    },
+    {
+        "id": "9f864b7f1947d724",
+        "type": "function",
+        "z": "f788a78067227a65",
+        "name": "Demo Presiones",
+        "func": "function randn_bm() {\n    let u = 0, v = 0;\n    while (u === 0) u = Math.random(); //Converting [0,1) to (0,1)\n    while (v === 0) v = Math.random();\n    let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);\n    num = num / 10.0 + 0.5; // Translate to 0 -> 1\n    if (num > 1 || num < 0) return randn_bm() // resample between 0 and 1\n    return num\n}\nfunction round(value, decimals) {\n    return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);\n}\n\nvar randPress = randn_bm() * 1.5 - 0.5;\nrandPress = round(randPress, 1)\nmsg.payload = randPress;\n\n\nvar randPress2 = randn_bm() + 1.0;\nrandPress2 = round(randPress2, 1);\nmsg2.payload = randPress2;\n\n\nvar randPress2 = randn_bm() + 1.0;\nrandPress2 = round(randPress2, 1);\nmsg3.payload = randPress2;\n\n\nreturn [msg, msg2, msg3];",
+        "outputs": 3,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 780,
+        "wires": [
+            [
+                "ebe7bf76279201e2"
+            ],
+            [
+                "111e0f018fe505f4"
+            ],
+            [
+                "1bd9207bb04c60e1"
+            ]
+        ]
+    },
+    {
+        "id": "f4fd67fabed421fc",
+        "type": "rbe",
+        "z": "f788a78067227a65",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 1990,
+        "y": 220,
+        "wires": [
+            [
+                "9a41d879560d4f39"
+            ]
+        ]
+    },
+    {
+        "id": "9a41d879560d4f39",
+        "type": "function",
+        "z": "f788a78067227a65",
+        "name": "function 1",
+        "func": "var runningStatus = msg.payload;\nvar currentTime = new Date().getTime();\nif (runningStatus===true){\n    global.set(\"totalDurationFalse\", global.get(\"totalDurationFalse\") + currentTime - global.get(\"dLastChangedTimeMac15\"));\n    global.set(\"statusTimeProxy\", global.get(\"totalDurationTrue\"));\n}else{\n    global.set(\"totalDurationTrue\", global.get(\"totalDurationTrue\") + currentTime - global.get(\"dLastChangedTimeMac15\"));\n    global.set(\"statusTimeProxy\", global.get(\"totalDurationFalse\"));\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2140,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c487ed6c0c360f55",
+        "type": "comment",
+        "z": "f788a78067227a65",
+        "name": "Último tiempo de ciclo",
+        "info": "Último tiempo de ciclo obtenido mediante\nun cliente con el método \"Listen\",\nse actualiza sólo cuando el valor de la\nvariable cambia en la máquina, vale decir,\ncuando un ciclo nuevo termina.",
+        "x": 220,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "6d3cb0e8816d4522",
+        "type": "comment",
+        "z": "f788a78067227a65",
+        "name": "Datos de Máquina en tiempo real",
+        "info": "Todos los datos que se necesiten en tiempo real se obtiene acá, a través del cliente OPC UA\nse puede configurar para que se soliciten cada x cantidad de milisegundos,\nactualmente 1000, se puede reducir de ser necesario. Cualquier valor bajo 250ms\npodría afectar considerablemente el rendimiento.\n",
+        "x": 250,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "20a4e0fe08692a1f",
+        "type": "comment",
+        "z": "f788a78067227a65",
+        "name": "Inicialización de Valores",
+        "info": "Todas las variables globales que necesitan ser reiniciadas a las 7AM todos los días, se reinician en esta sección.\n\nUn timer se preocupa de que se realice al tiempo exacto solicitado, se puede ejecutar manualmente de ser necesario.",
+        "x": 720,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "7f1b84effcdba27f",
+        "type": "comment",
+        "z": "f788a78067227a65",
+        "name": "Control para conexión entre pestañas",
+        "info": "Control que maneja los \"links\" de cada\nwidget y te lleva a las pestañas de elección",
+        "x": 2190,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "7204f9535b654911",
+        "type": "comment",
+        "z": "f788a78067227a65",
+        "name": "Carta de datos de Máquina",
+        "info": "El widget principal con un resumen de datos\nde utilidad acerca de la máquina en cuestión.\nlos datos se actualizan con la frecuencia que se\nsoliciten desde el cliente OPC UA.",
+        "x": 1640,
+        "y": 80,
         "wires": []
     }
 ]
