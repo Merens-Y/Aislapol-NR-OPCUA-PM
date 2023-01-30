@@ -136,14 +136,6 @@
         "hidden": false
     },
     {
-        "id": "09a29acb39ff18a9",
-        "type": "ui_tab",
-        "name": "Detalles Máquina 16",
-        "icon": "dashboard",
-        "disabled": false,
-        "hidden": false
-    },
-    {
         "id": "8bda35d4e5cabfb0",
         "type": "ui_group",
         "name": "Máquina 16",
@@ -218,17 +210,6 @@
         "order": 1,
         "disp": false,
         "width": "20",
-        "collapse": false,
-        "className": ""
-    },
-    {
-        "id": "bafe91ab2794d8a8",
-        "type": "ui_group",
-        "name": "Inicio",
-        "tab": "09a29acb39ff18a9",
-        "order": 1,
-        "disp": false,
-        "width": "22",
         "collapse": false,
         "className": ""
     },
@@ -862,7 +843,7 @@
         "type": "debug",
         "z": "f788a78067227a65",
         "name": "debug 1",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -902,39 +883,11 @@
         ]
     },
     {
-        "id": "7a4e7c89395520e4",
-        "type": "ui_button",
-        "z": "f788a78067227a65",
-        "name": "",
-        "group": "bafe91ab2794d8a8",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "Volver al Inicio",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "className": "",
-        "icon": "",
-        "payload": "0",
-        "payloadType": "num",
-        "topic": "topic",
-        "topicType": "msg",
-        "x": 1880,
-        "y": 20,
-        "wires": [
-            [
-                "41620427fabb1e6d"
-            ]
-        ]
-    },
-    {
         "id": "9af8176f55e26f0e",
         "type": "debug",
         "z": "f788a78067227a65",
         "name": "debug 2",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
