@@ -1,7 +1,7 @@
 Aislapol-NR-OPCUA-PM
 ====================
 
-Implementación de Node-Red para comunicar con máquinas de producción mediante el estándar OPC UA
+Implementación de Node-Red para comunicar con máquinas de producción mediante el protocolo de comunicación estándar OPC UA
 
 ### About
 
