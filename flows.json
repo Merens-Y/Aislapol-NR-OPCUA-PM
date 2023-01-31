@@ -282,6 +282,54 @@
         "height": 1
     },
     {
+        "id": "20ae1e52d1eef983",
+        "type": "postgreSQLConfig",
+        "name": "myuser@timescale:5432/iot",
+        "host": "timescale",
+        "hostFieldType": "str",
+        "port": "5432",
+        "portFieldType": "num",
+        "database": "iot",
+        "databaseFieldType": "str",
+        "ssl": "false",
+        "sslFieldType": "bool",
+        "max": "10",
+        "maxFieldType": "num",
+        "idle": "1000",
+        "idleFieldType": "num",
+        "connectionTimeout": "10000",
+        "connectionTimeoutFieldType": "num",
+        "user": "myuser",
+        "userFieldType": "str",
+        "password": "???",
+        "passwordFieldType": "str"
+    },
+    {
+        "id": "a1fb71ced63ef518",
+        "type": "postgreSQLConfig",
+        "name": "dbAislapol",
+        "host": "127.0.0.1",
+        "hostFieldType": "str",
+        "port": "5432",
+        "portFieldType": "num",
+        "database": "aislapolDB",
+        "databaseFieldType": "str",
+        "ssl": "false",
+        "sslFieldType": "bool",
+        "applicationName": "",
+        "applicationNameType": "str",
+        "max": "10",
+        "maxFieldType": "num",
+        "idle": "1000",
+        "idleFieldType": "num",
+        "connectionTimeout": "10000",
+        "connectionTimeoutFieldType": "num",
+        "user": "postgres",
+        "userFieldType": "str",
+        "password": "aislapol1234",
+        "passwordFieldType": "str"
+    },
+    {
         "id": "41620427fabb1e6d",
         "type": "ui_ui_control",
         "z": "f788a78067227a65",
@@ -298,7 +346,7 @@
         "type": "function",
         "z": "f788a78067227a65",
         "name": "Machine 15 JSON Formating",
-        "func": "function formatDuration(duration) {\n    var hours = Math.floor(duration / 3600);\n    var minutes = Math.floor((duration - (hours * 3600)) / 60);\n    var seconds = duration - (hours * 3600) - (minutes * 60);\n\n    if (hours < 10) { hours = \"0\" + hours; }\n    if (minutes < 10) { minutes = \"0\" + minutes; }\n    if (seconds < 10) { seconds = \"0\" + seconds; }\n    seconds=Math.floor(seconds);\n\n    return hours + ':' + minutes + ':' + seconds;\n}\nfunction round(value, decimals) {\n    return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);\n}\n\n//Setting latest values\n//LifeCycles[0]\nvar numCycles = msg.payload.value.results[0].value.value;\nnumCycles = numCycles - global.get(\"todayCycles\");\n//LastRecipe[1]\nvar recipe = msg.payload.value.results[1].value.value;\n\n//Running[3]\nvar running = msg.payload.value.results[3].value.value;\n\n//LastCycleTime[4]\nvar lastCycleTime = msg.payload.value.results[4].value.value / 1000;\nlastCycleTime = Math.floor(lastCycleTime);\nvar warning = false;\n\n//Checking for warning state\nif (running !== global.get(\"bLastStateMac15\")) {\n    global.set(\"bLastStateMac15\", running);\n    global.set(\"dLastChangedTimeMac15Prev\", global.get(\"dLastChangedTimeMac15\"));\n    global.set(\"dLastChangedTimeMac15\", new Date().getTime());\n} else {\n    let currentTime = new Date().getTime();\n    if (running === false && (currentTime - global.get(\"dLastChangedTimeMac15\") > 7200000)) {\n        warning = true;\n    }\n};\n\n\nvar minCycleTime = \"N/A\";\nvar maxCycleTime = \"N/A\";\n\n\n// set min time\nif (global.get(\"minCycleTimeMac15\")) {\n    minCycleTime = Math.min(lastCycleTime, global.get(\"minCycleTimeMac15\"));\n    global.set(\"minCycleTimeMac15\", minCycleTime);\n} else {\n    global.set(\"minCycleTimeMac15\", lastCycleTime);\n};\n//set max time\nif (global.get(\"maxCycleTimeMac15\")) {\n    maxCycleTime = Math.max(lastCycleTime, global.get(\"maxCycleTimeMac15\"));\n    global.set(\"maxCycleTimeMac15\", maxCycleTime);\n} else {\n    global.set(\"maxCycleTimeMac15\", lastCycleTime);\n};\n//set production times\nif(running===true){\n    var timeProducing = global.get(\"statusTimeProxy\");\n    var timeStopped = global.get(\"totalDurationFalse\");\n}else{\n    var timeProducing = global.get(\"totalDurationTrue\");\n    var timeStopped = global.get(\"statusTimeProxy\");\n}\n\nvar perUtilization = timeProducing / (timeProducing + timeStopped);\nperUtilization = round(perUtilization * 100, 1);\ntimeProducing = formatDuration(timeProducing);\ntimeStopped = formatDuration(timeStopped);\n\nvar machine = {\n    \"recipe\": recipe,\n    \"numCycles\": numCycles,\n    \"minCycleTime\": minCycleTime,\n    \"maxCycleTime\": maxCycleTime,\n    \"isRunning\": running,\n    \"warning\": warning,\n    \"timeProducing\": timeProducing,\n    \"timeStopped\": timeStopped,\n    \"perUtilization\": perUtilization\n};\nmsg.payload = machine;\nreturn msg;",
+        "func": "function formatDuration(duration) {\n    var hours = Math.floor(duration / 3600);\n    var minutes = Math.floor((duration - (hours * 3600)) / 60);\n    var seconds = duration - (hours * 3600) - (minutes * 60);\n\n    if (hours < 10) { hours = \"0\" + hours; }\n    if (minutes < 10) { minutes = \"0\" + minutes; }\n    if (seconds < 10) { seconds = \"0\" + seconds; }\n    seconds=Math.floor(seconds);\n\n    return hours + ':' + minutes + ':' + seconds;\n}\nfunction round(value, decimals) {\n    return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);\n}\n\n//Setting latest values\n//LifeCycles[0]\nvar numCycles = msg.payload.value.results[0].value.value;\nnumCycles = numCycles - global.get(\"todayCyclesMac15\");\n//LastRecipe[1]\nvar recipe = msg.payload.value.results[1].value.value;\n\n//Running[3]\nvar running = msg.payload.value.results[3].value.value;\n\n//LastCycleTime[4]\nvar lastCycleTime = msg.payload.value.results[4].value.value / 1000;\nvar lastCycleTimePost = lastCycleTime;\n//LastCycleTimePost for post to Database.\nlastCycleTimePost = round(lastCycleTimePost, 2)\nlastCycleTime = Math.floor(lastCycleTime);\nvar warning = false;\n\n//Checking for warning state\nif (running !== global.get(\"bLastStateMac15\")) {\n    global.set(\"bLastStateMac15\", running);\n    global.set(\"dLastChangedTimeMac15Prev\", global.get(\"dLastChangedTimeMac15\"));\n    global.set(\"dLastChangedTimeMac15\", new Date().getTime());\n} else {\n    let currentTime = new Date().getTime();\n    if (running === false && (currentTime - global.get(\"dLastChangedTimeMac15\") > 7200000)) {\n        warning = true;\n    }\n};\n\n\nvar minCycleTime = \"N/A\";\nvar maxCycleTime = \"N/A\";\n\n\n// set min time\nif (global.get(\"minCycleTimeMac15\")) {\n    minCycleTime = Math.min(lastCycleTime, global.get(\"minCycleTimeMac15\"));\n    global.set(\"minCycleTimeMac15\", minCycleTime);\n} else {\n    global.set(\"minCycleTimeMac15\", lastCycleTime);\n};\n//set max time\nif (global.get(\"maxCycleTimeMac15\")) {\n    maxCycleTime = Math.max(lastCycleTime, global.get(\"maxCycleTimeMac15\"));\n    global.set(\"maxCycleTimeMac15\", maxCycleTime);\n} else {\n    global.set(\"maxCycleTimeMac15\", lastCycleTime);\n};\n//set production times\nif(running===true){\n    var timeProducing = global.get(\"statusTimeProxyMac15\");\n    var timeStopped = global.get(\"totalDurationFalseMac15\");\n}else{\n    var timeProducing = global.get(\"totalDurationTrueMac15\");\n    var timeStopped = global.get(\"statusTimeProxyMac15\");\n}\n\nvar perUtilization = timeProducing / (timeProducing + timeStopped);\nperUtilization = round(perUtilization * 100, 1);\ntimeProducing = formatDuration(timeProducing);\ntimeStopped = formatDuration(timeStopped);\n\nvar machine = {\n    \"recipe\": recipe,\n    \"numCycles\": numCycles,\n    \"minCycleTime\": minCycleTime,\n    \"maxCycleTime\": maxCycleTime,\n    \"isRunning\": running,\n    \"warning\": warning,\n    \"timeProducing\": timeProducing,\n    \"timeStopped\": timeStopped,\n    \"perUtilization\": perUtilization,\n    \"lastCycleTime\": lastCycleTimePost\n};\nmsg.payload = machine;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -770,7 +818,7 @@
         "type": "function",
         "z": "f788a78067227a65",
         "name": "Notificar Correo",
-        "func": "var bWarning = msg.payload[\"warning\"];\nvar currentTime = new Date().getTime();\nvar message = \"\";\nvar content = \"\";\n\nif (!(global.get(\"dLastSentMail\"))){\n    global.set(\"dLastSentMail\", global.get(\"dLastChangedTimeMac15\"));\n}\n\nif (bWarning === true && (currentTime - global.get(\"dLastChangedTimeMac15\") > 7200000) && (currentTime - global.get(\"dLastSentMail\") > 7200000)){\n    var bSendMail = true;\n    global.set(\"dLastSentMail\", currentTime);\n}else{\n    var bSendMail = false;\n}\n\nif(bSendMail===true){\n    message = \"Máquina 15 no ha funcionado por 2 horas. Esta es una notificación, no necesita responder.\";\n    content = \"Notificación - Aislapol Dashboard\";\n    msg.payload = message;\n    msg.topic = content;\n    msg.bSend = bSendMail;\n    return msg;\n}else{\n    message = \"Máquina 15 lleva menos de 2 horas continuas sin funcionar.\";\n    content = \"Notificación - Aislapol Dashboard\";\n    msg.payload = message;\n    msg.topic = content;\n    msg.bSend = bSendMail;\n    return msg;\n}\n",
+        "func": "var bWarning = msg.payload[\"warning\"];\nvar currentTime = new Date().getTime();\nvar message = \"\";\nvar content = \"\";\n\nif (!(global.get(\"dLastSentMailMac15\"))){\n    global.set(\"dLastSentMailMac15\", global.get(\"dLastChangedTimeMac15\"));\n}\n\nif (bWarning === true && (currentTime - global.get(\"dLastChangedTimeMac15\") > 7200000) && (currentTime - global.get(\"dLastSentMailMac15\") > 7200000)){\n    var bSendMail = true;\n    global.set(\"dLastSentMailMac15\", currentTime);\n}else{\n    var bSendMail = false;\n}\n\nif(bSendMail===true){\n    message = \"Máquina 15 no ha funcionado por 2 horas. Esta es una notificación, no necesita responder.\";\n    content = \"Notificación - Aislapol Dashboard\";\n    msg.payload = message;\n    msg.topic = content;\n    msg.bSend = bSendMail;\n    return msg;\n}else{\n    message = \"Máquina 15 lleva menos de 2 horas continuas sin funcionar.\";\n    content = \"Notificación - Aislapol Dashboard\";\n    msg.payload = message;\n    msg.topic = content;\n    msg.bSend = bSendMail;\n    return msg;\n}\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -988,7 +1036,7 @@
         "type": "function",
         "z": "f788a78067227a65",
         "name": "Reset Global Values",
-        "func": "context.global.set(\"todayCycles\", global.get(\"globalCycles\"));\ncontext.global.set(\"totalDurationTrue\", 0);\ncontext.global.set(\"totalDurationFalse\", 0);\ncontext.global.set(\"statusTimeProxy\", 0);\ncontext.global.set(\"dLastChangedTimeMac15\", new Date().getTime());\ncontext.global.set(\"dLastChangedTimeMac15Prev\", new Date().getTime());\ncontext.global.set(\"dLastSentMail\", new Date().getTime());\ncontext.global.set(\"maxCycleTimeMac15\", \"N/A\");\ncontext.global.set(\"minCycleTimeMac15\", \"N/A\");\n\nreturn msg;",
+        "func": "context.global.set(\"todayCyclesMac15\", global.get(\"globalCyclesMac15\"));\ncontext.global.set(\"totalDurationTrueMac15\", 0);\ncontext.global.set(\"totalDurationFalseMac15\", 0);\ncontext.global.set(\"statusTimeProxyMac15\", 0);\ncontext.global.set(\"dLastChangedTimeMac15\", new Date().getTime());\ncontext.global.set(\"dLastChangedTimeMac15Prev\", new Date().getTime());\ncontext.global.set(\"dLastSentMailMac15\", new Date().getTime());\ncontext.global.set(\"maxCycleTimeMac15\", \"N/A\");\ncontext.global.set(\"minCycleTimeMac15\", \"N/A\");\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1005,7 +1053,7 @@
         "type": "function",
         "z": "f788a78067227a65",
         "name": "Set Global Cycles",
-        "func": "global.set(\"globalCycles\", msg.payload.value.results[0].value.value);\nreturn msg;",
+        "func": "global.set(\"globalCyclesMac15\", msg.payload.value.results[0].value.value);\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1105,7 +1153,7 @@
         "type": "function",
         "z": "f788a78067227a65",
         "name": "isTrue",
-        "func": "global.set(\"statusTimeProxy\", global.get(\"statusTimeProxy\")+1);\n\nreturn msg;",
+        "func": "global.set(\"statusTimeProxyMac15\", global.get(\"statusTimeProxyMac15\")+1);\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1122,7 +1170,7 @@
         "type": "function",
         "z": "f788a78067227a65",
         "name": "isFalse",
-        "func": "global.set(\"statusTimeProxy\", global.get(\"statusTimeProxy\")+1);\nreturn msg;",
+        "func": "global.set(\"statusTimeProxyMac15\", global.get(\"statusTimeProxyMac15\")+1);\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1264,7 +1312,8 @@
             [
                 "1ea9e654b8e8df62",
                 "6f9c72ab1239b008",
-                "8774ae12fa1c781d"
+                "8774ae12fa1c781d",
+                "10b690ec7a43c61f"
             ]
         ]
     },
@@ -1318,7 +1367,7 @@
         "type": "function",
         "z": "f788a78067227a65",
         "name": "Proper Time Set",
-        "func": "var runningStatus = msg.payload;\nvar currentTime = new Date().getTime();\ncurrentTime = currentTime/1000;\nif (runningStatus===true){\n    global.set(\"totalDurationFalse\", global.get(\"totalDurationFalse\") + currentTime - global.get(\"dLastChangedTimeMac15Prev\")/1000);\n    global.set(\"statusTimeProxy\", global.get(\"totalDurationTrue\"));\n}else{\n    global.set(\"totalDurationTrue\", global.get(\"totalDurationTrue\") + currentTime - global.get(\"dLastChangedTimeMac15Prev\")/1000);\n    global.set(\"statusTimeProxy\", global.get(\"totalDurationFalse\"));\n}\nreturn msg;",
+        "func": "var runningStatus = msg.payload;\nvar currentTime = new Date().getTime();\ncurrentTime = currentTime/1000;\nif (runningStatus===true){\n    global.set(\"totalDurationFalseMac15\", global.get(\"totalDurationFalseMac15\") + currentTime - global.get(\"dLastChangedTimeMac15Prev\")/1000);\n    global.set(\"statusTimeProxyMac15\", global.get(\"totalDurationTrueMac15\"));\n}else{\n    global.set(\"totalDurationTrueMac15\", global.get(\"totalDurationTrueMac15\") + currentTime - global.get(\"dLastChangedTimeMac15Prev\")/1000);\n    global.set(\"statusTimeProxyMac15\", global.get(\"totalDurationFalseMac15\"));\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -1378,6 +1427,80 @@
         "info": "El widget principal con un resumen de datos\nde utilidad acerca de la máquina en cuestión.\nlos datos se actualizan con la frecuencia que se\nsoliciten desde el cliente OPC UA.",
         "x": 1640,
         "y": 80,
+        "wires": []
+    },
+    {
+        "id": "8d39eb2f8d2950d1",
+        "type": "postgresql",
+        "z": "f788a78067227a65",
+        "name": "Post Last Cycle",
+        "query": "INSERT INTO aislapol_table (machine_name, cycle, cycle_time, recipe_name)\nVALUES ('{{{ msg.machine_name }}}', {{{ msg.cycle }}}, {{{ msg.cycle_time }}}, '{{{ msg.recipe_name }}}');",
+        "postgreSQLConfig": "a1fb71ced63ef518",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 1860,
+        "y": 580,
+        "wires": [
+            [
+                "64a82e4147f4fd45"
+            ]
+        ]
+    },
+    {
+        "id": "10b690ec7a43c61f",
+        "type": "function",
+        "z": "f788a78067227a65",
+        "name": "DB INSERT Formatting",
+        "func": "var data = msg.payload;\nmsg.machine_name = 'Máquina 15';\nmsg.cycle = data[\"numCycles\"];\nmsg.cycle_time = data[\"lastCycleTime\"];\nmsg.recipe_name = data[\"recipe\"];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1510,
+        "y": 580,
+        "wires": [
+            [
+                "82e8a27928857d05"
+            ]
+        ]
+    },
+    {
+        "id": "82e8a27928857d05",
+        "type": "rbe",
+        "z": "f788a78067227a65",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": false,
+        "property": "cycle",
+        "topi": "topic",
+        "x": 1710,
+        "y": 580,
+        "wires": [
+            [
+                "8d39eb2f8d2950d1"
+            ]
+        ]
+    },
+    {
+        "id": "64a82e4147f4fd45",
+        "type": "debug",
+        "z": "f788a78067227a65",
+        "name": "debug 4",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2020,
+        "y": 580,
         "wires": []
     }
 ]
