@@ -807,9 +807,9 @@
         "port": "465",
         "secure": true,
         "tls": true,
-        "name": "martin.sotomayor.96@gmail.com",
+        "name": "david.sanmartin@styropek.com",
         "dname": "",
-        "x": 2040,
+        "x": 2030,
         "y": 360,
         "wires": []
     },
