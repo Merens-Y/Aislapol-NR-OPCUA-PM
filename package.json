@@ -6,7 +6,6 @@
         "node-red-dashboard": "3.3.1",
         "node-red-contrib-cron-plus": "1.5.7",
         "node-red-contrib-iiot-opcua": "4.1.2",
-        "node-red-contrib-ui-machine-card": "1.0.10",
         "node-red-node-email": "1.18.4",
         "node-red-contrib-ui-led": "0.4.11",
         "node-red-contrib-postgresql": "0.12.0"
