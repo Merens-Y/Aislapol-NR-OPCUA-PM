@@ -8,6 +8,14 @@
         "env": []
     },
     {
+        "id": "74b8f1a92d187465",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "0dfdf1e914c1f5cc",
         "type": "ui_tab",
         "name": "Aislapol Dashboard",
@@ -116,17 +124,6 @@
         }
     },
     {
-        "id": "6d1bf9e97b19ea27",
-        "type": "ui_group",
-        "name": "Máquina 15",
-        "tab": "0dfdf1e914c1f5cc",
-        "order": 1,
-        "disp": false,
-        "width": "8",
-        "collapse": false,
-        "className": ""
-    },
-    {
         "id": "7a2333ce74658d6e",
         "type": "ui_tab",
         "name": "Detalles Máquina 15",
@@ -136,34 +133,12 @@
         "hidden": false
     },
     {
-        "id": "8bda35d4e5cabfb0",
-        "type": "ui_group",
-        "name": "Máquina 16",
-        "tab": "0dfdf1e914c1f5cc",
-        "order": 3,
-        "disp": false,
-        "width": "8",
-        "collapse": false,
-        "className": ""
-    },
-    {
         "id": "cacf42a215e27709",
         "type": "ui_tab",
         "name": "Testing",
         "icon": "dashboard",
         "disabled": false,
         "hidden": false
-    },
-    {
-        "id": "371b2826480241e5",
-        "type": "ui_group",
-        "name": "Testing Group",
-        "tab": "cacf42a215e27709",
-        "order": 1,
-        "disp": true,
-        "width": "10",
-        "collapse": false,
-        "className": ""
     },
     {
         "id": "c29eb2fc36d0810a",
@@ -196,17 +171,6 @@
         "disp": true,
         "width": "8",
         "collapse": true,
-        "className": ""
-    },
-    {
-        "id": "26b6a96fe6e7eef6",
-        "type": "ui_group",
-        "name": "LED",
-        "tab": "7a2333ce74658d6e",
-        "order": 4,
-        "disp": false,
-        "width": "2",
-        "collapse": false,
         "className": ""
     },
     {
@@ -372,7 +336,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 700,
+        "x": 760,
         "y": 460,
         "wires": [
             [
@@ -419,7 +383,7 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 990,
+        "x": 1050,
         "y": 460,
         "wires": [
             []
@@ -444,7 +408,7 @@
         "type": "debug",
         "z": "f788a78067227a65",
         "name": "",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -768,7 +732,7 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 920,
+        "x": 980,
         "y": 520,
         "wires": []
     },
@@ -1421,8 +1385,7 @@
         "y": 340,
         "wires": [
             [
-                "8dcfe0fe921ca3b5",
-                "874d55c6f8006363"
+                "91960a139f015b45"
             ]
         ]
     },
@@ -1442,7 +1405,7 @@
         "y": 460,
         "wires": [
             [
-                "0c8551918bfe32e2"
+                "1412f418dff146fd"
             ]
         ]
     },
@@ -1506,6 +1469,139 @@
         "wires": [
             [
                 "6f43828525797a13"
+            ]
+        ]
+    },
+    {
+        "id": "91960a139f015b45",
+        "type": "link out",
+        "z": "f788a78067227a65",
+        "name": "link out 1",
+        "mode": "link",
+        "links": [],
+        "x": 625,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "1412f418dff146fd",
+        "type": "link out",
+        "z": "f788a78067227a65",
+        "name": "link out 2",
+        "mode": "link",
+        "links": [],
+        "x": 625,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "b64267467f46362d",
+        "type": "uibuilder",
+        "z": "74b8f1a92d187465",
+        "name": "",
+        "topic": "",
+        "url": "uib-test",
+        "fwdInMessages": false,
+        "allowScripts": false,
+        "allowStyles": false,
+        "copyIndex": true,
+        "templateFolder": "vue2-bootstrap",
+        "extTemplate": "",
+        "showfolder": false,
+        "reload": false,
+        "sourceFolder": "src",
+        "deployedVersion": "6.4.1",
+        "showMsgUib": false,
+        "x": 580,
+        "y": 220,
+        "wires": [
+            [
+                "9d99907f36019b0f"
+            ],
+            [
+                "e165daa2b696dac3"
+            ]
+        ]
+    },
+    {
+        "id": "9d99907f36019b0f",
+        "type": "debug",
+        "z": "74b8f1a92d187465",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "b563ebd2e5f73aea",
+        "type": "inject",
+        "z": "74b8f1a92d187465",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "asd",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 220,
+        "wires": [
+            [
+                "066fa977e94456c5"
+            ]
+        ]
+    },
+    {
+        "id": "e165daa2b696dac3",
+        "type": "debug",
+        "z": "74b8f1a92d187465",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "066fa977e94456c5",
+        "type": "function",
+        "z": "74b8f1a92d187465",
+        "name": "function 1",
+        "func": "var exp_obj = {\n    \"material\":\"material1\",\n    \"kilog\": \"60\",\n    \"tiempo\": \"120\",\n    \"densidad\": \"asd\"\n};\nvar exp_obj2 = exp_obj;\n\nvar mold_obj = {\n    \"material\": \"material1\",\n    \"kilog\": \"60\",\n    \"tiempo\": \"120\",\n    \"densidad\": \"asd\"\n};\nvar mold_obj2 = mold_obj;\n\nmsg.payload = [exp_obj, exp_obj2];\nmsg.mold_array = [mold_obj, mold_obj2];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 220,
+        "wires": [
+            [
+                "b64267467f46362d"
             ]
         ]
     }

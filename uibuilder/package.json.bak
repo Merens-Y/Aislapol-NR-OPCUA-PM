@@ -1,8 +1,41 @@
 {
   "name": "uib-root",
   "version": "6.4.1",
-  "dependencies": {},
+  "dependencies": {
+    "bootstrap": "^4.6.1",
+    "bootstrap-vue": "^2.23.1",
+    "vue": "^2.7.14"
+  },
   "uibuilder": {
-    "packages": {}
+    "packages": {
+      "bootstrap": {
+        "installFolder": "\\Users\\auror\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\bootstrap",
+        "installedVersion": "4.6.2",
+        "estimatedEntryPoint": "dist/js/bootstrap.js",
+        "homepage": "https://getbootstrap.com/",
+        "packageUrl": "/bootstrap",
+        "url": "../uibuilder/vendor/bootstrap/dist/js/bootstrap.js",
+        "spec": "^4.6.1"
+      },
+      "bootstrap-vue": {
+        "installFolder": "\\Users\\auror\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\bootstrap-vue",
+        "installedVersion": "2.23.1",
+        "estimatedEntryPoint": "./dist/bootstrap-vue.common.js",
+        "homepage": "https://bootstrap-vue.org",
+        "packageUrl": "/bootstrap-vue",
+        "url": "../uibuilder/vendor/bootstrap-vue/./dist/bootstrap-vue.common.js",
+        "bootstrap": "^4.6.1",
+        "spec": "^2.23.1"
+      },
+      "vue": {
+        "installFolder": "\\Users\\auror\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vue",
+        "installedVersion": "2.7.14",
+        "estimatedEntryPoint": "dist/vue.js",
+        "homepage": "https://github.com/vuejs/vue#readme",
+        "packageUrl": "/vue",
+        "url": "../uibuilder/vendor/vue/dist/vue.js",
+        "spec": "^2.7.14"
+      }
+    }
   }
 }

@@ -1,8 +1,54 @@
 {
   "name": "uib-root",
   "version": "6.4.1",
-  "dependencies": {},
+  "dependencies": {
+    "bootstrap": "^4.6.1",
+    "bootstrap-vue": "^2.23.1",
+    "vue": "^2.7.14"
+  },
   "uibuilder": {
-    "packages": {}
+    "packages": {
+      "bootstrap": {
+        "spec": "^4.6.1",
+        "installFolder": "C:\\Users\\auror\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\bootstrap",
+        "installedVersion": "4.6.2",
+        "estimatedEntryPoint": "?",
+        "homepage": "https://www.npmjs.com/search?q=bootstrap",
+        "packageUrl": "/bootstrap",
+        "url": "../uibuilder/vendor/bootstrap/?",
+        "installedFrom": "npm",
+        "outdated": {
+          "current": "4.6.2",
+          "wanted": "4.6.2",
+          "latest": "5.2.3"
+        }
+      },
+      "bootstrap-vue": {
+        "spec": "^2.23.1",
+        "installFolder": "C:\\Users\\auror\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\bootstrap-vue",
+        "installedVersion": "2.23.1",
+        "estimatedEntryPoint": "?",
+        "homepage": "https://www.npmjs.com/search?q=bootstrap-vue",
+        "packageUrl": "/bootstrap-vue",
+        "url": "../uibuilder/vendor/bootstrap-vue/?",
+        "installedFrom": "npm",
+        "outdated": {}
+      },
+      "vue": {
+        "spec": "^2.7.14",
+        "installFolder": "C:\\Users\\auror\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vue",
+        "installedVersion": "2.7.14",
+        "estimatedEntryPoint": "?",
+        "homepage": "https://www.npmjs.com/search?q=vue",
+        "packageUrl": "/vue",
+        "url": "../uibuilder/vendor/vue/?",
+        "installedFrom": "npm",
+        "outdated": {
+          "current": "2.7.14",
+          "wanted": "2.7.14",
+          "latest": "3.2.47"
+        }
+      }
+    }
   }
 }
