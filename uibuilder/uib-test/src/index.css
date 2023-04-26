@@ -43,6 +43,10 @@
     }
 }
 
+.value-field{
+    background-color: aliceblue
+}
+
 .led.green {
     /* Make the LED green when the boolean value is false */
     background-color: rgb(0, 255, 0);

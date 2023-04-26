@@ -19,6 +19,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
         inputChkBox: false,
         imgProps: { width: 75, height: 75 },
         pre_exp_arr: [{},{}],
+        mold_arr: [{},{}],
 
     } }, // --- End of data --- //
 
@@ -99,12 +100,18 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
 
             // Workaround to show "toast" notifications dynamically. See methods above.
             this.showToast(msg)
-            if (msg.topic) {
+            if (msg.topic === 'pre-expansor') {
                 // $(...) is a uibuilder helper function that selects an HTML element based on a CSS Selector
                 // Use innerHTML if your payload includes additional HTML formatting
+                
                 this.pre_exp_arr = msg.payload;
              }
-            
+            if (msg.topic === 'moldeador') {
+                // $(...) is a uibuilder helper function that selects an HTML element based on a CSS Selector
+                // Use innerHTML if your payload includes additional HTML formatting
+                
+                this.mold_arr = msg.payload;
+            }
         })
 
     }, // --- End of created hook --- //
