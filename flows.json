@@ -1591,7 +1591,7 @@
         "type": "function",
         "z": "74b8f1a92d187465",
         "name": "function 1",
-        "func": "var exp_obj = {\n    \"material\":\"material1\",\n    \"kilog\": \"60\",\n    \"tiempo\": \"120\",\n    \"densidad\": \"asd\"\n};\nvar exp_obj2 = exp_obj;\n\nvar mold_obj = {\n    \"molde\": \"35lbs\",\n    \"ciclos_hora\": \"20\",\n    \"tiempo_ciclo\": \"120\",\n    \"ciclos_total\": \"120\"\n};\nvar mold_obj2 = mold_obj;\n\nmsg.topic = \"pre-expansor\";\nmsg.payload = [exp_obj, exp_obj2];\nmsg2 = JSON.parse(JSON.stringify(msg));\nmsg2.topic = \"moldeador\";\nmsg2.payload = [mold_obj, mold_obj2];\nreturn [msg, msg2];",
+        "func": "let detenido = {\n    \"texto\": \"\",\n    \"led\": \"led red\"\n};\n\nlet deshabilitado = {\n    \"texto\": \"text-secondary\",\n    \"led\": \"led gray\"\n};\n\nlet activo = {\n    \"texto\": \"\",\n    \"led\": \"led green\"\n};\n\nvar exp_obj = {\n    \"material\":\"material 1\",\n    \"kilog\": \"60\",\n    \"tiempo\": \"120\",\n    \"densidad\": \"20000\",\n    \"estado\": detenido\n};\nvar exp_obj2 = {\n    \"material\": \"material 2\",\n    \"kilog\": \"60\",\n    \"tiempo\": \"120\",\n    \"densidad\": \"20000\",\n    \"estado\": deshabilitado\n};\n\nvar mold_obj = {\n    \"molde\": \"35lbs\",\n    \"ciclos_hora\": \"20\",\n    \"tiempo_ciclo\": \"120\",\n    \"ciclos_total\": \"120\"\n};\nvar mold_obj2 = mold_obj;\n\nmsg.topic = \"pre-expansor\";\nmsg.payload = [exp_obj, exp_obj2];\nmsg2 = JSON.parse(JSON.stringify(msg));\nmsg2.topic = \"moldeador\";\nmsg2.payload = [mold_obj, mold_obj2];\nreturn [msg, msg2];",
         "outputs": 2,
         "noerr": 0,
         "initialize": "",

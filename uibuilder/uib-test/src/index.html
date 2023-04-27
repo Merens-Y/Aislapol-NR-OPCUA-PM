@@ -40,9 +40,9 @@
                 <h3 slot="header">Estado de Maquinarias</h3>
                 <div class="row">
                     <div class="card col-sm" v-for="pre_exp in pre_exp_arr">                
-                        <div class="container p-3">
+                        <div class="container p-3" v-bind:class="[pre_exp.estado.texto]">
                             <div class="row">
-                                <p class="col">Pre-Expansor 1</p> <div class="led green col-"></div>
+                                <p class="col">Pre-Expansor 1</p> <div class="col-" v-bind:class="[pre_exp.estado.led]"></div>
                             </div>
                             <div class="row">
                                 <div class="col-sm"><p><b>Material:</b></p></div>
@@ -94,8 +94,7 @@
                         </div>
                     </div>
                 </div>
-            </b-card>
-            
+            </b-card>            
         </b-container>
     </div>
 

@@ -29,7 +29,21 @@
 .syntax-highlight > .undefined {color:#ff93c9;}
 /*#endregion */
 
-@-webkit-keyframes pulse {
+@-webkit-keyframes pulsered {
+    0% {
+        box-shadow: 0 0 8px rgb(255, 0, 0), inset 0 0 8px rgb(255, 0, 0);
+    }
+
+    50% {
+        box-shadow: 0 0 16px rgb(255, 0, 0), inset 0 0 14px rgb(255, 0, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 8px rgb(255, 0, 0), inset 0 0 8px rgb(255, 0, 0);
+    }
+}
+
+@-webkit-keyframes pulsegreen {
     0% {
         box-shadow: 0 0 8px rgb(0, 255, 0), inset 0 0 8px rgb(0, 255, 0);
     }
@@ -43,7 +57,7 @@
     }
 }
 
-.value-field{
+.col-sm.value-field{
     background-color: aliceblue
 }
 
@@ -52,7 +66,7 @@
     background-color: rgb(0, 255, 0);
     align-self: right;
     box-shadow: 0 0 8px rgb(0, 255, 0), inset 0 0 8px rgb(0, 255, 0);
-    -webkit-animation: pulse 1s linear 0.5s infinite;
+    -webkit-animation: pulsegreen 1s linear 0.5s infinite;
     border: 0px solid rgba(0, 0, 0, 0.164);
     border-radius: 0%;
     width: 16px;
@@ -62,6 +76,34 @@
     align-self: right;
 }
 
+.led.red {
+    /* Make the LED green when the boolean value is false */
+    background-color: rgb(255, 0, 0);
+    align-self: right;
+    box-shadow: 0 0 8px rgb(255, 0, 0), inset 0 0 8px rgb(255, 0, 0);
+    -webkit-animation: pulsered 1s linear 0.5s infinite;
+    border: 0px solid rgba(0, 0, 0, 0.164);
+    border-radius: 0%;
+    width: 16px;
+    height: 16px;
+    margin: 8px;
+    padding: 8px;
+    align-self: right;
+}
+
+.led.gray {
+    /* Make the LED green when the boolean value is false */
+    background-color: rgb(128, 128, 128);
+    align-self: right;
+    box-shadow: 0 0 8px rgb(128, 128, 128);
+    border: 0px solid rgba(0, 0, 0, 0.164);
+    border-radius: 0%;
+    width: 16px;
+    height: 16px;
+    margin: 8px;
+    padding: 8px;
+    align-self: right;
+}
 
 /* Hide toasts if bootstrap-vue not loaded for some reason */
 .toaster { display: none; }
