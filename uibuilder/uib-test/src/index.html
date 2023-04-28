@@ -71,7 +71,7 @@
                     </div>
                     <div class="card col-md" v-for="mold in mold_arr" v-bind:class="[mold.estado.texto]">
                         <div class="row">
-                            <p class="col">Moldeador 1</p> <div class="led green col-"></div>
+                            <p class="col">Moldeador {{mold.numero}}</p> <div class="col-" v-bind:class="[mold.estado.led]"></div>
                             <div class="w-100"></div>
                             <div class="col-sm"><p><b>Molde:</b></p></div>
                             <div class="col-md value-field text-center">{{mold.molde}}</div>
