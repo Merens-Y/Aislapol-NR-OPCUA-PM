@@ -1512,14 +1512,15 @@
         "sourceFolder": "src",
         "deployedVersion": "6.4.1",
         "showMsgUib": false,
-        "x": 580,
-        "y": 220,
+        "x": 840,
+        "y": 160,
         "wires": [
             [
                 "9d99907f36019b0f"
             ],
             [
-                "e165daa2b696dac3"
+                "e165daa2b696dac3",
+                "fc56cb4e52c7f4b2"
             ]
         ]
     },
@@ -1528,7 +1529,7 @@
         "type": "debug",
         "z": "74b8f1a92d187465",
         "name": "debug 5",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1536,8 +1537,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 780,
-        "y": 200,
+        "x": 1020,
+        "y": 140,
         "wires": []
     },
     {
@@ -1554,7 +1555,7 @@
                 "vt": "str"
             }
         ],
-        "repeat": "2",
+        "repeat": "",
         "crontab": "",
         "once": true,
         "onceDelay": "0.5",
@@ -1574,7 +1575,7 @@
         "type": "debug",
         "z": "74b8f1a92d187465",
         "name": "debug 6",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1582,8 +1583,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 780,
-        "y": 240,
+        "x": 1020,
+        "y": 180,
         "wires": []
     },
     {
@@ -1601,11 +1602,49 @@
         "y": 220,
         "wires": [
             [
-                "b64267467f46362d"
+                "fc56cb4e52c7f4b2"
             ],
             [
-                "b64267467f46362d"
+                "fc56cb4e52c7f4b2"
             ]
         ]
+    },
+    {
+        "id": "fc56cb4e52c7f4b2",
+        "type": "uib-cache",
+        "z": "74b8f1a92d187465",
+        "cacheall": false,
+        "cacheKey": "topic",
+        "newcache": false,
+        "num": 1,
+        "storeName": "memory",
+        "name": "",
+        "storeContext": "context",
+        "varName": "uib_cache",
+        "x": 590,
+        "y": 220,
+        "wires": [
+            [
+                "b64267467f46362d",
+                "317838c5806f733a"
+            ]
+        ]
+    },
+    {
+        "id": "317838c5806f733a",
+        "type": "debug",
+        "z": "74b8f1a92d187465",
+        "name": "debug 7",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 340,
+        "wires": []
     }
 ]

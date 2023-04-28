@@ -37,6 +37,7 @@
             <div id="more"><!-- '#more' is used as a parent for dynamic content in examples --></div>
             
             <b-card>
+                <div>{{ cacheReplay() }}</div>
                 <h3 slot="header">Estado de Maquinarias</h3>
                 <div class="row">
                     <div class="card col-lg" v-for="pre_exp in pre_exp_arr" v-bind:class="[pre_exp.estado.texto]">

@@ -24,6 +24,9 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
     } }, // --- End of data --- //
 
     methods: {
+        cacheReplay: function(){
+            uibuilder.send({payload: "Hi there from the client", topic: "from the client", cacheControl: "REPLAY"});
+        },
 
         // Called from the increment button - sends a msg to Node-RED
         increment: function(event) {
