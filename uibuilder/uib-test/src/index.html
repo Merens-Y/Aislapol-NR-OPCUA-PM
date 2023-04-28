@@ -39,58 +39,51 @@
             <b-card>
                 <h3 slot="header">Estado de Maquinarias</h3>
                 <div class="row">
-                    <div class="card col-sm" v-for="pre_exp in pre_exp_arr">                
-                        <div class="container p-3" v-bind:class="[pre_exp.estado.texto]">
+                    <div class="card col-lg" v-for="pre_exp in pre_exp_arr" v-bind:class="[pre_exp.estado.texto]">
                             <div class="row">
-                                <p class="col">Pre-Expansor 1</p> <div class="col-" v-bind:class="[pre_exp.estado.led]"></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm"><p><b>Material:</b></p></div>
-                                <div class="col-"></div>
-                                <div class="col-sm value-field text-center">{{pre_exp.material}}</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm"><p><b>Kg Procesados:</b></p></div>
-                                <div class="col-"></div>
-                                <div class="col-sm value-field text-center">{{pre_exp.kilog}}</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm"><p><b>Tiempo:</b></p></div>
-                                <div class="col-"></div>
-                                <div class="col-sm value-field text-center">{{pre_exp.tiempo}}</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm"><p><b>Densidad:</b></p></div>
-                                <div class="col-"></div>
-                                <div class="col-sm value-field text-center">{{pre_exp.densidad}}</div>
-                            </div>                                    
-                        </div>
+                                <p class="col">Pre-Expansor {{pre_exp.numero}}</p> <div class="col-" v-bind:class="[pre_exp.estado.led]"></div>
+                                <div class="w-100"></div>
+                                <div class="col-sm"><p><b>Material:</b></p></div>                                
+                                <div class="col-md value-field text-center">{{pre_exp.material}}</div>
+                                <div class="w-100"></div>
+                                <div class="col-sm"><p><b>Kg Procesados:</b></p></div>                                
+                                <div class="col-md value-field text-center">{{pre_exp.kilog}}</div>
+                                <div class="w-100"></div>
+                                <div class="col-sm"><p><b>Kg Procesados:</b></p></div>                                
+                                <div class="col-md value-field text-center">{{pre_exp.kilog}}</div>
+                                <div class="w-100"></div>
+                                <div class="col-sm"><p><b>Tiempo:</b></p></div>                                
+                                <div class="col-md value-field text-center">{{pre_exp.tiempo}}</div>
+                                <div class="w-100"></div>
+                                <div class="col-sm"><p><b>Densidad:</b></p></div>                                
+                                <b-col class="col-md value-field text-center">
+                                    <b-row class="no-gutters">
+                                        <div class="col">{{pre_exp.densidad.min}}<br>min</div>
+                                        <div class="col value-field">{{pre_exp.densidad.avg}}<br>prom</div>
+                                        <div class="col value-field">{{pre_exp.densidad.max}}<br>max</div>
+                                    </b-row>
+                                    
+                                </b-col>
+                                <div class="w-100"></div>
+                                <b-col class="p-3"></b-col> 
+                            </div>                                                             
+                        
                     </div>
-                    <div class="card col-sm" v-for="mold in mold_arr">                
-                        <div class="container p-3">
-                            <div class="row">
-                                <p class="col">Moldeador 1</p> <div class="led green col-"></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm"><p><b>Molde:</b></p></div>
-                                <div class="col-"></div>
-                                <div class="col-sm value-field text-center">{{mold.molde}}</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm"><p><b>Ciclos por Hora:</b></p></div>
-                                <div class="col-"></div>
-                                <div class="col-sm value-field text-center">{{mold.ciclos_hora}}</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm"><p><b>Tiempo de Ciclo:</b></p></div>
-                                <div class="col-"></div>
-                                <div class="col-sm value-field text-center">{{mold.tiempo_ciclo}}</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm"><p><b>Total de ciclos:</b></p></div>
-                                <div class="col-"></div>
-                                <div class="col-sm value-field text-center">{{mold.ciclos_total}}</div>
-                            </div>                                    
+                    <div class="card col-md" v-for="mold in mold_arr" v-bind:class="[mold.estado.texto]">
+                        <div class="row">
+                            <p class="col">Moldeador 1</p> <div class="led green col-"></div>
+                            <div class="w-100"></div>
+                            <div class="col-sm"><p><b>Molde:</b></p></div>
+                            <div class="col-md value-field text-center">{{mold.molde}}</div>
+                            <div class="w-100"></div>
+                            <div class="col-sm"><p><b>Ciclos por Hora:</b></p></div>
+                            <div class="col-md value-field text-center">{{mold.ciclos_hora}}</div>
+                            <div class="w-100"></div>
+                            <div class="col-sm"><p><b>Tiempo de Ciclo:</b></p></div>
+                            <div class="col-md value-field text-center">{{mold.tiempo_ciclo}}</div>
+                            <div class="w-100"></div>
+                            <div class="col-sm"><p><b>Total de ciclos:</b></p></div>
+                            <div class="col-md value-field text-center">{{mold.ciclos_total}}</div>                                                       
                         </div>
                     </div>
                 </div>
