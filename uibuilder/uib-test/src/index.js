@@ -35,12 +35,49 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
         imgProps: { width: 75, height: 75 },
         pre_exp_arr: [{},{}],
         mold_arr: [{},{}],
+        showMachines: false,
+        showDatabase: false,
+        showMonitor: false,
+        showHomepage: true,
+        tableData: [
+            { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
+            { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
+            { age: 89, first_name: 'Geneva', last_name: 'Wilson' },
+            { age: 38, first_name: 'Jami', last_name: 'Carney' }
+        ],
 
     } }, // --- End of data --- //
 
     methods: {
         cacheReplay: function(){
             uibuilder.send({payload: "Hi there from the client", topic: "from the client", cacheControl: "REPLAY"});
+        },
+
+        toggleMachines: function(){
+            if(this.showMachines===false){
+                this.showMachines = true;
+                this.showHomepage = false;
+                this.showDatabase = false;
+                this.showMonitor = false;
+            }
+        },
+
+        toggleDatabase: function(){
+            if(this.showDatabase===false){
+                this.showMachines = false;
+                this.showHomepage = false;
+                this.showDatabase = true;
+                this.showMonitor = false;
+            }
+        },
+
+        toggleMonitor: function(){
+            if(this.showMonitor===false){
+                this.showMachines = false;
+                this.showHomepage = false;
+                this.showDatabase = false;
+                this.showMonitor = true;
+            }
         },
 
         // Called from the increment button - sends a msg to Node-RED
