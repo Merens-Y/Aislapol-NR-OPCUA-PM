@@ -24,6 +24,14 @@
         "env": []
     },
     {
+        "id": "a2bc427f0d400003",
+        "type": "tab",
+        "label": "Flow 4",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "20ae1e52d1eef983",
         "type": "postgreSQLConfig",
         "name": "myuser@timescale:5432/iot",
@@ -6184,12 +6192,13 @@
         "z": "896deee050f2a95b",
         "name": "",
         "filename": "./registeredUsers.json",
+        "filenameType": "str",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
         "encoding": "utf8",
         "allProps": false,
-        "x": 4120,
+        "x": 4160,
         "y": 220,
         "wires": [
             [
@@ -6623,14 +6632,14 @@
         "type": "file in",
         "z": "896deee050f2a95b",
         "name": "",
-        "filename": "./permittedRoles.txt",
+        "filename": ".\\\\permittedRoles.txt",
         "filenameType": "str",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
         "encoding": "utf8",
         "allProps": false,
-        "x": 4150,
+        "x": 4160,
         "y": 940,
         "wires": [
             [
@@ -6697,12 +6706,13 @@
         "type": "file",
         "z": "896deee050f2a95b",
         "name": "",
-        "filename": "./permittedRoles.txt",
+        "filename": ".\\\\permittedRoles.txt",
+        "filenameType": "str",
         "appendNewline": false,
         "createDir": false,
         "overwriteFile": "true",
         "encoding": "utf8",
-        "x": 4380,
+        "x": 4420,
         "y": 1120,
         "wires": [
             [
@@ -6988,12 +6998,13 @@
         "z": "896deee050f2a95b",
         "name": "",
         "filename": "./permittedUsers.txt",
+        "filenameType": "str",
         "format": "utf8",
         "chunk": false,
         "sendError": false,
         "encoding": "utf8",
         "allProps": false,
-        "x": 4120,
+        "x": 4150,
         "y": 1400,
         "wires": [
             [
@@ -7316,5 +7327,67 @@
         "x": 420,
         "y": 280,
         "wires": []
+    },
+    {
+        "id": "5579cf58a5519539",
+        "type": "catch",
+        "z": "896deee050f2a95b",
+        "name": "",
+        "scope": [
+            "dc23e26718c3e585",
+            "c8e7e8beaaf52545",
+            "bd22fc2db0fee1bb",
+            "6ee09e92f96203d0"
+        ],
+        "uncaught": false,
+        "x": 4450,
+        "y": 580,
+        "wires": [
+            [
+                "fa55290fb6ab03af"
+            ]
+        ]
+    },
+    {
+        "id": "fa55290fb6ab03af",
+        "type": "debug",
+        "z": "896deee050f2a95b",
+        "name": "Mail Debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 4630,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "f8e046acd9bd6085",
+        "type": "uibuilder",
+        "z": "a2bc427f0d400003",
+        "name": "Login Page",
+        "topic": "",
+        "url": "login",
+        "fwdInMessages": false,
+        "allowScripts": false,
+        "allowStyles": false,
+        "copyIndex": true,
+        "templateFolder": "blank",
+        "extTemplate": "",
+        "showfolder": false,
+        "reload": false,
+        "sourceFolder": "src",
+        "deployedVersion": "6.4.1",
+        "showMsgUib": false,
+        "x": 430,
+        "y": 160,
+        "wires": [
+            [],
+            []
+        ]
     }
 ]

@@ -1,4 +1,0 @@
-node-red@mail.de    node-red user-admin
-node-green@mail.de
-node-blue@mail.de
-marsotomayor@udec.cl    node-red
