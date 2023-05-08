@@ -302,74 +302,46 @@
                     <div role="doc-subtitle">Control Supervisor y Adquisición de Datos.</div>
                 </div>
                 <div class="w-100"></div>
-                <p>
-                    Ver <a href="https://vuejs.org/">Referencia de Interfaz</a> para interpretar los valores.
-                </p>
-            </div>
-            <button class="p-3" @click="toggleMachines">Estado de Maquinarias</button>
-            <button class="p-3" @click="toggleDatabase">Base de Datos</button>
-            <button class="p-3" @click="toggleMonitor">Monitor de Variables productivas</button>
-            <b-card v-if="showMachines">
-                <div>{{ cacheReplay() }}</div>
-                <h3 slot="header">Estado de Maquinarias</h3>
-                <div class="row">
-                    <div class="card col-lg" v-for="pre_exp in pre_exp_arr" v-bind:class="[pre_exp.estado.texto]">
+                <div fluid class="col-lg">
+                    <b-container fluid class="d-flex">
+                        <b-form @submit="onSubmit" v-if="showLogin">
+                            <b-form-group id="emailGroup" label="Dirección de correo:" label-for="emailInput"
+                                          :state="emailState"
+                                          :invalid-feedback="emailFeedback">
+                              <b-form-input id="emailInput" v-model="email" type="email" required
+                                            @input="validateEmail"></b-form-input>
+                            </b-form-group>
+                      
+                            <b-form-group id="passwordGroup" label="Contraseña:" label-for="passwordInput"
+                                          :state="passwordState"
+                                          :invalid-feedback="passwordFeedback">
+                              <b-form-input id="passwordInput" v-model="password" type="password" required></b-form-input>
+                            </b-form-group>
                             <div class="row">
-                                <p class="col">Pre-Expansor {{pre_exp.numero}}</p> <div class="col-" v-bind:class="[pre_exp.estado.led]"></div>
-                                <div class="w-100"></div>
-                                <div class="col-sm"><p><b>Material:</b></p></div>                                
-                                <div class="col-md value-field text-center">{{pre_exp.material}}</div>
-                                <div class="w-100"></div>
-                                <div class="col-sm"><p><b>Kg Procesados:</b></p></div>                                
-                                <div class="col-md value-field text-center">{{pre_exp.kilog}}</div>
-                                <div class="w-100"></div>
-                                <div class="col-sm"><p><b>Kg Procesados:</b></p></div>                                
-                                <div class="col-md value-field text-center">{{pre_exp.kilog}}</div>
-                                <div class="w-100"></div>
-                                <div class="col-sm"><p><b>Tiempo:</b></p></div>                                
-                                <div class="col-md value-field text-center">{{pre_exp.tiempo}}</div>
-                                <div class="w-100"></div>
-                                <div class="col-sm"><p><b>Densidad:</b></p></div>                                
-                                <b-col class="col-md value-field text-center">
-                                    <b-row class="no-gutters">
-                                        <div class="col">{{pre_exp.densidad.min}}<br>min</div>
-                                        <div class="col value-field">{{pre_exp.densidad.avg}}<br>prom</div>
-                                        <div class="col value-field">{{pre_exp.densidad.max}}<br>max</div>
-                                    </b-row>
-                                    
-                                </b-col>
-                                <div class="w-100"></div>
-                                <b-col class="p-3"></b-col> 
-                            </div>                                                             
-                        
-                    </div>
-                    <div class="card col-md" v-for="mold in mold_arr" v-bind:class="[mold.estado.texto]">
-                        <div class="row">
-                            <p class="col">Moldeador {{mold.numero}}</p> <div class="col-" v-bind:class="[mold.estado.led]"></div>
-                            <div class="w-100"></div>
-                            <div class="col-sm"><p><b>Molde:</b></p></div>
-                            <div class="col-md value-field text-center">{{mold.molde}}</div>
-                            <div class="w-100"></div>
-                            <div class="col-sm"><p><b>Ciclos por Hora:</b></p></div>
-                            <div class="col-md value-field text-center">{{mold.ciclos_hora}}</div>
-                            <div class="w-100"></div>
-                            <div class="col-sm"><p><b>Tiempo de Ciclo:</b></p></div>
-                            <div class="col-md value-field text-center">{{mold.tiempo_ciclo}}</div>
-                            <div class="w-100"></div>
-                            <div class="col-sm"><p><b>Total de ciclos:</b></p></div>
-                            <div class="col-md value-field text-center">{{mold.ciclos_total}}</div>                                                       
-                        </div>
-                    </div>
+                              <b-button type="submit" variant="primary" :disabled="!isFormValid">Ingresar</b-button>
+                              <div class="p-1">o</div>
+                              <b-button variant="secondary" @click="toggleRegister">Registrar</b-button>
+                            </div>                      
+                          </b-form>
+                    </b-container>
+                    <b-container fluid class="d-flex">
+                        <b-form v-if="showRegister">
+                            <b-form-group id="emailGroup" label="Dirección de correo:" label-for="emailInput"
+                                          :state="emailState"
+                                          :invalid-feedback="emailFeedback">
+                              <b-form-input id="emailInput" v-model="email" type="email" required
+                                            @input="validateEmail"></b-form-input>
+                            </b-form-group>
+                            <div class="row">
+                              <b-button @click="register" variant="primary" :disabled="!isEmailValid">Registrar</b-button>
+                              <div class="p-1">o</div>
+                              <b-button variant="secondary" @click="toggleLogin">Iniciar Sesión</b-button>
+                            </div>                      
+                          </b-form>
+                    </b-container>
                 </div>
-            </b-card>
-            <b-card v-if="showDatabase">
-                <h3 slot="header">Base de Datos</h3>
-                <b-form-input id="type-search" placeholder="Ingresar Query"></b-form-input>
-                <b-table striped hover :items="tableData"></b-table>
-            </b-card>
-            <b-card v-if="showMonitor">
-                <h3 slot="header">Monitor de Variables Productivas</h3>
-            </b-card>
+            </div>
+            
         </b-container>
     </div>
 

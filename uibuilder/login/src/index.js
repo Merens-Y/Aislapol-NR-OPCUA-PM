@@ -29,67 +29,65 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
     data() { return {
         // Add reactive data variables here
 
-        counterBtn: 0,
-        inputText: null,
-        inputChkBox: false,
-        imgProps: { width: 75, height: 75 },
-        pre_exp_arr: [{},{}],
-        mold_arr: [{},{}],
-        showMachines: false,
-        showDatabase: false,
-        showMonitor: false,
-        showHomepage: true,
-        tableData: [
-            { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-            { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-            { age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-            { age: 38, first_name: 'Jami', last_name: 'Carney' }
-        ],
+        showLogin: true,
+        showRegister: false,
+        email: '',
+        emailState: null,
+        emailFeedback: 'Ingresa una dirección de correo válida',
+        password: '',
+        passwordState: null,
+        passwordFeedback: 'Ingresa una contraseña válida',
 
     } }, // --- End of data --- //
+
+    computed: {
+        isEmailValid() {
+            return this.emailState === true
+        },
+
+        isPasswordValid() {
+            return this.passwordState === true
+        },
+
+        isFormValid() {
+            return this.isEmailValid && this.isPasswordValid
+        },
+    },
 
     methods: {
         cacheReplay: function(){
             uibuilder.send({payload: "Hi there from the client", topic: "from the client", cacheControl: "REPLAY"});
         },
 
-        toggleMachines: function(){
-            if(this.showMachines===false){
-                this.showMachines = true;
-                this.showHomepage = false;
-                this.showDatabase = false;
-                this.showMonitor = false;
+        toggleRegister() {
+            if(this.showRegister===false){
+                this.showRegister=true;
+                this.showLogin=false;
             }
         },
 
-        toggleDatabase: function(){
-            if(this.showDatabase===false){
-                this.showMachines = false;
-                this.showHomepage = false;
-                this.showDatabase = true;
-                this.showMonitor = false;
+        toggleLogin() {
+            if(this.showLogin===false){
+                this.showRegister=false;
+                this.showLogin=true;
             }
         },
 
-        toggleMonitor: function(){
-            if(this.showMonitor===false){
-                this.showMachines = false;
-                this.showHomepage = false;
-                this.showDatabase = false;
-                this.showMonitor = true;
-            }
+        onSubmit() {
+            // send http request to login
+          },
+
+        register() {
+        // send http request to register
         },
 
-        // Called from the increment button - sends a msg to Node-RED
-        increment: function(event) {
-            console.log('Button Pressed. Event Data: ', event)
+        validateEmail() {
+        this.emailState = this.email.match(/^.+@.+\..+$/i) !== null
+        },
 
-            // Increment the count by one
-            this.counterBtn += 1
-            // const topic = this.msgRecvd.topic || 'uibuilder/vue'
-            uibuilder.eventSend(event)
-
-        }, // --- End of increment --- //
+        validatePassword() {
+            this.passwordState = this.password.length >= 12
+        },
 
         // REALLY Simple method to return DOM events back to Node-RED.
         doEvent: (event) => uibuilder.eventSend(event),
