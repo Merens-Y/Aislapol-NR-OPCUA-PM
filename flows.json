@@ -7376,7 +7376,7 @@
         "allowScripts": false,
         "allowStyles": false,
         "copyIndex": true,
-        "templateFolder": "blank",
+        "templateFolder": "vue2-bootstrap",
         "extTemplate": "",
         "showfolder": false,
         "reload": false,
