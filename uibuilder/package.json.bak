@@ -12,53 +12,74 @@
     "packages": {
       "bootstrap": {
         "spec": "^4.6.1",
-        "installFolder": "C:\\Users\\aislapol\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\bootstrap",
+        "installFolder": "\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\bootstrap",
         "installedVersion": "4.6.2",
         "estimatedEntryPoint": "?",
         "homepage": "https://www.npmjs.com/search?q=bootstrap",
         "packageUrl": "/bootstrap",
         "url": "../uibuilder/vendor/bootstrap/?",
-        "installedFrom": "npm"
+        "installedFrom": "npm",
+        "outdated": {
+          "current": "4.6.2",
+          "wanted": "4.6.2",
+          "latest": "5.2.3"
+        }
       },
       "bootstrap-vue": {
         "spec": "^2.23.1",
-        "installFolder": "C:\\Users\\aislapol\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\bootstrap-vue",
+        "installFolder": "\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\bootstrap-vue",
         "installedVersion": "2.23.1",
         "estimatedEntryPoint": "?",
         "homepage": "https://www.npmjs.com/search?q=bootstrap-vue",
         "packageUrl": "/bootstrap-vue",
         "url": "../uibuilder/vendor/bootstrap-vue/?",
-        "installedFrom": "npm"
+        "installedFrom": "npm",
+        "outdated": {}
       },
       "vue": {
         "spec": "^2.7.14",
-        "installFolder": "C:\\Users\\aislapol\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vue",
+        "installFolder": "\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vue",
         "installedVersion": "2.7.14",
         "estimatedEntryPoint": "?",
         "homepage": "https://www.npmjs.com/search?q=vue",
         "packageUrl": "/vue",
         "url": "../uibuilder/vendor/vue/?",
-        "installedFrom": "npm"
+        "installedFrom": "npm",
+        "outdated": {
+          "current": "2.7.14",
+          "wanted": "2.7.14",
+          "latest": "3.2.47"
+        }
       },
       "vue-router": {
         "spec": "^3.6.5",
-        "installFolder": "C:\\Users\\aislapol\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vue-router",
+        "installFolder": "\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vue-router",
         "installedVersion": "3.6.5",
         "estimatedEntryPoint": "?",
         "homepage": "https://www.npmjs.com/search?q=vue-router",
         "packageUrl": "/vue-router",
         "url": "../uibuilder/vendor/vue-router/?",
-        "installedFrom": "npm"
+        "installedFrom": "npm",
+        "outdated": {
+          "current": "3.6.5",
+          "wanted": "3.6.5",
+          "latest": "4.1.6"
+        }
       },
       "vuex": {
         "spec": "^3.6.2",
-        "installFolder": "C:\\Users\\aislapol\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vuex",
+        "installFolder": "\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vuex",
         "installedVersion": "3.6.2",
         "estimatedEntryPoint": "?",
         "homepage": "https://www.npmjs.com/search?q=vuex",
         "packageUrl": "/vuex",
         "url": "../uibuilder/vendor/vuex/?",
-        "installedFrom": "npm"
+        "installedFrom": "npm",
+        "outdated": {
+          "current": "3.6.2",
+          "wanted": "3.6.2",
+          "latest": "4.1.0"
+        }
       }
     }
   }
