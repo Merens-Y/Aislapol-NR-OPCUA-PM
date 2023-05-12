@@ -12,74 +12,53 @@
     "packages": {
       "bootstrap": {
         "spec": "^4.6.1",
-        "installFolder": "\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\bootstrap",
+        "installFolder": "C:\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\bootstrap",
         "installedVersion": "4.6.2",
-        "estimatedEntryPoint": "?",
-        "homepage": "https://www.npmjs.com/search?q=bootstrap",
+        "estimatedEntryPoint": "dist/js/bootstrap.js",
+        "homepage": "https://getbootstrap.com/",
         "packageUrl": "/bootstrap",
-        "url": "../uibuilder/vendor/bootstrap/?",
-        "installedFrom": "npm",
-        "outdated": {
-          "current": "4.6.2",
-          "wanted": "4.6.2",
-          "latest": "5.2.3"
-        }
+        "url": "../uibuilder/vendor/bootstrap/dist/js/bootstrap.js",
+        "installedFrom": "npm"
       },
       "bootstrap-vue": {
         "spec": "^2.23.1",
-        "installFolder": "\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\bootstrap-vue",
+        "installFolder": "C:\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\bootstrap-vue",
         "installedVersion": "2.23.1",
-        "estimatedEntryPoint": "?",
-        "homepage": "https://www.npmjs.com/search?q=bootstrap-vue",
+        "estimatedEntryPoint": "./dist/bootstrap-vue.common.js",
+        "homepage": "https://bootstrap-vue.org",
         "packageUrl": "/bootstrap-vue",
-        "url": "../uibuilder/vendor/bootstrap-vue/?",
-        "installedFrom": "npm",
-        "outdated": {}
+        "url": "../uibuilder/vendor/bootstrap-vue/./dist/bootstrap-vue.common.js",
+        "installedFrom": "npm"
       },
       "vue": {
         "spec": "^2.7.14",
-        "installFolder": "\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vue",
+        "installFolder": "C:\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vue",
         "installedVersion": "2.7.14",
-        "estimatedEntryPoint": "?",
-        "homepage": "https://www.npmjs.com/search?q=vue",
+        "estimatedEntryPoint": "dist/vue.js",
+        "homepage": "https://github.com/vuejs/vue#readme",
         "packageUrl": "/vue",
-        "url": "../uibuilder/vendor/vue/?",
-        "installedFrom": "npm",
-        "outdated": {
-          "current": "2.7.14",
-          "wanted": "2.7.14",
-          "latest": "3.2.47"
-        }
+        "url": "../uibuilder/vendor/vue/dist/vue.js",
+        "installedFrom": "npm"
       },
       "vue-router": {
         "spec": "^3.6.5",
-        "installFolder": "\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vue-router",
+        "installFolder": "C:\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vue-router",
         "installedVersion": "3.6.5",
-        "estimatedEntryPoint": "?",
-        "homepage": "https://www.npmjs.com/search?q=vue-router",
+        "estimatedEntryPoint": "dist/vue-router.js",
+        "homepage": "https://github.com/vuejs/vue-router#readme",
         "packageUrl": "/vue-router",
-        "url": "../uibuilder/vendor/vue-router/?",
-        "installedFrom": "npm",
-        "outdated": {
-          "current": "3.6.5",
-          "wanted": "3.6.5",
-          "latest": "4.1.6"
-        }
+        "url": "../uibuilder/vendor/vue-router/dist/vue-router.js",
+        "installedFrom": "npm"
       },
       "vuex": {
         "spec": "^3.6.2",
-        "installFolder": "\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vuex",
+        "installFolder": "C:\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vuex",
         "installedVersion": "3.6.2",
-        "estimatedEntryPoint": "?",
-        "homepage": "https://www.npmjs.com/search?q=vuex",
+        "estimatedEntryPoint": "dist/vuex.js",
+        "homepage": "https://github.com/vuejs/vuex#readme",
         "packageUrl": "/vuex",
-        "url": "../uibuilder/vendor/vuex/?",
-        "installedFrom": "npm",
-        "outdated": {
-          "current": "3.6.2",
-          "wanted": "3.6.2",
-          "latest": "4.1.0"
-        }
+        "url": "../uibuilder/vendor/vuex/dist/vuex.js",
+        "installedFrom": "npm"
       }
     }
   }
