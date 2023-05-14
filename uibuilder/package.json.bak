@@ -5,6 +5,7 @@
     "axios": "^0.2.2",
     "bootstrap": "^4.6.1",
     "bootstrap-vue": "^2.23.1",
+    "http-vue-loader": "^1.4.2",
     "vue": "^2.7.14",
     "vue-router": "^3.6.5",
     "vuex": "^3.6.2"
@@ -38,6 +39,15 @@
         "url": "../uibuilder/vendor/bootstrap-vue/./dist/bootstrap-vue.common.js",
         "bootstrap": "^4.6.1",
         "spec": "^2.23.1"
+      },
+      "http-vue-loader": {
+        "installFolder": "\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\http-vue-loader",
+        "installedVersion": "1.4.2",
+        "estimatedEntryPoint": "./src/httpVueLoader.js",
+        "homepage": "https://github.com/FranckFreiburger/http-vue-loader#readme",
+        "packageUrl": "/http-vue-loader",
+        "url": "../uibuilder/vendor/http-vue-loader/./src/httpVueLoader.js",
+        "spec": "^1.4.2"
       },
       "vue": {
         "installFolder": "\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vue",

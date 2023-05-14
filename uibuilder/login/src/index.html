@@ -15,10 +15,10 @@
     <!-- #endregion -->
 
     <!-- #region Supporting Scripts. These MUST be in the right order. Note no leading / - socket.io no longer needed -->
+    <script defer src="../uibuilder/vendor/axios/dist/axios.min.js"></script>
     <script defer src="../uibuilder/vendor/vue/dist/vue.min.js">/* prod version with component compiler */</script>
     <script defer src="../uibuilder/vendor/bootstrap-vue/dist/bootstrap-vue.min.js">/* remove 'min.' to use dev version */</script>
     <script defer src="../uibuilder/uibuilder.iife.min.js"></script>
-    <script defer src="../uibuilder/vendor/axios/index.js"></script>
     <script defer src="./index.js">/* OPTIONAL: Put your custom code in that */</script>
     <!-- #endregion -->
     
@@ -321,12 +321,12 @@
                             <div class="row">
                               <b-button type="submit" variant="primary" :disabled="!isFormValid">Ingresar</b-button>
                               <div class="p-1">o</div>
-                              <b-button variant="secondary" @click="toggleRegister">Registrar</b-button>
+                              <b-button variant="secondary" @click="toggleBehaviour">Registrar</b-button>
                             </div>                      
                           </b-form>
                     </b-container>
                     <b-container fluid class="d-flex">
-                        <b-form v-if="showRegister">
+                        <b-form @submit.prevent="onRegister" v-if="showRegister">
                             <b-form-group id="emailGroup" label="Dirección de correo:" label-for="emailInput"
                                           :state="emailState"
                                           :invalid-feedback="emailFeedback">
@@ -334,9 +334,9 @@
                                             @input="validateEmail"></b-form-input>
                             </b-form-group>
                             <div class="row">
-                              <b-button @click="register" variant="primary" :disabled="!isEmailValid">Registrar</b-button>
+                              <b-button variant="primary" :disabled="!isEmailValid" type="submit">Registrar</b-button>
                               <div class="p-1">o</div>
-                              <b-button variant="secondary" @click="toggleLogin">Iniciar Sesión</b-button>
+                              <b-button variant="secondary" @click="toggleBehaviour">Iniciar Sesión</b-button>
                             </div>                      
                           </b-form>
                     </b-container>

@@ -1,21 +1,25 @@
-import axios from 'axios';
+// @ts-nocheck
 
 // export default for axios, that way we can use it elsewhere. we set the entry point below as: 'http://127.0.0.1:1880/'
-export default {
-    methods: {
-      fetchData() {
-        axios.get('/api/data')
-          .then(response => {
-            console.log(response.data);
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      },
-    },
-  };
+// export default {
+//     methods: {
+//         //register request handling function
+//         registerUser() {
+//         axios.get('/user/${this.email}/register')
+//             .then(response => {
+//             console.log(response.data);
+//             })
+//             .catch(error => {
+//             console.error(error);
+//             })
+//             .finally(function () {
+//             // always executed
+//             });
+//         },
+//     },
+//   };
 
-// @ts-nocheck
+
 'use strict'
 const options = {
     transformAssetUrls: {
@@ -76,15 +80,12 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
             uibuilder.send({payload: "Hi there from the client", topic: "from the client", cacheControl: "REPLAY"});
         },
 
-        toggleRegister() {
+        toggleBehaviour() {
             if(this.showRegister===false){
                 this.showRegister=true;
                 this.showLogin=false;
             }
-        },
-
-        toggleLogin() {
-            if(this.showLogin===false){
+            else{
                 this.showRegister=false;
                 this.showLogin=true;
             }
@@ -94,10 +95,21 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
             // send http request to login
           },
 
-        register() {
-        // send http request to register
+        onRegister() {
+            // send http request to register
+            axios.post(`/user/${this.email}/register`)
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+                .finally(function () {
+                // always executed
+                console.log('Finally called');
+                });
         },
-
+        
         validateEmail() {
         this.emailState = this.email.match(/^.+@.+\..+$/i) !== null
         },
