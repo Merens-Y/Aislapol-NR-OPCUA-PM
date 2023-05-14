@@ -4399,7 +4399,7 @@
         "fieldType": "global",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "Thanks for signing up! Please click the link below to confirm your account:\n\nhttps://xxx/confirm-email?token=${ConfirmationToken}\n\nThis link will expire in 12 hours. If you didn't sign up for an account, you can ignore this message.",
+        "template": "Su registro está perimitido! Haga clic en el siguiente enlace para confirmar su cuenta:\n\nhttps://xxx/confirm-email?token=${ConfirmationToken}\n\nEste enlace caducará en 12 horas. Si no se registró para obtener una cuenta, puede ignorar este mensaje.",
         "output": "str",
         "x": 2860,
         "y": 1280,
@@ -4418,7 +4418,7 @@
         "fieldType": "global",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "Click the link below to reset your password:\n\nhttps://xxx/reset-password?token=${PasswordToken}\n\nThis link will expire in 1 hour. If you didn't request a password reset, you can ignore this message.",
+        "template": "Haga clic en el siguiente enlace para restablecer su contraseña:\n\nhttps://xxx/reset-password?token=${PasswordToken}\n\nEste enlace caducará en 1 hora. Si no solicitó un restablecimiento de contraseña, puede ignorar este mensaje.",
         "output": "str",
         "x": 2870,
         "y": 1340,
@@ -7363,6 +7363,16 @@
         "statusType": "auto",
         "x": 4630,
         "y": 580,
+        "wires": []
+    },
+    {
+        "id": "4682eca2bb7133bd",
+        "type": "comment",
+        "z": "896deee050f2a95b",
+        "name": "Mensajes por defecto",
+        "info": "",
+        "x": 2780,
+        "y": 1140,
         "wires": []
     },
     {

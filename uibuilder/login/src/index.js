@@ -1,3 +1,20 @@
+import axios from 'axios';
+
+// export default for axios, that way we can use it elsewhere. we set the entry point below as: 'http://127.0.0.1:1880/'
+export default {
+    methods: {
+      fetchData() {
+        axios.get('/api/data')
+          .then(response => {
+            console.log(response.data);
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      },
+    },
+  };
+
 // @ts-nocheck
 'use strict'
 const options = {
