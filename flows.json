@@ -1097,7 +1097,37 @@
         "wires": [
             [
                 "b64267467f46362d",
-                "317838c5806f733a"
+                "317838c5806f733a",
+                "bf4a76fc6f5af8d4"
+            ]
+        ]
+    },
+    {
+        "id": "bf4a76fc6f5af8d4",
+        "type": "link out",
+        "z": "74b8f1a92d187465",
+        "name": "Cache 1",
+        "mode": "link",
+        "links": [
+            "dffb97a694b0e26f"
+        ],
+        "x": 865,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "e6e7dde8f63f39f8",
+        "type": "link in",
+        "z": "74b8f1a92d187465",
+        "name": "link in 2",
+        "links": [
+            "db41c0530fcb22ae"
+        ],
+        "x": 455,
+        "y": 320,
+        "wires": [
+            [
+                "fc56cb4e52c7f4b2"
             ]
         ]
     },
@@ -1620,6 +1650,10 @@
             [
                 "fb8df3c24dbf5ecc"
             ]
+        ],
+        "outputLabels": [
+            "success",
+            "failure"
         ]
     },
     {
@@ -1923,7 +1957,9 @@
         "z": "896deee050f2a95b",
         "name": "",
         "statusCode": "",
-        "headers": {},
+        "headers": {
+            "Access-Control-Expose-Headers": "authorization"
+        },
         "x": 530,
         "y": 1080,
         "wires": []
@@ -1944,6 +1980,10 @@
             [
                 "f97fef80e5166c2c"
             ]
+        ],
+        "outputLabels": [
+            "valid",
+            "invalid"
         ]
     },
     {
@@ -1962,6 +2002,10 @@
             [
                 "212d7397e1b04ac7"
             ]
+        ],
+        "outputLabels": [
+            "success",
+            "failure"
         ]
     },
     {
@@ -2626,11 +2670,15 @@
         "y": 1020,
         "wires": [
             [
-                "212d7397e1b04ac7"
+                "f97fef80e5166c2c"
             ],
             [
                 "f97fef80e5166c2c"
             ]
+        ],
+        "outputLabels": [
+            "valid",
+            "invalid"
         ]
     },
     {
@@ -7399,5 +7447,61 @@
             [],
             []
         ]
+    },
+    {
+        "id": "001c871e90622580",
+        "type": "uibuilder",
+        "z": "a2bc427f0d400003",
+        "name": "Main Page",
+        "topic": "",
+        "url": "main",
+        "fwdInMessages": false,
+        "allowScripts": false,
+        "allowStyles": false,
+        "copyIndex": true,
+        "templateFolder": "vue2-bootstrap",
+        "extTemplate": "",
+        "showfolder": false,
+        "reload": false,
+        "sourceFolder": "src",
+        "deployedVersion": "6.4.1",
+        "showMsgUib": false,
+        "x": 430,
+        "y": 240,
+        "wires": [
+            [],
+            [
+                "db41c0530fcb22ae"
+            ]
+        ]
+    },
+    {
+        "id": "dffb97a694b0e26f",
+        "type": "link in",
+        "z": "a2bc427f0d400003",
+        "name": "link in 1",
+        "links": [
+            "bf4a76fc6f5af8d4"
+        ],
+        "x": 175,
+        "y": 240,
+        "wires": [
+            [
+                "001c871e90622580"
+            ]
+        ]
+    },
+    {
+        "id": "db41c0530fcb22ae",
+        "type": "link out",
+        "z": "a2bc427f0d400003",
+        "name": "link out 3",
+        "mode": "link",
+        "links": [
+            "e6e7dde8f63f39f8"
+        ],
+        "x": 635,
+        "y": 260,
+        "wires": []
     }
 ]
