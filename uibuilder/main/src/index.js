@@ -1,6 +1,7 @@
 // @ts-nocheck
-'use strict'
-const API_URL = 'http://127.0.0.1:1880';
+'use strict' 
+//http://127.0.0.1:1880 for localhost, must define for later stages of developent.
+const API_URL = 'http://192.168.1.104:1880';
 const options = {
     transformAssetUrls: {
       video: ['src', 'poster'],
@@ -27,11 +28,198 @@ const options = {
 Vue.component('login-form', {
     // Component options: template, data, methods, etc.
     template:`
+    <div fluid class="col-xl">
+        <b-container fluid class="d-flex" v-if="showLogin">
+            <div class="row">
+                <h1>Inicia Sesión</h1>
+                <div class="w-100"></div>
+                <b-form @submit.prevent="onSubmit">
+                    <b-form-group id="emailGroup" label="Dirección de correo:" label-for="emailInput"
+                                    :state="isEmailValid"
+                                    :invalid-feedback="emailFeedback">
+                        <b-form-input id="emailInput" v-model="email" type="email" required
+                                    @input="validateEmail"></b-form-input>
+                    </b-form-group>
+                
+                    <b-form-group id="passwordGroup" label="Contraseña:" label-for="passwordInput"
+                                    :state="isPasswordValid"
+                                    :invalid-feedback="passwordFeedback">
+                        <b-form-input id="passwordInput" v-model="password" type="password" required @input="validatePassword"></b-form-input>
+                    </b-form-group>
+                    <div class="row">
+                        <b-button type="submit" variant="primary" :disabled="!isFormValid">Ingresar</b-button>
+                        <div class="p-1">o</div>
+                        <b-button variant="secondary" @click="toggleBehaviour">Registrar</b-button>
+                    </div>                      
+                    </b-form>
+            </div>
+        </b-container>
+        <b-container fluid class="d-flex" v-if="showRegister">
+            <div class="row">    
+                <h1>Regístrate</h1>
+                <div class="w-100"></div>
+                <b-form @submit.prevent="onRegister">
+                    <b-form-group id="emailGroup" label="Dirección de correo:" label-for="emailInput"
+                                    :state="isEmailValid"
+                                    :invalid-feedback="emailFeedback">
+                        <b-form-input id="emailInput" v-model="email" type="email" required
+                                    @input="validateEmail"></b-form-input>
+                    </b-form-group>
+                    <div class="row">
+                        <b-button type="submit" variant="primary" :disabled="!isEmailValid">Registrar</b-button>
+                        <div class="p-1">o</div>
+                        <b-button variant="secondary" @click="toggleBehaviour">Iniciar Sesión</b-button>
+                    </div>                      
+                    </b-form>
+            </div>
+        </b-container>
+    </div>
     `,
     data () {
-        return{}
+        return{
+            showLogin: true,
+            showRegister: false,
+            email: '',
+            isEmailValid: null,
+            emailFeedback: 'Ingresa una dirección de correo válida',
+            password: '',
+            isPasswordValid: null,
+            passwordFeedback: 'Ingresa una contraseña válida',
+            userToken: '',
+        }
     },
-    methods: {},
+    mounted() {
+        if (localStorage.userToken) {
+            this.userToken = localStorage.userToken;
+        }
+        if(localStorage.userEmail) {
+            this.email = localStorage.userEmail;
+        }
+    },
+    computed: {
+        isEmailValid() {
+            return this.isEmailValid === true;
+        },
+
+        isPasswordValid() {
+            return this.isPasswordValid === true;
+        },
+
+        isFormValid() {
+            return this.isEmailValid && this.isPasswordValid;
+        },
+    },
+    methods: {
+        triggerLogin() {
+            this.$emit('login-event');
+        },
+
+        triggerLogout() {
+            this.$emit('logout-event');
+        },
+
+        async triggerCheckLogin() {
+            this.$emit('checklogin-event');
+        },
+
+        toggleBehaviour() {
+            if(this.showRegister===false){
+                this.showRegister=true;
+                this.showLogin=false;
+            }
+            else{
+                this.showRegister=false;
+                this.showLogin=true;
+            }
+        },
+
+        async onSubmit() {
+            const userId = this.email;
+            const password = this.password;
+            let userToken = null;
+            let userEmail = null;
+
+            await fetch(`${API_URL}/users/${userId}/authenticate`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // You can include additional headers if required
+                },
+                body: JSON.stringify({
+                    Password: password,
+                }),
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    userToken = response.headers.get('authorization');
+                    console.log(userToken);//logs the user token
+                    console.log(response);//logs the response object
+                    return response.json();
+                })
+                .then(data => {
+                    // Handle the response data
+                    userEmail = data.UserId;
+                    console.log(data);
+                })
+                .catch(error => {
+                    // Handle any errors
+                    console.error('Login error:', error);
+                });
+            
+            if(userToken===null) {
+                console.log("user token is null at this point");
+                this.triggerLogout();
+            }
+            else {
+                console.log("user token is not null at this point so we can proceed");
+                this.triggerLogin();
+                // Store the token and user email in local storage
+                localStorage.setItem('userToken', userToken);
+                localStorage.setItem('userEmail', userEmail);
+                this.email = userId;
+            }
+            await this.triggerCheckLogin();
+          },
+
+        onRegister() {
+            const userId = this.email;
+
+            fetch(`${API_URL}/users/${userId}/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // You can include additional headers if required
+                },
+                body: JSON.stringify({}),
+                })
+                .then(response => {
+                    if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                    }
+                    
+                    console.log(response);//logs the response object
+                    return response.json();
+                })
+                .then(data => {
+                    // Handle the response data
+                    console.log(data);
+                })
+                .catch(error => {
+                    // Handle any errors
+                    console.error('Registration error:', error);
+                });
+        },
+        
+        validateEmail() {
+            this.isEmailValid = this.email.match(/^.+@.+\..+$/i) !== null
+        },
+
+        validatePassword() {
+            this.isPasswordValid = this.password.length >= 10
+        },
+    },
 });
 
 Vue.component('main-data', {
@@ -106,7 +294,6 @@ Vue.component('main-data', {
     `,
     data () {
         return{
-            imgProps: { width: 75, height: 75 },
             showMachines: false,
             showDatabase: false,
             showMonitor: false,
@@ -158,19 +345,12 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
 
     data() { return {
         // Add reactive data variables here
-
-        showLogin: true,
-        showRegister: false,
-        email: '',
-        isEmailValid: null,
-        emailFeedback: 'Ingresa una dirección de correo válida',
-        password: '',
-        isPasswordValid: null,
-        passwordFeedback: 'Ingresa una contraseña válida',
-        userToken: '',
+        isLoggedIn: false,
         pre_exp_arr: [{},{}],
         mold_arr: [{},{}],
-
+        email: '',
+        userToken: '',
+        isAdmin: false,
     } }, // --- End of data --- //
     mounted() {
         if (localStorage.userToken) {
@@ -179,6 +359,8 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
         if(localStorage.userEmail) {
             this.email = localStorage.userEmail;
         }
+        // Check login status first, can't show or load if user is not logged.
+        this.checkLoginStatus();
     },
     computed: {
         isEmailValid() {
@@ -195,104 +377,76 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
     },
 
     methods: {
-        cacheReplay: function(){
-            uibuilder.send({payload: "Hi there from the client", topic: "from the client", cacheControl: "REPLAY"});
-        },
+        async checkLoginStatus() {
+            const userId = localStorage.getItem('userEmail');       
+            const bearerToken = localStorage.getItem('userToken');
+            let userToken = null;
 
-        toggleBehaviour() {
-            if(this.showRegister===false){
-                this.showRegister=true;
-                this.showLogin=false;
-            }
-            else{
-                this.showRegister=false;
-                this.showLogin=true;
-            }
-        },
-
-        onSubmit() {
-            const userId = this.email;
-            const password = this.password;
-
-            fetch(`${API_URL}/users/${userId}/authenticate`, {
-                method: 'POST',
+            // Make an API call to validate the bearer token
+            await fetch(`${API_URL}/users/${userId}`, {
+                method: 'GET',
                 headers: {
+                    'Authorization': `${bearerToken}`,
                     'Content-Type': 'application/json',
-                    // You can include additional headers if required
                 },
-                body: JSON.stringify({
-                    Password: password,
-                }),
-                })
-                .then(response => {
-                    if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                    }
-                    const userToken = response.headers.get('authorization');
-                    // Store the token in local storage
-                    localStorage.setItem('userToken', userToken);
-                    console.log(userToken);
-                    console.log(response);//logs the response object
-                    return response.json();
-                })
-                .then(data => {
-                    // Handle the response data
-                    const userEmail = data.UserId;
-                    console.log(data);//logs whats entered, why?
-                    localStorage.setItem('userEmail', userEmail);
-                })
-                .catch(error => {
-                    // Handle any errors
-                    console.error('Login error:', error);
-                });
-          },
-
-        onRegister() {
-            const userId = this.email;
-
-            fetch(`${API_URL}/users/${userId}/register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    // You can include additional headers if required
-                },
-                body: JSON.stringify({
-                    Password: password,
-                }),
-                })
-                .then(response => {
-                    if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                    }
-                    
-                    console.log(response);//logs the response object
-                    return response.json();
-                })
-                .then(data => {
-                    // Handle the response data
-                    console.log(data);
-                })
-                .catch(error => {
-                    // Handle any errors
-                    console.error('Registration error:', error);
-                });
-
-            
-            const config = {
-                headers: {
-                    "Content-Type": "application/json"
+            })
+            .then(response => {
+                if (!response.ok) {
+                    console.log("response is not OK!");
+                    throw new Error('Request failed');
                 }
-            };
+                else{
+                    // If token is valid, set isLoggedIn to true
+                    console.log("entered else statement = response ok?");
+                    console.log(response);
+                    userToken = response.headers.get('authorization');
+                    return response.json();
+                }
+            })
+            .then(data => {
+                // Handle the response data
+                console.log(data);
+                const roleData = data.Roles
+                console.log(roleData);
+                if(roleData) {
+                    if (roleData.includes("user-admin")) {
+                        this.isAdmin = true;
+                    }
+                    else {
+                        this.isAdmin = false;
+                    }
+                }
+                else {
+                    this.isAdmin = false;
+                }
+            })
+            .catch(error => {
+                // Handle the error
+                console.error('Authorization error:', error);
+            });
+            
+            if(userToken===null) {
+                console.log("usertoken is null");
+                this.logout();
+            }
+            else {
+                console.log("usertoken is not null");
+                this.isLoggedIn = true;
+                localStorage.setItem('userToken', userToken);
+                localStorage.setItem('userEmail', userId);
+                this.email = userId;
+            }
         },
+        logout() {
+            // Clear the bearer token from local storage
+            localStorage.removeItem('userToken');
         
-        validateEmail() {
-        this.isEmailValid = this.email.match(/^.+@.+\..+$/i) !== null
+            // Set isLoggedIn to false
+            this.isLoggedIn = false;
         },
-
-        validatePassword() {
-            this.isPasswordValid = this.password.length >= 10
+        setLogged() {
+            this.isLoggedIn = true;
         },
-
         // REALLY Simple method to return DOM events back to Node-RED.
         doEvent: (event) => uibuilder.eventSend(event),
 
