@@ -3767,7 +3767,7 @@
                 "t": "set",
                 "p": "TokenLifetime",
                 "pt": "global",
-                "to": "5*60*1000",
+                "to": "120*60*1000",
                 "tot": "jsonata"
             },
             {

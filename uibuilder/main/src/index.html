@@ -6,7 +6,8 @@
 
     <title>Aislapol Dashboard</title>
     <meta name="description" content="Node-RED uibuilder - Vue v2 + bootstrap-vue template">
-    <link rel="icon" href="../uibuilder/images/node-blue.ico">
+    <!-- <link rel="icon" href="../uibuilder/images/node-blue.ico"> -->
+    <link rel="icon" href="./images/aislapol_ico.png">
 
     <!-- #region Supporting CSS. -->
     <link type="text/css" rel="stylesheet" href="../uibuilder/vendor/bootstrap/dist/css/bootstrap.min.css" />
@@ -18,18 +19,19 @@
     <script defer src="../uibuilder/vendor/axios/dist/axios.min.js"></script>
     <script defer src="../uibuilder/vendor/vue/dist/vue.min.js">/* prod version with component compiler */</script>
     <script defer src="../uibuilder/vendor/bootstrap-vue/dist/bootstrap-vue.min.js">/* remove 'min.' to use dev version */</script>
+    <script defer src="../uibuilder/vendor/bootstrap-vue/dist/bootstrap-vue-icons.min.js"></script>
     <script defer src="../uibuilder/uibuilder.iife.min.js"></script>
     <script defer src="./index.js">/* OPTIONAL: Put your custom code in that */</script>
     <!-- #endregion -->
-    
+
 </head><body>
     <div id="app" class="uib" v-cloak><!-- All UI code needs to be within here for Vue -->
         <b-container id="app_container"><!-- Wraps the bootstrap-vue formatting -->
             <div><!-- Navbar -->
                 <b-navbar toggleable="lg" type="dark" variant="info">
                   <b-navbar-brand href="#">
-                    <div>
-                        <svg version="1.1" viewBox="0 0 650 350" height="64" id="svg2" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" style="enable-background:new 0 0 606 325;" xml:space="preserve" class="mt-1 mr-2">
+                    <div class="navbar-title">
+                        <svg version="1.1" viewBox="0 0 650 350" height="50" id="svg2" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" style="fill: #ffffff;" xml:space="preserve" class="mt-1 mr-2">
                             <style type="text/css">
                               .st0{clip-path:url(#SVGID_2_);}
                               .st1{fill:#009EE0;}
@@ -109,7 +111,6 @@
                               </g>
                             </g>
                         </svg>
-                          
                         Dashboard
                     </div>
                   </b-navbar-brand>
@@ -124,19 +125,52 @@
                         <template #button-content>
                           <em>{{ email }}</em>
                         </template>
-                        <b-dropdown-item v-if="isAdmin">Admin</b-dropdown-item>
+                        <b-dropdown-item v-if="isAdmin" @click="toggleAdminTools">Admin</b-dropdown-item>
                         <b-dropdown-item @click="logout">Salir</b-dropdown-item>
                       </b-nav-item-dropdown>
                     </b-navbar-nav>
                   </b-collapse>
                 </b-navbar>
             </div>
-            <div class="row">
+            <div v-if="showSkeleton">
+              <div class="row">
+                <div class="col-sm mt-3"><b-skeleton animation="wave" width="80%" height="200px"></b-skeleton></div>
+                <div class="col-sm mt-3"><b-skeleton animation="wave" width="80%" height="200px"></b-skeleton></div>
+                <div class="col-sm mt-3"><b-skeleton animation="wave" width="80%" height="200px"></b-skeleton></div>
+              </div>
+              <!-- Show the b-skeleton placeholders -->
+              <div class="row">
+                <div class="col-lg mt-3"><b-skeleton animation="wave" width="80%" height="400px"></b-skeleton></div>
+              </div>
+            </div>
+            <div class="row" v-else>
+                <div v-if="showAdminTools" fluid class="col-xl">
+                  <b-button variant="outline-info" @click="getPermitted">Mostrar Datos de Usuarios</b-button>
+                  <div>
+                    <b-table :items="adminPermittedUsers" small striped hover caption-top :fields="aPUFields">
+                      <template #table-caption>Lista de usuarios permitidos en la aplicación.</template>
+                      <template #cell(index)="row">
+                        {{ row.index + 1 }}
+                      </template>
+                      <template v-slot:cell(user_email)="row">
+                        {{ row.value }}
+                      </template>
+                      <template v-slot:cell(roles)="row">
+                        {{ row.value.length > 0 ? row.value.join(', ') : 'Sin rol' }}
+                      </template>
+                      <template v-slot:cell(acciones)="row">
+                        <b-button variant="danger" @click="deleteUser(row.item.user_email)">
+                          <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
+                          Borrar
+                        </b-button>
+                      </template>
+                    </b-table>
+                  </div>
+                </div>
                 <div class="w-100"></div>
                 <login-form @checklogin-event="checkLoginStatus" @logout-event="logout" @login-event="setLogged" v-if="!isLoggedIn"></login-form>
                 <main-data :pre_exp_arr="pre_exp_arr" :mold_arr="mold_arr" v-else></main-data>
             </div>            
         </b-container>
     </div>
-
 </body></html>

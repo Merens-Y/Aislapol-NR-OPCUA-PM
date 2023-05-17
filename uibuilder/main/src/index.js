@@ -73,6 +73,83 @@ Vue.component('login-form', {
                     </b-form>
             </div>
         </b-container>
+        <b-container fluid class="d-flex" v-if="showRegister">
+            <div class="row">
+            <b-form v-if="!showPasswordForm" @submit.prevent="submitEmailForm">
+                <b-form-group
+                id="emailGroup"
+                label="Email"
+                label-for="emailInput"
+                :invalid-feedback="emailFeedback"
+                :state="emailFeedback ? false : null"
+                >
+                <b-form-input
+                    id="emailInput"
+                    v-model="email"
+                    :state="emailFeedback ? false : null"
+                    required
+                    type="email"
+                ></b-form-input>
+                </b-form-group>
+        
+                <b-button type="submit" variant="primary">Submit</b-button>
+            </b-form>
+        
+            <b-form v-else @submit.prevent="submitPasswordForm">
+                <b-form-group
+                id="passwordGroup"
+                label="Password"
+                label-for="passwordInput"
+                :invalid-feedback="passwordFeedback"
+                :state="passwordFeedback ? false : null"
+                >
+                <b-form-input
+                    id="passwordInput"
+                    v-model="password"
+                    :state="passwordFeedback ? false : null"
+                    required
+                    type="password"
+                ></b-form-input>
+                </b-form-group>
+        
+                <b-form-group
+                id="confirmPasswordGroup"
+                label="Confirm Password"
+                label-for="confirmPasswordInput"
+                :invalid-feedback="confirmPasswordFeedback"
+                :state="confirmPasswordFeedback ? false : null"
+                >
+                <b-form-input
+                    id="confirmPasswordInput"
+                    v-model="confirmPassword"
+                    :state="confirmPasswordFeedback ? false : null"
+                    required
+                    type="password"
+                ></b-form-input>
+                </b-form-group>
+        
+                <b-form-group
+                id="confirmTokenGroup"
+                label="Confirmation Token"
+                label-for="confirmTokenInput"
+                :invalid-feedback="confirmTokenError"
+                :state="confirmTokenError ? false : null"
+                >
+                <b-form-input
+                    id="confirmTokenInput"
+                    v-model="confirmToken"
+                    :state="confirmTokenError ? false : null"
+                    required
+                ></b-form-input>
+                </b-form-group>
+        
+                <b-button type="submit" variant="primary">Submit</b-button>
+                <b-button @click="resendEmail" :disabled="resendEmailDisabled">
+                Resend Email
+                </b-button>
+            </b-form>
+            </div>
+        </b-container>
     </div>
     `,
     data () {
@@ -85,7 +162,13 @@ Vue.component('login-form', {
             password: '',
             isPasswordValid: null,
             passwordFeedback: 'Ingresa una contraseña válida',
+            confirmPasswordFeedback: '',
             userToken: '',
+            confirmPassword: '',
+            confirmationToken: '',
+            showPasswordForm: false,
+            submittedEmail: false,
+            resendEmailDisabled: false,
         }
     },
     mounted() {
@@ -110,6 +193,31 @@ Vue.component('login-form', {
         },
     },
     methods: {
+        resendEmail() {
+            // Disable the button for 60 seconds
+            this.resendEmailDisabled = true;
+            setTimeout(() => {
+              this.resendEmailDisabled = false;
+            }, 60000);
+      
+            // Perform the email resend logic
+        },
+        //provisorio, final va en onRegister()
+        submitEmailForm() {
+            if (!this.validateEmail()) {
+              return; // Don't proceed if email is not valid
+            }
+            
+            this.submittedEmail = true;
+            this.showPasswordForm = true;
+        },
+        submitPasswordForm() {
+            if (!this.validatePassword()) {
+                return; // Don't proceed if password is not valid
+            }
+            
+            // Make the fetch post request and handle accordingly
+        },
         triggerLogin() {
             this.$emit('login-event');
         },
@@ -181,12 +289,12 @@ Vue.component('login-form', {
                 this.email = userId;
             }
             await this.triggerCheckLogin();
-          },
+        },
 
-        onRegister() {
+        async onRegister() {
             const userId = this.email;
 
-            fetch(`${API_URL}/users/${userId}/register`, {
+            await fetch(`${API_URL}/users/${userId}/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -226,9 +334,13 @@ Vue.component('main-data', {
     props: ['pre_exp_arr', 'mold_arr'],
     template:`
     <div class="col-xl">
-        <button class="p-3" @click="toggleMachines">Estado de Maquinarias</button>
-        <button class="p-3" @click="toggleDatabase">Base de Datos</button>
-        <button class="p-3" @click="toggleMonitor">Monitor de Variables productivas</button>
+        <div class="mt-3">
+            <b-button-group lg="4" class="pb-2" size="lg">
+                <b-button variant="outline-info" @click="toggleMachines">Estado de Maquinarias</b-button>
+                <b-button variant="outline-info" @click="toggleDatabase">Base de Datos</b-button>
+                <b-button variant="outline-info" @click="toggleMonitor">Monitor de Variables productivas</b-button>
+            </b-button-group>
+        </div>
         <b-card v-if="showMachines">
             <div>{{ cacheReplay() }}</div>
             <h3 slot="header">Estado de Maquinarias</h3>
@@ -239,9 +351,6 @@ Vue.component('main-data', {
                             <div class="w-100"></div>
                             <div class="col-sm"><p><b>Material:</b></p></div>                                
                             <div class="col-md value-field text-center">{{pre_exp.material}}</div>
-                            <div class="w-100"></div>
-                            <div class="col-sm"><p><b>Kg Procesados:</b></p></div>                                
-                            <div class="col-md value-field text-center">{{pre_exp.kilog}}</div>
                             <div class="w-100"></div>
                             <div class="col-sm"><p><b>Kg Procesados:</b></p></div>                                
                             <div class="col-md value-field text-center">{{pre_exp.kilog}}</div>
@@ -345,22 +454,41 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
 
     data() { return {
         // Add reactive data variables here
+        showSkeleton: true,
         isLoggedIn: false,
         pre_exp_arr: [{},{}],
         mold_arr: [{},{}],
         email: '',
         userToken: '',
         isAdmin: false,
+        showAdminTools: false,
+        adminPermittedUsers: [],
+        aPUFields: [
+            // A virtual column that doesn't exist in items
+            { key: 'index', label: '#' },
+            // A column that needs custom formatting
+            { key: 'user_email', label: 'Usuario' },
+            // A regular column
+            'roles',
+            // A regular column
+            'acciones'
+          ],
     } }, // --- End of data --- //
     mounted() {
-        if (localStorage.userToken) {
-            this.userToken = localStorage.userToken;
+        if (localStorage.getItem('userToken')) {
+            this.userToken = localStorage.getItem('userToken');
         }
-        if(localStorage.userEmail) {
-            this.email = localStorage.userEmail;
+        if(localStorage.getItem('userEmail')) {
+            this.email = localStorage.getItem('userEmail');
+        }
+        if(localStorage.getItem('adminPermittedUsers')) {
+            this.adminPermittedUsers = JSON.parse(localStorage.getItem('adminPermittedUsers'));
         }
         // Check login status first, can't show or load if user is not logged.
         this.checkLoginStatus();
+        setTimeout(() => {
+            this.showSkeleton = false;
+        }, 1500); // Adjust the duration as needed
     },
     computed: {
         isEmailValid() {
@@ -377,6 +505,67 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
     },
 
     methods: {
+        deleteUser(user_id) {
+            console.log(user_id);
+        },
+        async getPermitted() {
+            const bearerToken = localStorage.getItem('userToken');
+            let userToken = null;
+            let users = null;
+            await fetch(`${API_URL}/permitted-users`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `${bearerToken}`,
+                    'Content-Type': 'application/json',
+                    // You can include additional headers if required
+                },
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    userToken = response.headers.get('authorization');
+                    console.log(userToken);//logs the user token
+                    console.log(response);//logs the response object
+                    return response.text();
+                })
+                .then(data => {
+                    // Handle the response data
+                    const lines = data.split('\n'); // Split the text into lines
+
+                    users = lines.map(line => {
+                      const values = line.split(' '); // Split each line into values
+                      const email = values[0]; // First value is the email
+                
+                      // Remaining values are roles, if any
+                      const roles = values.slice(1).filter(role => role !== '');
+                
+                      return {
+                        user_email: email,
+                        roles: roles
+                      };
+                    });                
+                    console.log(users);
+                    this.adminPermittedUsers = users;
+                    console.log(data);
+                })
+                .catch(error => {
+                    // Handle any errors
+                    console.error('Admin error:', error);
+                });
+            
+            if(userToken===null) {
+                console.log("user token is null at this point");
+                this.logout();
+            }
+            else {
+                console.log("user token is not null at this point so we can proceed");
+                console.log(users);
+                // Store the token and user email in local storage
+                localStorage.setItem('userToken', userToken);
+                localStorage.setItem('adminPermittedUsers', JSON.stringify(users)); //remember to JSON.parse() it before using to get an object instead
+            }
+        },
         async checkLoginStatus() {
             const userId = localStorage.getItem('userEmail');       
             const bearerToken = localStorage.getItem('userToken');
@@ -443,6 +632,14 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
         
             // Set isLoggedIn to false
             this.isLoggedIn = false;
+        },
+        toggleAdminTools(){
+            if (this.showAdminTools!==true) {
+                this.showAdminTools=true;
+            }
+            else {
+                this.showAdminTools=false;
+            }
         },
         setLogged() {
             this.isLoggedIn = true;
