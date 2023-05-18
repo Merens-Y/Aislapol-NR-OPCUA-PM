@@ -76,7 +76,7 @@
         "outdated": {
           "current": "2.7.14",
           "wanted": "2.7.14",
-          "latest": "3.3.2"
+          "latest": "3.3.4"
         }
       },
       "vue-router": {
