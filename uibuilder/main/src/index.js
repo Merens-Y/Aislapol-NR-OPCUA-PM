@@ -4,8 +4,7 @@ import PermittedUsers from './components/addPermitedUsers.js'
 import LoginForms from './components/loginForm.js'
 import MachineData from './components/machineData.js'
 import AdminData from './components/adminData.js'
-//http://127.0.0.1:1880 for localhost, must define for later stages of developent.
-// const api_url = 'http://192.168.1.104:1880';
+import EditTable from './components/editTable.js'
 
 /** Simple example of using the uibuilder IIFE client build
  *  with Vue and bootstrap-vue.
@@ -21,6 +20,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
         loginforms: LoginForms,
         machinedata: MachineData,
         admindata: AdminData,
+        edittable: EditTable,
     },
     data() {
         return {
@@ -34,6 +34,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
             userToken: '',
             isAdmin: false,
             showAdminTools: false,
+            admin_permitted_users: [],
         }
     }, // --- End of data --- //
     mounted() {
@@ -42,6 +43,9 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
         }
         if (localStorage.getItem('userEmail')) {
             this.email = localStorage.getItem('userEmail');
+        }
+        if (localStorage.getItem('adminPermittedUsers')) {
+            this.admin_permitted_users = JSON.parse(localStorage.getItem('adminPermittedUsers'));
         }
         // Check login status first, can't show or load if user is not logged.
         this.checkLoginStatus();
@@ -64,6 +68,170 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
     },
 
     methods: {
+        textResponsetoObject(data) {
+            const lines = data.split('\n'); // Split the text into lines
+
+            const users = lines.map(line => {
+                const values = line.split(' '); // Split each line into values
+                const email = values[0]; // First value is the email
+
+                // Remaining values are roles, if any
+                const roles = values.slice(1).filter(role => role !== '');
+
+                return {
+                    user_email: email,
+                    roles: roles
+                };
+            });
+            return users;
+        },
+        aPUtoText(aPU) {
+            const permittedUsersList = aPU
+                .map((user) => {
+                    const roles = user.roles.length > 0 ? user.roles.join(' ') : '';
+                    return `${user.user_email} ${roles}`;
+                })
+                .join('\n');
+            return permittedUsersList;
+        },
+        nPUtoText(nPU) {
+            const newUsersList = nPU
+                .map((user) => {
+                    let text = user.email;
+                    if (user.role === 'user-admin') {
+                        text += ` ${user.role}`;
+                    } else if (user.role !== 'ninguno') {
+                        text += ` ${user.role.join(' ')}`;
+                    }
+                    return text;
+                })
+                .join('\n');
+            return newUsersList;
+        },
+        async getPermitted() {
+            const bearerToken = localStorage.getItem('userToken');
+            let userToken = null;
+            let users = null;
+            await fetch(`${this.api_url}/permitted-users`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `${bearerToken}`,
+                    'Content-Type': 'application/json',
+                    // You can include additional headers if required
+                },
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    userToken = response.headers.get('authorization');
+                    console.log(userToken);//logs the user token
+                    console.log(response);//logs the response object
+                    return response.text();
+                })
+                .then(data => {
+                    // Handle the response data
+                    users = this.textResponsetoObject(data);
+                    console.log(users);
+                    this.admin_permitted_users = users;
+                    console.log(data);
+                })
+                .catch(error => {
+                    // Handle any errors
+                    console.error('Admin error:', error);
+                });
+
+            if (userToken === null) {
+                console.log("user token is null at this point");
+                this.logout();
+            }
+            else {
+                console.log("user token is not null at this point so we can proceed");
+                console.log(users);
+                // Store the token and user email in local storage
+                localStorage.setItem('userToken', userToken);
+                localStorage.setItem('adminPermittedUsers', JSON.stringify(users)); //remember to JSON.parse() it before using to get an object instead
+            }
+        },
+        async getRegistered() {
+            const bearerToken = localStorage.getItem('userToken');
+            let userToken = null;
+            let users = null;
+            await fetch(`${this.api_url}/registered-users`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `${bearerToken}`,
+                    'Content-Type': 'application/json',
+                    // You can include additional headers if required
+                },
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    userToken = response.headers.get('authorization');
+                    console.log(userToken);//logs the user token
+                    console.log(response);//logs the response object
+                    return response.json();
+                })
+                .then(data => {
+                    // Handle the response data
+                    users = data;
+                    console.log(users);
+                    // this.admin_permitted_users = users;
+                    console.log(data);
+                })
+                .catch(error => {
+                    // Handle any errors
+                    console.error('Admin error:', error);
+                });
+
+            if (userToken === null) {
+                console.log("user token is null at this point");
+                this.logout();
+            }
+            else {
+                console.log("user token is not null at this point so we can proceed");
+                console.log(users);
+                // Store the token and user email in local storage
+                localStorage.setItem('userToken', userToken);
+                localStorage.setItem('adminRegisteredUsers', users); //remember to JSON.parse() it before using to get an object instead
+            }
+        },
+        async insertUsers(newPermittedUsers) {
+            // Get list of already existing permitted users.
+            await this.getPermitted();
+            const permittedUsersList = this.aPUtoText(this.admin_permitted_users);
+            // Get the token for authorization, if it doesn't match the api call won't work
+            const bearerToken = localStorage.getItem('userToken');
+            // Check if the users array is empty
+            if (newPermittedUsers.length === 0 || bearerToken === undefined) {
+                return; // Exit the method without executing further
+            }
+            // Convert new permitted users array to text file format
+            const newUsersList = this.nPUtoText(newPermittedUsers)
+            console.log(newUsersList);
+            const combinedTextContent = permittedUsersList + '\n' + newUsersList;
+            console.log(combinedTextContent);
+            // Create request options
+            const requestOptions = {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `${bearerToken}`,
+                    'Content-Type': 'text/plain',
+                },
+                body: combinedTextContent,
+            };
+
+            // Send the PUT request
+            try {
+                const response = await fetch(`${this.api_url}/permitted-users`, requestOptions);
+                // Handle the response as needed
+                await this.getPermitted();
+            } catch (error) {
+                // Handle error
+            }
+        },
         async checkLoginStatus() {
             const userId = localStorage.getItem('userEmail');
             const bearerToken = localStorage.getItem('userToken');
@@ -124,6 +292,174 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 this.email = userId;
             }
         },
+        async deleteUser(user_id) {
+            const bearerToken = localStorage.getItem('userToken'); // Get the user token from local storage
+
+            const requestOptions = {
+                method: 'DELETE',
+                headers: {
+                    Authorization: bearerToken,
+                },
+            };
+
+            await fetch(`${this.api_url}/users/${user_id}`, requestOptions)
+                .then((response) => {
+                    const newToken = response.headers.get('authorization'); // Get the new token from the response header
+                    if (newToken) {
+                        localStorage.setItem('userToken', newToken); // Update the user token in local storage
+                    }
+                    // Handle the response as needed
+                    if (response.ok) {
+                        // Request was successful
+                        console.log('User deleted successfully');
+                    } else {
+                        // Request failed
+                        console.error('Failed to delete user');
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        },
+        async onSubmit(u_email, u_password) {
+            const userId = u_email;
+            const password = u_password;
+            let userToken = null;
+            let userEmail = null;
+
+            await fetch(`${this.api_url}/users/${userId}/authenticate`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // You can include additional headers if required
+                },
+                body: JSON.stringify({
+                    Password: password,
+                }),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    userToken = response.headers.get('authorization');
+                    console.log(userToken);//logs the user token
+                    console.log(response);//logs the response object
+                    return response.json();
+                })
+                .then(data => {
+                    // Handle the response data
+                    userEmail = data.UserId;
+                    console.log(data);
+                })
+                .catch(error => {
+                    // Handle any errors
+                    console.error('Login error:', error);
+                });
+
+            if (userToken === null) {
+                console.log("user token is null at this point");
+                this.logout();
+            }
+            else {
+                console.log("user token is not null at this point so we can proceed");
+                this.setLogged();
+                // Store the token and user email in local storage
+                localStorage.setItem('userToken', userToken);
+                localStorage.setItem('userEmail', userEmail);
+            }
+            await this.checkLoginStatus();
+        },
+        async onRegister(email) {
+            const userId = email;
+
+            await fetch(`${this.api_url}/users/${userId}/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // You can include additional headers if required
+                },
+                body: JSON.stringify({}),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
+                    console.log(response);//logs the response object
+                    return response.json();
+                })
+                .then(data => {
+                    // Handle the response data
+                    console.log(data);
+                })
+                .catch(error => {
+                    // Handle any errors
+                    console.error('Registration error:', error);
+                });
+        },
+        async onSendConfirmation(email) {
+            const userId = email;
+
+            await fetch(`${this.api_url}/users/${userId}/send-confirmation-message`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // You can include additional headers if required
+                },
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
+                    console.log(response);//logs the response object
+                    return response.json();
+                })
+                .then(data => {
+                    // Handle the response data
+                    console.log(data);
+                })
+                .catch(error => {
+                    // Handle any errors
+                    console.error('Registration error:', error);
+                });
+        },
+        async confirmRegistration(email, password, confirmationToken) {
+            const userId = email;
+            const agreement = 'true';
+            const newUserPassword = password;
+            const token = confirmationToken;
+
+            await fetch(`${this.api_url}/users/${userId}/confirm`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // You can include additional headers if required
+                },
+                body: JSON.stringify({
+                    Token: token,
+                    newPassword: newUserPassword,
+                    agreedToDPS: agreement,
+                    agreedToTOS: agreement,
+                }),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
+                    console.log(response);//logs the response object
+                    return response.json();
+                })
+                .then(data => {
+                    // Handle the response data
+                    console.log(data);
+                })
+                .catch(error => {
+                    // Handle any errors
+                    console.error('Registration error:', error);
+                });
+        },
         logout() {
             // Clear the bearer token and admin data from local storage
             localStorage.removeItem('userToken');
@@ -145,6 +481,9 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
         },
         setLogged() {
             this.isLoggedIn = true;
+        },
+        updateAdminUsers(users) {
+            this.admin_permitted_users = [...users];
         },
         // REALLY Simple method to return DOM events back to Node-RED.
         doEvent: (event) => uibuilder.eventSend(event),

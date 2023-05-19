@@ -143,13 +143,13 @@
           <b-collapse id="nav-collapse" is-nav v-if="isLoggedIn">
             <!-- Right aligned nav items -->
             <b-navbar-nav class="ml-auto">
+              <b-nav-item v-if="isAdmin" @click="toggleAdminTools">Admin</b-nav-item>
               <b-nav-item-dropdown right>
                 <!-- Using 'button-content' slot -->
                 <template #button-content>
                   <em>{{ email }}</em>
                 </template>
-                <b-dropdown-item v-if="isAdmin" @click="toggleAdminTools">Admin</b-dropdown-item>
-                <b-dropdown-item @click="logout">Salir</b-dropdown-item>
+                <b-dropdown-item @click="logout">Cerrar Sesión</b-dropdown-item>
               </b-nav-item-dropdown>
             </b-navbar-nav>
           </b-collapse>
@@ -168,18 +168,22 @@
       </div>
       <div class="row" v-else>
         <div v-if="showAdminTools">
-          <permittedusers :api_url="api_url" @logout-event="logout"></permittedusers>
+          <edittable :admin_permitted_users="admin_permitted_users" @updateusers-event="updateAdminUsers"></edittable>
+          <permittedusers @insertpu-event="insertUsers"></permittedusers>
         </div>
         <div class="w-100"></div>
         <div v-if="showAdminTools" fluid class="col-xl">
-          <admindata :api_url="api_url" @logout-event="logout"></admindata>
+          <admindata :admin_permitted_users="admin_permitted_users" @deluser-event="deleteUser"
+            @getpu-event="getPermitted" @getru-event="getRegistered"></admindata>
         </div>
         <div class="w-100"></div>
-        <loginforms :api_url="api_url" @checklogin-event="checkLoginStatus" @logout-event="logout"
-          @login-event="setLogged" v-if="!isLoggedIn"></loginforms>
+        <loginforms :api_url="api_url" @submitlogin-event="onSubmit" @register-event="onRegister"
+          @resendemail-event="onSendConfirmation" @endregistration-event="confirmRegistration" v-if="!isLoggedIn">
+        </loginforms>
         <machinedata :pre_exp_arr="pre_exp_arr" :mold_arr="mold_arr" v-else></machinedata>
       </div>
     </b-container>
   </div>
 </body>
+
 </html>
