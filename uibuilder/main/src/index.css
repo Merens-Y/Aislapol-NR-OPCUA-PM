@@ -7,33 +7,54 @@
 
 /* OR, load the defaults from the older `<userDir>/node_modules/node-red-contrib-uibuilder/front-end/uib-styles.css` */
 /* @import url("../uibuilder/uib-styles.css"); */
- 
- /* For this template, we only want the syntax highlight styles
+
+/* For this template, we only want the syntax highlight styles
  /*#region  Colours for Syntax Highlighted pre's */
- @font-face {
+@font-face {
     font-family: 'Bruno Ace SC';
     src: url('./fonts/BrunoAceSC-Regular.ttf');
 }
+
 .navbar-title {
     font-family: 'Bruno Ace SC';
 }
+
 .syntax-highlight {
-    color:white;
-    display:block;
-    background-color:black;
-    padding:5px 10px;
+    color: white;
+    display: block;
+    background-color: black;
+    padding: 5px 10px;
     font-family: Consolas, "ui-monospace", "Lucida Console", monospace;
     white-space: pre;
     width: 99%;
     max-height: 33em;
     overflow: auto;
 }
-.syntax-highlight > .key {color:#ffbf35}
-.syntax-highlight > .string {color:#5dff39;}
-.syntax-highlight > .number {color:#70aeff;}
-.syntax-highlight > .boolean {color:#b993ff;}
-.syntax-highlight > .null {color:#93ffe4;}
-.syntax-highlight > .undefined {color:#ff93c9;}
+
+.syntax-highlight>.key {
+    color: #ffbf35
+}
+
+.syntax-highlight>.string {
+    color: #5dff39;
+}
+
+.syntax-highlight>.number {
+    color: #70aeff;
+}
+
+.syntax-highlight>.boolean {
+    color: #b993ff;
+}
+
+.syntax-highlight>.null {
+    color: #93ffe4;
+}
+
+.syntax-highlight>.undefined {
+    color: #ff93c9;
+}
+
 /*#endregion */
 
 @-webkit-keyframes pulsered {
@@ -64,11 +85,11 @@
     }
 }
 
-.col-sm.value-field{
+.col-sm.value-field {
     background-color: aliceblue
 }
 
-.col-md.value-field{
+.col-md.value-field {
     background-color: aliceblue
 }
 
@@ -117,7 +138,9 @@
 }
 
 /* Hide toasts if bootstrap-vue not loaded for some reason */
-.toaster { display: none; }
+.toaster {
+    display: none;
+}
 
 /* Cloak elements on initial load to hide the possible display of {{ ... }} 
  * Add to the app tag or to specific tags
@@ -125,4 +148,6 @@
  *    [v-cloak] > * { display:none }
  *    [v-cloak]::before { content: "loading…" }
  */
-[v-cloak] { display: none; }
+[v-cloak] {
+    display: none;
+}

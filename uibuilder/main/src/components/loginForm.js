@@ -4,7 +4,7 @@ export default {
     // Component options: template, data, methods, etc.
     props: ['api_url'],
     template: `
-    <div fluid class="col-xl">
+    <div>
         <b-container fluid class="d-flex" v-if="showLogin">
             <div class="row">
                 <h1>Inicia Sesión</h1>
@@ -22,85 +22,82 @@ export default {
                                     :invalid-feedback="passwordFeedback">
                         <b-form-input id="passwordInput" v-model="password" type="password" required @input="validatePassword"></b-form-input>
                     </b-form-group>
-                    <div class="row">
-                        <b-button type="submit" variant="primary" :disabled="!isFormValid">Ingresar</b-button>
-                        <div class="p-1">o</div>
-                        <b-button variant="secondary" @click="toggleBehaviour">Registrar</b-button>
-                    </div>                      
+                    <b-row class="d-flex align-items-center justify-content-center">
+                        <b-col><b-button type="submit" variant="primary" :disabled="!isFormValid">Ingresar</b-button></b-col>
+                        <b-col><b-button variant="secondary" @click="toggleBehaviour">Registrar</b-button></b-col>
+                    </b-row>
                     </b-form>
             </div>
         </b-container>
         <b-container fluid class="d-flex" v-if="showRegister">
-            <div class="row">
-            <b-form v-if="!showPasswordForm" @submit.prevent="triggerRegister">
-                <h1>Regístrate</h1>
-                <div class="w-100"></div>
-                <b-form-group
-                id="emailGroup2" label="Dirección de correo:" label-for="emailInput"
-                :state="isEmailValid"
-                :invalid-feedback="emailFeedback">
-                <b-form-input id="emailInput" v-model="email" type="email" required @input="validateEmail"></b-form-input>
-                </b-form-group>      
-                <div class="row">
-                    <b-button @click="triggerRegister" variant="primary" :disabled="!isEmailValid">Registrar</b-button>
-                    <div class="p-1">o</div>
-                    <b-button variant="secondary" @click="toggleBehaviour">Iniciar Sesión</b-button>
-                </div>
-            </b-form>
-            <b-form v-if="showPasswordForm" @submit.prevent="triggerSubmitPasswordForm">
-                <b-form-group
-                id="passwordGroup2"
-                label="Contraseña"
-                label-for="passwordInput"
-                :invalid-feedback="passwordFeedback"
-                :state="isPasswordValid"
-                >
-                <b-form-input
-                    id="passwordInput"
-                    v-model="password"
-                    required
-                    type="password"
-                    @input="validatePassword"
-                ></b-form-input>
-                </b-form-group>
+            <b-row>
+                <b-form v-if="!showPasswordForm" @submit.prevent="triggerRegister">
+                    <h1>Regístrate</h1>
+                    <div class="w-100"></div>
+                    <b-form-group
+                    id="emailGroup2" label="Dirección de correo:" label-for="emailInput"
+                    :state="isEmailValid"
+                    :invalid-feedback="emailFeedback">
+                    <b-form-input id="emailInput" v-model="email" type="email" required @input="validateEmail"></b-form-input>
+                    </b-form-group>      
+                    <b-row class="d-flex align-items-center justify-content-center">
+                        <b-col><b-button @click="triggerRegister" variant="primary" :disabled="!isEmailValid">Registrar</b-button></b-col>
+                        <b-col><b-button variant="secondary" @click="toggleBehaviour">Volver a Iniciar Sesión</b-button></b-col>
+                    </b-row>
+                </b-form>
+                <b-form v-if="showPasswordForm" @submit.prevent="triggerSubmitPasswordForm">
+                    <b-form-group
+                    id="passwordGroup2"
+                    label="Contraseña"
+                    label-for="passwordInput"
+                    :invalid-feedback="passwordFeedback"
+                    :state="isPasswordValid"
+                    >
+                    <b-form-input
+                        id="passwordInput"
+                        v-model="password"
+                        required
+                        type="password"
+                        @input="validatePassword"
+                    ></b-form-input>
+                    </b-form-group>
 
-                <b-form-group
-                id="confirmPasswordGroup"
-                label="Confirmar Contraseña"
-                label-for="confirmPasswordInput"
-                :invalid-feedback="confirmPasswordFeedback"
-                :state="isPasswordConfirmed"
-                >
-                <b-form-input
-                    id="confirmPasswordInput"
-                    v-model="confirmPassword"
-                    required
-                    type="password"
-                    @input="validateConfirmPassword"
-                ></b-form-input>
-                </b-form-group>
-        
-                <b-form-group
-                id="confirmTokenGroup"
-                label="Confirmation Token"
-                label-for="confirmTokenInput"
-                >
-                <b-form-input
-                    id="confirmTokenInput"
-                    v-model="confirmationToken"
-                    required
-                ></b-form-input>
-                </b-form-group>
-                <div class="row">
-                <b-button type="submit" variant="primary" :disabled="!confirmPasswordForm">Finalizar Registro</b-button>
-                <b-button @click="triggerResendEmail" :disabled="resendEmailDisabled">
-                    Reenviar correo de confirmación
-                </b-button>
-                <div class="p-1">o</div>
-                <b-button variant="secondary" @click="toggleBehaviour">Iniciar Sesión</b-button>
-                </div>
-            </b-form>
-            </div>
+                    <b-form-group
+                    id="confirmPasswordGroup"
+                    label="Confirmar Contraseña"
+                    label-for="confirmPasswordInput"
+                    :invalid-feedback="confirmPasswordFeedback"
+                    :state="isPasswordConfirmed"
+                    >
+                    <b-form-input
+                        id="confirmPasswordInput"
+                        v-model="confirmPassword"
+                        required
+                        type="password"
+                        @input="validateConfirmPassword"
+                    ></b-form-input>
+                    </b-form-group>
+            
+                    <b-form-group
+                    id="confirmTokenGroup"
+                    label="Confirmation Token"
+                    label-for="confirmTokenInput"
+                    >
+                    <b-form-input
+                        id="confirmTokenInput"
+                        v-model="confirmationToken"
+                        required
+                    ></b-form-input>
+                    </b-form-group>
+                    <b-row class="d-flex align-items-center justify-content-center">
+                        <b-col><b-button type="submit" variant="primary" :disabled="!confirmPasswordForm">Finalizar Registro</b-button></b-col>
+                        <b-col><b-button @click="triggerResendEmail" :disabled="resendEmailDisabled">
+                            Reenviar correo de confirmación
+                        </b-button></b-col>                        
+                        <b-col><b-button variant="secondary" @click="toggleBehaviour">Volver a Iniciar Sesión</b-button></b-col>
+                    </b-row>
+                </b-form>
+            </b-row>
         </b-container>
     </div>
     `,

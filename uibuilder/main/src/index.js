@@ -25,7 +25,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
     data() {
         return {
             // Add reactive data variables here
-            api_url: 'http://192.168.1.104:1880',
+            api_url: 'http://192.168.1.94:1880',
             showSkeleton: true,
             isLoggedIn: false,
             pre_exp_arr: [{}, {}],
