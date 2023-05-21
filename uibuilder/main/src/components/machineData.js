@@ -1,8 +1,7 @@
-//http://127.0.0.1:1880 for localhost, must define for later stages of developent.
-// const api_url = 'http://192.168.1.104:1880';
+// TODO: Set up a way to make the cards bigger on click, by setting the class col-lg-12 to the card that was clicked and make appear a button to go back to the original state.
 export default {
     props: ['pre_exp_arr', 'mold_arr'],
-    template:`
+    template: `
     <b-row>
         <div class="mt-3">
             <b-button-group lg="4" class="pb-2" size="lg">
@@ -75,27 +74,33 @@ export default {
         
     </b-row>
     `,
-    data () {
-        return{
+    data() {
+        return {
+            // variables for controlling the display of the main parts of the component.
             showMachines: false,
             showDatabase: false,
             showMonitor: false,
             showHomepage: true,
+            // variables for the database table display, placeholder data for now.
             tableData: [
                 { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
                 { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
                 { age: 89, first_name: 'Geneva', last_name: 'Wilson' },
                 { age: 38, first_name: 'Jami', last_name: 'Carney' }
             ],
+            // array of booleans to control the display of the active bigger card, empty at first.
+            activeCard: [],
         }
     },
     methods: {
-        cacheReplay: function(){
-            uibuilder.send({payload: "Hi there from the client", topic: "from the client", cacheControl: "REPLAY"});
+        /* TODO: Set up a way to make certain value fields to change their variant depending on the value. For example:
+        ** if the value is too high, the variant should be danger, if it's too low, the variant should be warning, and if it's in the middle, the variant should be success. */
+        cacheReplay: function () {
+            uibuilder.send({ payload: "Hi there from the client", topic: "from the client", cacheControl: "REPLAY" });
         },
 
-        toggleMachines: function(){
-            if(this.showMachines===false){
+        toggleMachines: function () {
+            if (this.showMachines === false) {
                 this.showMachines = true;
                 this.showHomepage = false;
                 this.showDatabase = false;
@@ -103,8 +108,8 @@ export default {
             }
         },
 
-        toggleDatabase: function(){
-            if(this.showDatabase===false){
+        toggleDatabase: function () {
+            if (this.showDatabase === false) {
                 this.showMachines = false;
                 this.showHomepage = false;
                 this.showDatabase = true;
@@ -112,8 +117,8 @@ export default {
             }
         },
 
-        toggleMonitor: function(){
-            if(this.showMonitor===false){
+        toggleMonitor: function () {
+            if (this.showMonitor === false) {
                 this.showMachines = false;
                 this.showHomepage = false;
                 this.showDatabase = false;

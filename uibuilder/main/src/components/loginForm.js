@@ -176,8 +176,11 @@ export default {
             const u_email = this.email;
             const u_password = this.password;
             const u_token = this.confirmationToken;
-            // Make the fetch post request and handle accordingly
+            // trigger the fetch post request and authentication logic on the main Vue instance.
             this.$emit('endregistration-event', u_email, u_password, u_token)
+            // Toggle back to login form by setting the proper booleans
+            this.showPasswordForm = false;
+            this.toggleBehaviour();
         },
         triggerOnSubmit() {
             const userId = this.email;

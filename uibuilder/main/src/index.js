@@ -68,6 +68,10 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
     },
 
     methods: {
+        // TODO: figure out how to show toasts as a method passing the message as an argument.
+        hide() {
+            // Hide logic here
+        },
         textResponsetoObject(data) {
             const lines = data.split('\n'); // Split the text into lines
 
@@ -459,6 +463,8 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                     // Handle any errors
                     console.error('Registration error:', error);
                 });
+
+            await this.onSubmit(userId, newUserPassword);
         },
         logout() {
             // Clear the bearer token and admin data from local storage
