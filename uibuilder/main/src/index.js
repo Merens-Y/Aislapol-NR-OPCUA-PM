@@ -1,6 +1,6 @@
 // @ts-nocheck
 'use strict'
-import PermittedUsers from './components/addPermitedUsers.js'
+import AddPermittedUsers from './components/addPermitedUsers.js'
 import LoginForms from './components/loginForm.js'
 import MachineData from './components/machineData.js'
 import AdminData from './components/adminData.js'
@@ -16,7 +16,7 @@ import EditTable from './components/editTable.js'
 const app = new Vue({ // eslint-disable-line no-unused-vars
     el: '#app',
     components: {
-        permittedusers: PermittedUsers,
+        addpermittedusers: AddPermittedUsers,
         loginforms: LoginForms,
         machinedata: MachineData,
         admindata: AdminData,
@@ -51,7 +51,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
         this.checkLoginStatus();
         setTimeout(() => {
             this.showSkeleton = false;
-        }, 1500); // Adjust the duration as needed
+        }, 700); // Adjust the duration as needed
     },
     computed: {
         isEmailValid() {
@@ -68,10 +68,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
     },
 
     methods: {
-        // TODO: figure out how to show toasts as a method passing the message as an argument.
-        hide() {
-            // Hide logic here
-        },
+        // TODO: figure out how to show toasts as a method passing the message as an argument.,
         textResponsetoObject(data) {
             const lines = data.split('\n'); // Split the text into lines
 
@@ -270,9 +267,11 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                     if (roleData) {
                         if (roleData.includes("user-admin")) {
                             this.isAdmin = true;
+                            this.showAdminTools = true;
                         }
                         else {
                             this.isAdmin = false;
+                            this.showAdminTools = false;
                         }
                     }
                     else {
@@ -477,19 +476,30 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
             this.showAdminTools = false;
             this.adminPermittedUsers = [];
         },
-        toggleAdminTools() {
-            if (this.showAdminTools !== true) {
-                this.showAdminTools = true;
-            }
-            else {
-                this.showAdminTools = false;
-            }
-        },
         setLogged() {
             this.isLoggedIn = true;
         },
-        updateAdminUsers(users) {
-            this.admin_permitted_users = [...users];
+        async updateAdminUsers(users) {
+            const bearerToken = localStorage.getItem('userToken');
+            const updatedUsers = this.aPUtoText(users);
+            // needs custom fetch for this maybe.
+            const requestOptions = {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `${bearerToken}`,
+                    'Content-Type': 'text/plain',
+                },
+                body: updatedUsers,
+            };
+
+            // Send the PUT request
+            try {
+                const response = await fetch(`${this.api_url}/permitted-users`, requestOptions);
+                // Handle the response as needed
+                await this.getPermitted();
+            } catch (error) {
+                // Handle error
+            }
         },
         // REALLY Simple method to return DOM events back to Node-RED.
         doEvent: (event) => uibuilder.eventSend(event),

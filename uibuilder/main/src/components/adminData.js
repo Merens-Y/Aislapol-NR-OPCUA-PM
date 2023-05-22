@@ -1,9 +1,10 @@
 export default {
     props: ['admin_permitted_users'],
     template: `
-    <div>
+    <b-row>
         <b-button variant="outline-info" @click="triggerGetPU">Refrescar lista de Usuarios Permitidos</b-button>
         <b-button variant="outline-info" @click="triggerGetRU">Refrescar lista de Usuarios Registrados</b-button>
+        <div class="w-100"></div>
         <div>
         <b-table :items="admin_permitted_users" small striped hover caption-top :fields="aPUFields">
             <template #table-caption>Lista de usuarios permitidos en la aplicación.</template>
@@ -24,7 +25,7 @@ export default {
             </template>
         </b-table>
         </div>
-    </div>
+    </b-row>
     `,
     data() {
         return {

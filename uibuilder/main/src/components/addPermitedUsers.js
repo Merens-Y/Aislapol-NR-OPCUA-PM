@@ -1,55 +1,55 @@
 export default {
   // Component options: template, data, methods, etc.
   template: `
-    <div class="container">
+    <b-container>
         <b-form @submit.prevent="triggerInsertUsers">
-        <div v-for="(user, index) in newPermittedUsers" :key="index">
-            <b-form-row>
-                <b-col cols="6">
-                    <b-form-group label="Correo de Usuario" label-for="userEmailInput" :invalid-feedback="emailFeedback" :state="user.isValid">
-                    <b-form-input
-                        id="userEmailInput"
-                        v-model="user.email"
-                        required
-                        placeholder="usuario@correo.cl"
-                        @input="validateEmail(user, index)"
-                    ></b-form-input>
-                    </b-form-group>
-                </b-col>
+          <div v-for="(user, index) in newPermittedUsers" :key="index">
+              <b-form-row>
+                  <b-col cols="6">
+                      <b-form-group label="Correo de Usuario" label-for="userEmailInput" :invalid-feedback="emailFeedback" :state="user.isValid">
+                      <b-form-input
+                          id="userEmailInput"
+                          v-model="user.email"
+                          required
+                          placeholder="usuario@correo.cl"
+                          @input="validateEmail(user, index)"
+                      ></b-form-input>
+                      </b-form-group>
+                  </b-col>
 
-                <b-col cols="4">
-                    <b-form-group label="Rol de Usuario" label-for="userRoleSelect">
-                    <b-form-select
-                        id="userRoleSelect"
-                        v-model="user.role"
-                        value="ninguno"
-                        :options="roleOptions"
-                        required
-                    ></b-form-select>
-                    </b-form-group>
-                </b-col>
+                  <b-col cols="4">
+                      <b-form-group label="Rol de Usuario" label-for="userRoleSelect">
+                      <b-form-select
+                          id="userRoleSelect"
+                          v-model="user.role"
+                          value="ninguno"
+                          :options="roleOptions"
+                          required
+                      ></b-form-select>
+                      </b-form-group>
+                  </b-col>
 
-                <b-col cols="2" class="d-flex align-items-center justify-content-center">
-                        <b-button
-                            variant="danger"
-                            size="sm"
-                            class="mt-2"
-                            v-if="index > 0"
-                            @click="removeUser(index)"
-                        >
-                            Remover
-                        </b-button>
-                </b-col>
-            </b-form-row>   
-        </div>
+                  <b-col cols="2" class="d-flex align-items-center justify-content-center">
+                          <b-button
+                              variant="danger"
+                              size="sm"
+                              class="mt-2"
+                              v-if="index > 0"
+                              @click="removeUser(index)"
+                          >
+                              Remover
+                          </b-button>
+                  </b-col>
+              </b-form-row>   
+          </div>
 
-        <b-button variant="primary" size="sm" @click="addUser">
-            Añadir Usuario
-        </b-button>
+          <b-button variant="primary" size="sm" @click="addUser">
+              Añadir Usuario
+          </b-button>
 
-        <b-button type="submit" size="sm" :disabled="!isAllValid">Permitir Usuario(s)</b-button>
+          <b-button type="submit" size="sm" :disabled="!isAllValid">Permitir Usuario(s)</b-button>
         </b-form>
-    </div>
+    </b-container>
     `,
   data() {
     return {
@@ -90,6 +90,7 @@ export default {
       // pass new users as argument.
       const newUsers = this.newPermittedUsers;
       this.$emit('insertpu-event', newUsers);
+      this.newPermittedUsers = [{ email: '', role: 'ninguno', isValid: false }];
     },
   },
   computed: {},
