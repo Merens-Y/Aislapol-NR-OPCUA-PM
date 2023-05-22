@@ -1,10 +1,11 @@
 // @ts-nocheck
 'use strict'
-import AddPermittedUsers from './components/addPermitedUsers.js'
+import AddPermittedUsers from './components/addPermittedUsers.js'
 import LoginForms from './components/loginForm.js'
 import MachineData from './components/machineData.js'
-import AdminData from './components/adminData.js'
-import EditTable from './components/editTable.js'
+import AdminData from './components/editRegisteredUsers.js'
+import EditTable from './components/editPermittedUsers.js'
+import Database from './components/databaseQuery.js'
 
 /** Simple example of using the uibuilder IIFE client build
  *  with Vue and bootstrap-vue.
@@ -21,11 +22,12 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
         machinedata: MachineData,
         admindata: AdminData,
         edittable: EditTable,
+        database: Database,
     },
     data() {
         return {
             // Add reactive data variables here
-            api_url: 'http://localhost:1880',
+            api_url: 'http://192.168.1.88:1880',
             showSkeleton: true,
             isLoggedIn: false,
             pre_exp_arr: [{}, {}],
@@ -35,6 +37,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
             isAdmin: false,
             showAdminTools: false,
             admin_permitted_users: [],
+            admin_registered_users: [],
         }
     }, // --- End of data --- //
     mounted() {
@@ -46,6 +49,9 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
         }
         if (localStorage.getItem('adminPermittedUsers')) {
             this.admin_permitted_users = JSON.parse(localStorage.getItem('adminPermittedUsers'));
+        }
+        if (localStorage.getItem('adminRegisteredUsers')) {
+            this.admin_permitted_users = localStorage.getItem('adminRegisteredUsers');
         }
         // Check login status first, can't show or load if user is not logged.
         this.checkLoginStatus();
@@ -68,7 +74,15 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
     },
 
     methods: {
-        // TODO: figure out how to show toasts as a method passing the message as an argument.,
+        // Utility methods
+        makeToast(toastTitle = "Title", toastMessage = "message", variant=null, append = false) {
+            this.$bvToast.toast(`${toastMessage}`, {
+                title: `${toastTitle}`,
+                autoHideDelay: 5000,
+                appendToast: append,
+                variant: variant,
+            })
+        },
         textResponsetoObject(data) {
             const lines = data.split('\n'); // Split the text into lines
 
@@ -109,6 +123,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 .join('\n');
             return newUsersList;
         },
+        // Admin methods
         async getPermitted() {
             const bearerToken = localStorage.getItem('userToken');
             let userToken = null;
@@ -179,7 +194,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                     // Handle the response data
                     users = data;
                     console.log(users);
-                    // this.admin_permitted_users = users;
+                    this.admin_registered_users = users;
                     console.log(data);
                 })
                 .catch(error => {
@@ -289,7 +304,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 this.logout();
             }
             else {
-                if (userToken === true) {
+                if (isUserAdmin === true) {
                     await this.getPermitted();
                     await this.getRegistered();
                 }
@@ -318,8 +333,10 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                     }
                     // Handle the response as needed
                     if (response.ok) {
+                        this.makeToast('Admin', 'El usuario ha sido eliminado exitosamente.', 'success');
                         // Request was successful
                         console.log('User deleted successfully');
+                        this.getRegistered();
                     } else {
                         // Request failed
                         console.error('Failed to delete user');
@@ -329,6 +346,29 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                     console.error('Error:', error);
                 });
         },
+        async updateAdminUsers(users) {
+            const bearerToken = localStorage.getItem('userToken');
+            const updatedUsers = this.aPUtoText(users);
+            // needs custom fetch for this maybe.
+            const requestOptions = {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `${bearerToken}`,
+                    'Content-Type': 'text/plain',
+                },
+                body: updatedUsers,
+            };
+
+            // Send the PUT request
+            try {
+                const response = await fetch(`${this.api_url}/permitted-users`, requestOptions);
+                // Handle the response as needed
+                await this.getPermitted();
+            } catch (error) {
+                // Handle error
+            }
+        },
+        // Login and registration methods
         async onSubmit(u_email, u_password) {
             const userId = u_email;
             const password = u_password;
@@ -474,37 +514,17 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
             // Clear the bearer token and admin data from local storage
             localStorage.removeItem('userToken');
             localStorage.removeItem('adminPermittedUsers');
+            localStorage.removeItem('adminRegisteredUsers');
 
             // Set isLoggedIn to false
             this.isLoggedIn = false;
             this.isAdmin = false;
             this.showAdminTools = false;
-            this.adminPermittedUsers = [];
+            this.admin_permitted_users = [];
+            this.admin_registered_users = [];
         },
         setLogged() {
             this.isLoggedIn = true;
-        },
-        async updateAdminUsers(users) {
-            const bearerToken = localStorage.getItem('userToken');
-            const updatedUsers = this.aPUtoText(users);
-            // needs custom fetch for this maybe.
-            const requestOptions = {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `${bearerToken}`,
-                    'Content-Type': 'text/plain',
-                },
-                body: updatedUsers,
-            };
-
-            // Send the PUT request
-            try {
-                const response = await fetch(`${this.api_url}/permitted-users`, requestOptions);
-                // Handle the response as needed
-                await this.getPermitted();
-            } catch (error) {
-                // Handle error
-            }
         },
         // REALLY Simple method to return DOM events back to Node-RED.
         doEvent: (event) => uibuilder.eventSend(event),

@@ -8,14 +8,6 @@
         "env": []
     },
     {
-        "id": "74b8f1a92d187465",
-        "type": "tab",
-        "label": "Flow 2",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
         "id": "896deee050f2a95b",
         "type": "tab",
         "label": "Flow 3",
@@ -947,124 +939,6 @@
         "x": 625,
         "y": 500,
         "wires": []
-    },
-    {
-        "id": "b563ebd2e5f73aea",
-        "type": "inject",
-        "z": "74b8f1a92d187465",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "0.5",
-        "topic": "asd",
-        "payload": "",
-        "payloadType": "date",
-        "x": 160,
-        "y": 220,
-        "wires": [
-            [
-                "066fa977e94456c5"
-            ]
-        ]
-    },
-    {
-        "id": "066fa977e94456c5",
-        "type": "function",
-        "z": "74b8f1a92d187465",
-        "name": "function 1",
-        "func": "let detenido = {\n    \"texto\": \"\",\n    \"led\": \"led red\"\n};\n\nlet deshabilitado = {\n    \"texto\": \"text-secondary\",\n    \"led\": \"led gray\"\n};\n\nlet activo = {\n    \"texto\": \"\",\n    \"led\": \"led green\"\n};\n\nvar exp_obj = {\n    \"numero\":1,\n    \"material\":\"material 1\",\n    \"kilog\": \"60\",\n    \"tiempo\": \"120\",\n    \"densidad\": { \"min\": 0, \"avg\": 5, \"max\": 10 },\n    \"estado\": detenido\n};\nvar exp_obj2 = {\n    \"numero\": 2,\n    \"material\": \"material 2\",\n    \"kilog\": \"60\",\n    \"tiempo\": \"120\",\n    \"densidad\": {\"min\":0,\"avg\":5,\"max\":10},\n    \"estado\": deshabilitado\n};\n\nvar mold_obj = {\n    \"numero\": 1,\n    \"molde\": \"35lbs\",\n    \"ciclos_hora\": \"20\",\n    \"tiempo_ciclo\": \"120\",\n    \"ciclos_total\": \"120\",\n    \"estado\": activo\n};\nvar mold_obj2 = {\n    \"numero\": 2,\n    \"molde\": \"35lbs\",\n    \"ciclos_hora\": \"20\",\n    \"tiempo_ciclo\": \"120\",\n    \"ciclos_total\": \"120\",\n    \"estado\": detenido\n};\n\nmsg.topic = \"pre-expansor\";\nmsg.payload = [exp_obj, exp_obj2];\nmsg2 = JSON.parse(JSON.stringify(msg));\nmsg2.topic = \"moldeador\";\nmsg2.payload = [mold_obj, mold_obj2];\nreturn [msg, msg2];",
-        "outputs": 2,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 360,
-        "y": 220,
-        "wires": [
-            [
-                "fc56cb4e52c7f4b2"
-            ],
-            [
-                "fc56cb4e52c7f4b2"
-            ]
-        ]
-    },
-    {
-        "id": "317838c5806f733a",
-        "type": "debug",
-        "z": "74b8f1a92d187465",
-        "name": "debug 7",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 800,
-        "y": 340,
-        "wires": []
-    },
-    {
-        "id": "fc56cb4e52c7f4b2",
-        "type": "uib-cache",
-        "z": "74b8f1a92d187465",
-        "cacheall": false,
-        "cacheKey": "topic",
-        "newcache": false,
-        "num": 1,
-        "storeName": "memory",
-        "name": "",
-        "storeContext": "context",
-        "varName": "uib_cache",
-        "x": 590,
-        "y": 220,
-        "wires": [
-            [
-                "317838c5806f733a",
-                "bf4a76fc6f5af8d4"
-            ]
-        ]
-    },
-    {
-        "id": "bf4a76fc6f5af8d4",
-        "type": "link out",
-        "z": "74b8f1a92d187465",
-        "name": "Cache 1",
-        "mode": "link",
-        "links": [
-            "dffb97a694b0e26f"
-        ],
-        "x": 865,
-        "y": 260,
-        "wires": []
-    },
-    {
-        "id": "e6e7dde8f63f39f8",
-        "type": "link in",
-        "z": "74b8f1a92d187465",
-        "name": "link in 2",
-        "links": [
-            "db41c0530fcb22ae"
-        ],
-        "x": 455,
-        "y": 320,
-        "wires": [
-            [
-                "fc56cb4e52c7f4b2"
-            ]
-        ]
     },
     {
         "id": "ef4a1a03bf1a794e",
@@ -6970,42 +6844,102 @@
         "sourceFolder": "src",
         "deployedVersion": "6.4.1",
         "showMsgUib": false,
-        "x": 430,
-        "y": 240,
+        "x": 910,
+        "y": 80,
         "wires": [
             [],
             [
-                "db41c0530fcb22ae"
+                "7d81552ad7db1474"
             ]
         ]
     },
     {
-        "id": "dffb97a694b0e26f",
-        "type": "link in",
+        "id": "c20bcfc4406efff0",
+        "type": "inject",
         "z": "a2bc427f0d400003",
-        "name": "link in 1",
-        "links": [
-            "bf4a76fc6f5af8d4"
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
         ],
-        "x": 175,
-        "y": 240,
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "asd",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 140,
         "wires": [
             [
+                "05a0a1bc362ca653"
+            ]
+        ]
+    },
+    {
+        "id": "05a0a1bc362ca653",
+        "type": "function",
+        "z": "a2bc427f0d400003",
+        "name": "function 2",
+        "func": "let detenido = {\n    \"texto\": \"\",\n    \"led\": \"led red\"\n};\n\nlet deshabilitado = {\n    \"texto\": \"text-secondary\",\n    \"led\": \"led gray\"\n};\n\nlet activo = {\n    \"texto\": \"\",\n    \"led\": \"led green\"\n};\n\nvar exp_obj = {\n    \"numero\":1,\n    \"material\":\"material 1\",\n    \"kilog\": \"60\",\n    \"tiempo\": \"120\",\n    \"densidad\": { \"min\": 0, \"avg\": 5, \"max\": 10 },\n    \"estado\": detenido\n};\nvar exp_obj2 = {\n    \"numero\": 2,\n    \"material\": \"material 2\",\n    \"kilog\": \"60\",\n    \"tiempo\": \"120\",\n    \"densidad\": {\"min\":0,\"avg\":5,\"max\":10},\n    \"estado\": deshabilitado\n};\n\nvar mold_obj = {\n    \"numero\": 1,\n    \"molde\": \"35lbs mix\",\n    \"ciclos_hora\": \"20\",\n    \"tiempo_ciclo\": 120,\n    \"ciclos_total\": 10000,\n    \"estado\": activo\n};\nvar mold_obj2 = {\n    \"numero\": 2,\n    \"molde\": \"75lbs F\",\n    \"ciclos_hora\": \"20\",\n    \"tiempo_ciclo\": 100,\n    \"ciclos_total\": 18000,\n    \"estado\": detenido\n};\n\nmsg.topic = \"pre-expansor\";\nmsg.payload = [exp_obj, exp_obj2];\nmsg2 = JSON.parse(JSON.stringify(msg));\nmsg2.topic = \"moldeador\";\nmsg2.payload = [mold_obj, mold_obj2];\nreturn [msg, msg2];",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 140,
+        "wires": [
+            [
+                "7d81552ad7db1474"
+            ],
+            [
+                "7d81552ad7db1474"
+            ]
+        ]
+    },
+    {
+        "id": "7d81552ad7db1474",
+        "type": "uib-cache",
+        "z": "a2bc427f0d400003",
+        "cacheall": false,
+        "cacheKey": "topic",
+        "newcache": false,
+        "num": 1,
+        "storeName": "memory",
+        "name": "",
+        "storeContext": "context",
+        "varName": "uib_cache",
+        "x": 650,
+        "y": 140,
+        "wires": [
+            [
+                "2a803cbfd3bd2e29",
                 "001c871e90622580"
             ]
         ]
     },
     {
-        "id": "db41c0530fcb22ae",
-        "type": "link out",
+        "id": "2a803cbfd3bd2e29",
+        "type": "debug",
         "z": "a2bc427f0d400003",
-        "name": "link out 3",
-        "mode": "link",
-        "links": [
-            "e6e7dde8f63f39f8"
-        ],
-        "x": 635,
-        "y": 260,
+        "name": "debug 8",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 140,
         "wires": []
     }
 ]

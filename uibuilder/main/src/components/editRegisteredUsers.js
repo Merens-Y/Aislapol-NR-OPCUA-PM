@@ -1,13 +1,17 @@
 export default {
-    props: ['admin_permitted_users'],
+    props: ['admin_registered_users', 'admin_permitted_users'],
+    watch: {
+        admin_registered_users(newVal) {
+            // Perform actions when the prop value changes
+            this.registered_users_table = this.convertRUtoRUTable(newVal);
+        },
+    },
     template: `
     <b-row>
-        <b-button variant="outline-info" @click="triggerGetPU">Refrescar lista de Usuarios Permitidos</b-button>
-        <b-button variant="outline-info" @click="triggerGetRU">Refrescar lista de Usuarios Registrados</b-button>
         <div class="w-100"></div>
         <div>
-        <b-table :items="admin_permitted_users" small striped hover caption-top :fields="aPUFields">
-            <template #table-caption>Lista de usuarios permitidos en la aplicación.</template>
+        <b-table :items="registered_users_table" small striped hover caption-top :fields="aPUFields">
+            <template #table-caption>Lista de usuarios registrados en la aplicación.</template>
             <template #cell(index)="row">
             {{ row.index + 1 }}
             </template>
@@ -40,9 +44,14 @@ export default {
                 // A regular column
                 'acciones'
             ],
+            registered_users_table: [],
         }
     }, // --- End of data --- //
-    mounted() { },
+    mounted() {
+        if (this.admin_registered_users) {
+            this.registered_users_table = convertRUtoRUTable(this.admin_registered_users);
+        }
+    },
     computed: {},
     methods: {
         // from here on are trigger to methods defined in the main Vue instance (index.js).
@@ -55,6 +64,18 @@ export default {
         },
         triggerGetRU() {
             this.$emit('getru-event')
+        },
+        // from here on are methods unique to this component.
+        convertRUtoRUTable(usersObject) {
+            // Convert the array of registered users into a table array for display.
+            const usersArray = Object.entries(usersObject).map(([email, user]) => {
+                const userRoles = user.Roles || [];
+                return {
+                    user_email: email,
+                    roles: userRoles,
+                };
+            });
+            return usersArray;
         },
     }, // --- End of methods --- //
 

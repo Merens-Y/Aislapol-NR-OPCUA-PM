@@ -175,8 +175,18 @@
             @submitlogin-event="onSubmit" @register-event="onRegister" @resendemail-event="onSendConfirmation"
             @endregistration-event="confirmRegistration" v-if="!isLoggedIn">
           </loginforms>
-          <machinedata class="d-flex align-items-center justify-content-center p-3 m-3" :pre_exp_arr="pre_exp_arr"
-            :mold_arr="mold_arr" v-else></machinedata>
+          <b-container v-if="isLoggedIn">
+            <b-tabs lazy content-class="mt-3" align="center">
+              <b-tab title="Estado de Maquinarias" active>
+                <machinedata class="d-flex align-items-center justify-content-center p-3 m-3" :pre_exp_arr="pre_exp_arr"
+                  :mold_arr="mold_arr"></machinedata>
+              </b-tab>
+              <b-tab title="Base de Datos">
+                <database></database>
+              </b-tab>
+              <b-tab title="Monitor de Variables productivas"></b-tab>
+            </b-tabs>
+          </b-container>
         </div>
       </b-container>
       <!-- Sidebar with Admin tools -->
@@ -189,7 +199,7 @@
             <b-button size="sm" variant="danger" v-b-toggle.sidebar-footer>Cerrar</b-button>
           </div>
         </template>
-        <!-- Contenido -->
+        <!-- Sidebar Content -->
         <b-contanier fluid v-if="showAdminTools">
           <b-card no-body>
             <b-tabs pills card>
@@ -210,8 +220,8 @@
               </b-tab>
               <b-tab title="Usuarios Registrados">
                 <admindata class="d-flex align-items-left justify-content-left p-3 m-3"
-                  :admin_permitted_users="admin_permitted_users" @deluser-event="deleteUser" @getpu-event="getPermitted"
-                  @getru-event="getRegistered"></admindata>
+                  :admin_registered_users="admin_registered_users" :admin_permitted_users="admin_permitted_users"
+                  @deluser-event="deleteUser" @getpu-event="getPermitted" @getru-event="getRegistered"></admindata>
               </b-tab>
               <b-tab title="Cambiar Rol de Usuario">Tab contents 3</b-tab>
             </b-tabs>
