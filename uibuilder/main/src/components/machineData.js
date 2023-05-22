@@ -1,13 +1,22 @@
 // TODO: Set up a way to make the cards bigger on click, by setting the class col-lg-12 to the card that was clicked and make appear a button to go back to the original state.
 export default {
     props: ['pre_exp_arr', 'mold_arr'],
+    watch: {
+        pre_exp_arr(newVal) {
+            // Perform actions when the prop value changes
+            this.pre_exp_cards = [...newVal];
+        },
+        mold_arr(newVal) {
+            // Perform actions when the prop value changes
+            this.mold_cards = [...newVal];
+        }
+    },
     template: `
     <b-container>
         <b-tabs content-class="mt-3" align="center">
             <b-tab title="Estado de Maquinarias" active>
                 <div>{{ cacheReplay() }}</div>
                     <div class="row">
-                        
                             <b-card class="col-12 col-lg-5 col-xl-4 p-1 m-1" v-for="pre_exp in pre_exp_arr" v-bind:class="[pre_exp.estado.texto]">
                                 <div class="row">
                                     <p class="col p-1 m-1">Pre-Expansor {{pre_exp.numero}}</p> <div class="col-" v-bind:class="[pre_exp.estado.led]"></div>
@@ -50,7 +59,6 @@ export default {
                                     <div class="col-md value-field text-center">{{mold.ciclos_total}}</div>                                                       
                                 </div>
                             </b-card>
-                        
                     </div>
             </b-tab>
             <b-tab title="Base de Datos">
@@ -75,8 +83,8 @@ export default {
                 { id: 3, machine: 'Promass 15', mold: '10 lbs', cycle_number: 1246, cycle_time: 270, steam_time: 100, cooling_time: 80, void_time: 90 },
                 { id: 4, machine: 'Promass 14', mold: '75 lbs', cycle_number: 1543, cycle_time: 270, steam_time: 100, cooling_time: 80, void_time: 90 },
             ],
-            // array of booleans to control the display of the active bigger card, empty at first.
-            activeCard: [],
+            pre_exp_cards: [],
+            mold_cards: [],
         }
     },
     methods: {
@@ -112,5 +120,29 @@ export default {
                 this.showMonitor = true;
             }
         },
+        toggleCard(index) {
+            // Toggle the isExpanded property for the clicked card
+            this.cards[index].isExpanded = !this.cards[index].isExpanded;
+
+            // Set isExpanded to false for all other cards
+            this.cards.forEach((card, i) => {
+                if (i !== index) {
+                    card.isExpanded = false;
+                }
+            });
+        },
+        clearStates() {
+            // Reset the isExpanded property for all cards
+            this.cards.forEach(card => {
+                card.isExpanded = false;
+            });
+        },
+        getCardClasses(index) {
+            // Define the CSS classes based on the isExpanded property
+            return {
+                'col-2': !this.cards[index].isExpanded,
+                'col-10': this.cards[index].isExpanded
+            };
+        }
     },
 }

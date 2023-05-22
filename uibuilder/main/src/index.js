@@ -25,7 +25,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
     data() {
         return {
             // Add reactive data variables here
-            api_url: 'http://192.168.1.88:1880',
+            api_url: 'http://localhost:1880',
             showSkeleton: true,
             isLoggedIn: false,
             pre_exp_arr: [{}, {}],
@@ -237,6 +237,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
             const userId = localStorage.getItem('userEmail');
             const bearerToken = localStorage.getItem('userToken');
             let userToken = null;
+            let isUserAdmin = null;
 
             // Make an API call to validate the bearer token
             await fetch(`${this.api_url}/users/${userId}`, {
@@ -268,6 +269,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                         if (roleData.includes("user-admin")) {
                             this.isAdmin = true;
                             this.showAdminTools = true;
+                            isUserAdmin = true;
                         }
                         else {
                             this.isAdmin = false;
@@ -282,12 +284,15 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                     // Handle the error
                     console.error('Authorization error:', error);
                 });
-
             if (userToken === null) {
                 console.log("usertoken is null");
                 this.logout();
             }
             else {
+                if (userToken === true) {
+                    await this.getPermitted();
+                    await this.getRegistered();
+                }
                 console.log("usertoken is not null");
                 this.isLoggedIn = true;
                 localStorage.setItem('userToken', userToken);
