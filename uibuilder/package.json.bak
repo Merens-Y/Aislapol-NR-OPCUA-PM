@@ -14,7 +14,7 @@
     "packages": {
       "axios": {
         "spec": "^0.2.2",
-        "installFolder": "\\Users\\aislapol\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\axios",
+        "installFolder": "\\Users\\auror\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\axios",
         "installedVersion": "0.2.2",
         "estimatedEntryPoint": "index.js",
         "homepage": "https://github.com/mzabriskie/axios",
@@ -29,7 +29,7 @@
       },
       "bootstrap": {
         "spec": "^4.6.1",
-        "installFolder": "\\Users\\aislapol\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\bootstrap",
+        "installFolder": "\\Users\\auror\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\bootstrap",
         "installedVersion": "4.6.2",
         "estimatedEntryPoint": "dist/js/bootstrap.js",
         "homepage": "https://getbootstrap.com/",
@@ -44,7 +44,7 @@
       },
       "bootstrap-vue": {
         "spec": "^2.23.1",
-        "installFolder": "\\Users\\aislapol\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\bootstrap-vue",
+        "installFolder": "\\Users\\auror\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\bootstrap-vue",
         "installedVersion": "2.23.1",
         "estimatedEntryPoint": "./dist/bootstrap-vue.common.js",
         "homepage": "https://bootstrap-vue.org",
@@ -55,7 +55,7 @@
       },
       "http-vue-loader": {
         "spec": "^1.4.2",
-        "installFolder": "\\Users\\aislapol\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\http-vue-loader",
+        "installFolder": "\\Users\\auror\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\http-vue-loader",
         "installedVersion": "1.4.2",
         "estimatedEntryPoint": "./src/httpVueLoader.js",
         "homepage": "https://github.com/FranckFreiburger/http-vue-loader#readme",
@@ -66,7 +66,7 @@
       },
       "vue": {
         "spec": "^2.7.14",
-        "installFolder": "\\Users\\aislapol\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vue",
+        "installFolder": "\\Users\\auror\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vue",
         "installedVersion": "2.7.14",
         "estimatedEntryPoint": "dist/vue.js",
         "homepage": "https://github.com/vuejs/vue#readme",
@@ -81,7 +81,7 @@
       },
       "vue-router": {
         "spec": "^3.6.5",
-        "installFolder": "\\Users\\aislapol\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vue-router",
+        "installFolder": "\\Users\\auror\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vue-router",
         "installedVersion": "3.6.5",
         "estimatedEntryPoint": "dist/vue-router.js",
         "homepage": "https://github.com/vuejs/vue-router#readme",
@@ -96,7 +96,7 @@
       },
       "vuex": {
         "spec": "^3.6.2",
-        "installFolder": "\\Users\\aislapol\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vuex",
+        "installFolder": "\\Users\\auror\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vuex",
         "installedVersion": "3.6.2",
         "estimatedEntryPoint": "dist/vuex.js",
         "homepage": "https://github.com/vuejs/vuex#readme",

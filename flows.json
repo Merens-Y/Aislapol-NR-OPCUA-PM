@@ -2,25 +2,25 @@
     {
         "id": "f788a78067227a65",
         "type": "tab",
-        "label": "Flow 1",
+        "label": "Captura de Datos",
         "disabled": false,
-        "info": "",
+        "info": "En este flow se realiza la captura de datos de las máquinas y se le da un formato adecuado para su visualización en la webapp y su respaldo en la base de datos local (PostgreSQL).",
         "env": []
     },
     {
         "id": "896deee050f2a95b",
         "type": "tab",
-        "label": "Flow 3",
+        "label": "Sistema de Usuarios",
         "disabled": false,
-        "info": "",
+        "info": "En este flow se maneja la lógica del sistema de usuarios, admite registro, confirmación, roles (Admin y usuario normal), gestión de registro y recuperación por correo, entre otros.",
         "env": []
     },
     {
         "id": "a2bc427f0d400003",
         "type": "tab",
-        "label": "Flow 4",
+        "label": "Web App",
         "disabled": false,
-        "info": "",
+        "info": "Este flow corresponde a la Web App, donde reside el nodo de UI builder, que maneja la lógica del servidor IIFE, permitiendo servir la página desde las carpetas del proyecto, en particular, la de uibuilder(main/src).",
         "env": []
     },
     {

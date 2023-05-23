@@ -1,11 +1,12 @@
 // @ts-nocheck
 'use strict'
-import AddPermittedUsers from './components/addPermittedUsers.js'
-import LoginForms from './components/loginForm.js'
-import MachineData from './components/machineData.js'
-import AdminData from './components/editRegisteredUsers.js'
-import EditTable from './components/editPermittedUsers.js'
-import Database from './components/databaseQuery.js'
+import AddPermittedUsers from './components/addPermittedUsers.js';
+import LoginForms from './components/loginForm.js';
+import MachineData from './components/machineData.js';
+import AdminData from './components/editRegisteredUsers.js';
+import EditTable from './components/editPermittedUsers.js';
+import Database from './components/databaseQuery.js';
+import { API_URL } from './components/api_url.js'
 
 /** Simple example of using the uibuilder IIFE client build
  *  with Vue and bootstrap-vue.
@@ -27,7 +28,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
     data() {
         return {
             // Add reactive data variables here
-            api_url: 'http://192.168.1.88:1880',
+            api_url: `http://${API_URL}:1880`,
             showSkeleton: true,
             isLoggedIn: false,
             pre_exp_arr: [{}, {}],
