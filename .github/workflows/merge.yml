@@ -16,12 +16,13 @@ jobs:
       - name: Merge changes into branches
         run: |
           git config --global user.name "GitHub Actions"
-          git config --global user.email "<martin.sotomayor.96@gmail.com>"
+          git config --global user.email "martin.sotomayor.96@gmail.com"
 
           # Merge changes from ui-builder into each branch
           branches=("ui-builder-punta-arenas" "ui-builder-puerto-mont")  # Add the names of your plant-specific branches here
 
           for branch in "${branches[@]}"; do
+            git branch "$branch" origin/"$branch"  # Create the branch if it doesn't exist locally
             git checkout "$branch"
             git merge ui-builder --no-commit --no-ff
             git checkout HEAD -- api_url.js  # Replace with the specific file(s) you want to exclude
