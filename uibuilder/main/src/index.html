@@ -205,13 +205,12 @@
             <b-tabs pills card>
               <b-tab title="Usuarios Permitidos" active>
                 <b-row>
-                  <b-col>
+                  <b-col cols="12" lg="6">
                     <h1>Revocar permiso</h1>
                     <edittable class="d-flex align-items-left justify-content-left p-3 m-3"
                       :admin_permitted_users="admin_permitted_users" @updateusers-event="updateAdminUsers"></edittable>
                   </b-col>
-                  <div class="w-100"></div>
-                  <b-col>
+                  <b-col cols="12" lg="6">
                     <h1>Otorgar permiso</h1>
                     <addpermittedusers class="d-flex align-items-left justify-content-left p-3 m-3"
                       @insertpu-event="insertUsers"></addpermittedusers>
@@ -219,6 +218,7 @@
                 </b-row>
               </b-tab>
               <b-tab title="Usuarios Registrados">
+                <h1>Eliminar Usuario Registrado</h1>
                 <admindata class="d-flex align-items-left justify-content-left p-3 m-3"
                   :admin_registered_users="admin_registered_users" :admin_permitted_users="admin_permitted_users"
                   @deluser-event="deleteUser" @getpu-event="getPermitted" @getru-event="getRegistered"></admindata>

@@ -47,11 +47,6 @@ export default {
             registered_users_table: [],
         }
     }, // --- End of data --- //
-    mounted() {
-        if (this.admin_registered_users) {
-            this.registered_users_table = convertRUtoRUTable(this.admin_registered_users);
-        }
-    },
     computed: {},
     methods: {
         // from here on are trigger to methods defined in the main Vue instance (index.js).
@@ -80,4 +75,9 @@ export default {
     }, // --- End of methods --- //
 
     // Available hooks: beforeCreate,created,beforeMount,mounted,beforeUpdate,updated,beforeDestroy,destroyed, activated,deactivated, errorCaptured
+    mounted() {
+        if (this.admin_registered_users) {
+            this.registered_users_table = convertRUtoRUTable(this.admin_registered_users);
+        }
+    },
 }

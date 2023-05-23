@@ -294,6 +294,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                     }
                     else {
                         this.isAdmin = false;
+                        this.showAdminTools = false;
                     }
                 })
                 .catch(error => {
@@ -340,6 +341,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                         this.getRegistered();
                     } else {
                         // Request failed
+                        this.makeToast('Admin', 'Error al eliminar usuario.', 'danger');
                         console.error('Failed to delete user');
                     }
                 })
@@ -408,6 +410,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
             if (userToken === null) {
                 console.log("user token is null at this point");
                 this.logout();
+                this.makeToast('Login', 'Inicio de sesión fallido.', 'danger');
             }
             else {
                 console.log("user token is not null at this point so we can proceed");
@@ -415,6 +418,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 // Store the token and user email in local storage
                 localStorage.setItem('userToken', userToken);
                 localStorage.setItem('userEmail', userEmail);
+                this.makeToast('Login', 'Inicio de sesión exitoso, bienvenido.', 'success');
             }
             await this.checkLoginStatus();
         },
@@ -431,9 +435,12 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
             })
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Network response was not ok');
+                        this.makeToast('Registro', 'Error al solicitar registro, el usuario ya está registrado, o la dirección de correo otorgada no está permitida', 'danger');
+                        throw new Error(`${response.status} ${response.statusText}`);
                     }
-
+                    else{
+                        this.makeToast('Registro', 'Se ha enviado un correo de confirmación a tu correo electrónico.', 'success');
+                    }
                     console.log(response);//logs the response object
                     return response.json();
                 })
@@ -458,9 +465,12 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
             })
                 .then(response => {
                     if (!response.ok) {
+                        this.makeToast('Registro', 'Error al solicitar registro, el usuario ya está registrado, o la dirección de correo otorgada no está permitida', 'danger');
                         throw new Error('Network response was not ok');
                     }
-
+                    else{
+                        this.makeToast('Registro', 'Se ha vuelto a enviar un correo de confirmación a tu correo electrónico. Recuerda revisar', 'info');
+                    }
                     console.log(response);//logs the response object
                     return response.json();
                 })
@@ -494,9 +504,9 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
             })
                 .then(response => {
                     if (!response.ok) {
+                        this.makeToast('Registro', 'Error al confirmar registro, el token otorgado es incorrecto.', 'danger');
                         throw new Error('Network response was not ok');
                     }
-
                     console.log(response);//logs the response object
                     return response.json();
                 })

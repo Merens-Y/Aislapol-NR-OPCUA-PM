@@ -1,3 +1,4 @@
+// TODO: Set up table to display data from database, check if making requests through uibuilder or through fetch is better.
 export default {
     template: `
         <b-container fluid>
