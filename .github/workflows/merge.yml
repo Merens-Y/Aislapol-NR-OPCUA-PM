@@ -28,7 +28,7 @@ jobs:
             git branch "$branch" origin/"$branch"  # Create the branch if it doesn't exist locally
             git checkout "$branch"
             git merge ui-builder --no-commit --no-ff
-            git checkout HEAD -- api_url.js  # Replace with the specific file(s) you want to exclude
+            git checkout HEAD -- \uibuilder\main\src\components\api_url.js  # Replace with the specific file(s) you want to exclude
             git commit -m "Merge changes from ui-builder"
             git push origin "$branch"
           done
