@@ -13,7 +13,7 @@ export default {
   template: `
     <b-container fluid>
         <div class="row">
-            <div>{{ cacheReplay() }}</div>
+            <div>{{ triggerCacheReplay() }}</div>
             <b-card style="cursor: pointer;" class="col-12 col-lg-5 col-xl-4 p-1 m-1" v-for="pre_exp in pre_exp_arr" v-bind:class="[pre_exp.estado.texto]" @click="info(pre_exp, $event.target)">
                 <div class="row">
                     <p class="col p-1 m-1">Pre-Expansor {{pre_exp.numero}}</p> <div class="col-" v-bind:class="[pre_exp.estado.led]"></div>
@@ -68,6 +68,7 @@ export default {
       // variables for controlling the display of the main parts of the component.
       pre_exp_cards: [],
       mold_cards: [],
+      // number of cycles Control Values
       mold_nc_control_values: [
         // variables for controlling the display color of the molding cycle number control values.
         {
@@ -91,6 +92,7 @@ export default {
           max: 120,
         },
       ],
+      // total number of cycles Control Values
       mold_tc_control_values: [
         // variables for controlling the display color of the molding total cycles control values.
         {
@@ -120,15 +122,20 @@ export default {
         title: "",
         content: "",
       },
+      // variables for controlling the display color of the molding cycle number control values.
+      stateClass: {
+        danger: "bg-danger text-light",
+        warning: "bg-warning text-dark",
+        success: "bg-success text-light",
+      },
+      dangerClass: "bg-danger text-light",
+      warningClass: "bg-warning text-dark",
+      successClass: "bg-success text-light",
     };
   },
   methods: {
-    cacheReplay: function () {
-      uibuilder.send({
-        payload: "Hi there from the client",
-        topic: "from the client",
-        cacheControl: "REPLAY",
-      });
+    triggerCacheReplay() {
+      this.$emit("cachereplay-event");
     },
     info(machine_obj, card) {
       this.infoModal.title = `Máquina numero: ${machine_obj.numero}`;
@@ -168,20 +175,20 @@ export default {
     },
     getVariantClassbyCN(cycleNumber, moldType) {
       if (cycleNumber > this.mold_nc_control_values.find((obj) => obj.name === moldType)["max"]) {
-        return "bg-danger";
+        return this.stateClass.danger;
       } else if (cycleNumber > this.mold_nc_control_values.find((obj) => obj.name === moldType)["ideal"]) {
-        return "bg-warning";
+        return this.stateClass.warning;
       } else {
-        return "bg-success";
+        return this.stateClass.success;
       }
     },
     getVariantClassbyTC(cycleNumber, moldType) {
       if (cycleNumber > this.mold_tc_control_values.find((obj) => obj.name === moldType)["max"]) {
-        return "bg-danger";
+        return this.stateClass.danger;
       } else if (cycleNumber > this.mold_tc_control_values.find((obj) => obj.name === moldType)["ideal"]) {
-        return "bg-warning";
+        return this.stateClass.warning;
       } else {
-        return "bg-success";
+        return this.stateClass.success;
       }
     },
   },

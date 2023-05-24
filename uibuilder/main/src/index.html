@@ -179,10 +179,10 @@
             <b-tabs lazy content-class="mt-3" align="center">
               <b-tab title="Estado de Maquinarias" active>
                 <machinedata class="d-flex align-items-center justify-content-center p-3 m-3" :pre_exp_arr="pre_exp_arr"
-                  :mold_arr="mold_arr"></machinedata>
+                  :mold_arr="mold_arr" @cachereplay-event="cacheReplay"></machinedata>
               </b-tab>
               <b-tab title="Base de Datos">
-                <database></database>
+                <database :query_results="query_results" :query_options="query_options" @lastn-event="getLastN"></database>
               </b-tab>
               <b-tab title="Monitor de Variables productivas"></b-tab>
             </b-tabs>

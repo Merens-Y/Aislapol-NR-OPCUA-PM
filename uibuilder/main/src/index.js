@@ -31,14 +31,24 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
             api_url: `http://${API_URL}:1880`,
             showSkeleton: true,
             isLoggedIn: false,
-            pre_exp_arr: [{}, {}],
-            mold_arr: [{}, {}],
             email: '',
             userToken: '',
             isAdmin: false,
             showAdminTools: false,
+            // Props variables for multiple components
+            pre_exp_arr: [{}, {}],
+            mold_arr: [{}, {}],
             admin_permitted_users: [],
             admin_registered_users: [],
+            queryData: [],
+            queryParams: [],
+            query_options: [
+                { value: 'GET LAST HUNDRED', label: 'Obtener últimas 100 entradas' },
+                { value: 'GET LAST N', label: 'Obtener últimas N entradas' },
+                { value: 'GET FROM DATE RANGE', label: 'Obtener por rango de fecha' },
+                // Add more query options as needed
+            ],
+            query_results: [],
         }
     }, // --- End of data --- //
     mounted() {
@@ -56,9 +66,10 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
         }
         // Check login status first, can't show or load if user is not logged.
         this.checkLoginStatus();
+        // Timeout for skeletons.
         setTimeout(() => {
             this.showSkeleton = false;
-        }, 700); // Adjust the duration as needed
+        }, 1000); // Adjust the duration as needed
     },
     computed: {
         isEmailValid() {
@@ -76,7 +87,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
 
     methods: {
         // Utility methods
-        makeToast(toastTitle = "Title", toastMessage = "message", variant=null, append = false) {
+        makeToast(toastTitle = "Title", toastMessage = "message", variant = null, append = false) {
             this.$bvToast.toast(`${toastMessage}`, {
                 title: `${toastTitle}`,
                 autoHideDelay: 5000,
@@ -123,6 +134,21 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 })
                 .join('\n');
             return newUsersList;
+        },
+        // uibuilder methods to send messages to Node-RED
+        cacheReplay: function () {
+            uibuilder.send({
+                payload: "Hi there from the client",
+                topic: "from the client",
+                cacheControl: "REPLAY",
+            });
+        },
+        getLastN: function (n=100) {
+            uibuilder.send({
+                payload: "Hi there from the client",
+                topic: "GET LAST N",
+                n: n,
+            });
         },
         // Admin methods
         async getPermitted() {
@@ -438,7 +464,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                         this.makeToast('Registro', 'Error al solicitar registro, el usuario ya está registrado, o la dirección de correo otorgada no está permitida', 'danger');
                         throw new Error(`${response.status} ${response.statusText}`);
                     }
-                    else{
+                    else {
                         this.makeToast('Registro', 'Se ha enviado un correo de confirmación a tu correo electrónico.', 'success');
                     }
                     console.log(response);//logs the response object
@@ -468,7 +494,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                         this.makeToast('Registro', 'Error al solicitar registro, el usuario ya está registrado, o la dirección de correo otorgada no está permitida', 'danger');
                         throw new Error('Network response was not ok');
                     }
-                    else{
+                    else {
                         this.makeToast('Registro', 'Se ha vuelto a enviar un correo de confirmación a tu correo electrónico. Recuerda revisar', 'info');
                     }
                     console.log(response);//logs the response object
@@ -610,21 +636,16 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
             // Workaround to show "toast" notifications dynamically. See methods above.
             this.showToast(msg)
             if (msg.topic === 'pre-expansor') {
-                // $(...) is a uibuilder helper function that selects an HTML element based on a CSS Selector
-                // Use innerHTML if your payload includes additional HTML formatting
-
                 this.pre_exp_arr = msg.payload;
             }
             if (msg.topic === 'moldeador') {
-                // $(...) is a uibuilder helper function that selects an HTML element based on a CSS Selector
-                // Use innerHTML if your payload includes additional HTML formatting
-
                 this.mold_arr = msg.payload;
             }
+            if (msg.topic === 'SQL Response') {
+                this.query_results = msg.payload;
+            }
         })
-
     }, // --- End of created hook --- //
-
 }) // --- End of app1 --- //
 
 // EOF

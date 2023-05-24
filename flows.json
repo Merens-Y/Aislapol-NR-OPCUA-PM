@@ -6845,9 +6845,11 @@
         "deployedVersion": "6.4.1",
         "showMsgUib": false,
         "x": 910,
-        "y": 80,
+        "y": 180,
         "wires": [
-            [],
+            [
+                "d06b83ab0fabd619"
+            ],
             [
                 "7d81552ad7db1474"
             ]
@@ -6875,7 +6877,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 220,
-        "y": 140,
+        "y": 260,
         "wires": [
             [
                 "05a0a1bc362ca653"
@@ -6894,7 +6896,7 @@
         "finalize": "",
         "libs": [],
         "x": 420,
-        "y": 140,
+        "y": 260,
         "wires": [
             [
                 "7d81552ad7db1474"
@@ -6917,7 +6919,7 @@
         "storeContext": "context",
         "varName": "uib_cache",
         "x": 650,
-        "y": 140,
+        "y": 260,
         "wires": [
             [
                 "2a803cbfd3bd2e29",
@@ -6939,7 +6941,123 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 880,
-        "y": 140,
+        "y": 260,
         "wires": []
+    },
+    {
+        "id": "e7e16651c5d4ea10",
+        "type": "postgresql",
+        "z": "a2bc427f0d400003",
+        "name": "Get latest entries",
+        "query": "SELECT * FROM public.aislapol_table\nORDER BY \"ID\" DESC LIMIT 100",
+        "postgreSQLConfig": "a1fb71ced63ef518",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 1390,
+        "y": 100,
+        "wires": [
+            [
+                "6f7a991c58788ad1",
+                "545f814de989fd23"
+            ]
+        ]
+    },
+    {
+        "id": "6f7a991c58788ad1",
+        "type": "debug",
+        "z": "a2bc427f0d400003",
+        "name": "PostgreSQL Response",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1630,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "d06b83ab0fabd619",
+        "type": "switch",
+        "z": "a2bc427f0d400003",
+        "name": "Filter Database Queries",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "GET LAST HUNDRED",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "GET LAST N",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 1150,
+        "y": 100,
+        "wires": [
+            [
+                "e7e16651c5d4ea10"
+            ],
+            [
+                "8cb2280155702e66",
+                "6f7a991c58788ad1"
+            ]
+        ]
+    },
+    {
+        "id": "545f814de989fd23",
+        "type": "change",
+        "z": "a2bc427f0d400003",
+        "name": "Send back",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "SQL Response",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1670,
+        "y": 100,
+        "wires": [
+            [
+                "001c871e90622580"
+            ]
+        ]
+    },
+    {
+        "id": "8cb2280155702e66",
+        "type": "postgresql",
+        "z": "a2bc427f0d400003",
+        "name": "Get latest N entries",
+        "query": "SELECT * FROM public.aislapol_table\nORDER BY \"ID\" DESC LIMIT {{{ msg.n }}}",
+        "postgreSQLConfig": "a1fb71ced63ef518",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 1390,
+        "y": 180,
+        "wires": [
+            [
+                "545f814de989fd23",
+                "6f7a991c58788ad1"
+            ]
+        ]
     }
 ]
