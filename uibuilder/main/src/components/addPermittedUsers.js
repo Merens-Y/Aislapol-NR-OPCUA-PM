@@ -2,6 +2,7 @@ export default {
   // Component options: template, data, methods, etc.
   template: `
     <b-container>
+    <h1>Otorgar permiso</h1>
         <b-form @submit.prevent="triggerInsertUsers">
           <div v-for="(user, index) in newPermittedUsers" :key="index">
               <b-form-row>
@@ -29,7 +30,7 @@ export default {
                       </b-form-group>
                   </b-col>
 
-                  <b-col cols="2" class="d-flex align-items-center justify-content-center">
+                  <b-col cols="2">
                           <b-button
                               variant="danger"
                               size="sm"
@@ -37,17 +38,17 @@ export default {
                               v-if="index > 0"
                               @click="removeUser(index)"
                           >
-                              Remover
+                          <b-icon icon="dash-square" aria-hidden="true"></b-icon>
                           </b-button>
                   </b-col>
               </b-form-row>   
           </div>
 
           <b-button variant="primary" size="sm" @click="addUser">
-              Añadir Usuario
+            <b-icon icon="plus-square" aria-hidden="true"></b-icon> Añadir Usuario
           </b-button>
 
-          <b-button type="submit" size="sm" :disabled="!isAllValid">Permitir Usuario(s)</b-button>
+          <b-button type="submit" size="sm" :disabled="!isAllValid"><b-icon icon="person-check" aria-hidden="true"></b-icon> Permitir Usuario(s)</b-button>
         </b-form>
     </b-container>
     `,

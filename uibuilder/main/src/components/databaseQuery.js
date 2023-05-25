@@ -2,21 +2,72 @@ export default {
     props: ["query_results", "query_options"],
     template: `
         <b-container fluid>
+            <!-- Query Selection -->
             <b-row>
-            <b-col lg="6" class="my-1">
-                <b-form-select v-model="selectedQuery" :options="query_options" value-field="value" text-field="label">
-                    <template #first>
-                        <option value="">-- Seleccionar Query --</option>
-                    </template>
-                </b-form-select>
-            </b-col>
-            <b-col lg="6" class="my-1"><b-button :disabled="!isValidQuery" @click="makeQuery(selectedQuery)">Hacer Query</b-button></b-col>
-            </b-row>
-            <b-row v-if="selectedQuery === 'GET LAST N'">
                 <b-col lg="6" class="my-1">
-                    <b-form-input id="n-for-query" type="text" v-model="queryPropN" :state="isInteger(queryPropN)" pattern="[0-9]*"></b-form-input>
+                    <b-form-group label="Obtener:" label-for="select-query" label-cols-sm="3" label-align-sm="right" label-size="sm" class="mb-0">
+                        <b-form-select v-model="selectedQuery" :options="query_options" value-field="value" text-field="label">
+                            <template #first>
+                                <option value="">-- Seleccionar Query --</option>
+                            </template>
+                        </b-form-select>
+                    </b-form-group>
+                </b-col>
+                <b-col lg="6" class="my-1"><b-button :disabled="!isValidQuery" @click="makeQuery(selectedQuery)">Hacer Query</b-button></b-col>
+            </b-row>
+            <!-- N number Input -->
+            <b-row v-if="selectedQuery === 'GET LAST N' || selectedQuery === 'GET FIRST N'">
+                <b-col lg="6" class="my-1">
+                    <b-form-group label="N:" label-for="n-for-query" label-cols-sm="3" label-align-sm="right" label-size="sm" class="mb-0">
+                        <b-form-input id="n-for-query" type="text" v-model="queryPropN" :state="isInteger(queryPropN)" pattern="[0-9]*"></b-form-input>
+                    </b-form-group>
                 </b-col>
             </b-row>
+            <!-- From and To date range selection -->
+            <b-row v-if="selectedQuery === 'GET FROM DATE RANGE' || selectedQuery === 'GET FROM DATE AND TIME RANGE'">
+                <b-col lg="6" class="my-1">
+                    <b-form-group label="Desde:" label-for="from-date" label-cols-sm="3" label-align-sm="right" label-size="sm" class="mb-0">
+                        <b-input-group size="sm">
+                            <b-form-datepicker id="from-date" v-model="dateFrom" class="w-75" v-bind="datepickerOptions" :max="dateTo"></b-form-datepicker>
+                            <b-button @click="clearFromDate" size="sm" class="w-25">Despejar</b-button>
+                        </b-input-group>
+                    </b-form-group>
+                </b-col>
+            </b-row>
+            <b-row v-if="selectedQuery === 'GET FROM DATE RANGE' || selectedQuery === 'GET FROM DATE AND TIME RANGE'">
+                <b-col lg="6" class="my-1">
+                    <b-form-group label="Hasta:" label-for="to-date" label-cols-sm="3" label-align-sm="right" label-size="sm" class="mb-0">
+                        <b-input-group size="sm">
+                            <b-form-datepicker id="to-date" v-model="dateTo" v-bind="datepickerOptions" :min="dateFrom"></b-form-datepicker>
+                            <b-button @click="clearToDate" size="sm" class="w-25">Despejar</b-button>
+                        </b-input-group>
+                    </b-form-group>
+                </b-col>
+            </b-row>
+            <!-- From and To time range selection -->
+            <b-row v-if="selectedQuery === 'GET FROM DATE AND TIME RANGE'">
+                <b-col lg="6" class="my-1">
+                    <b-form-group label="Desde:" label-for="from-time" label-cols-sm="3" label-align-sm="right" label-size="sm" class="mb-0">
+                        <b-input-group size="sm">
+                            <b-form-timepicker id="from-time" v-model="timeFrom" class="w-75" v-bind="timepickerOptions"></b-form-timepicker>
+                            <b-button @click="clearFromTime" size="sm" class="w-25">Despejar</b-button>
+                        </b-input-group>
+                    </b-form-group>
+                </b-col>
+            </b-row>
+            <b-row v-if="selectedQuery === 'GET FROM DATE AND TIME RANGE'">
+                <b-col lg="6" class="my-1">
+                    <b-form-group label="Hasta:" label-for="to-time" label-cols-sm="3" label-align-sm="right" label-size="sm" class="mb-0">
+                        <b-input-group size="sm">
+                            <b-form-timepicker id="to-time" v-model="timeTo" v-bind="timepickerOptions"></b-form-timepicker>
+                            <b-button @click="clearToTime" size="sm" class="w-25">Despejar</b-button>
+                        </b-input-group>
+                    </b-form-group>
+                </b-col>
+            </b-row>
+
+            <hr/>
+            <b-button :disabled="!canDownloadCSV" @click="downloadCSV">Descargar CSV</b-button>
             <hr/>
             <!-- User Interface controls -->
             <b-row>
@@ -223,6 +274,34 @@ export default {
             },
             selectedQuery: '',
             queryPropN: 100,
+            dateFrom: '',
+            dateTo: '',
+            datepickerOptions: {
+                'label-next-month': 'Mes Siguiente',
+                'label-next-year': 'Año Siguiente',
+                'label-current-month': 'Current Mes',
+                'label-prev-month': 'Mes Anterior',
+                'label-prev-year': 'Año Anterior',
+                'label-help': 'Usa las teclas para navegar entre días',
+                'label-no-date-selected': "Selecciona una fecha",
+                'locale': "es",
+                'startWeekday': "1",
+            },
+            timeTo: '',
+            timeFrom: '',
+            timepickerOptions: {
+                'locale': "es",
+                'label-close-button': "Cerrar",
+                'label-decrement': "Reducir",
+                'label-increment': "Incrementar",
+                'label-hours': "Horas",
+                'label-minutes': "Minutos",
+                'label-seconds': "Segundos",
+                'label-no-time-selected': "Selecciona una hora",
+                'label-now-button': "Ahora",
+                'label-reset-button': "Reiniciar",
+                'reset-button': true,
+            },
         }
     },
     computed: {
@@ -237,10 +316,14 @@ export default {
         isValidQuery() {
             return this.selectedQuery !== ''; // Modify the condition based on your validity criteria
         },
+        canDownloadCSV() {
+            return this.query_results.length !== 0; // Modify the condition based on your validity criteria
+        },
     },
     updated() {
         // Set the initial number of items
-        this.totalRows = this.query_results.length;
+        const filteredItems = this.filterData();
+        this.totalRows = filteredItems.length;
     },
     methods: {
         // methods for the table component.
@@ -270,10 +353,78 @@ export default {
             this.infoModal.title = '';
             this.infoModal.content = '';
         },
-        onFiltered(filteredItems) {
+        onFiltered() {
             // Trigger pagination to update the number of buttons/pages due to filtering
-            this.totalRows = filteredItems.length;
-            this.currentPage = 1;
+            const filteredItems = this.filterData()
+            if (filteredItems.length === 0) {
+                this.currentPage = 1;
+                this.totalRows = 1;
+                return;
+            }
+            else {
+                this.totalRows = filteredItems.length;
+                this.currentPage = 1;
+            }
+        },
+        clearFromDate() {
+            this.dateFrom = '';
+        },
+        clearToDate() {
+            this.dateTo = '';
+        },
+        clearToTime() {
+            this.timeTo = '';
+        },
+        clearFromTime() {
+            this.timeFrom = '';
+        },
+        // methods for CSV export.
+        filterData() {
+            // Apply filtering based on specific criteria
+            if (this.filter === '' || this.filter === null) {
+                return this.query_results;
+            }
+            else {
+                const filteredData = this.query_results.filter((row) => {
+                    const { name, id } = row;
+                    const filterName = this.filterOn.includes('machine_name') || false;
+                    const filterRecipe = this.filterOn.includes('recipe_name') || false;
+                    const nameMatch = filterName && name.toLowerCase().includes(this.filter.toLowerCase());
+                    const idMatch = filterRecipe && id.toLowerCase().includes(this.filter.toLowerCase());
+
+                    if (filterName && filterRecipe) {
+                        return nameMatch || idMatch;
+                    } else if (filterName) {
+                        return nameMatch;
+                    } else if (filterRecipe) {
+                        return idMatch;
+                    } else {
+                        // If no specific filtering is enabled, search in all fields
+                        const values = Object.values(row).join('').toLowerCase();
+                        return values.includes(this.filter.toLowerCase());
+                    }
+                });
+
+                return filteredData;
+            }
+        },
+        generateCSV() {
+            const filteredData = this.filterData(); // Apply filtering based on specific criteria
+            const header = Object.keys(filteredData[0]).join(',');
+            const rows = filteredData.map((row) => Object.values(row).join(','));
+            return [header, ...rows].join('\n');
+        },
+        downloadCSV() {
+            const csvContent = this.generateCSV();
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const downloadLink = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            downloadLink.href = url;
+            downloadLink.setAttribute('download', 'data.csv');
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            URL.revokeObjectURL(url);
         },
         // methods for the query component.
         makeQuery() {
@@ -286,11 +437,46 @@ export default {
                 this.triggerLastNQuery();
                 return;
             }
+            else if (this.selectedQuery === 'GET FIRST HUNDRED') {
+                this.queryPropN = 100;
+                this.triggerFirstNQuery();
+                return;
+            }
+            else if (this.selectedQuery === 'GET FIRST N') {
+                this.triggerFirstNQuery();
+                return;
+            }
+            else if (this.selectedQuery === 'GET FROM DATE RANGE') {
+                this.triggerDateRangeQuery();
+                return;
+            }
+            else if (this.selectedQuery === 'GET FROM DATE AND TIME RANGE') {
+                this.triggerDateTimeRangeQuery();
+                return;
+            }
         },
         // methods for the triggering of methods in the parent component.
         triggerLastNQuery() {
             const n = this.queryPropN;
             this.$emit('lastn-event', n);
-        }
-    }
+        },
+        triggerFirstNQuery() {
+            const n = this.queryPropN;
+            this.$emit('firstn-event', n);
+        },
+        triggerDateRangeQuery() {
+            const dateFrom = String(this.dateFrom);
+            const dateTo = String(this.dateTo);
+            this.$emit('daterange-event', dateFrom, dateTo);
+        },
+        triggerDateTimeRangeQuery() {
+            const dateFrom = String(this.dateFrom);
+            const dateTo = String(this.dateTo);
+            const timeFrom = String(this.timeFrom);
+            const timeTo = String(this.timeTo);
+            const timeWithTZFrom = `${dateFrom} ${timeFrom}`;
+            const timeWithTZTo = `${dateTo} ${timeTo}`;
+            this.$emit('datetimerange-event', dateFrom, dateTo,timeWithTZFrom, timeWithTZTo);
+        },
+    },
 }

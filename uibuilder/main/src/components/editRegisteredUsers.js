@@ -7,29 +7,29 @@ export default {
         },
     },
     template: `
-    <b-row>
-        <div class="w-100"></div>
-        <div>
-        <b-table :items="registered_users_table" small striped hover caption-top :fields="aPUFields">
-            <template #table-caption>Lista de usuarios registrados en la aplicación.</template>
-            <template #cell(index)="row">
-            {{ row.index + 1 }}
-            </template>
-            <template v-slot:cell(user_email)="row">
-            {{ row.value }}
-            </template>
-            <template v-slot:cell(roles)="row">
-            {{ row.value.length > 0 ? row.value.join(', ') : 'Sin rol' }}
-            </template>
-            <template v-slot:cell(acciones)="row">
-            <b-button variant="danger" @click="triggerDeleteUser(row.item.user_email)">
-                <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
-                Borrar
-            </b-button>
-            </template>
-        </b-table>
-        </div>
-    </b-row>
+    <b-container>
+        <b-row>
+        <h1>Eliminar Usuario Registrado</h1>
+            <b-table :items="registered_users_table" stacked="md" show-empty small striped hover caption-top :fields="aPUFields">
+                <template #table-caption>Lista de usuarios registrados en la aplicación.</template>
+                <template #cell(index)="row">
+                {{ row.index + 1 }}
+                </template>
+                <template v-slot:cell(user_email)="row">
+                {{ row.value }}
+                </template>
+                <template v-slot:cell(roles)="row">
+                {{ row.value.length > 0 ? row.value.join(', ') : 'Sin rol' }}
+                </template>
+                <template v-slot:cell(acciones)="row">
+                <b-button size="sm" variant="danger" @click="triggerDeleteUser(row.item.user_email)">
+                    <b-icon icon="person-dash" aria-hidden="true"></b-icon>
+                    Borrar
+                </b-button>
+                </template>
+            </b-table>
+        </b-row>
+    </b-container>
     `,
     data() {
         return {
@@ -77,7 +77,7 @@ export default {
     // Available hooks: beforeCreate,created,beforeMount,mounted,beforeUpdate,updated,beforeDestroy,destroyed, activated,deactivated, errorCaptured
     mounted() {
         if (this.admin_registered_users) {
-            this.registered_users_table = convertRUtoRUTable(this.admin_registered_users);
+            this.registered_users_table = this.convertRUtoRUTable(this.admin_registered_users);
         }
     },
 }

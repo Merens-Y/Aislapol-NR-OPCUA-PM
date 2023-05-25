@@ -171,18 +171,20 @@
         </div>
         <!-- Actual Contents -->
         <div class="row" v-if="!showSkeleton">
-          <loginforms class="d-flex align-items-center justify-content-center p-3 m-3" :api_url="api_url"
-            @submitlogin-event="onSubmit" @register-event="onRegister" @resendemail-event="onSendConfirmation"
-            @endregistration-event="confirmRegistration" v-if="!isLoggedIn">
+          <loginforms :api_url="api_url" @submitlogin-event="onSubmit" @register-event="onRegister"
+            @resendemail-event="onSendConfirmation" @endregistration-event="confirmRegistration" v-if="!isLoggedIn">
           </loginforms>
           <b-container v-if="isLoggedIn">
             <b-tabs lazy content-class="mt-3" align="center">
               <b-tab title="Estado de Maquinarias" active>
-                <machinedata class="d-flex align-items-center justify-content-center p-3 m-3" :pre_exp_arr="pre_exp_arr"
-                  :mold_arr="mold_arr" @cachereplay-event="cacheReplay"></machinedata>
+                <machinedata :pre_exp_arr="pre_exp_arr" :mold_arr="mold_arr" @cachereplay-event="cacheReplay">
+                </machinedata>
               </b-tab>
               <b-tab title="Base de Datos">
-                <database :query_results="query_results" :query_options="query_options" @lastn-event="getLastN"></database>
+                <database :query_results="query_results" :query_options="query_options" @lastn-event="getLastN"
+                  @firstn-event="getFirstN" @daterange-event="getFromDateRange"
+                  @datetimerange-event="getFromDateAndTimeRange">
+                </database>
               </b-tab>
               <b-tab title="Monitor de Variables productivas"></b-tab>
             </b-tabs>
@@ -190,7 +192,7 @@
         </div>
       </b-container>
       <!-- Sidebar with Admin tools -->
-      <b-sidebar id="sidebar-footer" aria-label="Sidebar with custom footer" width="100%" backdrop-variant="dark"
+      <b-sidebar id="sidebar-footer" lazy aria-label="Sidebar with custom footer" width="100%" backdrop-variant="dark"
         backdrop no-header shadow>
         <!-- Footer y título -->
         <template>
@@ -202,28 +204,27 @@
         <!-- Sidebar Content -->
         <b-contanier fluid v-if="showAdminTools">
           <b-card no-body>
-            <b-tabs pills card>
+            <b-tabs lazy pills card>
               <b-tab title="Usuarios Permitidos" active>
                 <b-row>
-                  <b-col cols="12" lg="6">
-                    <h1>Revocar permiso</h1>
-                    <edittable class="d-flex align-items-left justify-content-left p-3 m-3"
-                      :admin_permitted_users="admin_permitted_users" @updateusers-event="updateAdminUsers"></edittable>
+                  <b-col lg="6">
+                    <edittable :admin_permitted_users="admin_permitted_users" @updateusers-event="updateAdminUsers">
+                    </edittable>
                   </b-col>
                   <b-col cols="12" lg="6">
-                    <h1>Otorgar permiso</h1>
-                    <addpermittedusers class="d-flex align-items-left justify-content-left p-3 m-3"
-                      @insertpu-event="insertUsers"></addpermittedusers>
+                    <addpermittedusers @insertpu-event="insertUsers"></addpermittedusers>
                   </b-col>
                 </b-row>
               </b-tab>
               <b-tab title="Usuarios Registrados">
-                <h1>Eliminar Usuario Registrado</h1>
-                <admindata class="d-flex align-items-left justify-content-left p-3 m-3"
-                  :admin_registered_users="admin_registered_users" :admin_permitted_users="admin_permitted_users"
-                  @deluser-event="deleteUser" @getpu-event="getPermitted" @getru-event="getRegistered"></admindata>
+                <admindata :admin_registered_users="admin_registered_users"
+                  :admin_permitted_users="admin_permitted_users" @deluser-event="deleteUser" @getpu-event="getPermitted"
+                  @getru-event="getRegistered"></admindata>
               </b-tab>
-              <b-tab title="Cambiar Rol de Usuario">Tab contents 3</b-tab>
+              <b-tab title="Cambiar Rol de Usuario">
+                <editroles :admin_registered_users="admin_registered_users">
+                </editroles>
+              </b-tab>
             </b-tabs>
           </b-card>
         </b-contanier>

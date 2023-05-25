@@ -135,7 +135,6 @@ export default {
         if (localStorage.userEmail) {
             this.email = localStorage.userEmail;
         }
-        console.log(this.api_url);
     },
     computed: {
         isEmailValid() {

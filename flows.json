@@ -6945,25 +6945,6 @@
         "wires": []
     },
     {
-        "id": "e7e16651c5d4ea10",
-        "type": "postgresql",
-        "z": "a2bc427f0d400003",
-        "name": "Get latest entries",
-        "query": "SELECT * FROM public.aislapol_table\nORDER BY \"ID\" DESC LIMIT 100",
-        "postgreSQLConfig": "a1fb71ced63ef518",
-        "split": false,
-        "rowsPerMsg": 1,
-        "outputs": 1,
-        "x": 1390,
-        "y": 100,
-        "wires": [
-            [
-                "6f7a991c58788ad1",
-                "545f814de989fd23"
-            ]
-        ]
-    },
-    {
         "id": "6f7a991c58788ad1",
         "type": "debug",
         "z": "a2bc427f0d400003",
@@ -6990,27 +6971,43 @@
         "rules": [
             {
                 "t": "eq",
-                "v": "GET LAST HUNDRED",
+                "v": "GET LAST N",
                 "vt": "str"
             },
             {
                 "t": "eq",
-                "v": "GET LAST N",
+                "v": "GET FIRST N",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "GET FROM DATE RANGE",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "GET FROM DATE AND TIME RANGE",
                 "vt": "str"
             }
         ],
         "checkall": "false",
         "repair": false,
-        "outputs": 2,
+        "outputs": 4,
         "x": 1150,
         "y": 100,
         "wires": [
             [
-                "e7e16651c5d4ea10"
-            ],
-            [
                 "8cb2280155702e66",
                 "6f7a991c58788ad1"
+            ],
+            [
+                "3b4638d433774793"
+            ],
+            [
+                "19ad9ebed5106c09"
+            ],
+            [
+                "42c25fba9004138b"
             ]
         ]
     },
@@ -7053,6 +7050,63 @@
         "outputs": 1,
         "x": 1390,
         "y": 180,
+        "wires": [
+            [
+                "545f814de989fd23",
+                "6f7a991c58788ad1"
+            ]
+        ]
+    },
+    {
+        "id": "3b4638d433774793",
+        "type": "postgresql",
+        "z": "a2bc427f0d400003",
+        "name": "Get first N entries",
+        "query": "SELECT * FROM public.aislapol_table\nORDER BY \"ID\" ASC LIMIT {{{ msg.n }}}",
+        "postgreSQLConfig": "a1fb71ced63ef518",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 1390,
+        "y": 240,
+        "wires": [
+            [
+                "545f814de989fd23",
+                "6f7a991c58788ad1"
+            ]
+        ]
+    },
+    {
+        "id": "19ad9ebed5106c09",
+        "type": "postgresql",
+        "z": "a2bc427f0d400003",
+        "name": "Get from date range",
+        "query": "SELECT *\nFROM public.aislapol_table\nWHERE date BETWEEN '{{{ msg.fromDate }}}'::date AND '{{{ msg.toDate }}}'::date;\n",
+        "postgreSQLConfig": "a1fb71ced63ef518",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 1400,
+        "y": 300,
+        "wires": [
+            [
+                "545f814de989fd23",
+                "6f7a991c58788ad1"
+            ]
+        ]
+    },
+    {
+        "id": "42c25fba9004138b",
+        "type": "postgresql",
+        "z": "a2bc427f0d400003",
+        "name": "Get from date and time range",
+        "query": "SELECT *\nFROM public.aislapol_table\nWHERE date BETWEEN '{{{ msg.fromDate }}}'::date AND '{{{ msg.toDate }}}'::date\n  AND timestamp >= '{{{ msg.fromTime }}}'::time with time zone\n  AND timestamp <= '{{{ msg.toTime }}}'::time with time zone;",
+        "postgreSQLConfig": "a1fb71ced63ef518",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 1430,
+        "y": 360,
         "wires": [
             [
                 "545f814de989fd23",

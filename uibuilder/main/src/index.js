@@ -6,6 +6,7 @@ import MachineData from './components/machineData.js';
 import AdminData from './components/editRegisteredUsers.js';
 import EditTable from './components/editPermittedUsers.js';
 import Database from './components/databaseQuery.js';
+import EditRoles from './components/editUserRole.js';
 import { API_URL } from './components/api_url.js'
 
 /** Simple example of using the uibuilder IIFE client build
@@ -24,6 +25,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
         admindata: AdminData,
         edittable: EditTable,
         database: Database,
+        editroles: EditRoles,
     },
     data() {
         return {
@@ -43,9 +45,12 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
             queryData: [],
             queryParams: [],
             query_options: [
-                { value: 'GET LAST HUNDRED', label: 'Obtener últimas 100 entradas' },
-                { value: 'GET LAST N', label: 'Obtener últimas N entradas' },
-                { value: 'GET FROM DATE RANGE', label: 'Obtener por rango de fecha' },
+                { value: 'GET LAST HUNDRED', label: 'Últimas 100 entradas' },
+                { value: 'GET LAST N', label: 'Últimas N entradas' },
+                { value: 'GET FIRST HUNDRED', label: 'Primeras 100 entradas' },
+                { value: 'GET FIRST N', label: 'Primeras N entradas' },
+                { value: 'GET FROM DATE RANGE', label: 'Por rango de fecha' },
+                { value: 'GET FROM DATE AND TIME RANGE', label: 'Por rango de fecha y hora' },
                 // Add more query options as needed
             ],
             query_results: [],
@@ -150,6 +155,31 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 n: n,
             });
         },
+        getFirstN: function (n=100) {
+            uibuilder.send({
+                payload: "Hi there from the client",
+                topic: "GET FIRST N",
+                n: n,
+            });
+        },
+        getFromDateRange: function (fromDate, toDate) {
+            uibuilder.send({
+                payload: "Hi there from the client",
+                topic: "GET FROM DATE RANGE",
+                fromDate: fromDate,
+                toDate: toDate,
+            });
+        },
+        getFromDateAndTimeRange: function (fromDate, toDate, fromTime, toTime) {
+            uibuilder.send({
+                payload: "Hi there from the client",
+                topic: "GET FROM DATE AND TIME RANGE",
+                fromDate: fromDate,
+                fromTime: fromTime,
+                toDate: toDate,
+                toTime: toTime,
+            });
+        },
         // Admin methods
         async getPermitted() {
             const bearerToken = localStorage.getItem('userToken');
@@ -168,16 +198,12 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                         throw new Error('Network response was not ok');
                     }
                     userToken = response.headers.get('authorization');
-                    console.log(userToken);//logs the user token
-                    console.log(response);//logs the response object
                     return response.text();
                 })
                 .then(data => {
                     // Handle the response data
                     users = this.textResponsetoObject(data);
-                    console.log(users);
                     this.admin_permitted_users = users;
-                    console.log(data);
                 })
                 .catch(error => {
                     // Handle any errors
@@ -185,12 +211,9 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 });
 
             if (userToken === null) {
-                console.log("user token is null at this point");
                 this.logout();
             }
             else {
-                console.log("user token is not null at this point so we can proceed");
-                console.log(users);
                 // Store the token and user email in local storage
                 localStorage.setItem('userToken', userToken);
                 localStorage.setItem('adminPermittedUsers', JSON.stringify(users)); //remember to JSON.parse() it before using to get an object instead
@@ -213,16 +236,12 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                         throw new Error('Network response was not ok');
                     }
                     userToken = response.headers.get('authorization');
-                    console.log(userToken);//logs the user token
-                    console.log(response);//logs the response object
                     return response.json();
                 })
                 .then(data => {
                     // Handle the response data
                     users = data;
-                    console.log(users);
                     this.admin_registered_users = users;
-                    console.log(data);
                 })
                 .catch(error => {
                     // Handle any errors
@@ -230,12 +249,9 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 });
 
             if (userToken === null) {
-                console.log("user token is null at this point");
                 this.logout();
             }
             else {
-                console.log("user token is not null at this point so we can proceed");
-                console.log(users);
                 // Store the token and user email in local storage
                 localStorage.setItem('userToken', userToken);
                 localStorage.setItem('adminRegisteredUsers', users); //remember to JSON.parse() it before using to get an object instead
@@ -253,9 +269,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
             }
             // Convert new permitted users array to text file format
             const newUsersList = this.nPUtoText(newPermittedUsers)
-            console.log(newUsersList);
             const combinedTextContent = permittedUsersList + '\n' + newUsersList;
-            console.log(combinedTextContent);
             // Create request options
             const requestOptions = {
                 method: 'PUT',
@@ -291,22 +305,17 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
             })
                 .then(response => {
                     if (!response.ok) {
-                        console.log("response is not OK!");
                         throw new Error('Request failed');
                     }
                     else {
                         // If token is valid, set isLoggedIn to true
-                        console.log("entered else statement = response ok?");
-                        console.log(response);
                         userToken = response.headers.get('authorization');
                         return response.json();
                     }
                 })
                 .then(data => {
                     // Handle the response data
-                    console.log(data);
                     const roleData = data.Roles
-                    console.log(roleData);
                     if (roleData) {
                         if (roleData.includes("user-admin")) {
                             this.isAdmin = true;
@@ -328,7 +337,6 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                     console.error('Authorization error:', error);
                 });
             if (userToken === null) {
-                console.log("usertoken is null");
                 this.logout();
             }
             else {
@@ -336,7 +344,6 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                     await this.getPermitted();
                     await this.getRegistered();
                 }
-                console.log("usertoken is not null");
                 this.isLoggedIn = true;
                 localStorage.setItem('userToken', userToken);
                 localStorage.setItem('userEmail', userId);
@@ -363,7 +370,6 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                     if (response.ok) {
                         this.makeToast('Admin', 'El usuario ha sido eliminado exitosamente.', 'success');
                         // Request was successful
-                        console.log('User deleted successfully');
                         this.getRegistered();
                     } else {
                         // Request failed
@@ -419,14 +425,11 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                         throw new Error('Network response was not ok');
                     }
                     userToken = response.headers.get('authorization');
-                    console.log(userToken);//logs the user token
-                    console.log(response);//logs the response object
                     return response.json();
                 })
                 .then(data => {
                     // Handle the response data
                     userEmail = data.UserId;
-                    console.log(data);
                 })
                 .catch(error => {
                     // Handle any errors
@@ -434,12 +437,10 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 });
 
             if (userToken === null) {
-                console.log("user token is null at this point");
                 this.logout();
                 this.makeToast('Login', 'Inicio de sesión fallido.', 'danger');
             }
             else {
-                console.log("user token is not null at this point so we can proceed");
                 this.setLogged();
                 // Store the token and user email in local storage
                 localStorage.setItem('userToken', userToken);
@@ -467,12 +468,10 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                     else {
                         this.makeToast('Registro', 'Se ha enviado un correo de confirmación a tu correo electrónico.', 'success');
                     }
-                    console.log(response);//logs the response object
                     return response.json();
                 })
                 .then(data => {
                     // Handle the response data
-                    console.log(data);
                 })
                 .catch(error => {
                     // Handle any errors
@@ -497,12 +496,10 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                     else {
                         this.makeToast('Registro', 'Se ha vuelto a enviar un correo de confirmación a tu correo electrónico. Recuerda revisar', 'info');
                     }
-                    console.log(response);//logs the response object
                     return response.json();
                 })
                 .then(data => {
                     // Handle the response data
-                    console.log(data);
                 })
                 .catch(error => {
                     // Handle any errors
@@ -533,12 +530,10 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                         this.makeToast('Registro', 'Error al confirmar registro, el token otorgado es incorrecto.', 'danger');
                         throw new Error('Network response was not ok');
                     }
-                    console.log(response);//logs the response object
                     return response.json();
                 })
                 .then(data => {
                     // Handle the response data
-                    console.log(data);
                 })
                 .catch(error => {
                     // Handle any errors
@@ -622,7 +617,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
         userToken(newValue) {
             // Whenever the value of 'userToken' changes, update the local storage
             localStorage.setItem('userToken', newValue);
-        }
+        },
     },
     /** Called after the Vue app has been created. A good place to put startup code */
     created: function () {
