@@ -1,3 +1,4 @@
+// TODO: logic and api call for changing user role.
 export default {
     props: ['admin_registered_users'],
     watch: {

@@ -7,6 +7,7 @@ import AdminData from './components/editRegisteredUsers.js';
 import EditTable from './components/editPermittedUsers.js';
 import Database from './components/databaseQuery.js';
 import EditRoles from './components/editUserRole.js';
+import VariableMonitor from './components/variableMonitor.js';
 import { API_URL } from './components/api_url.js'
 
 /** Simple example of using the uibuilder IIFE client build
@@ -26,6 +27,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
         edittable: EditTable,
         database: Database,
         editroles: EditRoles,
+        variablemonitor: VariableMonitor,
     },
     data() {
         return {
