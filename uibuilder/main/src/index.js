@@ -1,5 +1,7 @@
 // @ts-nocheck
 'use strict'
+Vue.component('apexchart', VueApexCharts)
+
 import AddPermittedUsers from './components/addPermittedUsers.js';
 import LoginForms from './components/loginForm.js';
 import MachineData from './components/machineData.js';

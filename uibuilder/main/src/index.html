@@ -21,8 +21,8 @@
   <script defer
     src="../uibuilder/vendor/bootstrap-vue/dist/bootstrap-vue.min.js">/* remove 'min.' to use dev version */</script>
   <script defer src="../uibuilder/vendor/bootstrap-vue/dist/bootstrap-vue-icons.min.js"></script>
-  <script defer src="../uibuilder/vendor/chart.js/dist/chart.min.js"></script>
-  <script defer src="../uibuilder/vendor/vue-chartjs/lecacy/index.cjs"></script>
+  <script defer src="../uibuilder/vendor/apexcharts/dist/apexcharts.js"></script>
+  <script defer src="../uibuilder/vendor/vue-apexcharts/dist/vue-apexcharts.js"></script>
   <script defer src="../uibuilder/uibuilder.iife.min.js"></script>
 
   <script defer type="module" src="./index.js">/* OPTIONAL: Put your custom code in that */</script>
@@ -189,7 +189,10 @@
                 </database>
               </b-tab>
               <b-tab title="Monitor de Variables productivas">
-                <variablemonitor></variablemonitor>
+                <b-row>
+                  <b-col lg="6"><variablemonitor></variablemonitor></b-col>
+                  <b-col lg="6"><variablemonitor></variablemonitor></b-col>
+                </b-row>
               </b-tab>
             </b-tabs>
           </b-container>

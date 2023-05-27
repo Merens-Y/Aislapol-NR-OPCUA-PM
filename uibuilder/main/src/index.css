@@ -15,6 +15,10 @@
     src: url('./fonts/BrunoAceSC-Regular.ttf');
 }
 
+.apexcharts-dark {
+    background: #000000; /* Set the chart background color to black */
+  }
+
 .navbar-title {
     font-family: 'Bruno Ace SC';
 }

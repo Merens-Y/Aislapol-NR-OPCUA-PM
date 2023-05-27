@@ -2,13 +2,24 @@
   "name": "uib-root",
   "version": "6.4.1",
   "dependencies": {
+    "apexcharts": "^3.40.0",
     "bootstrap": "^4.6.1",
     "bootstrap-vue": "^2.23.1",
     "http-vue-loader": "^1.4.2",
-    "vue": "^2.7.14"
+    "vue": "^2.7.14",
+    "vue-apexcharts": "^1.6.2"
   },
   "uibuilder": {
     "packages": {
+      "apexcharts": {
+        "installFolder": "\\Users\\auror\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\apexcharts",
+        "installedVersion": "3.40.0",
+        "estimatedEntryPoint": "dist/apexcharts.js",
+        "homepage": "https://apexcharts.com",
+        "packageUrl": "/apexcharts",
+        "url": "../uibuilder/vendor/apexcharts/dist/apexcharts.js",
+        "spec": "^3.40.0"
+      },
       "bootstrap": {
         "installFolder": "\\Users\\auror\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\bootstrap",
         "installedVersion": "4.6.2",
@@ -45,6 +56,15 @@
         "packageUrl": "/vue",
         "url": "../uibuilder/vendor/vue/dist/vue.js",
         "spec": "^2.7.14"
+      },
+      "vue-apexcharts": {
+        "installFolder": "\\Users\\auror\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vue-apexcharts",
+        "installedVersion": "1.6.2",
+        "estimatedEntryPoint": "dist/vue-apexcharts.js",
+        "homepage": "https://www.npmjs.com/search?q=vue-apexcharts",
+        "packageUrl": "/vue-apexcharts",
+        "url": "../uibuilder/vendor/vue-apexcharts/dist/vue-apexcharts.js",
+        "spec": "^1.6.2"
       }
     }
   }
