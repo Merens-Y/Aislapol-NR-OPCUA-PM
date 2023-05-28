@@ -5,9 +5,8 @@ export default {
     props: ['api_url'],
     template: `
     <b-container fluid>
-        <b-container fluid v-if="showLogin">
-            <b-row>
-                <b-col md="6" class="mx-auto">
+            <b-row v-if="showLogin">
+                <b-col lg="6" class="p-2">
                     <h1>Inicia Sesión</h1>
                     <b-form class="position-relative p-3" @submit.prevent="triggerOnSubmit">
                         <b-form-group id="emailGroup" label="Correo:" label-for="emailInput" label-cols-lg="3" :state="isEmailValid" :invalid-feedback="emailFeedback">
@@ -33,14 +32,13 @@ export default {
                         </div>
                     </b-form>
                 </b-col>
+                <b-col lg="6" class="p-2"></b-col>
             </b-row>
-        </b-container>
-        <b-container fluid v-if="showRegister">
-            <b-row>
-                <b-col md="6" class="mx-auto">
+            <b-row v-if="showRegister">
+                <b-col lg="6" class="p-2">
                     <h1>Regístrate</h1>
                     <b-form class="position-relative p-3" v-if="!showPasswordForm" @submit.prevent="triggerRegister">
-                        <b-form-group id="emailGroup2" label="Correo:" label-for="emailInput" :state="isEmailValid" :invalid-feedback="emailFeedback">
+                        <b-form-group id="emailGroup2" label="Correo:" label-for="emailInput" label-cols-lg="3" :state="isEmailValid" :invalid-feedback="emailFeedback">
                             <b-input-group>
                                 <b-input-group-prepend is-text>
                                     <b-icon icon="envelope-fill"></b-icon>
@@ -91,15 +89,15 @@ export default {
                                 <b-form-input id="confirmTokenInput" v-model="confirmationToken" required></b-form-input>
                             </b-input-group>
                         </b-form-group>
-                        <div class="d-flex justify-content-around align-items-center mt-4">
-                            <b-button type="submit" variant="primary" :disabled="!confirmPasswordForm">Finalizar</b-button>
-                            <b-button @click="triggerResendEmail" variant="success" :disabled="resendEmailDisabled">Reenviar Token</b-button>                        
-                            <b-button variant="secondary" @click="toggleBehaviour">Volver a Iniciar Sesión</b-button>
-                        </div>
+                        <b-form-row class="text-center">
+                            <b-col sm="12" md="4" class="pb-2"><b-button type="submit" variant="primary" :disabled="!confirmPasswordForm"><b-icon icon="check-all"></b-icon> Finalizar</b-button></b-col>
+                            <b-col sm="12" md="4" class="pb-2"><b-button @click="triggerResendEmail" variant="success" :disabled="resendEmailDisabled"><b-icon icon="envelope"></b-icon> Reenviar Token</b-button></b-col>
+                            <b-col sm="12" md="4" class="pb-2"><b-button variant="secondary" @click="toggleBehaviour"><b-icon icon="box-arrow-in-left"></b-icon> Volver a Iniciar Sesión</b-button></b-col>
+                        </b-form-row>
                     </b-form>
                 </b-col>
+                <b-col lg="6" class="p-2"></b-col>
             </b-row>
-        </b-container>
     </b-container>
     `,
     data() {

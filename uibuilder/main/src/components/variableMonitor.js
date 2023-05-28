@@ -1,5 +1,4 @@
-// TODO: IMPORTANTE: Definir graficos de control para cada maquina
-
+// TODO: Definir graficos de control para cada maquina y tablas de control para cada maquina
 export default {
     props: [''],
     template: `

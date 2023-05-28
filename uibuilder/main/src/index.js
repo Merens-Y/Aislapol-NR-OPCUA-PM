@@ -10,7 +10,10 @@ import EditTable from './components/editPermittedUsers.js';
 import Database from './components/databaseQuery.js';
 import EditRoles from './components/editUserRole.js';
 import VariableMonitor from './components/variableMonitor.js';
-import { API_URL } from './components/api_url.js'
+import PasswordReset from './components/userPasswordReset.js';
+import EmailChange from './components/userEmailChange.js';
+import DeleteSelf from './components/userDeleteSelf.js';
+import { API_URL } from './components/api_url.js';
 
 /** Simple example of using the uibuilder IIFE client build
  *  with Vue and bootstrap-vue.
@@ -30,6 +33,9 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
         database: Database,
         editroles: EditRoles,
         variablemonitor: VariableMonitor,
+        passwordreset: PasswordReset,
+        emailchange: EmailChange,
+        deleteself: DeleteSelf,
     },
     data() {
         return {

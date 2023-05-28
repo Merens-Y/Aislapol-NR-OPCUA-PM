@@ -1,3 +1,4 @@
+// TODO: Add filtering for table
 export default {
     props: ['admin_permitted_users'],
     template: `
