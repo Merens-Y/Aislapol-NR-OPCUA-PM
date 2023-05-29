@@ -192,8 +192,8 @@
               </b-tab>
               <b-tab title="Monitor de Variables productivas">
                 <b-row>
-                  <b-col lg="6"><variablemonitor></variablemonitor></b-col>
-                  <b-col lg="6"><variablemonitor></variablemonitor></b-col>
+                  <b-col lg="5"><variablemonitor :chart_data="chart_data"></variablemonitor></b-col>
+                  <b-col lg="7"><variabletables :table_data="table_data" :recipe_data="recipe_data"></variabletables></b-col>
                 </b-row>
               </b-tab>
             </b-tabs>

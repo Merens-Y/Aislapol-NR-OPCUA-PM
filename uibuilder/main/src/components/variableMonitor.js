@@ -1,6 +1,6 @@
 // TODO: Definir graficos de control para cada maquina y tablas de control para cada maquina
 export default {
-    props: [''],
+    props: ['chart_data'],
     template: `
     <b-container fluid>
         <b-row>
@@ -17,6 +17,27 @@ export default {
                     toolbar: {
                         show: false,
                     },
+                    defaultLocale: 'es',
+                    locales: [{
+                        name: 'es',
+                        options: {
+                            // months: ['January', 'February', 'March', 'April', 'Mayo', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                            // same months but in spanish:
+                            months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Setiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                            shortMonths: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Set', 'Oct', 'Nov', 'Dic'],
+                            days: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
+                            shortDays: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+                            toolbar: {
+                                download: 'Descargar SVG',
+                                selection: 'Seleccion',
+                                selectionZoom: 'Seleccionar Zoom',
+                                zoomIn: 'Acercar',
+                                zoomOut: 'Alejar',
+                                pan: 'Mover',
+                                reset: 'Reiniciar Zoom',
+                            },
+                        }
+                    }],
                 },
                 colors: ['#00FF00'], // Set the color of the line to a highly luminous green
                 theme: {
@@ -40,7 +61,7 @@ export default {
                 yaxis: {
                     min: 50,
                     max: 150,
-                    tickAmount: 6,
+                    tickAmount: 8,
                     labels: {
                         formatter: function (value) {
                             return value.toFixed(2);
@@ -80,17 +101,42 @@ export default {
                         },
                     ],
                 },
+                stroke: {
+                    width: 3, // Set the desired width of the line here
+                },
+                tooltip: {
+                    enabled: true,
+                    x: {
+                        show: true,
+                        format: 'dd MMMM, HH:mm',
+                        formatter: undefined,
+                    },
+                },
+                title: {
+                    text: "MAQ-15",
+                    align: 'left',
+                    margin: 10,
+                    offsetX: 0,
+                    offsetY: 0,
+                    floating: false,
+                    style: {
+                        fontSize: '14px',
+                        fontWeight: 'bold',
+                        fontFamily: undefined,
+                        color: '#FFFFFF'
+                    },
+                },
             },
             chartSeries: [
                 {
-                    name: 'Cycle Time',
-                    data: this.generateData(),
+                    name: 'Tiempo de Ciclo',
+                    data: this.processChartData(this.chart_data),
                 },
             ],
         };
     },
     methods: {
-        generateData() {
+        generateData(unused) {
             const data = [];
             const currentTime = new Date().getTime();
             const interval = 24 * 60 * 60 * 1000 / 100;
@@ -100,8 +146,41 @@ export default {
                 const value = Math.random() * 50 + 70;
                 data.push({ x: timestamp, y: value });
             }
-
+            console.log(data);
             return data.reverse();
+        },
+        timestampFromDateTime(actualDate, actualTime) {
+            const date = actualDate;
+            const time = actualTime;
+
+            // Parse the date and time strings
+            const year = parseInt(date.substr(0, 4));
+            const month = parseInt(date.substr(5, 2)) - 1; // Months are zero-based in JavaScript Date
+            const day = parseInt(date.substr(8, 2));
+            const hour = parseInt(time.substr(0, 2));
+            const minute = parseInt(time.substr(3, 2));
+            const second = parseInt(time.substr(6, 2));
+
+            // Create a new Date object using the parsed components
+            const timestamp = new Date(year, month, day, hour, minute, second).getTime();
+            return timestamp;
+        },
+        processChartData(data) {
+            const series = []; // Array to store the data series
+
+            // Process each data object
+            data.forEach((item) => {
+                const timestamp = this.timestampFromDateTime(item.date, item.timestamp); // Convert timestamp to milliseconds
+                const cycleTime = item.cycle_time;
+
+                // Add data point for cycle time
+                series.push({
+                    x: timestamp,
+                    y: cycleTime,
+                });
+            });
+            console.log(series);
+            return series.reverse();
         },
     },
 };

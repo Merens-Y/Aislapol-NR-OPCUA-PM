@@ -10,6 +10,7 @@ import EditTable from './components/editPermittedUsers.js';
 import Database from './components/databaseQuery.js';
 import EditRoles from './components/editUserRole.js';
 import VariableMonitor from './components/variableMonitor.js';
+import variableTables from './components/variableTables.js';
 import PasswordReset from './components/userPasswordReset.js';
 import EmailChange from './components/userEmailChange.js';
 import DeleteSelf from './components/userDeleteSelf.js';
@@ -33,6 +34,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
         database: Database,
         editroles: EditRoles,
         variablemonitor: VariableMonitor,
+        variabletables: variableTables,
         passwordreset: PasswordReset,
         emailchange: EmailChange,
         deleteself: DeleteSelf,
@@ -64,6 +66,9 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 // Add more query options as needed
             ],
             query_results: [],
+            table_data: [],
+            recipe_data: [],
+            chart_data: [],
         }
     }, // --- End of data --- //
     mounted() {
@@ -150,6 +155,22 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 .join('\n');
             return newUsersList;
         },
+        getRecipeData(array) {
+            const recipe_data = [];
+            // Collect recipe data from all machines
+            array.forEach((machine) => {
+                for (const [recipe, count] of Object.entries(machine.recipe_counts)) {
+                    if (recipe_data.some((item) => item.recipe === recipe)) {
+                        const existingRecipe = recipe_data.find((item) => item.recipe === recipe);
+                        existingRecipe.total += count;
+                    } else {
+                        recipe_data.push({ recipe, total: count });
+                    }
+                }
+            });
+
+            return recipe_data;
+        },
         // uibuilder methods to send messages to Node-RED
         cacheReplay: function () {
             uibuilder.send({
@@ -158,14 +179,14 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 cacheControl: "REPLAY",
             });
         },
-        getLastN: function (n=100) {
+        getLastN: function (n = 100) {
             uibuilder.send({
                 payload: "Hi there from the client",
                 topic: "GET LAST N",
                 n: n,
             });
         },
-        getFirstN: function (n=100) {
+        getFirstN: function (n = 100) {
             uibuilder.send({
                 payload: "Hi there from the client",
                 topic: "GET FIRST N",
@@ -648,6 +669,15 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
             }
             if (msg.topic === 'SQL Response') {
                 this.query_results = msg.payload;
+            }
+            if (msg.topic === 'Monitor Table Data') {
+                this.recipe_data = this.getRecipeData(msg.payload);
+            }
+            if (msg.topic === 'Monitor Table Data M') {
+                this.table_data = msg.payload;
+            }
+            if(msg.topic === 'Monitor Chart Data'){
+                this.chart_data = msg.payload;
             }
         })
     }, // --- End of created hook --- //

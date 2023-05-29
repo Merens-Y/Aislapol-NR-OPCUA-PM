@@ -6949,7 +6949,7 @@
         "type": "debug",
         "z": "a2bc427f0d400003",
         "name": "PostgreSQL Response",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -7111,6 +7111,219 @@
             [
                 "545f814de989fd23",
                 "6f7a991c58788ad1"
+            ]
+        ]
+    },
+    {
+        "id": "438469c00a896f34",
+        "type": "postgresql",
+        "z": "a2bc427f0d400003",
+        "name": "Get Monitor Table Data",
+        "query": "SELECT * FROM get_cycle_counts();\n",
+        "postgreSQLConfig": "a1fb71ced63ef518",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 350,
+        "y": 140,
+        "wires": [
+            [
+                "b3172edb7847e87e"
+            ]
+        ]
+    },
+    {
+        "id": "b3172edb7847e87e",
+        "type": "change",
+        "z": "a2bc427f0d400003",
+        "name": "Send back",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Monitor Table Data",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 570,
+        "y": 140,
+        "wires": [
+            [
+                "6f7a991c58788ad1",
+                "7d81552ad7db1474"
+            ]
+        ]
+    },
+    {
+        "id": "9674f4bce6742ab4",
+        "type": "inject",
+        "z": "a2bc427f0d400003",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "30",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 140,
+        "wires": [
+            [
+                "438469c00a896f34"
+            ]
+        ]
+    },
+    {
+        "id": "afe58ebdb761afcf",
+        "type": "postgresql",
+        "z": "a2bc427f0d400003",
+        "name": "Get Monitor Chart Data",
+        "query": "SELECT *\nFROM aislapol_table\nWHERE (date >= (current_timestamp - interval '24 hours')::date AND (timestamp::time >= (current_timestamp - interval '24 hours')::time))\nOR date = current_timestamp::date",
+        "postgreSQLConfig": "a1fb71ced63ef518",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 350,
+        "y": 80,
+        "wires": [
+            [
+                "85ee7346e6887665"
+            ]
+        ]
+    },
+    {
+        "id": "85ee7346e6887665",
+        "type": "change",
+        "z": "a2bc427f0d400003",
+        "name": "Send back",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Monitor Chart Data",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 570,
+        "y": 80,
+        "wires": [
+            [
+                "7d81552ad7db1474",
+                "6f7a991c58788ad1"
+            ]
+        ]
+    },
+    {
+        "id": "b5252c8d327b0e26",
+        "type": "postgresql",
+        "z": "a2bc427f0d400003",
+        "name": "Get Monitor Table Data M",
+        "query": "SELECT * FROM get_cycle_counts_maintenance();",
+        "postgreSQLConfig": "a1fb71ced63ef518",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 350,
+        "y": 200,
+        "wires": [
+            [
+                "abeb1e39e0619c7e"
+            ]
+        ]
+    },
+    {
+        "id": "abeb1e39e0619c7e",
+        "type": "change",
+        "z": "a2bc427f0d400003",
+        "name": "Send back",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Monitor Table Data M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 570,
+        "y": 200,
+        "wires": [
+            [
+                "7d81552ad7db1474",
+                "6f7a991c58788ad1"
+            ]
+        ]
+    },
+    {
+        "id": "e6774fe6e1e5c025",
+        "type": "inject",
+        "z": "a2bc427f0d400003",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "31",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 80,
+        "wires": [
+            [
+                "afe58ebdb761afcf"
+            ]
+        ]
+    },
+    {
+        "id": "849302bc5843d098",
+        "type": "inject",
+        "z": "a2bc427f0d400003",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "29",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 200,
+        "wires": [
+            [
+                "b5252c8d327b0e26"
             ]
         ]
     }
