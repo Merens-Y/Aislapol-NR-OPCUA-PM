@@ -145,14 +145,14 @@
           <b-collapse id="nav-collapse" is-nav v-if="isLoggedIn">
             <!-- Right aligned nav items -->
             <b-navbar-nav class="ml-auto">
-              <b-nav-item  ></b-nav-item>
+              <b-nav-item></b-nav-item>
               <b-nav-item v-if="isAdmin" v-b-toggle.sidebar-admin>Admin</b-nav-item>
               <b-nav-item-dropdown right>
                 <!-- Using 'button-content' slot -->
                 <template #button-content>
                   <em>{{ email }}</em>
                 </template>
-                <b-dropdown-item v-if="isLoggedIn" v-b-toggle.sidebar-user>Perfil</b-dropdown-item>
+                <b-dropdown-item v-if="isLoggedIn" v-b-toggle.sidebar-user>Ajustes de Usuario</b-dropdown-item>
                 <b-dropdown-item @click="logout">Cerrar Sesión</b-dropdown-item>
               </b-nav-item-dropdown>
             </b-navbar-nav>
@@ -181,7 +181,9 @@
           <b-container v-if="isLoggedIn">
             <b-tabs lazy content-class="mt-3" align="center">
               <b-tab title="Estado de Maquinarias" active>
-                <machinedata :pre_exp_arr="pre_exp_arr" :mold_arr="mold_arr" @cachereplay-event="cacheReplay">
+                <machinedata :pre_exp_arr="pre_exp_arr" :mold_arr="mold_arr"
+                  :mold_nc_control_values="mold_nc_control_values" :mold_tc_control_values="mold_tc_control_values"
+                  @cachereplay-event="cacheReplay">
                 </machinedata>
               </b-tab>
               <b-tab title="Base de Datos">
@@ -192,8 +194,12 @@
               </b-tab>
               <b-tab title="Monitor de Variables productivas">
                 <b-row>
-                  <b-col lg="5"><variablemonitor :chart_data="chart_data"></variablemonitor></b-col>
-                  <b-col lg="7"><variabletables :table_data="table_data" :recipe_data="recipe_data"></variabletables></b-col>
+                  <b-col lg="5">
+                    <variablemonitor :chart_data="chart_data" :chart_options="chart_options"></variablemonitor>
+                  </b-col>
+                  <b-col lg="7">
+                    <variabletables :table_data="table_data" :recipe_data="recipe_data"></variabletables>
+                  </b-col>
                 </b-row>
               </b-tab>
             </b-tabs>
@@ -201,8 +207,8 @@
         </div>
       </b-container>
       <!-- Sidebar with Admin tools -->
-      <b-sidebar id="sidebar-admin" lazy aria-label="Sidebar con herramientas de Administrador" width="100%" backdrop-variant="dark"
-        backdrop no-header shadow>
+      <b-sidebar id="sidebar-admin" lazy aria-label="Sidebar con herramientas de Administrador" width="100%"
+        backdrop-variant="dark" backdrop no-header shadow>
         <!-- Footer y título -->
         <template>
           <div class="d-flex bg-dark text-light align-items-center px-3 py-2">
@@ -231,7 +237,7 @@
                   @getru-event="getRegistered"></admindata>
               </b-tab>
               <b-tab title="Cambiar Rol de Usuario">
-                <editroles :admin_registered_users="admin_registered_users">
+                <editroles :admin_registered_users="admin_registered_users" @changeuserrole-event="changeUserRole">
                 </editroles>
               </b-tab>
             </b-tabs>
@@ -239,12 +245,12 @@
         </b-contanier>
       </b-sidebar>
       <!-- Sidebar with User tools -->
-      <b-sidebar id="sidebar-user" lazy right  aria-label="Sidebar con herramientas de Usuario" width="100%" backdrop-variant="dark"
-        backdrop no-header shadow>
+      <b-sidebar id="sidebar-user" lazy right aria-label="Sidebar con ajustes de Usuario" width="100%"
+        backdrop-variant="dark" backdrop no-header shadow>
         <!-- Footer y título -->
         <template>
           <div class="d-flex bg-dark text-light align-items-center px-3 py-2">
-            <strong class="mr-auto">Herramientas de Usuario</strong>
+            <strong class="mr-auto">Ajustes de Usuario</strong>
             <b-button size="sm" variant="danger" v-b-toggle.sidebar-user>Cerrar</b-button>
           </div>
         </template>
@@ -268,4 +274,5 @@
     </b-container>
   </div>
 </body>
+
 </html>

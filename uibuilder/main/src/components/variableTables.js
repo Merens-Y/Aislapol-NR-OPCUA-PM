@@ -12,7 +12,7 @@ export default {
                     <template v-slot:cell(recipe_counts)="row">
                         <div v-for="(value, recipe) in row.item.recipe_counts" :key="recipe">
                         <template v-if="value > 0">
-                            <div>{{ recipe }}: {{ value }}</div>
+                            <div>{{ recipe }}</div>
                         </template>
                         </div>
                     </template>

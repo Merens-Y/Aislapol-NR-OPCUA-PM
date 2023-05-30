@@ -22,7 +22,7 @@ export default {
             {{ row.value.length > 0 ? row.value.join(', ') : 'Sin rol' }}
             </template>
             <template v-slot:cell(acciones)="row">
-            <b-button size="sm" variant="primary">
+            <b-button size="sm" variant="primary" @click="triggerChangeUserRole(row.item.user_email, DEFINIR)">
                 <b-icon icon="pencil-square" aria-hidden="true"></b-icon>
                 Cambiar Rol
             </b-button>
@@ -60,6 +60,11 @@ export default {
             return usersArray;
         },
         // from here on are trigger to methods defined in the main Vue instance (index.js).
+        triggerChangeUserRole(user_id, role) {
+            const user = user_id;
+            const newRole = role;
+            this.$emit('changeuserrole-event', user, newRole);
+        },
     },
     mounted() {
         if (this.admin_registered_users) {

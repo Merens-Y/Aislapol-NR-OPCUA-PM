@@ -1,5 +1,5 @@
 export default {
-  props: ["pre_exp_arr", "mold_arr"],
+  props: ["pre_exp_arr", "mold_arr", "mold_nc_control_values", "mold_tc_control_values"],
   watch: {
     pre_exp_arr(newVal) {
       // Perform actions when the prop value changes
@@ -35,8 +35,6 @@ export default {
                             <div class="col">{{pre_exp.densidad.max}}<br>max</div>
                         </b-row>
                     </b-col>
-                    <div class="w-100"></div>
-                    <b-col class="p-3"></b-col> 
                 </div>
             </b-card>
             <b-card style="cursor: pointer;" class="col-12 col-md-5 col-lg-3 p-1 m-1" v-for="mold in mold_arr" v-bind:class="[mold.estado.texto]" @click="info(mold, $event.target)">
@@ -46,13 +44,13 @@ export default {
                     <div class="col-sm"><p><b>Molde:</b></p></div>
                     <div class="col-md value-field text-center">{{mold.molde}}</div>
                     <div class="w-100"></div>
-                    <div class="col-sm"><p><b>Ciclos por Hora:</b></p></div>
+                    <div class="col-sm"><p><b>Ciclos/H:</b></p></div>
                     <div class="col-md value-field text-center">{{mold.ciclos_hora}}</div>
                     <div class="w-100"></div>
-                    <div class="col-sm"><p><b>Tiempo de Ciclo:</b></p></div>
+                    <div class="col-sm"><p><b>T. de Ciclo:</b></p></div>
                     <div class="col-md align-items-center text-center" :class="getVariantClassbyCN(mold.tiempo_ciclo, mold.molde)">{{mold.tiempo_ciclo}}</div>
                     <div class="w-100"></div>
-                    <div class="col-sm"><p><b>Total de ciclos:</b></p></div>
+                    <div class="col-sm"><p><b>Tot. ciclos:</b></p></div>
                     <div class="col-md text-center" :class="getVariantClassbyTC(mold.ciclos_total, mold.molde)">{{mold.ciclos_total}}</div>                                                       
                 </div>
             </b-card>
@@ -68,54 +66,7 @@ export default {
       // variables for controlling the display of the main parts of the component.
       pre_exp_cards: [],
       mold_cards: [],
-      // number of cycles Control Values
-      mold_nc_control_values: [
-        // variables for controlling the display color of the molding cycle number control values.
-        {
-          name: "10lbs mix",
-          ideal: 95,
-          max: 110,
-        },
-        {
-          name: "35lbs mix",
-          ideal: 95,
-          max: 110,
-        },
-        {
-          name: "75lbs T",
-          ideal: 100,
-          max: 120,
-        },
-        {
-          name: "75lbs F",
-          ideal: 95,
-          max: 120,
-        },
-      ],
-      // total number of cycles Control Values
-      mold_tc_control_values: [
-        // variables for controlling the display color of the molding total cycles control values.
-        {
-          name: "10lbs mix",
-          ideal: 15000,
-          max: 15000,
-        },
-        {
-          name: "35lbs mix",
-          ideal: 15000,
-          max: 15000,
-        },
-        {
-          name: "75lbs T",
-          ideal: 15000,
-          max: 15000,
-        },
-        {
-          name: "75lbs F",
-          ideal: 15000,
-          max: 15000,
-        },
-      ],
+      
       // variables for controlling the display of the info modal.
       infoModal: {
         id: "info-modal",
@@ -128,9 +79,6 @@ export default {
         warning: "bg-warning text-dark",
         success: "bg-success text-light",
       },
-      dangerClass: "bg-danger text-light",
-      warningClass: "bg-warning text-dark",
-      successClass: "bg-success text-light",
     };
   },
   methods: {

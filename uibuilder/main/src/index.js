@@ -69,6 +69,55 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
             table_data: [],
             recipe_data: [],
             chart_data: [],
+            chart_options: [],
+            // number of cycles Control Values
+            mold_nc_control_values: [
+                // variables for controlling the display color of the molding cycle number control values.
+                {
+                    name: "10lbs mix",
+                    ideal: 95,
+                    max: 110,
+                },
+                {
+                    name: "35lbs mix",
+                    ideal: 95,
+                    max: 110,
+                },
+                {
+                    name: "75lbs T",
+                    ideal: 100,
+                    max: 120,
+                },
+                {
+                    name: "75lbs F",
+                    ideal: 95,
+                    max: 120,
+                },
+            ],
+            // total number of cycles Control Values
+            mold_tc_control_values: [
+                // variables for controlling the display color of the molding total cycles control values.
+                {
+                    name: "10lbs mix",
+                    ideal: 15000,
+                    max: 15000,
+                },
+                {
+                    name: "35lbs mix",
+                    ideal: 15000,
+                    max: 15000,
+                },
+                {
+                    name: "75lbs T",
+                    ideal: 15000,
+                    max: 15000,
+                },
+                {
+                    name: "75lbs F",
+                    ideal: 15000,
+                    max: 15000,
+                },
+            ],
         }
     }, // --- End of data --- //
     mounted() {
@@ -170,6 +219,45 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
             });
 
             return recipe_data;
+        },
+        timestampFromDateTime(actualDate, actualTime) {
+            const date = actualDate;
+            const time = actualTime;
+
+            // Parse the date and time strings
+            const year = parseInt(date.substr(0, 4));
+            const month = parseInt(date.substr(5, 2)) - 1; // Months are zero-based in JavaScript Date
+            const day = parseInt(date.substr(8, 2));
+            const hour = parseInt(time.substr(0, 2));
+            const minute = parseInt(time.substr(3, 2));
+            const second = parseInt(time.substr(6, 2));
+
+            // Extract the timezone deviation
+            const timezoneDeviation = parseInt(time.substr(-3));
+
+            // Create a new Date object using the parsed components
+            const timestamp = new Date(year, month, day, hour, minute, second).getTime();
+
+            // Adjust the timestamp based on the timezone deviation
+            const adjustedTimestamp = timestamp + (timezoneDeviation * 60 * 60 * 1000); // Convert deviation to milliseconds
+
+            return adjustedTimestamp;
+        },
+        processChartData(data) {
+            const series = []; // Array to store the data series
+
+            // Process each data object
+            data.forEach((item) => {
+                const timestamp = this.timestampFromDateTime(item.date, item.timestamp); // Convert timestamp to milliseconds
+                const cycleTime = item.cycle_time;
+
+                // Add data point for cycle time
+                series.push({
+                    x: timestamp,
+                    y: cycleTime,
+                });
+            });
+            return series.reverse();
         },
         // uibuilder methods to send messages to Node-RED
         cacheReplay: function () {
@@ -434,6 +522,28 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 // Handle error
             }
         },
+        async changeUserRole(user_id, role) {
+            const bearerToken = localStorage.getItem('userToken'); // Get the user token from local storage
+            
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    Authorization: bearerToken,
+                    'Content-Type': 'text/plain',
+                },
+                body: role,
+            };
+
+            // Send the POST request
+            try {
+                const response = await fetch(`${this.api_url}/users/${user_id}/change-roles`, requestOptions);
+                // Handle the response as needed
+                await this.getRegistered();
+            } catch (error) {
+                // Handle error
+            }
+
+        },
         // Login and registration methods
         async onSubmit(u_email, u_password) {
             const userId = u_email;
@@ -676,8 +786,163 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
             if (msg.topic === 'Monitor Table Data M') {
                 this.table_data = msg.payload;
             }
-            if(msg.topic === 'Monitor Chart Data'){
-                this.chart_data = msg.payload;
+            if (msg.topic === 'Monitor Chart Data') {
+                // iterate over the array inside msg.payload and separate in one array for each unique machine_name property:
+                var temp_arr = [];
+                var temp_obj = {};
+                var temp_series = [];
+                var temp_options_array = [];
+                var temp_options = {};
+                msg.payload.forEach((element) => {
+                    if (temp_obj[element.machine_name] === undefined) {
+                        temp_obj[element.machine_name] = [];
+                    }
+                    temp_obj[element.machine_name].push(element);
+                });
+                for (const property in temp_obj) {
+                    if (temp_obj.hasOwnProperty(property)) {
+                        temp_arr.push(temp_obj[property]);
+                    }
+                }
+                temp_arr.forEach((element) => {
+                    temp_series.push([
+                        {
+                            name: 'Tiempo de Ciclo',
+                            data: this.processChartData(element),
+                        },
+                    ],);
+                    temp_options = {
+                        chart: {
+                            toolbar: {
+                                show: false,
+                            },
+                            defaultLocale: 'es',
+                            locales: [{
+                                name: 'es',
+                                options: {
+                                    // months: ['January', 'February', 'March', 'April', 'Mayo', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                                    // same months but in spanish:
+                                    months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Setiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                                    shortMonths: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Set', 'Oct', 'Nov', 'Dic'],
+                                    days: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
+                                    shortDays: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+                                    toolbar: {
+                                        download: 'Descargar SVG',
+                                        selection: 'Seleccion',
+                                        selectionZoom: 'Seleccionar Zoom',
+                                        zoomIn: 'Acercar',
+                                        zoomOut: 'Alejar',
+                                        pan: 'Mover',
+                                        reset: 'Reiniciar Zoom',
+                                    },
+                                }
+                            }],
+                        },
+                        grid: {
+                            padding: {
+                                left: 0,
+                                right: 62,
+                            },
+                        },
+                        colors: ['#00FF00'], // Set the color of the line to a highly luminous green
+                        theme: {
+                            mode: 'dark', // Set the theme mode to 'dark' for a black background
+                            palette: 'palette10', // Use the 'palette10' color palette for vibrant colors
+                        },
+                        xaxis: {
+                            type: 'datetime',
+                            labels: {
+                                datetimeFormatter: {
+                                    year: 'yyyy',
+                                    month: 'MMM',
+                                    day: 'dd',
+                                    hour: 'HH:mm:ss',
+                                },
+                                style: {
+                                    colors: '#FFFFFF', // Set the color of x-axis labels to white
+                                },
+                            },
+                        },
+                        yaxis: {
+                            min: 50,
+                            max: 150,
+                            tickAmount: 8,
+                            labels: {
+                                formatter: function (value) {
+                                    return value.toFixed(2);
+                                },
+                                style: {
+                                    colors: '#FFFFFF', // Set the color of y-axis labels to white
+                                },
+                            },
+                        },
+                        annotations: {
+                            yaxis: [
+                                {
+                                    y: 100,
+                                    borderColor: '#FEB019',
+                                    borderWidth: 5,
+                                    label: {
+                                        borderColor: '#FEB019',
+                                        style: {
+                                            color: '#FFFFFF', // Set the color of the annotation label to white
+                                            background: '#FEB019',
+                                        },
+                                        text: 'Alerta',
+                                        offsetX: 40,
+                                    },
+                                },
+                                {
+                                    y: 120,
+                                    borderColor: '#FF4560',
+                                    borderWidth: 5,
+                                    label: {
+                                        borderColor: '#FF4560',
+                                        style: {
+                                            color: '#FFFFFF', // Set the color of the annotation label to white
+                                            background: '#FF4560',
+                                        },
+                                        text: 'Peligro',
+                                        offsetX: 43,
+                                    },
+                                },
+                            ],
+                        },
+                        stroke: {
+                            width: 3, // Set the desired width of the line here
+                        },
+                        tooltip: {
+                            enabled: true,
+                            x: {
+                                show: true,
+                                format: 'dd MMMM, HH:mm',
+                                formatter: undefined,
+                            },
+                        },
+                        dataLabels: {
+                            enabled: false,
+                        },
+                        title: {
+                            text: `${element[0].machine_name}`,
+                            align: 'left',
+                            margin: 10,
+                            offsetX: 0,
+                            offsetY: 0,
+                            floating: false,
+                            style: {
+                                fontSize: '14px',
+                                fontWeight: 'bold',
+                                fontFamily: undefined,
+                                color: '#FFFFFF'
+                            },
+                        },
+                    };
+                    temp_options_array.push({
+                        temp_options
+                    },);
+                });
+                this.chart_data = temp_series;
+                this.chart_options = [...temp_options_array];
             }
         })
     }, // --- End of created hook --- //

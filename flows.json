@@ -7155,8 +7155,8 @@
         "y": 140,
         "wires": [
             [
-                "6f7a991c58788ad1",
-                "7d81552ad7db1474"
+                "7d81552ad7db1474",
+                "def81d426c746eb5"
             ]
         ]
     },
@@ -7190,7 +7190,7 @@
         "type": "postgresql",
         "z": "a2bc427f0d400003",
         "name": "Get Monitor Chart Data",
-        "query": "SELECT *\nFROM aislapol_table\nWHERE (date >= (current_timestamp - interval '24 hours')::date AND (timestamp::time >= (current_timestamp - interval '24 hours')::time))\nOR date = current_timestamp::date",
+        "query": "SELECT *\nFROM aislapol_table\nWHERE\n      (\n        (date >= (current_timestamp - interval '24 hours')::date AND timestamp::time >= (current_timestamp - interval '24 hours')::time)\n        OR date = current_timestamp::date\n      )\nORDER BY \"ID\"",
         "postgreSQLConfig": "a1fb71ced63ef518",
         "split": false,
         "rowsPerMsg": 1,
@@ -7227,7 +7227,7 @@
         "wires": [
             [
                 "7d81552ad7db1474",
-                "6f7a991c58788ad1"
+                "def81d426c746eb5"
             ]
         ]
     },
@@ -7273,7 +7273,7 @@
         "wires": [
             [
                 "7d81552ad7db1474",
-                "6f7a991c58788ad1"
+                "def81d426c746eb5"
             ]
         ]
     },
@@ -7326,5 +7326,22 @@
                 "b5252c8d327b0e26"
             ]
         ]
+    },
+    {
+        "id": "def81d426c746eb5",
+        "type": "debug",
+        "z": "a2bc427f0d400003",
+        "name": "debug 9",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 40,
+        "wires": []
     }
 ]
