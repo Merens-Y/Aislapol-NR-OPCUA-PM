@@ -1,24 +1,23 @@
-// TODO: Add filtering for table
 export default {
     props: ['admin_permitted_users'],
     template: `
     <b-container fluid>
+        <b-row><h1>Revocar permiso</h1></b-row>
         <b-row>
-            <h1>Revocar permiso</h1>
             <b-col lg="12" class="my-1">
-                <b-button @click="toggleEdit" v-if="!showEditTable" size="sm" variant="primary">
+                <b-button block @click="toggleEdit" v-if="!showEditTable" size="sm" variant="primary">
                     <b-icon icon="pencil-square" aria-hidden="true"></b-icon> Editar
                     </b-button>
             </b-col>
 
             <b-col lg="6" class="my-1">
-                <b-button @click="finishEdit" v-if="showEditTable" size="sm" variant="success">
+                <b-button block @click="finishEdit" v-if="showEditTable" size="sm" variant="success">
                     <b-icon icon="check-square" aria-hidden="true"></b-icon> Finalizar
                 </b-button>
             </b-col>
 
             <b-col lg="6" class="my-1">
-                <b-button @click="cancelEdit" v-if="showEditTable" size="sm" variant="danger">
+                <b-button block @click="cancelEdit" v-if="showEditTable" size="sm" variant="danger">
                     <b-icon icon="x-square" aria-hidden="true"></b-icon> Cancelar
                 </b-button>
             </b-col>

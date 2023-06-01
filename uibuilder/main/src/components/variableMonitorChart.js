@@ -1,4 +1,3 @@
-// TODO: Hacer el gráfico dinámico mediante variables dinámicas de vue.js
 export default {
     props: ['chart_data', 'chart_options'],
     template: `

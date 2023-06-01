@@ -5,8 +5,8 @@ export default {
     <h1>Otorgar permiso</h1>
         <b-form @submit.prevent="triggerInsertUsers">
           <div v-for="(user, index) in newPermittedUsers" :key="index">
-              <b-form-row>
-                  <b-col cols="6">
+              <b-form-row align-v="end">
+                  <b-col lg="6">
                       <b-form-group label="Correo de Usuario" label-for="userEmailInput" :invalid-feedback="emailFeedback" :state="user.isValid">
                       <b-form-input
                           id="userEmailInput"
@@ -18,7 +18,7 @@ export default {
                       </b-form-group>
                   </b-col>
 
-                  <b-col cols="4">
+                  <b-col lg="5">
                       <b-form-group label="Rol de Usuario" label-for="userRoleSelect">
                       <b-form-select
                           id="userRoleSelect"
@@ -30,11 +30,11 @@ export default {
                       </b-form-group>
                   </b-col>
 
-                  <b-col cols="2">
+                  <b-col lg="1" class="d-flex justify-content-center">
                           <b-button
                               variant="danger"
                               size="sm"
-                              class="mt-2"
+                              
                               v-if="index > 0"
                               @click="removeUser(index)"
                           >
@@ -48,7 +48,7 @@ export default {
             <b-icon icon="plus-square" aria-hidden="true"></b-icon> Añadir Usuario
           </b-button>
 
-          <b-button type="submit" size="sm" :disabled="!isAllValid"><b-icon icon="person-check" aria-hidden="true"></b-icon> Permitir Usuario(s)</b-button>
+          <b-button type="submit" variant="success" size="sm" :disabled="!isAllValid"><b-icon icon="person-check" aria-hidden="true"></b-icon> Permitir Usuario(s)</b-button>
         </b-form>
     </b-container>
     `,

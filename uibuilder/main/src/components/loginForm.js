@@ -1,8 +1,7 @@
-//http://127.0.0.1:1880 for localhost, must define for later stages of developent.
-// const api_url = 'http://192.168.1.104:1880';
+//  TODO: password recovery
 export default {
     // Component options: template, data, methods, etc.
-    props: ['api_url'],
+    props: [],
     template: `
     <b-container fluid>
             <b-row v-if="showLogin">
@@ -147,19 +146,19 @@ export default {
             return this.isEmailValid && this.isPasswordValid;
         },
         confirmPasswordForm() {
-            return (this.isPasswordConfirmed && this.isPasswordValid) && (this.confirmationToken!=='' && this.isEmailValid);
+            return (this.isPasswordConfirmed && this.isPasswordValid) && (this.confirmationToken !== '' && this.isEmailValid);
         }
     },
     methods: {
         // Methods unique of this components go here:
         validateEmail() {
-            this.isEmailValid = this.email.match(/^.+@.+\..+$/i) !== null
+            this.isEmailValid = this.email.match(/^.+@.+\..+$/i) !== null;
         },
         validatePassword() {
-            this.isPasswordValid = this.password.length >= 10
+            this.isPasswordValid = this.password.length >= 10;
         },
         validateConfirmPassword() {
-            this.isPasswordConfirmed = this.confirmPassword === this.password
+            this.isPasswordConfirmed = this.confirmPassword === this.password;
         },
         // Triggers for methods of the main Vue instance go here:
         triggerResendEmail() {

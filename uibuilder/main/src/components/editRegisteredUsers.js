@@ -1,4 +1,3 @@
-// TODO: Add filtering for table
 export default {
     props: ['admin_registered_users', 'admin_permitted_users'],
     watch: {

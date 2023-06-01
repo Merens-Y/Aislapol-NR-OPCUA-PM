@@ -147,7 +147,7 @@ export default {
                         ></b-form-input>
 
                         <b-input-group-append>
-                        <b-button :disabled="!filter" @click="filter = ''">Despejar</b-button>
+                        <b-button :disabled="!filter" @click="filter = null">Despejar</b-button>
                         </b-input-group-append>
                     </b-input-group>
                     </b-form-group>

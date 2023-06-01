@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Aislapol Dashboard</title>
+  <title>Aislapol SCADA</title>
   <meta name="description" content="Node-RED uibuilder - Vue v2 + bootstrap-vue template">
   <!-- <link rel="icon" href="../uibuilder/images/node-blue.ico"> -->
   <link rel="icon" href="./images/aislapol_ico.png">
@@ -136,7 +136,7 @@
                   </g>
                 </g>
               </svg>
-              Dashboard
+              SCADA
             </div>
           </b-navbar-brand>
 
@@ -208,7 +208,7 @@
       </b-container>
       <!-- Sidebar with Admin tools -->
       <b-sidebar id="sidebar-admin" lazy aria-label="Sidebar con herramientas de Administrador" width="100%"
-        backdrop-variant="dark" backdrop no-header shadow>
+        backdrop-variant="dark" backdrop no-header shadow v-if="showAdminTools">
         <!-- Footer y título -->
         <template>
           <div class="d-flex bg-dark text-light align-items-center px-3 py-2">
@@ -217,7 +217,7 @@
           </div>
         </template>
         <!-- Sidebar Content -->
-        <b-contanier fluid v-if="showAdminTools">
+        <b-contanier fluid>
           <b-card no-body>
             <b-tabs lazy pills card>
               <b-tab title="Usuarios Permitidos" active>
@@ -236,17 +236,13 @@
                   :admin_permitted_users="admin_permitted_users" @deluser-event="deleteUser" @getpu-event="getPermitted"
                   @getru-event="getRegistered"></admindata>
               </b-tab>
-              <b-tab title="Cambiar Rol de Usuario">
-                <editroles :admin_registered_users="admin_registered_users" @changeuserrole-event="changeUserRole">
-                </editroles>
-              </b-tab>
             </b-tabs>
           </b-card>
         </b-contanier>
       </b-sidebar>
       <!-- Sidebar with User tools -->
-      <b-sidebar id="sidebar-user" lazy right aria-label="Sidebar con ajustes de Usuario" width="100%"
-        backdrop-variant="dark" backdrop no-header shadow>
+      <b-sidebar id="sidebar-user" variant="info" lazy right aria-label="Sidebar con ajustes de Usuario" width="100%"
+        backdrop-variant="dark" backdrop no-header shadow v-if="isLoggedIn">
         <!-- Footer y título -->
         <template>
           <div class="d-flex bg-dark text-light align-items-center px-3 py-2">
@@ -255,17 +251,17 @@
           </div>
         </template>
         <!-- Sidebar Content -->
-        <b-contanier fluid v-if="isLoggedIn">
+        <b-contanier fluid>
           <b-card no-body>
             <b-tabs lazy pills card>
               <b-tab title="Cambiar de Correo" active>
-                <emailchange></emailchange>
+                <emailchange @emailchange-event="resetUserEmail" @emailconfirmation-event="confirmUserEmailChange" ></emailchange>
               </b-tab>
               <b-tab title="Cambiar Contraseña">
-                <passwordreset></passwordreset>
+                <passwordreset @password-reset="resetUserPassword"></passwordreset>
               </b-tab>
               <b-tab title="Eliminar Cuenta">
-                <deleteself></deleteself>
+                <deleteself @deluser-event="deleteUser"></deleteself>
               </b-tab>
             </b-tabs>
           </b-card>

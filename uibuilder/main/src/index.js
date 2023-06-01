@@ -1,14 +1,13 @@
 // @ts-nocheck
 'use strict'
 Vue.component('apexchart', VueApexCharts)
-
+// Importación de componentes
 import AddPermittedUsers from './components/addPermittedUsers.js';
 import LoginForms from './components/loginForm.js';
 import MachineData from './components/machineData.js';
 import AdminData from './components/editRegisteredUsers.js';
 import EditTable from './components/editPermittedUsers.js';
 import Database from './components/databaseQuery.js';
-import EditRoles from './components/editUserRole.js';
 import VariableMonitor from './components/variableMonitorChart.js';
 import variableTables from './components/variableMonitorTables.js';
 import PasswordReset from './components/userPasswordReset.js';
@@ -32,7 +31,6 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
         admindata: AdminData,
         edittable: EditTable,
         database: Database,
-        editroles: EditRoles,
         variablemonitor: VariableMonitor,
         variabletables: variableTables,
         passwordreset: PasswordReset,
@@ -487,12 +485,23 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                     }
                     // Handle the response as needed
                     if (response.ok) {
-                        this.makeToast('Admin', 'El usuario ha sido eliminado exitosamente.', 'success');
+                        if (this.isAdmin) {
+                            this.makeToast('Admin', 'El usuario ha sido eliminado exitosamente.', 'success');
+                        }
+                        else {
+                            this.makeToast('Usuario', 'Has sido eliminado exitosamente.', 'info');
+                        }
                         // Request was successful
+                        this.checkLoginStatus();
                         this.getRegistered();
                     } else {
                         // Request failed
-                        this.makeToast('Admin', 'Error al eliminar usuario.', 'danger');
+                        if (this.isAdmin) {
+                            this.makeToast('Admin', 'Error al eliminar usuario.', 'danger');
+                        }
+                        else {
+                            this.makeToast('Usuario', 'Error al eliminar usuario.', 'danger');
+                        }
                         console.error('Failed to delete user');
                     }
                 })
@@ -524,25 +533,145 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
         },
         async changeUserRole(user_id, role) {
             const bearerToken = localStorage.getItem('userToken'); // Get the user token from local storage
-            
+
             const requestOptions = {
                 method: 'POST',
                 headers: {
                     Authorization: bearerToken,
-                    'Content-Type': 'text/plain',
+                    'Content-Type': 'application/json',
                 },
-                body: role,
+                body: JSON.stringify({
+                    Roles: role,
+                }),
             };
+            await fetch(`${this.api_url}/users/${user_id}/change-roles`, requestOptions)
+                .then((response) => {
+                    const newToken = response.headers.get('authorization'); // Get the new token from the response header
+                    if (newToken) {
+                        localStorage.setItem('userToken', newToken); // Update the user token in local storage
+                    }
+                    // Handle the response as needed
+                    if (response.ok) {
+                        this.makeToast('Admin', 'El rol del usuario ha sido actualizado exitosamente.', 'success');
+                        // Request was successful
+                        this.getRegistered();
+                    } else {
+                        // Request failed
+                        this.makeToast('Admin', 'Error al actualizar el rol del usuario.', 'danger');
+                        console.error('Failed to update user role');
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        },
+        async resetUserPassword(old_password, new_password) {
+            // Get the user token from local storage
+            const bearerToken = localStorage.getItem('userToken');
+            const userId = localStorage.getItem('userEmail');
+            // make fetch POST request with form variables oldPassword and newPassword to /users/{userId}/change-password
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    Authorization: bearerToken,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    oldPassword: old_password,
+                    newPassword: new_password,
+                }),
+            };
+            // do the request and handle the response
+            await fetch(`${this.api_url}/users/${userId}/change-password`, requestOptions)
+                .then((response) => {
+                    // if response is ok, update the token in local storage and make a toast
+                    if (response.ok) {
+                        const newToken = response.headers.get('authorization');
+                        localStorage.setItem('userToken', newToken);
+                        this.makeToast('Usuario', 'La contraseña ha sido actualizada exitosamente.', 'info');
+                    }
+                    else {
+                        this.makeToast('Usuario', 'Error al actualizar la contraseña.', 'danger');
+                    }
+                })
+                .catch((error) => {
+                    this.makeToast('Usuario', 'Error al actualizar la contraseña.', 'danger');
+                    console.error('Error:', error);
+                });
 
-            // Send the POST request
-            try {
-                const response = await fetch(`${this.api_url}/users/${user_id}/change-roles`, requestOptions);
-                // Handle the response as needed
-                await this.getRegistered();
-            } catch (error) {
-                // Handle error
-            }
+            await this.checkLoginStatus();
 
+        },
+        async resetUserEmail(new_email) {
+            // Get the user token from local storage
+            const bearerToken = localStorage.getItem('userToken');
+            const userId = localStorage.getItem('userEmail');
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    Authorization: bearerToken,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    newUserId: new_email,
+                }),
+            };
+            // do the request and handle the response
+            await fetch(`${this.api_url}/users/${userId}/change-userid`, requestOptions)
+                .then((response) => {
+                    // if response is ok, update the token in local storage and make a toast
+                    if (response.ok) {
+                        const newToken = response.headers.get('authorization');
+                        localStorage.setItem('userToken', newToken);
+                        this.makeToast('Usuario', `Se ha enviado un correo a "${new_email}" con el token de confirmación.`, 'info');
+                    }
+                    else {
+                        this.makeToast('Usuario', 'Error al solicitar cambio de correo. El nuevo correo no está permitido o su sesión ha caducado.', 'danger');
+                    }
+                })
+                .catch((error) => {
+                    this.makeToast('Usuario', 'Error al solicitar cambio de correo. El nuevo correo no está permitido o su sesión ha caducado.', 'danger');
+                    console.error('Error:', error);
+                });
+
+            await this.checkLoginStatus();
+        },
+        async confirmUserEmailChange(new_email, confirmationToken) {
+            const userId = new_email;
+            const token = confirmationToken;
+
+            await fetch(`${this.api_url}/users/${userId}/confirm`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // You can include additional headers if required
+                },
+                body: JSON.stringify({
+                    Token: token,
+                }),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        this.makeToast('Cambio de correo', 'Error al confirmar cambio de correo, el token otorgado es incorrecto.', 'danger');
+                        throw new Error('Network response was not ok');
+                    }
+                    else {
+                        this.makeToast('Cambio de correo', 'El correo ha sido actualizado exitosamente.', 'success');
+                        newToken = response.headers.get('authorization');
+                        localStorage.setItem('userToken', newToken);
+                        localStorage.setItem('userEmail', userId);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Handle the response data
+                })
+                .catch(error => {
+                    // Handle any errors
+                    console.error('Property Change error:', error);
+                });
+
+            await this.checkLoginStatus();
         },
         // Login and registration methods
         async onSubmit(u_email, u_password) {
