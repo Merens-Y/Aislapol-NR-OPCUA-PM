@@ -100,22 +100,22 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 {
                     name: "10lbs mix",
                     ideal: 15000,
-                    max: 15000,
+                    max: 25000,
                 },
                 {
                     name: "35lbs mix",
                     ideal: 15000,
-                    max: 15000,
+                    max: 25000,
                 },
                 {
                     name: "75lbs T",
                     ideal: 15000,
-                    max: 15000,
+                    max: 25000,
                 },
                 {
                     name: "75lbs F",
                     ideal: 15000,
-                    max: 15000,
+                    max: 25000,
                 },
             ],
         }

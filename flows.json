@@ -7350,5 +7350,37 @@
         "x": 760,
         "y": 40,
         "wires": []
+    },
+    {
+        "id": "d2cada45c5b0ee61",
+        "type": "postgresql",
+        "z": "a2bc427f0d400003",
+        "name": "Update Control Values",
+        "query": "UPDATE aislapol_mold\nSET nc_ideal = {{new_nc_ideal_value}},\n    nc_max = {{new_nc_max_value}},\n    tc_ideal = {{new_tc_ideal_value}},\n    tc_max = {{new_tc_max_value}}\nWHERE mold_name = '{{existing_mold_name}}';",
+        "postgreSQLConfig": "a1fb71ced63ef518",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 300,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9e1d53b46113b047",
+        "type": "postgresql",
+        "z": "a2bc427f0d400003",
+        "name": "Get Control Values",
+        "query": "SELECT mold_name, nc_ideal, nc_max, tc_ideal, tc_max\n\tFROM public.aislapol_mold;",
+        "postgreSQLConfig": "a1fb71ced63ef518",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 290,
+        "y": 400,
+        "wires": [
+            []
+        ]
     }
 ]
