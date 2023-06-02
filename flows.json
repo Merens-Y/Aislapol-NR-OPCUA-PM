@@ -2189,7 +2189,7 @@
         "fieldType": "global",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "Su registro está permitido! A continuación se presenta su clave de acceso (token):\n\nToken: ${ConfirmationToken}\n\nEste enlace caducará en 12 horas. Si no se registró para obtener una cuenta, puede ignorar este mensaje.",
+        "template": "Su registro está permitido! A continuación se presenta su clave de acceso (token):\n\nToken: ${ConfirmationToken}\n\nEste Token caducará en 12 horas. Si no se registró para obtener una cuenta, puede ignorar este mensaje.",
         "output": "str",
         "x": 2860,
         "y": 1280,
@@ -2208,7 +2208,7 @@
         "fieldType": "global",
         "format": "handlebars",
         "syntax": "mustache",
-        "template": "A continuación se comparte la clave (Token) para el reinicio de su contraseña:\n\nToken: {PasswordToken}\n\nEste enlace caducará en 1 hora. Si no solicitó un restablecimiento de contraseña, puede ignorar este mensaje.",
+        "template": "A continuación se comparte la clave (Token) para el reinicio de su contraseña:\n\nToken: {PasswordToken}\n\nEste Token caducará en 1 hora. Si no solicitó un restablecimiento de contraseña, puede ignorar este mensaje.",
         "output": "str",
         "x": 2870,
         "y": 1340,
@@ -2538,7 +2538,7 @@
         "type": "function",
         "z": "896deee050f2a95b",
         "name": "do it",
-        "func": "  let newUserId    = msg.newUserId\n  let UserRegistry = global.get('UserRegistry') || Object.create(null)\n  let UserEntry    = UserRegistry[newUserId]\n\n/**** validate Confirmation Token (deadline has already been validated) ****/\n\n  if (UserEntry.ConfirmationToken == null) {\n    msg.payload    = 'Bad Request (not to be confirmed)'\n    msg.statusCode = 400\n    return [null,msg]\n  }\n\n  if (msg.payload.Token !== UserEntry.ConfirmationToken) {\n    msg.payload    = 'Bad Request (invalid token)'\n    msg.statusCode = 400\n    return [null,msg]\n  }\n\n/**** ok, confirm account ****/\n\n  delete UserEntry.ConfirmationDeadline\n  delete UserEntry.ConfirmationToken\n\n  if (UserEntry.changingFrom == null) {\n    UserEntry.UUID = newUUID                             // generates a new UUID\n    UserRegistry[newUserId] = UserEntry\n\n    msg.UserId = newUserId            // a password will be set in the next step\n    return [msg,null]\n  } else {\n    UserEntry = Object.assign(UserEntry, UserRegistry[UserEntry.changingFrom])\n    UserRegistry[newUserId] = UserEntry                    // keeps the old UUID\n\n    delete UserRegistry[UserEntry.changingFrom]\n    delete UserRegistry[UserEntry.changingTo]               // was copied before\n    delete UserEntry.changingFrom\n\n    return [msg,null]\n  }\n\n  function newUUID () {\n    let Id = '', IdPart\n    IdPart = Math.round(Math.random()*0xffffffff).toString(16)\n      Id += IdPart + '00000000'.slice(IdPart.length) + '-'\n      IdPart = Math.round(Math.random()*0xffff).toString(16)\n      Id += IdPart + '0000'.slice(IdPart.length) + '-4'\n      IdPart = Math.round(Math.random()*0xfff).toString(16)\n      Id += IdPart + '000'.slice(IdPart.length) + '-'\n      IdPart = Math.round(Math.random()*0x3fff+0x8000).toString(16)\n      Id += IdPart + '-'\n      IdPart = Math.round(Math.random()*0xffffffffffff).toString(16)\n      Id += IdPart + '000000000000'.slice(IdPart.length)\n    return Id.toLowerCase()\n  }\n",
+        "func": "  let newUserId    = msg.newUserId\n  let UserRegistry = global.get('UserRegistry') || Object.create(null)\n  let UserEntry    = UserRegistry[newUserId]\n\n/**** validate Confirmation Token (deadline has already been validated) ****/\n\n  if (UserEntry.ConfirmationToken == null) {\n    msg.payload    = 'Bad Request (not to be confirmed)'\n    msg.statusCode = 400\n    return [null,msg]\n  }\n\n  if (msg.payload.Token !== UserEntry.ConfirmationToken) {\n    msg.payload    = 'Bad Request (invalid token)'\n    msg.statusCode = 400\n    return [null,msg]\n  }\n\n/**** ok, confirm account ****/\n\n  delete UserEntry.ConfirmationDeadline\n  delete UserEntry.ConfirmationToken\n\n  if (UserEntry.changingFrom == null) {\n    UserEntry.UUID = newUUID()                             // generates a new UUID\n    UserRegistry[newUserId] = UserEntry\n\n    msg.UserId = newUserId            // a password will be set in the next step\n    return [msg,null]\n  } else {\n    UserEntry = Object.assign(UserEntry, UserRegistry[UserEntry.changingFrom])\n    delete UserEntry.changingFrom\n    delete UserEntry.changingTo\n    UserRegistry[newUserId] = UserEntry                    // keeps the old UUID\n\n    delete UserRegistry[UserEntry.changingFrom]\n    //delete UserRegistry[UserEntry.changingTo]               // was copied before\n    //delete UserEntry.changingFrom\n    global.set('UserRegistry', UserRegistry)\n    \n    return [msg,null]\n  }\n\n  function newUUID () {\n    let Id = '', IdPart\n    IdPart = Math.round(Math.random()*0xffffffff).toString(16)\n      Id += IdPart + '00000000'.slice(IdPart.length) + '-'\n      IdPart = Math.round(Math.random()*0xffff).toString(16)\n      Id += IdPart + '0000'.slice(IdPart.length) + '-4'\n      IdPart = Math.round(Math.random()*0xfff).toString(16)\n      Id += IdPart + '000'.slice(IdPart.length) + '-'\n      IdPart = Math.round(Math.random()*0x3fff+0x8000).toString(16)\n      Id += IdPart + '-'\n      IdPart = Math.round(Math.random()*0xffffffffffff).toString(16)\n      Id += IdPart + '000000000000'.slice(IdPart.length)\n    return Id.toLowerCase()\n  }\n",
         "outputs": 2,
         "noerr": 0,
         "initialize": "",
@@ -3608,11 +3608,12 @@
         "z": "896deee050f2a95b",
         "name": "",
         "filename": "./permittedUsers.txt",
+        "filenameType": "str",
         "appendNewline": false,
         "createDir": false,
         "overwriteFile": "true",
         "encoding": "utf8",
-        "x": 4380,
+        "x": 4410,
         "y": 1580,
         "wires": [
             [
@@ -5573,6 +5574,9 @@
             [
                 "04c04ac21707c157"
             ]
+        ],
+        "outputLabels": [
+            "return"
         ]
     },
     {
@@ -6707,6 +6711,9 @@
             [
                 "d9f6ac3b1a4ea6f6"
             ]
+        ],
+        "outputLabels": [
+            "return"
         ]
     },
     {

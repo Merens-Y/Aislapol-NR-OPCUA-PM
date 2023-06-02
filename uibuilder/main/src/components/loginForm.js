@@ -1,4 +1,4 @@
-//  TODO: password recovery
+//  TODO: password recovery, última prioridad, ya se puede recuperar a través del admin mediante eliminicación y nuevo registro, mientras no ser borre de los permitidos.
 export default {
     // Component options: template, data, methods, etc.
     props: [],

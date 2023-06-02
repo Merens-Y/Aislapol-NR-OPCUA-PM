@@ -10,6 +10,7 @@ import EditTable from './components/editPermittedUsers.js';
 import Database from './components/databaseQuery.js';
 import VariableMonitor from './components/variableMonitorChart.js';
 import variableTables from './components/variableMonitorTables.js';
+import controlValues from './components/manageControlValues.js'
 import PasswordReset from './components/userPasswordReset.js';
 import EmailChange from './components/userEmailChange.js';
 import DeleteSelf from './components/userDeleteSelf.js';
@@ -33,6 +34,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
         database: Database,
         variablemonitor: VariableMonitor,
         variabletables: variableTables,
+        controlvalues: controlValues,
         passwordreset: PasswordReset,
         emailchange: EmailChange,
         deleteself: DeleteSelf,
@@ -621,20 +623,27 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 .then((response) => {
                     // if response is ok, update the token in local storage and make a toast
                     if (response.ok) {
-                        const newToken = response.headers.get('authorization');
-                        localStorage.setItem('userToken', newToken);
                         this.makeToast('Usuario', `Se ha enviado un correo a "${new_email}" con el token de confirmación.`, 'info');
+                        return response.text();
                     }
                     else {
                         this.makeToast('Usuario', 'Error al solicitar cambio de correo. El nuevo correo no está permitido o su sesión ha caducado.', 'danger');
+                    }
+                })
+                .then(body => {
+                    // Handle the response data
+                    if (body.includes('?token=')) {
+                        const token = body.replace(/^[\s\S]*\?token=/, '').replace(/\s[\s\S]*$/, '');
+                        // Use the extracted token as needed
+                        console.log('Token:', token);
+                        localStorage.setItem('userToken', token);
+                        localStorage.setItem('userEmail', new_email);
                     }
                 })
                 .catch((error) => {
                     this.makeToast('Usuario', 'Error al solicitar cambio de correo. El nuevo correo no está permitido o su sesión ha caducado.', 'danger');
                     console.error('Error:', error);
                 });
-
-            await this.checkLoginStatus();
         },
         async confirmUserEmailChange(new_email, confirmationToken) {
             const userId = new_email;
@@ -657,20 +666,14 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                     }
                     else {
                         this.makeToast('Cambio de correo', 'El correo ha sido actualizado exitosamente.', 'success');
-                        newToken = response.headers.get('authorization');
-                        localStorage.setItem('userToken', newToken);
-                        localStorage.setItem('userEmail', userId);
                     }
-                    return response.json();
-                })
-                .then(data => {
-                    // Handle the response data
                 })
                 .catch(error => {
                     // Handle any errors
                     console.error('Property Change error:', error);
                 });
-
+            
+            localStorage.setItem('userEmail', new_email);
             await this.checkLoginStatus();
         },
         // Login and registration methods

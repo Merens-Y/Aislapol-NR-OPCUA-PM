@@ -160,7 +160,7 @@
         </b-navbar>
       </div>
       <!-- Main content -->
-      <b-container>
+      <b-container fluid>
         <!-- Skeleton Placeholder -->
         <div v-if="showSkeleton">
           <div class="row align-items-center justify-content-center p-3 m-3">
@@ -202,6 +202,9 @@
                   </b-col>
                 </b-row>
               </b-tab>
+              <b-tab title="Límites de Control">
+                <controlvalues></controlvalues>
+              </b-tab>
             </b-tabs>
           </b-container>
         </div>
@@ -220,7 +223,7 @@
         <b-contanier fluid>
           <b-card no-body>
             <b-tabs lazy pills card>
-              <b-tab title="Usuarios Permitidos" active>
+              <b-tab @click="getPermitted" title="Usuarios Permitidos" active>
                 <b-row>
                   <b-col lg="6">
                     <edittable :admin_permitted_users="admin_permitted_users" @updateusers-event="updateAdminUsers">
@@ -231,7 +234,7 @@
                   </b-col>
                 </b-row>
               </b-tab>
-              <b-tab title="Usuarios Registrados">
+              <b-tab @click="getRegistered" title="Usuarios Registrados">
                 <admindata :admin_registered_users="admin_registered_users"
                   :admin_permitted_users="admin_permitted_users" @deluser-event="deleteUser" @getpu-event="getPermitted"
                   @getru-event="getRegistered"></admindata>

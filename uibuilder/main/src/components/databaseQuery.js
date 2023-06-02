@@ -1,3 +1,4 @@
+// TODO: set up button to change isMaintenance to true or false.
 export default {
     props: ["query_results", "query_options"],
     template: `
@@ -144,6 +145,7 @@ export default {
                         v-model="filter"
                         type="search"
                         placeholder="Escribe algo para buscar"
+                        debounce="500"
                         ></b-form-input>
 
                         <b-input-group-append>
