@@ -6851,7 +6851,7 @@
         "sourceFolder": "src",
         "deployedVersion": "6.4.1",
         "showMsgUib": false,
-        "x": 910,
+        "x": 1130,
         "y": 180,
         "wires": [
             [
@@ -6883,8 +6883,8 @@
         "topic": "asd",
         "payload": "",
         "payloadType": "date",
-        "x": 220,
-        "y": 260,
+        "x": 460,
+        "y": 540,
         "wires": [
             [
                 "05a0a1bc362ca653"
@@ -6896,14 +6896,14 @@
         "type": "function",
         "z": "a2bc427f0d400003",
         "name": "function 2",
-        "func": "let detenido = {\n    \"texto\": \"\",\n    \"led\": \"led red\"\n};\n\nlet deshabilitado = {\n    \"texto\": \"text-secondary\",\n    \"led\": \"led gray\"\n};\n\nlet activo = {\n    \"texto\": \"\",\n    \"led\": \"led green\"\n};\n\nvar exp_obj = {\n    \"numero\":1,\n    \"material\":\"material 1\",\n    \"kilog\": \"60\",\n    \"tiempo\": \"120\",\n    \"densidad\": { \"min\": 0, \"avg\": 5, \"max\": 10 },\n    \"estado\": detenido\n};\nvar exp_obj2 = {\n    \"numero\": 2,\n    \"material\": \"material 2\",\n    \"kilog\": \"60\",\n    \"tiempo\": \"120\",\n    \"densidad\": {\"min\":0,\"avg\":5,\"max\":10},\n    \"estado\": deshabilitado\n};\n\nvar mold_obj = {\n    \"numero\": 1,\n    \"molde\": \"35lbs mix\",\n    \"ciclos_hora\": \"20\",\n    \"tiempo_ciclo\": 120,\n    \"ciclos_total\": 10000,\n    \"estado\": activo\n};\nvar mold_obj2 = {\n    \"numero\": 2,\n    \"molde\": \"75lbs F\",\n    \"ciclos_hora\": \"20\",\n    \"tiempo_ciclo\": 100,\n    \"ciclos_total\": 18000,\n    \"estado\": detenido\n};\n\nmsg.topic = \"pre-expansor\";\nmsg.payload = [exp_obj, exp_obj2];\nmsg2 = JSON.parse(JSON.stringify(msg));\nmsg2.topic = \"moldeador\";\nmsg2.payload = [mold_obj, mold_obj2];\nreturn [msg, msg2];",
+        "func": "let detenido = {\n    \"texto\": \"\",\n    \"led\": \"led red\"\n};\n\nlet deshabilitado = {\n    \"texto\": \"text-secondary\",\n    \"led\": \"led gray\"\n};\n\nlet activo = {\n    \"texto\": \"\",\n    \"led\": \"led green\"\n};\n\nvar exp_obj = {\n    \"numero\":1,\n    \"material\":\"material 1\",\n    \"kilog\": \"60\",\n    \"tiempo\": \"120\",\n    \"densidad\": { \"min\": 0, \"avg\": 5, \"max\": 10 },\n    \"estado\": detenido\n};\nvar exp_obj2 = {\n    \"numero\": 2,\n    \"material\": \"material 2\",\n    \"kilog\": \"60\",\n    \"tiempo\": \"120\",\n    \"densidad\": {\"min\":0,\"avg\":5,\"max\":10},\n    \"estado\": deshabilitado\n};\n\nvar mold_obj = {\n    \"numero\": 1,\n    \"molde\": \"35lbs mix\",\n    \"ciclos_hora\": \"20\",\n    \"tiempo_ciclo\": 122,\n    \"ciclos_total\": 10000,\n    \"estado\": activo\n};\nvar mold_obj2 = {\n    \"numero\": 2,\n    \"molde\": \"75lbs F\",\n    \"ciclos_hora\": \"20\",\n    \"tiempo_ciclo\": 101,\n    \"ciclos_total\": 18000,\n    \"estado\": detenido\n};\n\nmsg.topic = \"pre-expansor\";\nmsg.payload = [exp_obj, exp_obj2];\nmsg2 = JSON.parse(JSON.stringify(msg));\nmsg2.topic = \"moldeador\";\nmsg2.payload = [mold_obj, mold_obj2];\nreturn [msg, msg2];",
         "outputs": 2,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 420,
-        "y": 260,
+        "x": 660,
+        "y": 540,
         "wires": [
             [
                 "7d81552ad7db1474"
@@ -6925,7 +6925,7 @@
         "name": "",
         "storeContext": "context",
         "varName": "uib_cache",
-        "x": 650,
+        "x": 870,
         "y": 260,
         "wires": [
             [
@@ -6947,7 +6947,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 880,
+        "x": 1100,
         "y": 260,
         "wires": []
     },
@@ -6964,7 +6964,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1630,
+        "x": 1850,
         "y": 40,
         "wires": []
     },
@@ -6995,17 +6995,26 @@
                 "t": "eq",
                 "v": "GET FROM DATE AND TIME RANGE",
                 "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "SET CYCLE MAINTENANCE",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "UPDATE CONTROL VALUES",
+                "vt": "str"
             }
         ],
         "checkall": "false",
         "repair": false,
-        "outputs": 4,
-        "x": 1150,
+        "outputs": 6,
+        "x": 1370,
         "y": 100,
         "wires": [
             [
-                "8cb2280155702e66",
-                "6f7a991c58788ad1"
+                "8cb2280155702e66"
             ],
             [
                 "3b4638d433774793"
@@ -7015,6 +7024,12 @@
             ],
             [
                 "42c25fba9004138b"
+            ],
+            [
+                "20f9c58f200774e7"
+            ],
+            [
+                "d2cada45c5b0ee61"
             ]
         ]
     },
@@ -7037,7 +7052,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1670,
+        "x": 1890,
         "y": 100,
         "wires": [
             [
@@ -7055,7 +7070,7 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 1390,
+        "x": 1610,
         "y": 180,
         "wires": [
             [
@@ -7074,7 +7089,7 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 1390,
+        "x": 1610,
         "y": 240,
         "wires": [
             [
@@ -7093,7 +7108,7 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 1400,
+        "x": 1620,
         "y": 300,
         "wires": [
             [
@@ -7112,7 +7127,7 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 1430,
+        "x": 1650,
         "y": 360,
         "wires": [
             [
@@ -7356,15 +7371,17 @@
         "type": "postgresql",
         "z": "a2bc427f0d400003",
         "name": "Update Control Values",
-        "query": "UPDATE aislapol_mold\nSET nc_ideal = {{new_nc_ideal_value}},\n    nc_max = {{new_nc_max_value}},\n    tc_ideal = {{new_tc_ideal_value}},\n    tc_max = {{new_tc_max_value}}\nWHERE mold_name = '{{existing_mold_name}}';",
+        "query": "UPDATE aislapol_mold\nSET nc_ideal = {{{newNCIdeal}}},\n    nc_max = {{{newNCMax}}},\n    tc_ideal = {{{newTCIdeal}}},\n    tc_max = {{{newTCMax}}}\nWHERE mold_name = '{{{existingMoldName}}}';",
         "postgreSQLConfig": "a1fb71ced63ef518",
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 300,
-        "y": 340,
+        "x": 1620,
+        "y": 480,
         "wires": [
-            []
+            [
+                "6f7a991c58788ad1"
+            ]
         ]
     },
     {
@@ -7377,10 +7394,57 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 290,
-        "y": 400,
+        "x": 370,
+        "y": 260,
         "wires": [
-            []
+            [
+                "49cc058c4e20fc91"
+            ]
+        ]
+    },
+    {
+        "id": "20f9c58f200774e7",
+        "type": "postgresql",
+        "z": "a2bc427f0d400003",
+        "name": "Set Cycle Maintenance State",
+        "query": "SELECT switch_maintenance_state('{{{msg.cycleID}}}');",
+        "postgreSQLConfig": "a1fb71ced63ef518",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 1640,
+        "y": 420,
+        "wires": [
+            [
+                "6f7a991c58788ad1"
+            ]
+        ]
+    },
+    {
+        "id": "49cc058c4e20fc91",
+        "type": "change",
+        "z": "a2bc427f0d400003",
+        "name": "Send back",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Control Values",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 570,
+        "y": 260,
+        "wires": [
+            [
+                "7d81552ad7db1474"
+            ]
         ]
     }
 ]

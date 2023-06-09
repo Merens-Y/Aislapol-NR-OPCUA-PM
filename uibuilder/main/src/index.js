@@ -70,7 +70,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
             recipe_data: [],
             chart_data: [],
             chart_options: [],
-            // number of cycles Control Values
+            // TODO: set up as values from database
             mold_nc_control_values: [
                 // variables for controlling the display color of the molding cycle number control values.
                 {
@@ -94,7 +94,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                     max: 120,
                 },
             ],
-            // total number of cycles Control Values
+            // TODO: set up as values from database
             mold_tc_control_values: [
                 // variables for controlling the display color of the molding total cycles control values.
                 {
@@ -297,6 +297,24 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 fromTime: fromTime,
                 toDate: toDate,
                 toTime: toTime,
+            });
+        },
+        setCycleMaintenance: function (cycle_id) {
+            uibuilder.send({
+                payload: "Hi there from the client",
+                topic: "SET CYCLE MAINTENANCE",
+                cycleID: cycle_id,
+            });
+        },
+        updateControlValues: function (ncIdeal, ncMax, tcIdeal, tcMax, moldName) {
+            uibuilder.send({
+                payload: "Hi there from the client",
+                topic: "UPDATE CONTROL VALUES",
+                newNCIdeal: ncIdeal,
+                newNCMax: ncMax,
+                newTCIdeal: tcIdeal,
+                newTCMax: tcMax,
+                existingMoldName: moldName,
             });
         },
         // Admin methods
@@ -905,18 +923,23 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
             this.showToast(msg)
             if (msg.topic === 'pre-expansor') {
                 this.pre_exp_arr = msg.payload;
+                return;
             }
             if (msg.topic === 'moldeador') {
                 this.mold_arr = msg.payload;
+                return;
             }
             if (msg.topic === 'SQL Response') {
                 this.query_results = msg.payload;
+                return;
             }
             if (msg.topic === 'Monitor Table Data') {
                 this.recipe_data = this.getRecipeData(msg.payload);
+                return;
             }
             if (msg.topic === 'Monitor Table Data M') {
                 this.table_data = msg.payload;
+                return;
             }
             if (msg.topic === 'Monitor Chart Data') {
                 // iterate over the array inside msg.payload and separate in one array for each unique machine_name property:
@@ -1075,6 +1098,11 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 });
                 this.chart_data = temp_series;
                 this.chart_options = [...temp_options_array];
+                return;
+            }
+            if (msg.topic === 'Control Values') {
+                // TODO: Add logic to update the control values from the database to the front end, i.e. the values in mold_nc_control_values and mold_tc_control_values
+                return;
             }
         })
     }, // --- End of created hook --- //

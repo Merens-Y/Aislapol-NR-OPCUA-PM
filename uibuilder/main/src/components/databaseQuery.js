@@ -214,8 +214,8 @@ export default {
             :filter-included-fields="filterOn" :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :sort-direction="sortDirection"
             stacked="md" show-empty small @filtered="onFiltered" empty-text="No hay datos que mostrar">
                 <template #cell(actions)="row">
-                    <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
-                    Info modal
+                    <b-button size="sm" @click="triggerMaintenanceToggle(row.item.ID)" class="mr-1">
+                    Cambiar a {{ row.item.is_maintenance ? 'Ciclo Normal' : 'Mantenimiento' }} <!-- TODO: Check if this works then use ID to pass to a trigger for the query -->
                     </b-button>
                     <b-button size="sm" @click="row.toggleDetails">
                     {{ row.detailsShowing ? 'Esconder' : 'Mostrar' }} Detalles
@@ -246,10 +246,10 @@ export default {
                     key: 'recipe_name',
                     label: 'Receta',
                     formatter: (value) => {
-                        if (value === '35lbs prueb.xml') {
-                            return '35lbs Mix';
+                        if (value.includes('.xml')) {
+                            return value.replace('.xml', '');
                         } else {
-                            return 'Otro';
+                            return value;
                         }
                     },
                     sortable: true,
@@ -482,7 +482,11 @@ export default {
             const timeTo = String(this.timeTo);
             const timeWithTZFrom = `${dateFrom} ${timeFrom}`;
             const timeWithTZTo = `${dateTo} ${timeTo}`;
-            this.$emit('datetimerange-event', dateFrom, dateTo,timeWithTZFrom, timeWithTZTo);
+            this.$emit('datetimerange-event', dateFrom, dateTo, timeWithTZFrom, timeWithTZTo);
+        },
+        triggerMaintenanceToggle(row_id) {
+            const id = row_id;
+            this.$emit('maintenance-toggle-event', id);
         },
     },
 }

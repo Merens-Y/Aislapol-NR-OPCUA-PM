@@ -189,7 +189,7 @@
               <b-tab title="Base de Datos">
                 <database :query_results="query_results" :query_options="query_options" @lastn-event="getLastN"
                   @firstn-event="getFirstN" @daterange-event="getFromDateRange"
-                  @datetimerange-event="getFromDateAndTimeRange">
+                  @datetimerange-event="getFromDateAndTimeRange" @maintenance-toggle-event="setCycleMaintenance" >
                 </database>
               </b-tab>
               <b-tab title="Monitor de Variables productivas">
