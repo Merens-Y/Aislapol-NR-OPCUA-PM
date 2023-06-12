@@ -182,8 +182,7 @@
             <b-tabs lazy content-class="mt-3" align="center">
               <b-tab title="Estado de Maquinarias" active>
                 <machinedata :pre_exp_arr="pre_exp_arr" :mold_arr="mold_arr"
-                  :mold_nc_control_values="mold_nc_control_values" :mold_tc_control_values="mold_tc_control_values"
-                  @cachereplay-event="cacheReplay">
+                  :mold_control_values="mold_control_values" @cachereplay-event="cacheReplay">
                 </machinedata>
               </b-tab>
               <b-tab title="Base de Datos">
@@ -202,8 +201,8 @@
                   </b-col>
                 </b-row>
               </b-tab>
-              <b-tab title="Límites de Control">
-                <controlvalues></controlvalues>
+              <b-tab title="Límites de Control" v-if="showAdminTools">
+                <controlvalues :mold_control_values="mold_control_values" @trigger-updatecontrolvalues="updateControlValues" ></controlvalues>
               </b-tab>
             </b-tabs>
           </b-container>

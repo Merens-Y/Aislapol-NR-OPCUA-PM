@@ -714,7 +714,7 @@
         "type": "postgresql",
         "z": "f788a78067227a65",
         "name": "Post Last Cycle",
-        "query": "INSERT INTO aislapol_table (machine_name, cycle, cycle_time, recipe_name)\nVALUES ('{{{ msg.machine_name }}}', {{{ msg.cycle }}}, {{{ msg.cycle_time }}}, '{{{ msg.recipe_name }}}');",
+        "query": "INSERT INTO aislapol_table (machine_name, cycle, cycle_time, mold_name)\nVALUES ('{{{ msg.machine_name }}}', {{{ msg.cycle }}}, {{{ msg.cycle_time }}}, '{{{ msg.recipe_name }}}');",
         "postgreSQLConfig": "a1fb71ced63ef518",
         "split": false,
         "rowsPerMsg": 1,
@@ -6896,7 +6896,7 @@
         "type": "function",
         "z": "a2bc427f0d400003",
         "name": "function 2",
-        "func": "let detenido = {\n    \"texto\": \"\",\n    \"led\": \"led red\"\n};\n\nlet deshabilitado = {\n    \"texto\": \"text-secondary\",\n    \"led\": \"led gray\"\n};\n\nlet activo = {\n    \"texto\": \"\",\n    \"led\": \"led green\"\n};\n\nvar exp_obj = {\n    \"numero\":1,\n    \"material\":\"material 1\",\n    \"kilog\": \"60\",\n    \"tiempo\": \"120\",\n    \"densidad\": { \"min\": 0, \"avg\": 5, \"max\": 10 },\n    \"estado\": detenido\n};\nvar exp_obj2 = {\n    \"numero\": 2,\n    \"material\": \"material 2\",\n    \"kilog\": \"60\",\n    \"tiempo\": \"120\",\n    \"densidad\": {\"min\":0,\"avg\":5,\"max\":10},\n    \"estado\": deshabilitado\n};\n\nvar mold_obj = {\n    \"numero\": 1,\n    \"molde\": \"35lbs mix\",\n    \"ciclos_hora\": \"20\",\n    \"tiempo_ciclo\": 122,\n    \"ciclos_total\": 10000,\n    \"estado\": activo\n};\nvar mold_obj2 = {\n    \"numero\": 2,\n    \"molde\": \"75lbs F\",\n    \"ciclos_hora\": \"20\",\n    \"tiempo_ciclo\": 101,\n    \"ciclos_total\": 18000,\n    \"estado\": detenido\n};\n\nmsg.topic = \"pre-expansor\";\nmsg.payload = [exp_obj, exp_obj2];\nmsg2 = JSON.parse(JSON.stringify(msg));\nmsg2.topic = \"moldeador\";\nmsg2.payload = [mold_obj, mold_obj2];\nreturn [msg, msg2];",
+        "func": "let detenido = {\n    \"texto\": \"\",\n    \"led\": \"led red\"\n};\n\nlet deshabilitado = {\n    \"texto\": \"text-secondary\",\n    \"led\": \"led gray\"\n};\n\nlet activo = {\n    \"texto\": \"\",\n    \"led\": \"led green\"\n};\n\nvar exp_obj = {\n    \"numero\":1,\n    \"material\":\"material 1\",\n    \"kilog\": \"60\",\n    \"tiempo\": \"120\",\n    \"densidad\": { \"min\": 0, \"avg\": 5, \"max\": 10 },\n    \"estado\": detenido\n};\nvar exp_obj2 = {\n    \"numero\": 2,\n    \"material\": \"material 2\",\n    \"kilog\": \"60\",\n    \"tiempo\": \"120\",\n    \"densidad\": {\"min\":0,\"avg\":5,\"max\":10},\n    \"estado\": deshabilitado\n};\n\nvar mold_obj = {\n    \"numero\": 1,\n    \"molde\": \"35lbs prueb.xml\",\n    \"ciclos_hora\": \"20\",\n    \"tiempo_ciclo\": 122,\n    \"ciclos_total\": 10000,\n    \"estado\": activo\n};\nvar mold_obj2 = {\n    \"numero\": 2,\n    \"molde\": \"75lbs F\",\n    \"ciclos_hora\": \"20\",\n    \"tiempo_ciclo\": 101,\n    \"ciclos_total\": 18000,\n    \"estado\": detenido\n};\n\nmsg.topic = \"pre-expansor\";\nmsg.payload = [exp_obj, exp_obj2];\nmsg2 = JSON.parse(JSON.stringify(msg));\nmsg2.topic = \"moldeador\";\nmsg2.payload = [mold_obj, mold_obj2];\nreturn [msg, msg2];",
         "outputs": 2,
         "noerr": 0,
         "initialize": "",
@@ -7192,7 +7192,7 @@
                 "p": "payload"
             }
         ],
-        "repeat": "30",
+        "repeat": "20",
         "crontab": "",
         "once": true,
         "onceDelay": "0.5",
@@ -7312,7 +7312,7 @@
         "repeat": "31",
         "crontab": "",
         "once": true,
-        "onceDelay": "0.5",
+        "onceDelay": "1",
         "topic": "",
         "payload": "",
         "payloadType": "date",
@@ -7334,7 +7334,7 @@
                 "p": "payload"
             }
         ],
-        "repeat": "29",
+        "repeat": "19",
         "crontab": "",
         "once": true,
         "onceDelay": "0.5",
@@ -7371,7 +7371,7 @@
         "type": "postgresql",
         "z": "a2bc427f0d400003",
         "name": "Update Control Values",
-        "query": "UPDATE aislapol_mold\nSET nc_ideal = {{{newNCIdeal}}},\n    nc_max = {{{newNCMax}}},\n    tc_ideal = {{{newTCIdeal}}},\n    tc_max = {{{newTCMax}}}\nWHERE mold_name = '{{{existingMoldName}}}';",
+        "query": "UPDATE aislapol_mold\nSET nc_ideal = {{{ msg.newNCIdeal }}},\n    nc_max = {{{ msg.newNCMax }}},\n    tc_ideal = {{{ msg.newTCIdeal }}},\n    tc_max = {{{ msg.newTCMax }}}\nWHERE mold_name = '{{{ msg.existingMoldName }}}';",
         "postgreSQLConfig": "a1fb71ced63ef518",
         "split": false,
         "rowsPerMsg": 1,
@@ -7380,7 +7380,8 @@
         "y": 480,
         "wires": [
             [
-                "6f7a991c58788ad1"
+                "6f7a991c58788ad1",
+                "d3996b824198eef2"
             ]
         ]
     },
@@ -7407,7 +7408,7 @@
         "type": "postgresql",
         "z": "a2bc427f0d400003",
         "name": "Set Cycle Maintenance State",
-        "query": "SELECT switch_maintenance_state('{{{msg.cycleID}}}');",
+        "query": "SELECT switch_maintenance_state({{{ msg.cycleID }}});",
         "postgreSQLConfig": "a1fb71ced63ef518",
         "split": false,
         "rowsPerMsg": 1,
@@ -7443,7 +7444,89 @@
         "y": 260,
         "wires": [
             [
-                "7d81552ad7db1474"
+                "7d81552ad7db1474",
+                "def81d426c746eb5"
+            ]
+        ]
+    },
+    {
+        "id": "736ae321386b0bb5",
+        "type": "inject",
+        "z": "a2bc427f0d400003",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "20",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 260,
+        "wires": [
+            [
+                "9e1d53b46113b047"
+            ]
+        ]
+    },
+    {
+        "id": "d3996b824198eef2",
+        "type": "link out",
+        "z": "a2bc427f0d400003",
+        "name": "On Update Control Values",
+        "mode": "link",
+        "links": [
+            "2c533314146b5599"
+        ],
+        "x": 1795,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "2c533314146b5599",
+        "type": "link in",
+        "z": "a2bc427f0d400003",
+        "name": "On Update Control Values",
+        "links": [
+            "d3996b824198eef2"
+        ],
+        "x": 45,
+        "y": 340,
+        "wires": [
+            [
+                "21359e64ebc07ac2"
+            ]
+        ]
+    },
+    {
+        "id": "21359e64ebc07ac2",
+        "type": "change",
+        "z": "a2bc427f0d400003",
+        "name": "Send back",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "date"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 130,
+        "y": 340,
+        "wires": [
+            [
+                "9e1d53b46113b047"
             ]
         ]
     }

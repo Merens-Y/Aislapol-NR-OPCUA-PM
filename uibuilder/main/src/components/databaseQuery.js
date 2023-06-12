@@ -1,4 +1,3 @@
-// TODO: set up button to change isMaintenance to true or false.
 export default {
     props: ["query_results", "query_options"],
     template: `
@@ -14,7 +13,7 @@ export default {
                         </b-form-select>
                     </b-form-group>
                 </b-col>
-                <b-col lg="6" class="my-1"><b-button :disabled="!isValidQuery" @click="makeQuery(selectedQuery)">Hacer Query</b-button></b-col>
+                <b-col lg="6" class="my-1"><b-button :disabled="!isValidQuery" @click="makeQuery()">Hacer Query</b-button></b-col>
             </b-row>
             <!-- N number Input -->
             <b-row v-if="selectedQuery === 'GET LAST N' || selectedQuery === 'GET FIRST N'">
@@ -172,7 +171,7 @@ export default {
                         class="mt-1"
                     >
                         <b-form-checkbox value="machine_name">Máquina</b-form-checkbox>
-                        <b-form-checkbox value="recipe_name">Receta</b-form-checkbox>
+                        <b-form-checkbox value="mold_name">Receta</b-form-checkbox>
                     </b-form-checkbox-group>
                     </b-form-group>
                 </b-col>
@@ -214,8 +213,8 @@ export default {
             :filter-included-fields="filterOn" :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :sort-direction="sortDirection"
             stacked="md" show-empty small @filtered="onFiltered" empty-text="No hay datos que mostrar">
                 <template #cell(actions)="row">
-                    <b-button size="sm" @click="triggerMaintenanceToggle(row.item.ID)" class="mr-1">
-                    Cambiar a {{ row.item.is_maintenance ? 'Ciclo Normal' : 'Mantenimiento' }} <!-- TODO: Check if this works then use ID to pass to a trigger for the query -->
+                    <b-button size="sm" :variant="row.item.is_maintenance ? 'primary' : 'outline-success'" @click="triggerMaintenanceToggle(row.item.ID)" class="mr-1">
+                    Cambiar a {{ row.item.is_maintenance ? 'Ciclo Normal' : 'Mantenimiento' }}
                     </b-button>
                     <b-button size="sm" @click="row.toggleDetails">
                     {{ row.detailsShowing ? 'Esconder' : 'Mostrar' }} Detalles
@@ -243,13 +242,13 @@ export default {
                 { key: 'ID', label: '#', sortable: true, sortDirection: 'desc', class: 'text-center' },
                 { key: 'machine_name', label: 'Nombre Máquina', sortable: true, sortDirection: 'desc', class: 'text-center' },
                 {
-                    key: 'recipe_name',
+                    key: 'mold_name',
                     label: 'Receta',
                     formatter: (value) => {
                         if (value.includes('.xml')) {
-                            return value.replace('.xml', '');
+                            return value.replace('.xml', '').toUpperCase();
                         } else {
-                            return value;
+                            return value.toUpperCase();
                         }
                     },
                     sortable: true,
@@ -394,7 +393,7 @@ export default {
                 const filteredData = this.query_results.filter((row) => {
                     const { name, id } = row;
                     const filterName = this.filterOn.includes('machine_name') || false;
-                    const filterRecipe = this.filterOn.includes('recipe_name') || false;
+                    const filterRecipe = this.filterOn.includes('mold_name') || false;
                     const nameMatch = filterName && name.toLowerCase().includes(this.filter.toLowerCase());
                     const idMatch = filterRecipe && id.toLowerCase().includes(this.filter.toLowerCase());
 
@@ -487,6 +486,7 @@ export default {
         triggerMaintenanceToggle(row_id) {
             const id = row_id;
             this.$emit('maintenance-toggle-event', id);
+            setTimeout(this.makeQuery, 200);
         },
     },
 }

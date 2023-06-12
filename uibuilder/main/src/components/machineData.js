@@ -1,5 +1,5 @@
 export default {
-  props: ["pre_exp_arr", "mold_arr", "mold_nc_control_values", "mold_tc_control_values"],
+  props: ["pre_exp_arr", "mold_arr", "mold_control_values"],
   watch: {
     pre_exp_arr(newVal) {
       // Perform actions when the prop value changes
@@ -42,16 +42,16 @@ export default {
                     <p class="col p-1 m-1">Moldeador {{mold.numero}}</p> <div class="col-" v-bind:class="[mold.estado.led]"></div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>Molde:</b></p></div>
-                    <div class="col-md value-field text-center">{{mold.molde}}</div>
+                    <div class="col-md value-field text-center">{{ mold.molde.replace('.xml', '').toUpperCase() }}</div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>Ciclos/H:</b></p></div>
                     <div class="col-md value-field text-center">{{mold.ciclos_hora}}</div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>T. de Ciclo:</b></p></div>
-                    <div class="col-md align-items-center text-center" :class="getVariantClassbyCN(mold.tiempo_ciclo, mold.molde)">{{mold.tiempo_ciclo}}</div>
+                    <div class="col-md align-items-center text-center" :class="getVariantClassbyTC(mold.tiempo_ciclo, mold.molde)">{{mold.tiempo_ciclo}}</div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>Tot. ciclos:</b></p></div>
-                    <div class="col-md text-center" :class="getVariantClassbyTC(mold.ciclos_total, mold.molde)">{{mold.ciclos_total}}</div>                                                       
+                    <div class="col-md text-center" :class="getVariantClassbyNC(mold.ciclos_total, mold.molde)">{{mold.ciclos_total}}</div>                                                       
                 </div>
             </b-card>
         </div>
@@ -66,7 +66,7 @@ export default {
       // variables for controlling the display of the main parts of the component.
       pre_exp_cards: [],
       mold_cards: [],
-      
+
       // variables for controlling the display of the info modal.
       infoModal: {
         id: "info-modal",
@@ -121,22 +121,32 @@ export default {
       this.infoModal.title = "";
       this.infoModal.content = "";
     },
-    getVariantClassbyCN(cycleNumber, moldType) {
-      if (cycleNumber > this.mold_nc_control_values.find((obj) => obj.name === moldType)["max"]) {
-        return this.stateClass.danger;
-      } else if (cycleNumber > this.mold_nc_control_values.find((obj) => obj.name === moldType)["ideal"]) {
-        return this.stateClass.warning;
-      } else {
-        return this.stateClass.success;
+    getVariantClassbyNC(cycleTime, moldType) {
+      if (this.mold_control_values.length === 0 || this.mold_control_values.find((obj) => obj.mold_name === moldType) === undefined) {
+        return "";
+      }
+      else {
+        if (cycleTime > this.mold_control_values.find((obj) => obj.mold_name === moldType)["nc_max"]) {
+          return this.stateClass.danger;
+        } else if (cycleTime > this.mold_control_values.find((obj) => obj.mold_name === moldType)["nc_ideal"]) {
+          return this.stateClass.warning;
+        } else {
+          return this.stateClass.success;
+        }
       }
     },
     getVariantClassbyTC(cycleNumber, moldType) {
-      if (cycleNumber > this.mold_tc_control_values.find((obj) => obj.name === moldType)["max"]) {
-        return this.stateClass.danger;
-      } else if (cycleNumber > this.mold_tc_control_values.find((obj) => obj.name === moldType)["ideal"]) {
-        return this.stateClass.warning;
-      } else {
-        return this.stateClass.success;
+      if (this.mold_control_values.length === 0 || this.mold_control_values.find((obj) => obj.mold_name === moldType) === undefined) {
+        return "";
+      }
+      else {
+        if (cycleNumber > this.mold_control_values.find((obj) => obj.mold_name === moldType)["tc_max"]) {
+          return this.stateClass.danger;
+        } else if (cycleNumber > this.mold_control_values.find((obj) => obj.mold_name === moldType)["tc_ideal"]) {
+          return this.stateClass.warning;
+        } else {
+          return this.stateClass.success;
+        }
       }
     },
   },

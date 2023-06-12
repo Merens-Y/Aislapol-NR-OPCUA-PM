@@ -70,54 +70,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
             recipe_data: [],
             chart_data: [],
             chart_options: [],
-            // TODO: set up as values from database
-            mold_nc_control_values: [
-                // variables for controlling the display color of the molding cycle number control values.
-                {
-                    name: "10lbs mix",
-                    ideal: 95,
-                    max: 110,
-                },
-                {
-                    name: "35lbs mix",
-                    ideal: 95,
-                    max: 110,
-                },
-                {
-                    name: "75lbs T",
-                    ideal: 100,
-                    max: 120,
-                },
-                {
-                    name: "75lbs F",
-                    ideal: 95,
-                    max: 120,
-                },
-            ],
-            // TODO: set up as values from database
-            mold_tc_control_values: [
-                // variables for controlling the display color of the molding total cycles control values.
-                {
-                    name: "10lbs mix",
-                    ideal: 15000,
-                    max: 25000,
-                },
-                {
-                    name: "35lbs mix",
-                    ideal: 15000,
-                    max: 25000,
-                },
-                {
-                    name: "75lbs T",
-                    ideal: 15000,
-                    max: 25000,
-                },
-                {
-                    name: "75lbs F",
-                    ideal: 15000,
-                    max: 25000,
-                },
-            ],
+            mold_control_values: [],
         }
     }, // --- End of data --- //
     mounted() {
@@ -306,7 +259,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 cycleID: cycle_id,
             });
         },
-        updateControlValues: function (ncIdeal, ncMax, tcIdeal, tcMax, moldName) {
+        updateControlValues: function (moldName, ncIdeal, ncMax, tcIdeal, tcMax) {
             uibuilder.send({
                 payload: "Hi there from the client",
                 topic: "UPDATE CONTROL VALUES",
@@ -316,6 +269,8 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 newTCMax: tcMax,
                 existingMoldName: moldName,
             });
+            // send toast message with success
+            this.makeToast("Admin", `Límites de control para ${moldName.replace('.xml', '').toUpperCase()} modificados exitosamente`, "success");
         },
         // Admin methods
         async getPermitted() {
@@ -690,7 +645,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                     // Handle any errors
                     console.error('Property Change error:', error);
                 });
-            
+
             localStorage.setItem('userEmail', new_email);
             await this.checkLoginStatus();
         },
@@ -966,6 +921,9 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                             data: this.processChartData(element),
                         },
                     ],);
+                    var idealTC = this.mold_control_values.find((obj) => obj.mold_name === element[0].mold_name)["tc_ideal"] || 100;
+                    var maxTC = this.mold_control_values.find((obj) => obj.mold_name === element[0].mold_name)["tc_max"] || 120;
+                    
                     temp_options = {
                         chart: {
                             toolbar: {
@@ -1011,7 +969,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                                     year: 'yyyy',
                                     month: 'MMM',
                                     day: 'dd',
-                                    hour: 'HH:mm:ss',
+                                    hour: 'HH:mm',
                                 },
                                 style: {
                                     colors: '#FFFFFF', // Set the color of x-axis labels to white
@@ -1034,7 +992,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                         annotations: {
                             yaxis: [
                                 {
-                                    y: 100,
+                                    y: idealTC,
                                     borderColor: '#FEB019',
                                     borderWidth: 5,
                                     label: {
@@ -1048,7 +1006,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                                     },
                                 },
                                 {
-                                    y: 120,
+                                    y: maxTC,
                                     borderColor: '#FF4560',
                                     borderWidth: 5,
                                     label: {
@@ -1101,7 +1059,8 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 return;
             }
             if (msg.topic === 'Control Values') {
-                // TODO: Add logic to update the control values from the database to the front end, i.e. the values in mold_nc_control_values and mold_tc_control_values
+                const control_values = msg.payload;
+                this.mold_control_values = control_values;
                 return;
             }
         })
