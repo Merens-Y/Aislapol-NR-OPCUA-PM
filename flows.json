@@ -6896,7 +6896,7 @@
         "type": "function",
         "z": "a2bc427f0d400003",
         "name": "function 2",
-        "func": "let detenido = {\n    \"texto\": \"\",\n    \"led\": \"led red\"\n};\n\nlet deshabilitado = {\n    \"texto\": \"text-secondary\",\n    \"led\": \"led gray\"\n};\n\nlet activo = {\n    \"texto\": \"\",\n    \"led\": \"led green\"\n};\n\nvar exp_obj = {\n    \"numero\":1,\n    \"material\":\"material 1\",\n    \"kilog\": \"60\",\n    \"tiempo\": \"120\",\n    \"densidad\": { \"min\": 0, \"avg\": 5, \"max\": 10 },\n    \"estado\": detenido\n};\nvar exp_obj2 = {\n    \"numero\": 2,\n    \"material\": \"material 2\",\n    \"kilog\": \"60\",\n    \"tiempo\": \"120\",\n    \"densidad\": {\"min\":0,\"avg\":5,\"max\":10},\n    \"estado\": deshabilitado\n};\n\nvar mold_obj = {\n    \"numero\": 1,\n    \"molde\": \"35lbs prueb.xml\",\n    \"ciclos_hora\": \"20\",\n    \"tiempo_ciclo\": 122,\n    \"ciclos_total\": 10000,\n    \"estado\": activo\n};\nvar mold_obj2 = {\n    \"numero\": 2,\n    \"molde\": \"75lbs F\",\n    \"ciclos_hora\": \"20\",\n    \"tiempo_ciclo\": 101,\n    \"ciclos_total\": 18000,\n    \"estado\": detenido\n};\n\nmsg.topic = \"pre-expansor\";\nmsg.payload = [exp_obj, exp_obj2];\nmsg2 = JSON.parse(JSON.stringify(msg));\nmsg2.topic = \"moldeador\";\nmsg2.payload = [mold_obj, mold_obj2];\nreturn [msg, msg2];",
+        "func": "let detenido = {\n    \"texto\": \"\",\n    \"led\": \"led red\"\n};\n\nlet deshabilitado = {\n    \"texto\": \"text-secondary\",\n    \"led\": \"led gray\"\n};\n\nlet activo = {\n    \"texto\": \"\",\n    \"led\": \"led green\"\n};\n\nvar exp_obj = {\n    \"numero\":1,\n    \"material\":\"material 1\",\n    \"kilog\": \"60\",\n    \"tiempo\": \"120\",\n    \"densidad\": { \"min\": 0, \"avg\": 5, \"max\": 10 },\n    \"estado\": detenido\n};\nvar exp_obj2 = {\n    \"numero\": 2,\n    \"material\": \"material 2\",\n    \"kilog\": \"60\",\n    \"tiempo\": \"120\",\n    \"densidad\": {\"min\":0,\"avg\":5,\"max\":10},\n    \"estado\": deshabilitado\n};\n\nvar mold_obj = {\n    \"numero\": 1,\n    \"molde\": \"35lbs prueb.xml\",\n    \"ciclos_hora\": \"20\",\n    \"tiempo_ciclo\": 122,\n    \"ciclos_total\": 10000,\n    \"estado\": activo\n};\nvar mold_obj2 = {\n    \"numero\": 2,\n    \"molde\": \"75lbs F.xml\",\n    \"ciclos_hora\": \"20\",\n    \"tiempo_ciclo\": 101,\n    \"ciclos_total\": 18000,\n    \"estado\": detenido\n};\n\nmsg.topic = \"pre-expansor\";\nmsg.payload = [exp_obj, exp_obj2];\nmsg2 = JSON.parse(JSON.stringify(msg));\nmsg2.topic = \"moldeador\";\nmsg2.payload = [mold_obj, mold_obj2];\nreturn [msg, msg2];",
         "outputs": 2,
         "noerr": 0,
         "initialize": "",
@@ -7192,7 +7192,7 @@
                 "p": "payload"
             }
         ],
-        "repeat": "20",
+        "repeat": "5",
         "crontab": "",
         "once": true,
         "onceDelay": "0.5",
@@ -7309,7 +7309,7 @@
                 "p": "payload"
             }
         ],
-        "repeat": "31",
+        "repeat": "15",
         "crontab": "",
         "once": true,
         "onceDelay": "1",
@@ -7334,7 +7334,7 @@
                 "p": "payload"
             }
         ],
-        "repeat": "19",
+        "repeat": "5.5",
         "crontab": "",
         "once": true,
         "onceDelay": "0.5",
@@ -7459,7 +7459,7 @@
                 "p": "payload"
             }
         ],
-        "repeat": "20",
+        "repeat": "10",
         "crontab": "",
         "once": true,
         "onceDelay": "0.5",

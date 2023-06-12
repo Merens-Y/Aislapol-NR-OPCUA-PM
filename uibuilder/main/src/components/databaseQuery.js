@@ -211,7 +211,7 @@ export default {
             <!-- Main table element -->
             <b-table :items="query_results" :fields="fields" :current-page="currentPage" :per-page="perPage" :filter="filter"
             :filter-included-fields="filterOn" :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :sort-direction="sortDirection"
-            stacked="md" show-empty small @filtered="onFiltered" empty-text="No hay datos que mostrar">
+            stacked="md" show-empty small @filtered="onFiltered" striped empty-text="No hay datos que mostrar">
                 <template #cell(actions)="row">
                     <b-button size="sm" :variant="row.item.is_maintenance ? 'primary' : 'outline-success'" @click="triggerMaintenanceToggle(row.item.ID)" class="mr-1">
                     Cambiar a {{ row.item.is_maintenance ? 'Ciclo Normal' : 'Mantenimiento' }}
