@@ -7529,5 +7529,30 @@
                 "9e1d53b46113b047"
             ]
         ]
+    },
+    {
+        "id": "32a57ad196199042",
+        "type": "uibuilder",
+        "z": "a2bc427f0d400003",
+        "name": "User Manual Page",
+        "topic": "",
+        "url": "manual",
+        "fwdInMessages": false,
+        "allowScripts": false,
+        "allowStyles": false,
+        "copyIndex": true,
+        "templateFolder": "vue2-bootstrap",
+        "extTemplate": "",
+        "showfolder": false,
+        "reload": false,
+        "sourceFolder": "src",
+        "deployedVersion": "6.4.1",
+        "showMsgUib": false,
+        "x": 1160,
+        "y": 380,
+        "wires": [
+            [],
+            []
+        ]
     }
 ]
