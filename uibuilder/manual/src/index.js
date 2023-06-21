@@ -14,8 +14,13 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
 
     methods: {
         fetchMarkdownFile() {
-            // const markdown = fs.readFileSync('./markdown/manual.md', 'utf8');
-            console.log(micromark('## Hello, *world*!'));
+            // fetch file at path "./markdown/manual.md" and then parse it to HTML with micromark
+            fetch('./markdown/manual.md')
+                .then(response => response.text())
+                .then(text => {
+                    this.renderedMarkdown = marked.parse(text);
+                    console.log(this.renderedMarkdown);
+                })
         },
 
         // REALLY Simple method to return DOM events back to Node-RED.
