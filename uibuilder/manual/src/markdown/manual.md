@@ -1,4 +1,6 @@
-# markdown-it <!-- omit in toc -->
+# SCADA Aislapol - Manual de Usuario <!-- omit in toc -->
+
+![This is an image](./markdown/images/Untitled.png)
 
 [![CI](https://github.com/markdown-it/markdown-it/workflows/CI/badge.svg)](https://github.com/markdown-it/markdown-it/actions)
 [![NPM version](https://img.shields.io/npm/v/markdown-it.svg?style=flat)](https://www.npmjs.org/package/markdown-it)

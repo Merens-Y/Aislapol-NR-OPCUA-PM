@@ -19,7 +19,6 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 .then(response => response.text())
                 .then(text => {
                     this.renderedMarkdown = marked.parse(text);
-                    console.log(this.renderedMarkdown);
                 })
         },
 
