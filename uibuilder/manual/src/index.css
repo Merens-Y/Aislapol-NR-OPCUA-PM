@@ -56,7 +56,6 @@
 /* Markdown Styling */
 .markdown pre {
     background-color: #f0f0f0;
-    font-family: Consolas;
     padding: 5px 10px;
     border-radius: 5px;
 }
@@ -65,8 +64,6 @@
     max-width: 80%;
     height: auto;
     border-radius: 5px;
-    justify-content: center;
-    align-items: center;
 }
 
 /* Cloak elements on initial load to hide the possible display of {{ ... }} 

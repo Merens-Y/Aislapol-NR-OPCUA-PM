@@ -2,17 +2,26 @@
   "name": "uib-root",
   "version": "6.4.1",
   "dependencies": {
+    "@highlightjs/cdn-assets": "^11.8.0",
     "apexcharts": "^3.40.0",
     "bootstrap": "^4.6.1",
     "bootstrap-vue": "^2.23.1",
     "http-vue-loader": "^1.4.2",
     "marked": "^5.1.0",
-    "marked-highlight": "^2.0.1",
     "vue": "^2.7.14",
     "vue-apexcharts": "^1.6.2"
   },
   "uibuilder": {
     "packages": {
+      "@highlightjs/cdn-assets": {
+        "installFolder": "\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\@highlightjs\\cdn-assets",
+        "installedVersion": "11.8.0",
+        "estimatedEntryPoint": "?",
+        "homepage": "https://highlightjs.org/",
+        "packageUrl": "/@highlightjs/cdn-assets",
+        "url": "../uibuilder/vendor/@highlightjs/cdn-assets/?",
+        "spec": "^11.8.0"
+      },
       "apexcharts": {
         "installFolder": "\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\apexcharts",
         "installedVersion": "3.40.0",
@@ -58,15 +67,6 @@
         "packageUrl": "/marked",
         "url": "../uibuilder/vendor/marked/./lib/marked.umd.js",
         "spec": "^5.1.0"
-      },
-      "marked-highlight": {
-        "installFolder": "\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\marked-highlight",
-        "installedVersion": "2.0.1",
-        "estimatedEntryPoint": "./lib/index.umd.js",
-        "homepage": "https://github.com/markedjs/marked-highlight#readme",
-        "packageUrl": "/marked-highlight",
-        "url": "../uibuilder/vendor/marked-highlight/./lib/index.umd.js",
-        "spec": "^2.0.1"
       },
       "vue": {
         "installFolder": "\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vue",

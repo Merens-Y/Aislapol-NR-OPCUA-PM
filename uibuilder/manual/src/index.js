@@ -8,17 +8,22 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
         return {
             // Add reactive data variables here
             renderedMarkdown: '',
-
         }
     }, // --- End of data --- //
 
     methods: {
         fetchMarkdownFile() {
-            // fetch file at path "./markdown/manual.md" and then parse it to HTML with micromark
+            marked.use({
+                mangle: false,
+                headerIds: false,
+                gfm: true,
+            });
+            // fetch file at path "./markdown/manual.md" and then parse it to HTML with marked
             fetch('./markdown/manual.md')
                 .then(response => response.text())
                 .then(text => {
                     this.renderedMarkdown = marked.parse(text);
+                    console.log(typeof this.renderedMarkdown);
                 })
         },
 
@@ -90,7 +95,9 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
         this.fetchMarkdownFile();
 
     }, // --- End of created hook --- //
-
+    mounted() {
+        hljs.highlightAll();
+    },
 }) // --- End of app1 --- //
 
 // EOF
