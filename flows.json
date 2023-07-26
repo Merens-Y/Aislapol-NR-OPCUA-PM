@@ -1673,22 +1673,22 @@
             },
             {
                 "name": "status_auto",
-                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.auto",
                 "datatypeName": ""
             },
             {
                 "name": "status_manual",
-                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.man",
                 "datatypeName": ""
             },
             {
                 "name": "status_running",
-                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.running",
                 "datatypeName": ""
             },
             {
                 "name": "status_stop",
-                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.stop",
                 "datatypeName": ""
             },
             {
@@ -2815,282 +2815,6 @@
         ]
     },
     {
-        "id": "62a3738fc5251ec9",
-        "type": "OPCUA-IIoT-Inject",
-        "z": "f788a78067227a65",
-        "injectType": "read",
-        "payload": "",
-        "payloadType": "date",
-        "topic": "molding_02",
-        "repeat": "5",
-        "crontab": "",
-        "once": true,
-        "startDelay": "",
-        "name": "",
-        "addressSpaceItems": [
-            {
-                "name": "last_recipe",
-                "nodeId": "ns=6;s=::OpcUA_IF:last_recipe",
-                "datatypeName": ""
-            },
-            {
-                "name": "life_cycles",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_cycles",
-                "datatypeName": ""
-            },
-            {
-                "name": "mold_distance",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_mold_distance",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_auto",
-                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_manual",
-                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_running",
-                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_stop",
-                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
-                "datatypeName": ""
-            },
-            {
-                "name": "cycle_time",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.actual_cycle_time",
-                "datatypeName": ""
-            },
-            {
-                "name": "last_cycle_time",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.last_cycle_time",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_auto_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_auto_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_auto_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_manual_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_manual_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_manual_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_total_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_total_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_total_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_hydraulic_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_hydraulic_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_hydraulic_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "alarm_00_id",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].id",
-                "datatypeName": ""
-            },
-            {
-                "name": "alarm_00_description",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].description",
-                "datatypeName": ""
-            }
-        ],
-        "x": 170,
-        "y": 1180,
-        "wires": [
-            [
-                "f7c6fe9b14f9417f"
-            ]
-        ]
-    },
-    {
-        "id": "8fd06fcdd81838ae",
-        "type": "OPCUA-IIoT-Inject",
-        "z": "f788a78067227a65",
-        "injectType": "read",
-        "payload": "",
-        "payloadType": "date",
-        "topic": "molding_03",
-        "repeat": "5",
-        "crontab": "",
-        "once": true,
-        "startDelay": "",
-        "name": "",
-        "addressSpaceItems": [
-            {
-                "name": "last_recipe",
-                "nodeId": "ns=6;s=::OpcUA_IF:last_recipe",
-                "datatypeName": ""
-            },
-            {
-                "name": "life_cycles",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_cycles",
-                "datatypeName": ""
-            },
-            {
-                "name": "mold_distance",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_mold_distance",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_auto",
-                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_manual",
-                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_running",
-                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_stop",
-                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
-                "datatypeName": ""
-            },
-            {
-                "name": "cycle_time",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.actual_cycle_time",
-                "datatypeName": ""
-            },
-            {
-                "name": "last_cycle_time",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.last_cycle_time",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_auto_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_auto_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_auto_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_manual_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_manual_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_manual_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_total_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_total_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_total_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_hydraulic_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_hydraulic_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_hydraulic_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "alarm_00_id",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].id",
-                "datatypeName": ""
-            },
-            {
-                "name": "alarm_00_description",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].description",
-                "datatypeName": ""
-            }
-        ],
-        "x": 170,
-        "y": 1320,
-        "wires": [
-            [
-                "3f489858a7e03298"
-            ]
-        ]
-    },
-    {
         "id": "d19e6c5210a5cd11",
         "type": "reusable",
         "z": "f788a78067227a65",
@@ -3504,6 +3228,282 @@
         "y": 1800,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "94fe9ee98cd0eaef",
+        "type": "OPCUA-IIoT-Inject",
+        "z": "f788a78067227a65",
+        "injectType": "read",
+        "payload": "",
+        "payloadType": "date",
+        "topic": "molding_02",
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "startDelay": "",
+        "name": "",
+        "addressSpaceItems": [
+            {
+                "name": "last_recipe",
+                "nodeId": "ns=6;s=::OpcUA_IF:last_recipe",
+                "datatypeName": ""
+            },
+            {
+                "name": "life_cycles",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_cycles",
+                "datatypeName": ""
+            },
+            {
+                "name": "mold_distance",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_mold_distance",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_auto",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.auto",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_manual",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.man",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_running",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.running",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_stop",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.stop",
+                "datatypeName": ""
+            },
+            {
+                "name": "cycle_time",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.actual_cycle_time",
+                "datatypeName": ""
+            },
+            {
+                "name": "last_cycle_time",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.last_cycle_time",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_auto_hours",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.hours",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_auto_minutes",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.minutes",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_auto_seconds",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.seconds",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_manual_hours",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.hours",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_manual_minutes",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.minutes",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_manual_seconds",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.seconds",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_total_hours",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.hours",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_total_minutes",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.minutes",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_total_seconds",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.seconds",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_hydraulic_hours",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.hours",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_hydraulic_minutes",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.minutes",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_hydraulic_seconds",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.seconds",
+                "datatypeName": ""
+            },
+            {
+                "name": "alarm_00_id",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].id",
+                "datatypeName": ""
+            },
+            {
+                "name": "alarm_00_description",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].description",
+                "datatypeName": ""
+            }
+        ],
+        "x": 170,
+        "y": 1180,
+        "wires": [
+            [
+                "f7c6fe9b14f9417f"
+            ]
+        ]
+    },
+    {
+        "id": "c3fa117573467b38",
+        "type": "OPCUA-IIoT-Inject",
+        "z": "f788a78067227a65",
+        "injectType": "read",
+        "payload": "",
+        "payloadType": "date",
+        "topic": "molding_03",
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "startDelay": "",
+        "name": "",
+        "addressSpaceItems": [
+            {
+                "name": "last_recipe",
+                "nodeId": "ns=6;s=::OpcUA_IF:last_recipe",
+                "datatypeName": ""
+            },
+            {
+                "name": "life_cycles",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_cycles",
+                "datatypeName": ""
+            },
+            {
+                "name": "mold_distance",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_mold_distance",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_auto",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.auto",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_manual",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.man",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_running",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.running",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_stop",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.stop",
+                "datatypeName": ""
+            },
+            {
+                "name": "cycle_time",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.actual_cycle_time",
+                "datatypeName": ""
+            },
+            {
+                "name": "last_cycle_time",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.last_cycle_time",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_auto_hours",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.hours",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_auto_minutes",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.minutes",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_auto_seconds",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.seconds",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_manual_hours",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.hours",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_manual_minutes",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.minutes",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_manual_seconds",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.seconds",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_total_hours",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.hours",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_total_minutes",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.minutes",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_total_seconds",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.seconds",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_hydraulic_hours",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.hours",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_hydraulic_minutes",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.minutes",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_hydraulic_seconds",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.seconds",
+                "datatypeName": ""
+            },
+            {
+                "name": "alarm_00_id",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].id",
+                "datatypeName": ""
+            },
+            {
+                "name": "alarm_00_description",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].description",
+                "datatypeName": ""
+            }
+        ],
+        "x": 170,
+        "y": 1320,
+        "wires": [
+            [
+                "3f489858a7e03298"
+            ]
         ]
     },
     {
