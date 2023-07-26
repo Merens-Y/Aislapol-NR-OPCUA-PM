@@ -1879,7 +1879,9 @@
         "x": 900,
         "y": 860,
         "wires": [
-            []
+            [
+                "4afa4e43ab6a6de1"
+            ]
         ]
     },
     {
@@ -1951,7 +1953,9 @@
         "x": 850,
         "y": 1020,
         "wires": [
-            []
+            [
+                "4afa4e43ab6a6de1"
+            ]
         ]
     },
     {
@@ -2063,7 +2067,9 @@
         "x": 850,
         "y": 1180,
         "wires": [
-            []
+            [
+                "4afa4e43ab6a6de1"
+            ]
         ]
     },
     {
@@ -2133,7 +2139,9 @@
         "x": 850,
         "y": 1320,
         "wires": [
-            []
+            [
+                "4afa4e43ab6a6de1"
+            ]
         ]
     },
     {
@@ -2504,7 +2512,7 @@
             }
         ],
         "x": 190,
-        "y": 920,
+        "y": 1560,
         "wires": [
             [
                 "eb6ba52308d3d59f"
@@ -2519,11 +2527,9 @@
         "target": "agrupación pre-exp",
         "outputs": 1,
         "x": 900,
-        "y": 920,
+        "y": 1560,
         "wires": [
-            [
-                "df35c13dcc92abe8"
-            ]
+            []
         ]
     },
     {
@@ -2534,7 +2540,7 @@
         "target": "tratamiento de datos",
         "outputs": 1,
         "x": 700,
-        "y": 920,
+        "y": 1560,
         "wires": [
             [
                 "714ab741b280a5a1"
@@ -2554,7 +2560,7 @@
         "negateFilter": false,
         "filters": [],
         "x": 530,
-        "y": 920,
+        "y": 1560,
         "wires": [
             [
                 "4476bc6c3b989481"
@@ -2576,7 +2582,7 @@
         "parseStrings": false,
         "historyDays": "",
         "x": 390,
-        "y": 920,
+        "y": 1560,
         "wires": [
             [
                 "e9d8c25addbcd69f"
@@ -2604,7 +2610,7 @@
         "target": "tratamiento de datos",
         "outputs": 1,
         "x": 660,
-        "y": 1080,
+        "y": 1640,
         "wires": [
             [
                 "fb281aac4b4b66e2"
@@ -2624,7 +2630,7 @@
         "negateFilter": false,
         "filters": [],
         "x": 490,
-        "y": 1080,
+        "y": 1640,
         "wires": [
             [
                 "3e2de41d696ef804"
@@ -2646,7 +2652,7 @@
         "parseStrings": false,
         "historyDays": "",
         "x": 350,
-        "y": 1080,
+        "y": 1640,
         "wires": [
             [
                 "bf771d5271d7de80"
@@ -2784,7 +2790,7 @@
             }
         ],
         "x": 170,
-        "y": 1080,
+        "y": 1640,
         "wires": [
             [
                 "ff43309ea7a136c3"
@@ -2799,12 +2805,9 @@
         "target": "agrupación mold",
         "outputs": 1,
         "x": 850,
-        "y": 1080,
+        "y": 1640,
         "wires": [
-            [
-                "df35c13dcc92abe8",
-                "4afa4e43ab6a6de1"
-            ]
+            []
         ]
     },
     {
@@ -3090,8 +3093,8 @@
         "name": "",
         "target": "tratamiento de datos",
         "outputs": 1,
-        "x": 860,
-        "y": 1240,
+        "x": 660,
+        "y": 1720,
         "wires": [
             [
                 "5e5f1ad45488a670"
@@ -3105,12 +3108,10 @@
         "name": "",
         "target": "agrupación mold",
         "outputs": 1,
-        "x": 1050,
-        "y": 1240,
+        "x": 850,
+        "y": 1720,
         "wires": [
-            [
-                "df35c13dcc92abe8"
-            ]
+            []
         ]
     },
     {
@@ -3125,8 +3126,8 @@
         "activateFilters": false,
         "negateFilter": false,
         "filters": [],
-        "x": 690,
-        "y": 1240,
+        "x": 490,
+        "y": 1720,
         "wires": [
             [
                 "d19e6c5210a5cd11"
@@ -3147,8 +3148,8 @@
         "showErrors": false,
         "parseStrings": false,
         "historyDays": "",
-        "x": 550,
-        "y": 1240,
+        "x": 350,
+        "y": 1720,
         "wires": [
             [
                 "65f7d96ecc2c5512"
@@ -3285,8 +3286,8 @@
                 "datatypeName": ""
             }
         ],
-        "x": 370,
-        "y": 1240,
+        "x": 170,
+        "y": 1720,
         "wires": [
             [
                 "2ae8630a808acda0"
@@ -3423,8 +3424,8 @@
                 "datatypeName": ""
             }
         ],
-        "x": 190,
-        "y": 1420,
+        "x": 170,
+        "y": 1800,
         "wires": [
             [
                 "50118b0d19f57f4c"
@@ -3438,8 +3439,8 @@
         "name": "",
         "target": "tratamiento de datos",
         "outputs": 1,
-        "x": 680,
-        "y": 1420,
+        "x": 660,
+        "y": 1800,
         "wires": [
             [
                 "1021f0a01f47506c"
@@ -3458,8 +3459,8 @@
         "activateFilters": false,
         "negateFilter": false,
         "filters": [],
-        "x": 510,
-        "y": 1420,
+        "x": 490,
+        "y": 1800,
         "wires": [
             [
                 "73ac6707b521b986"
@@ -3480,8 +3481,8 @@
         "showErrors": false,
         "parseStrings": false,
         "historyDays": "",
-        "x": 370,
-        "y": 1420,
+        "x": 350,
+        "y": 1800,
         "wires": [
             [
                 "0dc06a94cc206927"
@@ -3495,12 +3496,10 @@
         "name": "",
         "target": "agrupación mold",
         "outputs": 1,
-        "x": 870,
-        "y": 1420,
+        "x": 850,
+        "y": 1800,
         "wires": [
-            [
-                "df35c13dcc92abe8"
-            ]
+            []
         ]
     },
     {
