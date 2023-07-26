@@ -1205,7 +1205,7 @@
         "type": "debug",
         "z": "f788a78067227a65",
         "name": "OPC UA Data Debug",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1213,8 +1213,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1260,
-        "y": 920,
+        "x": 1200,
+        "y": 1460,
         "wires": []
     },
     {
@@ -2533,7 +2533,10 @@
         "x": 900,
         "y": 1560,
         "wires": [
-            []
+            [
+                "cb23d1186c440c1d",
+                "4afa4e43ab6a6de1"
+            ]
         ]
     },
     {
@@ -2811,7 +2814,9 @@
         "x": 850,
         "y": 1640,
         "wires": [
-            []
+            [
+                "cb23d1186c440c1d"
+            ]
         ]
     },
     {
@@ -2839,7 +2844,9 @@
         "x": 850,
         "y": 1720,
         "wires": [
-            []
+            [
+                "cb23d1186c440c1d"
+            ]
         ]
     },
     {
@@ -3227,7 +3234,9 @@
         "x": 850,
         "y": 1800,
         "wires": [
-            []
+            [
+                "cb23d1186c440c1d"
+            ]
         ]
     },
     {
@@ -3503,6 +3512,136 @@
         "wires": [
             [
                 "3f489858a7e03298"
+            ]
+        ]
+    },
+    {
+        "id": "cb23d1186c440c1d",
+        "type": "switch",
+        "z": "f788a78067227a65",
+        "name": "Separa máquiinas",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "pre-expander",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "molding",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 1210,
+        "y": 1680,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "910b5ddf4de1b338",
+        "type": "function",
+        "z": "f788a78067227a65",
+        "name": "DB INSERT Formatting",
+        "func": "var data = msg.payload.results;\nif (data[\"numCycles\"]!==null){\n    msg.machine_name = 'Máquina 15';\n    msg.cycle = data[\"numCycles\"];\n    msg.cycle_time = data[\"lastCycleTime\"];\n    msg.recipe_name = data[\"recipe\"];\n    msg.post=true;\n}\nelse{\n    msg.post=false\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1250,
+        "y": 1780,
+        "wires": [
+            [
+                "d051f82c7b88d9d8"
+            ]
+        ]
+    },
+    {
+        "id": "c7aba6c639708e4f",
+        "type": "rbe",
+        "z": "f788a78067227a65",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": false,
+        "property": "cycle",
+        "topi": "topic",
+        "x": 1610,
+        "y": 1780,
+        "wires": [
+            [
+                "4e66b32a294bc965"
+            ]
+        ]
+    },
+    {
+        "id": "528a9824339e4f6a",
+        "type": "debug",
+        "z": "f788a78067227a65",
+        "name": "debug 10",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1960,
+        "y": 1780,
+        "wires": []
+    },
+    {
+        "id": "d051f82c7b88d9d8",
+        "type": "switch",
+        "z": "f788a78067227a65",
+        "name": "Data is defined",
+        "property": "post",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1460,
+        "y": 1780,
+        "wires": [
+            [
+                "c7aba6c639708e4f"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "4e66b32a294bc965",
+        "type": "postgresql",
+        "z": "f788a78067227a65",
+        "name": "Post Last Cycle",
+        "query": "INSERT INTO aislapol_table (machine_name, cycle, cycle_time, mold_name)\nVALUES ('{{{ msg.machine_name }}}', {{{ msg.cycle }}}, {{{ msg.cycle_time }}}, '{{{ msg.recipe_name }}}');",
+        "postgreSQLConfig": "a1fb71ced63ef518",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 1800,
+        "y": 1780,
+        "wires": [
+            [
+                "528a9824339e4f6a"
             ]
         ]
     },
