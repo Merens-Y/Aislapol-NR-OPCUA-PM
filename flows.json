@@ -253,6 +253,32 @@
         "maxBadSessionRequests": "10"
     },
     {
+        "id": "7733ce5534a14261",
+        "type": "OPCUA-IIoT-Connector",
+        "discoveryUrl": "",
+        "endpoint": "opc.tcp://DESKTOP-49EA0VR:48010",
+        "endpointMustExist": false,
+        "keepSessionAlive": true,
+        "loginEnabled": false,
+        "name": "Mold_02_Promass",
+        "showErrors": false,
+        "securityPolicy": "None",
+        "securityMode": "None",
+        "individualCerts": false,
+        "publicCertificateFile": "",
+        "privateKeyFile": "",
+        "defaultSecureTokenLifetime": "",
+        "autoSelectRightEndpoint": false,
+        "strategyMaxRetry": "",
+        "strategyInitialDelay": "",
+        "strategyMaxDelay": "",
+        "strategyRandomisationFactor": "",
+        "requestedSessionTimeout": "",
+        "connectionStartDelay": "",
+        "reconnectDelay": "",
+        "maxBadSessionRequests": "10"
+    },
+    {
         "id": "8dcfe0fe921ca3b5",
         "type": "function",
         "z": "f788a78067227a65",
@@ -1187,8 +1213,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1080,
-        "y": 960,
+        "x": 1260,
+        "y": 920,
         "wires": []
     },
     {
@@ -1280,7 +1306,7 @@
         "injectType": "read",
         "payload": "",
         "payloadType": "date",
-        "topic": "pre_expander_01",
+        "topic": "pre-expander_01",
         "repeat": "5",
         "crontab": "",
         "once": true,
@@ -1610,9 +1636,9 @@
         "id": "9635c589683b9e9f",
         "type": "comment",
         "z": "f788a78067227a65",
-        "name": "Pre-Expansor 1",
+        "name": "Pre-Expansor 1 (192.168.1.21)",
         "info": "",
-        "x": 120,
+        "x": 170,
         "y": 800,
         "wires": []
     },
@@ -1647,22 +1673,27 @@
             },
             {
                 "name": "status_auto",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.auto",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
                 "datatypeName": ""
             },
             {
                 "name": "status_manual",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.manual",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
                 "datatypeName": ""
             },
             {
                 "name": "status_running",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.running",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
                 "datatypeName": ""
             },
             {
                 "name": "status_stop",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.stop",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
+                "datatypeName": ""
+            },
+            {
+                "name": "cycle_time",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.actual_cycle_time",
                 "datatypeName": ""
             },
             {
@@ -1753,9 +1784,9 @@
         "id": "66114c41247dbe42",
         "type": "comment",
         "z": "f788a78067227a65",
-        "name": "Moldeadora 1",
+        "name": "Moldeadora 1 (192.168.1.11)",
         "info": "",
-        "x": 110,
+        "x": 160,
         "y": 980,
         "wires": []
     },
@@ -1763,9 +1794,9 @@
         "id": "ab58395c39197a14",
         "type": "comment",
         "z": "f788a78067227a65",
-        "name": "Moldeadora 2",
+        "name": "Moldeadora 2 (192.168.1.12)",
         "info": "",
-        "x": 110,
+        "x": 160,
         "y": 1120,
         "wires": []
     },
@@ -1773,277 +1804,11 @@
         "id": "4af2303a2148caf1",
         "type": "comment",
         "z": "f788a78067227a65",
-        "name": "Moldeadora 3",
+        "name": "Moldeadora 3 (192.168.1.13)",
         "info": "",
-        "x": 110,
+        "x": 160,
         "y": 1240,
         "wires": []
-    },
-    {
-        "id": "381b587c168cf8bc",
-        "type": "OPCUA-IIoT-Inject",
-        "z": "f788a78067227a65",
-        "injectType": "read",
-        "payload": "",
-        "payloadType": "date",
-        "topic": "molding_02",
-        "repeat": "5",
-        "crontab": "",
-        "once": true,
-        "startDelay": "",
-        "name": "",
-        "addressSpaceItems": [
-            {
-                "name": "last_recipe",
-                "nodeId": "ns=6;s=::OpcUA_IF:last_recipe",
-                "datatypeName": ""
-            },
-            {
-                "name": "life_cycles",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_cycles",
-                "datatypeName": ""
-            },
-            {
-                "name": "mold_distance",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_mold_distance",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_auto",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.auto",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_manual",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.manual",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_running",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.running",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_stop",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.stop",
-                "datatypeName": ""
-            },
-            {
-                "name": "last_cycle_time",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.last_cycle_time",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_auto_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_auto_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_auto_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_manual_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_manual_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_manual_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_total_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_total_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_total_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_hydraulic_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_hydraulic_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_hydraulic_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "alarm_00_id",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].id",
-                "datatypeName": ""
-            },
-            {
-                "name": "alarm_00_description",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].description",
-                "datatypeName": ""
-            }
-        ],
-        "x": 170,
-        "y": 1180,
-        "wires": [
-            [
-                "f7c6fe9b14f9417f"
-            ]
-        ]
-    },
-    {
-        "id": "40f83f4b80ce3567",
-        "type": "OPCUA-IIoT-Inject",
-        "z": "f788a78067227a65",
-        "injectType": "read",
-        "payload": "",
-        "payloadType": "date",
-        "topic": "molding_03",
-        "repeat": "5",
-        "crontab": "",
-        "once": true,
-        "startDelay": "",
-        "name": "",
-        "addressSpaceItems": [
-            {
-                "name": "last_recipe",
-                "nodeId": "ns=6;s=::OpcUA_IF:last_recipe",
-                "datatypeName": ""
-            },
-            {
-                "name": "life_cycles",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_cycles",
-                "datatypeName": ""
-            },
-            {
-                "name": "mold_distance",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_mold_distance",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_auto",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.auto",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_manual",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.manual",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_running",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.running",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_stop",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.stop",
-                "datatypeName": ""
-            },
-            {
-                "name": "last_cycle_time",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.last_cycle_time",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_auto_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_auto_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_auto_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_manual_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_manual_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_manual_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_total_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_total_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_total_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_hydraulic_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_hydraulic_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_hydraulic_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "alarm_00_id",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].id",
-                "datatypeName": ""
-            },
-            {
-                "name": "alarm_00_description",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].description",
-                "datatypeName": ""
-            }
-        ],
-        "x": 170,
-        "y": 1320,
-        "wires": [
-            [
-                "3f489858a7e03298"
-            ]
-        ]
     },
     {
         "id": "ee2ecfafe970f877",
@@ -2098,9 +1863,9 @@
         "id": "5d1666b3b8dffeae",
         "type": "reusable-out",
         "z": "f788a78067227a65",
-        "name": "reusable out",
+        "name": "Return",
         "position": 1,
-        "x": 510,
+        "x": 490,
         "y": 640,
         "wires": []
     },
@@ -2170,9 +1935,9 @@
         "id": "fc132773c9a4c54c",
         "type": "reusable-out",
         "z": "f788a78067227a65",
-        "name": "reusable out",
+        "name": "Return",
         "position": 1,
-        "x": 530,
+        "x": 510,
         "y": 700,
         "wires": []
     },
@@ -2186,9 +1951,7 @@
         "x": 850,
         "y": 1020,
         "wires": [
-            [
-                "4afa4e43ab6a6de1"
-            ]
+            []
         ]
     },
     {
@@ -2412,6 +2175,1331 @@
         "wires": [
             [
                 "982214f4b173a523"
+            ]
+        ]
+    },
+    {
+        "id": "5bba550d4b5f57b2",
+        "type": "OPCUA-IIoT-Inject",
+        "z": "f788a78067227a65",
+        "injectType": "read",
+        "payload": "",
+        "payloadType": "date",
+        "topic": "pre-expander_01",
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "startDelay": "",
+        "name": "",
+        "addressSpaceItems": [
+            {
+                "name": "life_cycles",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "last_recipe",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "life_auto_working_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "life_auto_working_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "life_auto_working_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "life_manual_working_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "life_manual_working_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "life_manual_working_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "life_total_working_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "life_total_working_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "life_total_working_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "life_start_time_year",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "life_start_time_month",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "life_start_time_day",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "life_start_time_hour",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "life_start_time_minute",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "life_start_time_second",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m01_working_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m01_working_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m01_working_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m02_working_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m02_working_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m02_working_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m03_working_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m03_working_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m03_working_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m04_working_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m04_working_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m04_working_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m05_working_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m05_working_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m05_working_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m06_working_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m06_working_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m06_working_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m07_working_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m07_working_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m07_working_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m08_working_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m08_working_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m08_working_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m09_working_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m09_working_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m09_working_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m10_working_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m10_working_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m10_working_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m11_working_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m11_working_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m11_working_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m12_working_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m12_working_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m12_working_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m13_working_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m13_working_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m13_working_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m14_working_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m14_working_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m14_working_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m15_working_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m15_working_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "m15_working_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            }
+        ],
+        "x": 190,
+        "y": 920,
+        "wires": [
+            [
+                "eb6ba52308d3d59f"
+            ]
+        ]
+    },
+    {
+        "id": "714ab741b280a5a1",
+        "type": "reusable",
+        "z": "f788a78067227a65",
+        "name": "",
+        "target": "agrupación pre-exp",
+        "outputs": 1,
+        "x": 900,
+        "y": 920,
+        "wires": [
+            [
+                "df35c13dcc92abe8"
+            ]
+        ]
+    },
+    {
+        "id": "4476bc6c3b989481",
+        "type": "reusable",
+        "z": "f788a78067227a65",
+        "name": "",
+        "target": "tratamiento de datos",
+        "outputs": 1,
+        "x": 700,
+        "y": 920,
+        "wires": [
+            [
+                "714ab741b280a5a1"
+            ]
+        ]
+    },
+    {
+        "id": "e9d8c25addbcd69f",
+        "type": "OPCUA-IIoT-Response",
+        "z": "f788a78067227a65",
+        "name": "",
+        "compressStructure": true,
+        "showStatusActivities": false,
+        "showErrors": false,
+        "activateUnsetFilter": false,
+        "activateFilters": false,
+        "negateFilter": false,
+        "filters": [],
+        "x": 530,
+        "y": 920,
+        "wires": [
+            [
+                "4476bc6c3b989481"
+            ]
+        ]
+    },
+    {
+        "id": "eb6ba52308d3d59f",
+        "type": "OPCUA-IIoT-Read",
+        "z": "f788a78067227a65",
+        "attributeId": "13",
+        "maxAge": 1,
+        "depth": 1,
+        "connector": "769f4b2574699083",
+        "name": "Read Value",
+        "justValue": false,
+        "showStatusActivities": false,
+        "showErrors": false,
+        "parseStrings": false,
+        "historyDays": "",
+        "x": 390,
+        "y": 920,
+        "wires": [
+            [
+                "e9d8c25addbcd69f"
+            ]
+        ]
+    },
+    {
+        "id": "df35c13dcc92abe8",
+        "type": "link out",
+        "z": "f788a78067227a65",
+        "name": "Machinedata",
+        "mode": "link",
+        "links": [
+            "40bef421bf8595c1"
+        ],
+        "x": 1185,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "3e2de41d696ef804",
+        "type": "reusable",
+        "z": "f788a78067227a65",
+        "name": "",
+        "target": "tratamiento de datos",
+        "outputs": 1,
+        "x": 660,
+        "y": 1080,
+        "wires": [
+            [
+                "fb281aac4b4b66e2"
+            ]
+        ]
+    },
+    {
+        "id": "bf771d5271d7de80",
+        "type": "OPCUA-IIoT-Response",
+        "z": "f788a78067227a65",
+        "name": "",
+        "compressStructure": true,
+        "showStatusActivities": false,
+        "showErrors": false,
+        "activateUnsetFilter": false,
+        "activateFilters": false,
+        "negateFilter": false,
+        "filters": [],
+        "x": 490,
+        "y": 1080,
+        "wires": [
+            [
+                "3e2de41d696ef804"
+            ]
+        ]
+    },
+    {
+        "id": "ff43309ea7a136c3",
+        "type": "OPCUA-IIoT-Read",
+        "z": "f788a78067227a65",
+        "attributeId": "13",
+        "maxAge": 1,
+        "depth": 1,
+        "connector": "769f4b2574699083",
+        "name": "Read Value",
+        "justValue": false,
+        "showStatusActivities": false,
+        "showErrors": false,
+        "parseStrings": false,
+        "historyDays": "",
+        "x": 350,
+        "y": 1080,
+        "wires": [
+            [
+                "bf771d5271d7de80"
+            ]
+        ]
+    },
+    {
+        "id": "8b4828ae29e34251",
+        "type": "OPCUA-IIoT-Inject",
+        "z": "f788a78067227a65",
+        "injectType": "read",
+        "payload": "",
+        "payloadType": "date",
+        "topic": "molding_01",
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "startDelay": "",
+        "name": "",
+        "addressSpaceItems": [
+            {
+                "name": "last_recipe",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.String",
+                "datatypeName": ""
+            },
+            {
+                "name": "life_cycles",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "mold_distance",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_auto",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_manual",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_running",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_stop",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
+                "datatypeName": ""
+            },
+            {
+                "name": "last_cycle_time",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_auto_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_auto_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_auto_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_manual_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_manual_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_manual_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_total_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_total_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_total_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_hydraulic_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_hydraulic_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_hydraulic_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "alarm_00_id",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "alarm_00_description",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "cycle_time",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            }
+        ],
+        "x": 170,
+        "y": 1080,
+        "wires": [
+            [
+                "ff43309ea7a136c3"
+            ]
+        ]
+    },
+    {
+        "id": "fb281aac4b4b66e2",
+        "type": "reusable",
+        "z": "f788a78067227a65",
+        "name": "",
+        "target": "agrupación mold",
+        "outputs": 1,
+        "x": 850,
+        "y": 1080,
+        "wires": [
+            [
+                "df35c13dcc92abe8",
+                "4afa4e43ab6a6de1"
+            ]
+        ]
+    },
+    {
+        "id": "62a3738fc5251ec9",
+        "type": "OPCUA-IIoT-Inject",
+        "z": "f788a78067227a65",
+        "injectType": "read",
+        "payload": "",
+        "payloadType": "date",
+        "topic": "molding_02",
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "startDelay": "",
+        "name": "",
+        "addressSpaceItems": [
+            {
+                "name": "last_recipe",
+                "nodeId": "ns=6;s=::OpcUA_IF:last_recipe",
+                "datatypeName": ""
+            },
+            {
+                "name": "life_cycles",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_cycles",
+                "datatypeName": ""
+            },
+            {
+                "name": "mold_distance",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_mold_distance",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_auto",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_manual",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_running",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_stop",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
+                "datatypeName": ""
+            },
+            {
+                "name": "cycle_time",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.actual_cycle_time",
+                "datatypeName": ""
+            },
+            {
+                "name": "last_cycle_time",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.last_cycle_time",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_auto_hours",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.hours",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_auto_minutes",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.minutes",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_auto_seconds",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.seconds",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_manual_hours",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.hours",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_manual_minutes",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.minutes",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_manual_seconds",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.seconds",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_total_hours",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.hours",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_total_minutes",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.minutes",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_total_seconds",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.seconds",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_hydraulic_hours",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.hours",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_hydraulic_minutes",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.minutes",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_hydraulic_seconds",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.seconds",
+                "datatypeName": ""
+            },
+            {
+                "name": "alarm_00_id",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].id",
+                "datatypeName": ""
+            },
+            {
+                "name": "alarm_00_description",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].description",
+                "datatypeName": ""
+            }
+        ],
+        "x": 170,
+        "y": 1180,
+        "wires": [
+            [
+                "f7c6fe9b14f9417f"
+            ]
+        ]
+    },
+    {
+        "id": "8fd06fcdd81838ae",
+        "type": "OPCUA-IIoT-Inject",
+        "z": "f788a78067227a65",
+        "injectType": "read",
+        "payload": "",
+        "payloadType": "date",
+        "topic": "molding_03",
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "startDelay": "",
+        "name": "",
+        "addressSpaceItems": [
+            {
+                "name": "last_recipe",
+                "nodeId": "ns=6;s=::OpcUA_IF:last_recipe",
+                "datatypeName": ""
+            },
+            {
+                "name": "life_cycles",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_cycles",
+                "datatypeName": ""
+            },
+            {
+                "name": "mold_distance",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_mold_distance",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_auto",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_manual",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_running",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_stop",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
+                "datatypeName": ""
+            },
+            {
+                "name": "cycle_time",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.actual_cycle_time",
+                "datatypeName": ""
+            },
+            {
+                "name": "last_cycle_time",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.last_cycle_time",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_auto_hours",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.hours",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_auto_minutes",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.minutes",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_auto_seconds",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.seconds",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_manual_hours",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.hours",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_manual_minutes",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.minutes",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_manual_seconds",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.seconds",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_total_hours",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.hours",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_total_minutes",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.minutes",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_total_seconds",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.seconds",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_hydraulic_hours",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.hours",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_hydraulic_minutes",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.minutes",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_hydraulic_seconds",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.seconds",
+                "datatypeName": ""
+            },
+            {
+                "name": "alarm_00_id",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].id",
+                "datatypeName": ""
+            },
+            {
+                "name": "alarm_00_description",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].description",
+                "datatypeName": ""
+            }
+        ],
+        "x": 170,
+        "y": 1320,
+        "wires": [
+            [
+                "3f489858a7e03298"
+            ]
+        ]
+    },
+    {
+        "id": "d19e6c5210a5cd11",
+        "type": "reusable",
+        "z": "f788a78067227a65",
+        "name": "",
+        "target": "tratamiento de datos",
+        "outputs": 1,
+        "x": 860,
+        "y": 1240,
+        "wires": [
+            [
+                "5e5f1ad45488a670"
+            ]
+        ]
+    },
+    {
+        "id": "5e5f1ad45488a670",
+        "type": "reusable",
+        "z": "f788a78067227a65",
+        "name": "",
+        "target": "agrupación mold",
+        "outputs": 1,
+        "x": 1050,
+        "y": 1240,
+        "wires": [
+            [
+                "df35c13dcc92abe8"
+            ]
+        ]
+    },
+    {
+        "id": "65f7d96ecc2c5512",
+        "type": "OPCUA-IIoT-Response",
+        "z": "f788a78067227a65",
+        "name": "",
+        "compressStructure": true,
+        "showStatusActivities": false,
+        "showErrors": false,
+        "activateUnsetFilter": false,
+        "activateFilters": false,
+        "negateFilter": false,
+        "filters": [],
+        "x": 690,
+        "y": 1240,
+        "wires": [
+            [
+                "d19e6c5210a5cd11"
+            ]
+        ]
+    },
+    {
+        "id": "2ae8630a808acda0",
+        "type": "OPCUA-IIoT-Read",
+        "z": "f788a78067227a65",
+        "attributeId": "13",
+        "maxAge": 1,
+        "depth": 1,
+        "connector": "7733ce5534a14261",
+        "name": "Read Value",
+        "justValue": false,
+        "showStatusActivities": false,
+        "showErrors": false,
+        "parseStrings": false,
+        "historyDays": "",
+        "x": 550,
+        "y": 1240,
+        "wires": [
+            [
+                "65f7d96ecc2c5512"
+            ]
+        ]
+    },
+    {
+        "id": "8ed382332733e799",
+        "type": "OPCUA-IIoT-Inject",
+        "z": "f788a78067227a65",
+        "injectType": "read",
+        "payload": "",
+        "payloadType": "date",
+        "topic": "molding_02",
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "startDelay": "",
+        "name": "",
+        "addressSpaceItems": [
+            {
+                "name": "last_recipe",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.String",
+                "datatypeName": ""
+            },
+            {
+                "name": "life_cycles",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "mold_distance",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_auto",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_manual",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_running",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_stop",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
+                "datatypeName": ""
+            },
+            {
+                "name": "last_cycle_time",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_auto_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_auto_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_auto_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_manual_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_manual_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_manual_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_total_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_total_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_total_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_hydraulic_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_hydraulic_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_hydraulic_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "alarm_00_id",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "alarm_00_description",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "cycle_time",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            }
+        ],
+        "x": 370,
+        "y": 1240,
+        "wires": [
+            [
+                "2ae8630a808acda0"
+            ]
+        ]
+    },
+    {
+        "id": "903825a3e6d06899",
+        "type": "OPCUA-IIoT-Inject",
+        "z": "f788a78067227a65",
+        "injectType": "read",
+        "payload": "",
+        "payloadType": "date",
+        "topic": "molding_03",
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "startDelay": "",
+        "name": "",
+        "addressSpaceItems": [
+            {
+                "name": "last_recipe",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.String",
+                "datatypeName": ""
+            },
+            {
+                "name": "life_cycles",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "mold_distance",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_auto",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_manual",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_running",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_stop",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
+                "datatypeName": ""
+            },
+            {
+                "name": "last_cycle_time",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_auto_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_auto_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_auto_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_manual_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_manual_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_manual_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_total_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_total_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_total_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_hydraulic_hours",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_hydraulic_minutes",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_hydraulic_seconds",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "alarm_00_id",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "alarm_00_description",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            },
+            {
+                "name": "cycle_time",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "datatypeName": ""
+            }
+        ],
+        "x": 190,
+        "y": 1420,
+        "wires": [
+            [
+                "50118b0d19f57f4c"
+            ]
+        ]
+    },
+    {
+        "id": "73ac6707b521b986",
+        "type": "reusable",
+        "z": "f788a78067227a65",
+        "name": "",
+        "target": "tratamiento de datos",
+        "outputs": 1,
+        "x": 680,
+        "y": 1420,
+        "wires": [
+            [
+                "1021f0a01f47506c"
+            ]
+        ]
+    },
+    {
+        "id": "0dc06a94cc206927",
+        "type": "OPCUA-IIoT-Response",
+        "z": "f788a78067227a65",
+        "name": "",
+        "compressStructure": true,
+        "showStatusActivities": false,
+        "showErrors": false,
+        "activateUnsetFilter": false,
+        "activateFilters": false,
+        "negateFilter": false,
+        "filters": [],
+        "x": 510,
+        "y": 1420,
+        "wires": [
+            [
+                "73ac6707b521b986"
+            ]
+        ]
+    },
+    {
+        "id": "50118b0d19f57f4c",
+        "type": "OPCUA-IIoT-Read",
+        "z": "f788a78067227a65",
+        "attributeId": "13",
+        "maxAge": 1,
+        "depth": 1,
+        "connector": "769f4b2574699083",
+        "name": "Read Value",
+        "justValue": false,
+        "showStatusActivities": false,
+        "showErrors": false,
+        "parseStrings": false,
+        "historyDays": "",
+        "x": 370,
+        "y": 1420,
+        "wires": [
+            [
+                "0dc06a94cc206927"
+            ]
+        ]
+    },
+    {
+        "id": "1021f0a01f47506c",
+        "type": "reusable",
+        "z": "f788a78067227a65",
+        "name": "",
+        "target": "agrupación mold",
+        "outputs": 1,
+        "x": 870,
+        "y": 1420,
+        "wires": [
+            [
+                "df35c13dcc92abe8"
             ]
         ]
     },
@@ -9039,5 +10127,21 @@
         "x": 1130,
         "y": 140,
         "wires": []
+    },
+    {
+        "id": "40bef421bf8595c1",
+        "type": "link in",
+        "z": "a2bc427f0d400003",
+        "name": "Machine Data",
+        "links": [
+            "df35c13dcc92abe8"
+        ],
+        "x": 425,
+        "y": 400,
+        "wires": [
+            [
+                "7d81552ad7db1474"
+            ]
+        ]
     }
 ]

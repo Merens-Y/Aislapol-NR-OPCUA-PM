@@ -1,57 +1,48 @@
 export default {
-  props: ["pre_exp_arr", "mold_arr", "mold_control_values"],
-  watch: {
-    pre_exp_arr(newVal) {
-      // Perform actions when the prop value changes
-      this.pre_exp_cards = [...newVal];
-    },
-    mold_arr(newVal) {
-      // Perform actions when the prop value changes
-      this.mold_cards = [...newVal];
-    },
-  },
+  props: ["pre_exp_arr", "mold_arr", "mold_control_values", "time_stamps", "last_running_time"],
+  watch: {},
   template: `
     <b-container fluid>
         <div class="row">
             <div>{{ triggerCacheReplay() }}</div>
-            <b-card style="cursor: pointer;" class="col-12 col-lg-5 col-xl-4 p-1 m-1" v-for="pre_exp in pre_exp_arr" v-bind:class="[pre_exp.estado.texto]" @click="preexpInfo(pre_exp)">
+            <b-card style="cursor: pointer;" class="col-12 col-lg-5 col-xl-4 p-1 m-1" v-for="(pre_exp, pre_exp_key, index) in pre_exp_arr" v-bind:class="determineMachineState(pre_exp_key, false)" @click="preexpInfo(pre_exp, pre_exp_key)">
                 <div class="row">
-                    <p class="col p-1 m-1">Pre-Expansor {{pre_exp.numero}}</p> <div class="col-" v-bind:class="[pre_exp.estado.led]"></div>
+                    <p class="col p-1 m-1">{{pre_exp_key}}</p> <div class="col-" v-bind:class="determineMachineState(pre_exp_key, true)"></div>
                     <div class="w-100"></div>
-                    <div class="col-sm"><p><b>Material:</b></p></div>                                
-                    <div class="col-md value-field text-center">{{pre_exp.material}}</div>
+                    <div class="col-sm"><p><b>Material:</b></p></div>
+                    <div class="col-md value-field text-center">Null</div>
                     <div class="w-100"></div>
-                    <div class="col-sm"><p><b>Kg Procesados:</b></p></div>                                
-                    <div class="col-md value-field text-center">{{pre_exp.kilog}}</div>
+                    <div class="col-sm"><p><b>Kg Procesados:</b></p></div>
+                    <div class="col-md value-field text-center">Null</div>
                     <div class="w-100"></div>
-                    <div class="col-sm"><p><b>Tiempo:</b></p></div>                                
-                    <div class="col-md value-field text-center">{{pre_exp.tiempo}}</div>
+                    <div class="col-sm"><p><b>Tiempo:</b></p></div>
+                    <div class="col-md value-field text-center">{{pre_exp.life_total_working.hours}}:{{pre_exp.life_total_working.minutes}}:{{pre_exp.life_total_working.seconds}}</div>
                     <div class="w-100"></div>
-                    <div class="col-sm"><p><b>Densidad:</b></p></div>                                
+                    <div class="col-sm"><p><b>Densidad:</b></p></div>
                     <b-col class="col-md value-field text-center">
                         <b-row class="no-gutters">
-                            <div class="col">{{pre_exp.densidad.min}}<br>min</div>
-                            <div class="col">{{pre_exp.densidad.avg}}<br>prom</div>
-                            <div class="col">{{pre_exp.densidad.max}}<br>max</div>
+                            <div class="col">Null<br>min</div>
+                            <div class="col">Null<br>avg</div>
+                            <div class="col">Null<br>max</div>
                         </b-row>
                     </b-col>
                 </div>
             </b-card>
-            <b-card style="cursor: pointer;" class="col-12 col-md-5 col-lg-3 p-1 m-1" v-for="mold in mold_arr" v-bind:class="[mold.estado.texto]" @click="moldInfo(mold)">
+            <b-card style="cursor: pointer;" class="col-12 col-md-5 col-lg-3 p-1 m-1" v-for="(mold, mold_key, index) in mold_arr" v-bind:class="determineMoldMachineState(mold_key, false)" @click="moldInfo(mold, mold_key)">
                 <div class="row">
-                    <p class="col p-1 m-1">Moldeador {{mold.numero}}</p> <div class="col-" v-bind:class="[mold.estado.led]"></div>
+                    <p class="col p-1 m-1">{{mold_key}}</p> <div class="col-" v-bind:class="determineMoldMachineState(mold_key, true)"></div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>Molde:</b></p></div>
-                    <div class="col-md value-field text-center">{{ mold.molde.replace('.xml', '').toUpperCase() }}</div>
+                    <div class="col-md value-field text-center">{{ mold.last_recipe.replace('.xml', '').toUpperCase() }}</div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>Ciclos/H:</b></p></div>
-                    <div class="col-md value-field text-center">{{mold.ciclos_hora}}</div>
+                    <div class="col-md value-field text-center">Needs function</div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>T. de Ciclo:</b></p></div>
-                    <div class="col-md align-items-center text-center" :class="getVariantClassbyTC(mold.tiempo_ciclo, mold.molde)">{{mold.tiempo_ciclo}}</div>
+                    <div class="col-md align-items-center text-center" :class="getVariantClassbyTC(mold.cycle_time, mold.last_recipe)">{{mold.cycle_time}}</div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>Tot. ciclos:</b></p></div>
-                    <div class="col-md text-center" :class="getVariantClassbyNC(mold.ciclos_total, mold.molde)">{{mold.ciclos_total}}</div>                                                       
+                    <div class="col-md text-center" :class="getVariantClassbyNC(mold.life_cycles, mold.last_recipe)">{{mold.life_cycles}}</div>                                                       
                 </div>
             </b-card>
         </div>
@@ -93,7 +84,7 @@ export default {
         <b-modal size="xl" :id="preexpModal.id" :title="preexpModal.title" >
             <b-row>
               <b-col lg="2" class="my-1"><b>Fecha:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.preexpModal.content.life_cycles}}</b-col>
               <b-col lg="2" class="my-1"><b>Producto:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
               <b-col lg="2" class="my-1"><b>Encargado de Turno:</b></b-col>
@@ -158,15 +149,63 @@ export default {
     triggerCacheReplay() {
       this.$emit("cachereplay-event");
     },
-    moldInfo(machine_obj) {
-      this.moldModal.title = `Moldeadora numero: ${machine_obj.numero}`;
-      this.$root.$emit("bv::show::modal", this.moldModal.id);
-      this.content = machine_obj;
+    determineMachineState(pre_exp_key, is_led) {
+      const disconnectedThreshold = 15000; // 15 seconds threshold for disconnection
+
+      if (!this.time_stamps || !this.last_running_time || !this.time_stamps[pre_exp_key] || !this.last_running_time[pre_exp_key]) {
+        return is_led ? "led gray" : "text-secondary";
+      }
+
+      const currentTime = new Date().getTime();
+      const lastMsgTime = this.time_stamps[pre_exp_key];
+      const lastRunningTime = this.last_running_time[pre_exp_key];
+
+      if (currentTime - lastMsgTime >= disconnectedThreshold) {
+        return is_led ? "led gray" : "text-secondary";
+      }
+
+      const total_working_seconds = this.pre_exp_arr[pre_exp_key].life_total_working.seconds +
+        this.pre_exp_arr[pre_exp_key].life_total_working.minutes * 60 +
+        this.pre_exp_arr[pre_exp_key].life_total_working.hours * 3600;
+
+      if (total_working_seconds === lastRunningTime) {
+        return is_led ? "led red" : "";
+      }
+
+      return is_led ? "led green" : "";
     },
-    preexpInfo(machine_obj) {
-      this.preexpModal.title = `Pre-expansor numero: ${machine_obj.numero}`;
+    // TODO: implement determineMoldMachineState() for mold cards
+    determineMoldMachineState(mold_key, is_led) {
+      const disconnectedThreshold = 15000; // 15 seconds threshold for disconnection
+
+      if (!this.time_stamps || !this.time_stamps[mold_key]) {
+        return is_led ? "led gray" : "text-secondary";
+      }
+
+      const currentTime = new Date().getTime();
+      const lastMsgTime = this.time_stamps[mold_key];
+
+      if (currentTime - lastMsgTime >= disconnectedThreshold) {
+        return is_led ? "led gray" : "text-secondary";
+      }
+
+      const isRunning = this.mold_arr[mold_key].status.running;
+
+      if (isRunning === false) {
+        return is_led ? "led red" : "";
+      }
+
+      return is_led ? "led green" : "";
+    },
+    moldInfo(machine_obj, machine_key) {
+      this.moldModal.title = `${machine_key}`;
+      this.$root.$emit("bv::show::modal", this.moldModal.id);
+      this.moldModal.content = machine_obj;
+    },
+    preexpInfo(machine_obj, machine_key) {
+      this.preexpModal.title = `${machine_key}`;
       this.$root.$emit("bv::show::modal", this.preexpModal.id);
-      this.content = machine_obj;
+      this.preexpModal.content = machine_obj;
     },
     getVariantClassbyNC(cycleTime, moldType) {
       if (this.mold_control_values.length === 0 || this.mold_control_values.find((obj) => obj.mold_name === moldType) === undefined) {

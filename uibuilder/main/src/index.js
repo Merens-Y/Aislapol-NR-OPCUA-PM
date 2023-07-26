@@ -50,10 +50,12 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
             isAdmin: false,
             showAdminTools: false,
             // Props variables for multiple components
-            pre_exp_arr: [{}, {}],
-            mold_arr: [{}, {}],
+            pre_exp_arr: {},
+            mold_arr: {},
             admin_permitted_users: [],
             admin_registered_users: [],
+            time_stamps: [{},],
+            last_running_time: [{},],
             queryData: [],
             queryParams: [],
             query_options: [
@@ -116,6 +118,43 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 appendToast: append,
                 variant: variant,
             })
+        },
+        /* determineMachineState(pre_exp_key, is_led) {
+            const disconnectedThreshold = 15000; // 15 seconds threshold for disconnection
+
+            if (!this.time_stamps || !this.last_running_time || !this.time_stamps[pre_exp_key] || !this.last_running_time[pre_exp_key]) {
+                return is_led ? "led gray" : "text-secondary";
+            }
+
+            const currentTime = new Date().getTime();
+            const lastMsgTime = this.time_stamps[pre_exp_key];
+            const lastRunningTime = this.last_running_time[pre_exp_key];
+
+            if (currentTime - lastMsgTime >= disconnectedThreshold) {
+                return is_led ? "led gray" : "text-secondary";
+            }
+
+            const total_working_seconds = this.pre_exp_arr[pre_exp_key].life_total_working.seconds +
+                this.pre_exp_arr[pre_exp_key].life_total_working.minutes * 60 +
+                this.pre_exp_arr[pre_exp_key].life_total_working.hours * 3600;
+
+            if (total_working_seconds === lastRunningTime) {
+                return is_led ? "led red" : "";
+            }
+
+            return is_led ? "led green" : "";
+        }, */
+        cleanMachineArrays(){
+            // If the arrays are not empty, clean them from any blank objects ({})
+            if (this.pre_exp_arr.length > 0) {
+                this.pre_exp_arr = this.pre_exp_arr.filter((item) => Object.keys(item).length !== 0);
+            }
+        },
+        cleanMoldMachineArrays(){
+            // If the arrays are not empty, clean them from any blank objects ({})
+            if (this.mold_arr.length > 0) {
+                this.mold_arr = this.mold_arr.filter((item) => Object.keys(item).length !== 0);
+            }
         },
         textResponsetoObject(data) {
             const lines = data.split('\n'); // Split the text into lines
@@ -875,13 +914,36 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
         uibuilder.onChange('msg', (msg) => {
 
             // Workaround to show "toast" notifications dynamically. See methods above.
-            this.showToast(msg)
-            if (msg.topic === 'pre-expansor') {
-                this.pre_exp_arr = msg.payload;
-                return;
+            this.showToast(msg);
+            // Message handling code goes here            
+            if (msg.topic.includes('pre-expander')) {
+                const idIndex = msg.topic.indexOf('_') + 1;
+                if (idIndex > 0 && idIndex < msg.topic.length) {
+                    const preExpanderId = msg.topic.substring(idIndex);
+                    this.pre_exp_arr = this.pre_exp_arr || {};
+                    if (msg.payload && msg.payload.results && msg.payload.timestamp) {
+                        this.time_stamps = this.time_stamps || {};
+                        this.time_stamps['pre_exp_' + preExpanderId] = msg.payload.timestamp;
+                    }
+                    const total_working_seconds = this.pre_exp_arr['pre_exp_' + preExpanderId] ? (this.pre_exp_arr['pre_exp_' + preExpanderId].life_total_working.seconds + this.pre_exp_arr['pre_exp_' + preExpanderId].life_total_working.minutes * 60 + this.pre_exp_arr['pre_exp_' + preExpanderId].life_total_working.hours * 3600):(msg.payload.results.life_total_working.seconds + msg.payload.results.life_total_working.minutes * 60 + msg.payload.results.life_total_working.hours * 3600);
+                    this.last_running_time['pre_exp_' + preExpanderId] = total_working_seconds;
+                    this.$set(this.pre_exp_arr, 'pre_exp_' + preExpanderId, msg.payload.results);
+                    this.cleanMachineArrays();
+                }
             }
-            if (msg.topic === 'moldeador') {
-                this.mold_arr = msg.payload;
+            if (msg.topic.includes('molding')) {
+                const idIndex = msg.topic.indexOf('_') + 1;
+                if (idIndex > 0 && idIndex < msg.topic.length) {
+                    const moldId = msg.topic.substring(idIndex);
+                    this.mold_arr = this.mold_arr || {};
+                    if (msg.payload && msg.payload.results && msg.payload.timestamp) {
+                        this.time_stamps = this.time_stamps || {};
+                        this.time_stamps['mold_' + moldId] = msg.payload.timestamp;
+                    }
+                    this.$set(this.mold_arr, 'mold_' + moldId, msg.payload.results);
+                    this.cleanMoldMachineArrays();
+                    // console.log(this.mold_arr);
+                }
                 return;
             }
             if (msg.topic === 'SQL Response') {
@@ -923,7 +985,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                     ],);
                     var idealTC = this.mold_control_values.find((obj) => obj.mold_name === element[0].mold_name)["tc_ideal"] || 100;
                     var maxTC = this.mold_control_values.find((obj) => obj.mold_name === element[0].mold_name)["tc_max"] || 120;
-                    
+
                     temp_options = {
                         chart: {
                             toolbar: {

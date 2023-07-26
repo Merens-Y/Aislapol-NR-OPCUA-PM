@@ -88,8 +88,8 @@
         "installedFrom": "npm",
         "outdated": {
           "current": "5.1.0",
-          "wanted": "5.1.1",
-          "latest": "5.1.1"
+          "wanted": "5.1.2",
+          "latest": "5.1.2"
         }
       },
       "vue": {
