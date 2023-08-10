@@ -50,9 +50,9 @@ export default {
         <b-modal size="xl" :id="moldModal.id" :title="moldModal.title" >
             <b-row>
               <b-col lg="2" class="my-1"><b>Fecha:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.currentDate}}</b-col>
               <b-col lg="2" class="my-1"><b>Producto:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.moldModal.content.last_recipe)}}</b-col>
               <b-col lg="2" class="my-1"><b>Turno:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
               <b-col lg="2" class="my-1"><b>Encargado de Turno:</b></b-col>
@@ -67,12 +67,14 @@ export default {
               <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
               <b-col lg="2" class="my-1"><b>Código de Molde:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
-              <b-col lg="2" class="my-1"><b>Horómetro:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1"><b>Horómetro Automático:</b></b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.moldModal.content.working_time_auto.hours)}}:{{this.checkReturn(this.moldModal.content.working_time_auto.minutes)}}:{{this.checkReturn(this.moldModal.content.working_time_auto.seconds)}}</b-col>
               <b-col lg="2" class="my-1"><b>Horómetro Manual:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.moldModal.content.working_time_manual.hours)}}:{{this.checkReturn(this.moldModal.content.working_time_manual.minutes)}}:{{this.checkReturn(this.moldModal.content.working_time_manual.seconds)}}</b-col>
+              <b-col lg="2" class="my-1"><b>Horómetro Hidráulico:</b></b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.moldModal.content.working_time_hydraulic.hours)}}:{{this.checkReturn(this.moldModal.content.working_time_hydraulic.minutes)}}:{{this.checkReturn(this.moldModal.content.working_time_hydraulic.seconds)}}</b-col>
               <b-col lg="2" class="my-1"><b>Horómetro Total:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.moldModal.content.working_time_total.hours)}}:{{this.checkReturn(this.moldModal.content.working_time_total.minutes)}}:{{this.checkReturn(this.moldModal.content.working_time_total.seconds)}}</b-col>
             </b-row>
             <template #modal-footer="{ ok, cancel, hide }">
                 <!-- Emulate built in modal footer ok and cancel button actions -->
@@ -84,17 +86,23 @@ export default {
         <b-modal size="xl" :id="preexpModal.id" :title="preexpModal.title" >
             <b-row>
               <b-col lg="2" class="my-1"><b>Fecha:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">{{this.preexpModal.content.life_cycles}}</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.currentDate}}</b-col>
               <b-col lg="2" class="my-1"><b>Producto:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.preexpModal.content.last_recipe)}}</b-col>
               <b-col lg="2" class="my-1"><b>Encargado de Turno:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
               <b-col lg="2" class="my-1"><b>Operador:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
               <b-col lg="2" class="my-1"><b>Cantidad Producida:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
-              <b-col lg="2" class="my-1"><b>Tiempo de Inicio:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1"><b>Fecha de Inicio:</b></b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.preexpModal.content.life_start_time.day)}}/{{this.checkReturn(this.preexpModal.content.life_start_time.month)}}/{{this.checkReturn(this.preexpModal.content.life_start_time.year)}} a las {{this.checkReturn(this.preexpModal.content.life_start_time.hour)}}:{{this.checkReturn(this.preexpModal.content.life_start_time.minute)}}:{{this.checkReturn(this.preexpModal.content.life_start_time.second)}}</b-col>
+              <b-col lg="2" class="my-1"><b>Horómetro Automático:</b></b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.preexpModal.content.life_auto_working.hours)}}:{{this.checkReturn(this.preexpModal.content.life_auto_working.minutes)}}:{{this.checkReturn(this.preexpModal.content.life_auto_working.seconds)}}</b-col>
+              <b-col lg="2" class="my-1"><b>Horómetro Manual:</b></b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.preexpModal.content.life_manual_working.hours)}}:{{this.checkReturn(this.preexpModal.content.life_manual_working.minutes)}}:{{this.checkReturn(this.preexpModal.content.life_manual_working.seconds)}}</b-col>
+              <b-col lg="2" class="my-1"><b>Horómetro Total:</b></b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.preexpModal.content.life_total_working.hours)}}:{{this.checkReturn(this.preexpModal.content.life_total_working.minutes)}}:{{this.checkReturn(this.preexpModal.content.life_total_working.seconds)}}</b-col>
               <b-col lg="2" class="my-1"><b>Tiempo de Término:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
               <b-col lg="2" class="my-1"><b>Espumado total (Kg):</b></b-col>
@@ -125,17 +133,51 @@ export default {
       // variables for controlling the display of the main parts of the component.
       pre_exp_cards: [],
       mold_cards: [],
-
+      currentDate: new Date().toLocaleDateString(),
       // variables for controlling the display of the info modal.
       moldModal: {
         id: "mold-Modal",
         title: "",
-        content: "",
+        content: {
+          "status":{"auto":false,"manual":false,"running":false,"stop":false},
+          "working_time_auto":{"hours":88,"minutes":88,"seconds":88},
+          "working_time_manual":{"hours":88,"minutes":88,"seconds":88},
+          "working_time_total":{"hours":88,"minutes":88,"seconds":88},
+          "working_time_hydraulic":{"hours":88,"minutes":88,"seconds":88},
+          "alarm_00":{"id":88,"description":88},
+          "last_recipe":"ck *** rock - paper - scissors - lizard - spo",
+          "life_cycles":88,
+          "mold_distance":88,
+          "last_cycle_time":88,
+          "cycle_time":88
+        },
       },
       preexpModal: {
         id: "preexp-Modal",
         title: "",
-        content: "",
+        content: {
+          "life_auto_working":{"hours":88,"minutes":88,"seconds":88},
+          "life_manual_working":{"hours":88,"minutes":88,"seconds":88},
+          "life_total_working":{"hours":88,"minutes":88,"seconds":88},
+          "life_start_time":{"year":88,"month":88,"day":88,"hour":88,"minute":88,"second":88},
+          "life_cycles":88,
+          "last_recipe":88,
+          "machine_working_time":{"m01":{"hours":88,"minutes":88,"seconds":88},
+          "m02":{"hours":88,"minutes":88,"seconds":88},
+          "m03":{"hours":88,"minutes":88,"seconds":88},
+          "m04":{"hours":88,"minutes":88,"seconds":88},
+          "m05":{"hours":88,"minutes":88,"seconds":88},
+          "m06":{"hours":88,"minutes":88,"seconds":88},
+          "m07":{"hours":88,"minutes":88,"seconds":88},
+          "m08":{"hours":88,"minutes":88,"seconds":88},
+          "m09":{"hours":88,"minutes":88,"seconds":88},
+          "m10":{"hours":88,"minutes":88,"seconds":88},
+          "m11":{"hours":88,"minutes":88,"seconds":88},
+          "m12":{"hours":88,"minutes":88,"seconds":88},
+          "m13":{"hours":88,"minutes":88,"seconds":88},
+          "m14":{"hours":88,"minutes":88,"seconds":88},
+          "m15":{"hours":88,"minutes":88,"seconds":88}}
+        },
       },
       // variables for controlling the display color of the molding cycle number control values.
       stateClass: {
@@ -174,7 +216,6 @@ export default {
 
       return is_led ? "led green" : "";
     },
-    // TODO: implement determineMoldMachineState() for mold cards
     determineMoldMachineState(mold_key, is_led) {
       const disconnectedThreshold = 15000; // 15 seconds threshold for disconnection
 
@@ -201,6 +242,7 @@ export default {
       this.moldModal.title = `${machine_key}`;
       this.$root.$emit("bv::show::modal", this.moldModal.id);
       this.moldModal.content = machine_obj;
+      console.log(this.mold_arr[String(moldModal.id)].working_time_auto.hours);
     },
     preexpInfo(machine_obj, machine_key) {
       this.preexpModal.title = `${machine_key}`;
@@ -233,6 +275,13 @@ export default {
         } else {
           return this.stateClass.success;
         }
+      }
+    },
+    checkReturn(obj) {
+      if (obj === undefined || obj === null) {
+        return "N/A";
+      } else {
+        return obj;
       }
     },
   },

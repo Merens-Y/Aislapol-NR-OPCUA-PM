@@ -36,8 +36,8 @@
         "installedFrom": "npm",
         "outdated": {
           "current": "3.40.0",
-          "wanted": "3.41.0",
-          "latest": "3.41.0"
+          "wanted": "3.41.1",
+          "latest": "3.41.1"
         }
       },
       "bootstrap": {
@@ -89,7 +89,7 @@
         "outdated": {
           "current": "5.1.0",
           "wanted": "5.1.2",
-          "latest": "5.1.2"
+          "latest": "7.0.2"
         }
       },
       "vue": {
