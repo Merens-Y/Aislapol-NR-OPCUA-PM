@@ -51,7 +51,7 @@ export default {
             <b-row>
               <b-col lg="2" class="my-1"><b>Fecha:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">{{this.currentDate}}</b-col>
-              <b-col lg="2" class="my-1"><b>Producto:</b></b-col>
+              <b-col lg="2" class="my-1"><b>Receta:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.moldModal.content.last_recipe)}}</b-col>
               <b-col lg="2" class="my-1"><b>Turno:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
@@ -87,7 +87,7 @@ export default {
             <b-row>
               <b-col lg="2" class="my-1"><b>Fecha:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">{{this.currentDate}}</b-col>
-              <b-col lg="2" class="my-1"><b>Producto:</b></b-col>
+              <b-col lg="2" class="my-1"><b>Receta:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.preexpModal.content.last_recipe)}}</b-col>
               <b-col lg="2" class="my-1"><b>Encargado de Turno:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
