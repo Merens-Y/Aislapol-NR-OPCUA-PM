@@ -1879,9 +1879,7 @@
         "x": 900,
         "y": 860,
         "wires": [
-            [
-                "df35c13dcc92abe8"
-            ]
+            []
         ]
     },
     {
@@ -1953,9 +1951,7 @@
         "x": 850,
         "y": 940,
         "wires": [
-            [
-                "df35c13dcc92abe8"
-            ]
+            []
         ]
     },
     {
@@ -2067,9 +2063,7 @@
         "x": 850,
         "y": 1020,
         "wires": [
-            [
-                "df35c13dcc92abe8"
-            ]
+            []
         ]
     },
     {
@@ -2139,9 +2133,7 @@
         "x": 850,
         "y": 1100,
         "wires": [
-            [
-                "df35c13dcc92abe8"
-            ]
+            []
         ]
     },
     {
@@ -2194,7 +2186,7 @@
         "payload": "",
         "payloadType": "date",
         "topic": "pre-expander_01",
-        "repeat": "5",
+        "repeat": "60",
         "crontab": "",
         "once": true,
         "startDelay": "",
@@ -2207,7 +2199,7 @@
             },
             {
                 "name": "last_recipe",
-                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.String",
                 "datatypeName": ""
             },
             {
@@ -2601,8 +2593,8 @@
         "links": [
             "40bef421bf8595c1"
         ],
-        "x": 1185,
-        "y": 1020,
+        "x": 1125,
+        "y": 1700,
         "wires": []
     },
     {
@@ -2670,7 +2662,7 @@
         "payload": "",
         "payloadType": "date",
         "topic": "molding_01",
-        "repeat": "5",
+        "repeat": "120",
         "crontab": "",
         "once": true,
         "startDelay": "",
@@ -2843,7 +2835,8 @@
         "y": 1720,
         "wires": [
             [
-                "c7aba6c639708e4f"
+                "c7aba6c639708e4f",
+                "df35c13dcc92abe8"
             ]
         ]
     },
@@ -2897,7 +2890,7 @@
         "payload": "",
         "payloadType": "date",
         "topic": "molding_02",
-        "repeat": "5",
+        "repeat": "120",
         "crontab": "",
         "once": true,
         "startDelay": "",
@@ -3035,7 +3028,7 @@
         "payload": "",
         "payloadType": "date",
         "topic": "molding_03",
-        "repeat": "5",
+        "repeat": "120",
         "crontab": "",
         "once": true,
         "startDelay": "",
@@ -3233,7 +3226,8 @@
         "y": 1800,
         "wires": [
             [
-                "c7aba6c639708e4f"
+                "c7aba6c639708e4f",
+                "df35c13dcc92abe8"
             ]
         ]
     },

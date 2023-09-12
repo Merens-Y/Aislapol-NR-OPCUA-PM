@@ -54,19 +54,19 @@ export default {
               <b-col lg="2" class="my-1"><b>Receta:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.moldModal.content.last_recipe)}}</b-col>
               <b-col lg="2" class="my-1"><b>Turno:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.moldModal.content.last_recipe)}}</b-col>
               <b-col lg="2" class="my-1"><b>Encargado de Turno:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.moldModal.content.last_recipe)}}</b-col>
               <b-col lg="2" class="my-1"><b>Operador:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.moldModal.content.last_recipe)}}</b-col>
               <b-col lg="2" class="my-1"><b>Inicio de Ciclo:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.moldModal.content.working_time_auto.hours)}}</b-col>
               <b-col lg="2" class="my-1"><b>Término de Ciclo:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.moldModal.content.working_time_auto.hours)}}</b-col>
               <b-col lg="2" class="my-1"><b>Lote:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.moldModal.content.last_recipe)}}</b-col>
               <b-col lg="2" class="my-1"><b>Código de Molde:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.moldModal.content.last_recipe)}}</b-col>
               <b-col lg="2" class="my-1"><b>Horómetro Automático:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.moldModal.content.working_time_auto.hours)}}:{{this.checkReturn(this.moldModal.content.working_time_auto.minutes)}}:{{this.checkReturn(this.moldModal.content.working_time_auto.seconds)}}</b-col>
               <b-col lg="2" class="my-1"><b>Horómetro Manual:</b></b-col>
@@ -90,11 +90,11 @@ export default {
               <b-col lg="2" class="my-1"><b>Receta:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.preexpModal.content.last_recipe)}}</b-col>
               <b-col lg="2" class="my-1"><b>Encargado de Turno:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.preexpModal.content.last_recipe)}}</b-col>
               <b-col lg="2" class="my-1"><b>Operador:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.preexpModal.content.last_recipe)}}</b-col>
               <b-col lg="2" class="my-1"><b>Cantidad Producida:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.preexpModal.content.life_start_time.day)}}</b-col>
               <b-col lg="2" class="my-1"><b>Fecha de Inicio:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.preexpModal.content.life_start_time.day)}}/{{this.checkReturn(this.preexpModal.content.life_start_time.month)}}/{{this.checkReturn(this.preexpModal.content.life_start_time.year)}} a las {{this.checkReturn(this.preexpModal.content.life_start_time.hour)}}:{{this.checkReturn(this.preexpModal.content.life_start_time.minute)}}:{{this.checkReturn(this.preexpModal.content.life_start_time.second)}}</b-col>
               <b-col lg="2" class="my-1"><b>Horómetro Automático:</b></b-col>
@@ -104,19 +104,19 @@ export default {
               <b-col lg="2" class="my-1"><b>Horómetro Total:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.preexpModal.content.life_total_working.hours)}}:{{this.checkReturn(this.preexpModal.content.life_total_working.minutes)}}:{{this.checkReturn(this.preexpModal.content.life_total_working.seconds)}}</b-col>
               <b-col lg="2" class="my-1"><b>Tiempo de Término:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.preexpModal.content.last_recipe)}}</b-col>
               <b-col lg="2" class="my-1"><b>Espumado total (Kg):</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.preexpModal.content.life_start_time.day)}}</b-col>
               <b-col lg="2" class="my-1"><b>Número de Silo:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.preexpModal.content.life_start_time.day)}}</b-col>
               <b-col lg="2" class="my-1"><b>Materia Prima:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.preexpModal.content.last_recipe)}}</b-col>
               <b-col lg="2" class="my-1"><b>Número de Lote de Materia Prima:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.preexpModal.content.life_start_time.day)}}</b-col>
               <b-col lg="2" class="my-1"><b>Densidad Media:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.preexpModal.content.life_start_time.day)}}</b-col>
               <b-col lg="2" class="my-1"><b>Tiempo de descanso Silo:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.preexpModal.content.life_start_time.day)}}</b-col>
               
             </b-row>
             <template #modal-footer="{ ok, cancel, hide }">
