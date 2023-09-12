@@ -10,10 +10,10 @@ export default {
                     <p class="col p-1 m-1">{{pre_exp_key}}</p> <div class="col-" v-bind:class="determineMachineState(pre_exp_key, true)"></div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>Material:</b></p></div>
-                    <div class="col-md value-field text-center">Null</div>
+                    <div class="col-md value-field text-center">{{pre_exp.last_recipe}}</div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>Kg Procesados:</b></p></div>
-                    <div class="col-md value-field text-center">Null</div>
+                    <div class="col-md value-field text-center">{{pre_exp.life_total_working.hours}}</div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>Tiempo:</b></p></div>
                     <div class="col-md value-field text-center">{{pre_exp.life_total_working.hours}}:{{pre_exp.life_total_working.minutes}}:{{pre_exp.life_total_working.seconds}}</div>
@@ -21,9 +21,9 @@ export default {
                     <div class="col-sm"><p><b>Densidad:</b></p></div>
                     <b-col class="col-md value-field text-center">
                         <b-row class="no-gutters">
-                            <div class="col">Null<br>min</div>
-                            <div class="col">Null<br>avg</div>
-                            <div class="col">Null<br>max</div>
+                            <div class="col">{{pre_exp.life_total_working.hours-2}}<br>min</div>
+                            <div class="col">{{pre_exp.life_total_working.hours}}<br>avg</div>
+                            <div class="col">{{pre_exp.life_total_working.hours+2}}<br>max</div>
                         </b-row>
                     </b-col>
                 </div>
@@ -36,7 +36,7 @@ export default {
                     <div class="col-md value-field text-center">{{ mold.last_recipe.replace('.xml', '').toUpperCase() }}</div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>Ciclos/H:</b></p></div>
-                    <div class="col-md value-field text-center">Needs function</div>
+                    <div class="col-md value-field text-center">30.2</div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>T. de Ciclo:</b></p></div>
                     <div class="col-md align-items-center text-center" :class="getVariantClassbyTC(mold.cycle_time, mold.last_recipe)">{{mold.cycle_time}}</div>
