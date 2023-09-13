@@ -68,7 +68,7 @@
         "connectionTimeoutFieldType": "num",
         "user": "postgres",
         "userFieldType": "str",
-        "password": "aislapol1234",
+        "password": "c3a244a048",
         "passwordFieldType": "str"
     },
     {
@@ -126,7 +126,7 @@
         "id": "769f4b2574699083",
         "type": "OPCUA-IIoT-Connector",
         "discoveryUrl": "",
-        "endpoint": "opc.tcp://DESKTOP-49EA0VR:48010",
+        "endpoint": "opc.tcp://LAPTOP-L69FU1C6:48010",
         "endpointMustExist": false,
         "keepSessionAlive": true,
         "loginEnabled": false,
