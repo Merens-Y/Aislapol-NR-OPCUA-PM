@@ -335,64 +335,18 @@
         "wires": []
     },
     {
-        "id": "6f43828525797a13",
-        "type": "function",
-        "z": "f788a78067227a65",
-        "name": "Reset Global Values",
-        "func": "context.global.set(\"todayCyclesMac15\", global.get(\"globalCyclesMac15\"));\ncontext.global.set(\"totalDurationTrueMac15\", 0);\ncontext.global.set(\"totalDurationFalseMac15\", 0);\ncontext.global.set(\"statusTimeProxyMac15\", 0);\ncontext.global.set(\"dLastChangedTimeMac15\", new Date().getTime());\ncontext.global.set(\"dLastChangedTimeMac15Prev\", new Date().getTime());\ncontext.global.set(\"dLastSentMailMac15\", new Date().getTime());\ncontext.global.set(\"maxCycleTimeMac15\", \"N/A\");\ncontext.global.set(\"minCycleTimeMac15\", \"N/A\");\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 560,
-        "y": 200,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "874d55c6f8006363",
-        "type": "function",
-        "z": "f788a78067227a65",
-        "name": "Set Global Cycles",
-        "func": "global.set(\"globalCyclesMac15\", msg.payload.value.results[0].value.value);\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 150,
-        "y": 200,
-        "wires": [
-            [
-                "a99cb87c02f0fc0c"
-            ]
-        ]
-    },
-    {
-        "id": "20a4e0fe08692a1f",
-        "type": "comment",
-        "z": "f788a78067227a65",
-        "name": "Inicialización de Valores",
-        "info": "Todas las variables globales que necesitan ser reiniciadas a las 7AM todos los días, se reinician en esta sección.\n\nUn timer se preocupa de que se realice al tiempo exacto solicitado, se puede ejecutar manualmente de ser necesario.",
-        "x": 160,
-        "y": 140,
-        "wires": []
-    },
-    {
         "id": "10b690ec7a43c61f",
         "type": "function",
         "z": "f788a78067227a65",
-        "name": "DB INSERT Formatting",
-        "func": "var data = msg.payload;\nif (data[\"numCycles\"]!==null){\n    msg.machine_name = 'Máquina 15';\n    msg.cycle = data[\"numCycles\"];\n    msg.cycle_time = data[\"lastCycleTime\"];\n    msg.recipe_name = data[\"recipe\"];\n    msg.post=true;\n}\nelse{\n    msg.post=false\n}\n\nreturn msg;",
+        "name": "Format Last Molding Machine Cycle ",
+        "func": "var querymsg = {};\n\nquerymsg.machine_serial_number = msg.machine_serial_number;\nquerymsg.mold_recipe_name = msg.last_recipe_name;\nquerymsg.cycle_number = msg.life_cycles;\nquerymsg.cycle_time = msg.last_cycle_time;\n\nif (msg.machine_serial_number !== null) {\n    querymsg.post = true;\n}\nelse {\n    querymsg.post = false;\n}\n\nreturn querymsg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 170,
-        "y": 280,
+        "x": 1430,
+        "y": 300,
         "wires": [
             [
                 "8fad20c2952a0f89"
@@ -408,33 +362,16 @@
         "gap": "",
         "start": "",
         "inout": "out",
-        "septopics": false,
-        "property": "cycle",
-        "topi": "topic",
-        "x": 530,
-        "y": 280,
+        "septopics": true,
+        "property": "cycle_number",
+        "topi": "machine_serial_number",
+        "x": 1810,
+        "y": 300,
         "wires": [
             [
                 "8d39eb2f8d2950d1"
             ]
         ]
-    },
-    {
-        "id": "64a82e4147f4fd45",
-        "type": "debug",
-        "z": "f788a78067227a65",
-        "name": "debug 4",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 880,
-        "y": 280,
-        "wires": []
     },
     {
         "id": "8fad20c2952a0f89",
@@ -454,8 +391,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 380,
-        "y": 280,
+        "x": 1660,
+        "y": 300,
         "wires": [
             [
                 "82e8a27928857d05"
@@ -467,49 +404,17 @@
         "id": "8d39eb2f8d2950d1",
         "type": "postgresql",
         "z": "f788a78067227a65",
-        "name": "Post Last Cycle",
-        "query": "INSERT INTO aislapol_table (machine_name, cycle, cycle_time, mold_name)\nVALUES ('{{{ msg.machine_name }}}', {{{ msg.cycle }}}, {{{ msg.cycle_time }}}, '{{{ msg.recipe_name }}}');",
-        "postgreSQLConfig": "a1fb71ced63ef518",
+        "name": "Post Last Molding Machine Cycle",
+        "query": "SELECT public.insert_molding_machine_cycle(\n    '{{{msg.machine_serial_number}}}',\n    '{{{msg.mold_recipe_name}}}',\n    {{{msg.cycle_number}}},\n    {{{msg.cycle_time}}},\n    False\n);",
+        "postgreSQLConfig": "6d7e6326d0c1b658",
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 720,
-        "y": 280,
+        "x": 2000,
+        "y": 300,
         "wires": [
             [
-                "64a82e4147f4fd45"
-            ]
-        ]
-    },
-    {
-        "id": "a99cb87c02f0fc0c",
-        "type": "cronplus",
-        "z": "f788a78067227a65",
-        "name": "",
-        "outputField": "payload",
-        "timeZone": "",
-        "persistDynamic": false,
-        "commandResponseMsgOutput": "output1",
-        "outputs": 1,
-        "options": [
-            {
-                "name": "schedule1",
-                "topic": "topic1",
-                "payloadType": "default",
-                "payload": "",
-                "expressionType": "cron",
-                "expression": "0 7 * * *",
-                "location": "",
-                "offset": "0",
-                "solarType": "all",
-                "solarEvents": "sunrise,sunset"
-            }
-        ],
-        "x": 380,
-        "y": 200,
-        "wires": [
-            [
-                "6f43828525797a13"
+                "4afa4e43ab6a6de1"
             ]
         ]
     },
@@ -526,8 +431,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1780,
-        "y": 540,
+        "x": 2180,
+        "y": 180,
         "wires": []
     },
     {
@@ -541,8 +446,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 360,
-        "y": 760,
+        "x": 340,
+        "y": 460,
         "wires": [
             [
                 "588fc5a102ed4ae6"
@@ -556,8 +461,8 @@
         "name": "Tratamiento de Datos",
         "info": "Espera datos tratados por un nodo Response de IIoT OPC UA. Simplifica a sólo una estampilla de tiempo de la obtención del dato, y los datos en cuestión con sus nombres como propiedades para fácil lectura",
         "scope": "local",
-        "x": 160,
-        "y": 760,
+        "x": 140,
+        "y": 460,
         "wires": [
             [
                 "e123a8a30fb92ddd"
@@ -570,8 +475,8 @@
         "z": "f788a78067227a65",
         "name": "Return",
         "position": 1,
-        "x": 510,
-        "y": 760,
+        "x": 490,
+        "y": 460,
         "wires": []
     },
     {
@@ -899,8 +804,8 @@
                 "datatypeName": ""
             }
         ],
-        "x": 210,
-        "y": 440,
+        "x": 190,
+        "y": 140,
         "wires": [
             [
                 "1e5c22c13122c970"
@@ -913,8 +818,8 @@
         "z": "f788a78067227a65",
         "name": "Pre-Expansor 1 (192.168.1.21)",
         "info": "",
-        "x": 190,
-        "y": 400,
+        "x": 170,
+        "y": 100,
         "wires": []
     },
     {
@@ -1052,8 +957,8 @@
                 "datatypeName": ""
             }
         ],
-        "x": 190,
-        "y": 520,
+        "x": 170,
+        "y": 220,
         "wires": [
             [
                 "b8e939a60bfdca3e"
@@ -1066,8 +971,8 @@
         "z": "f788a78067227a65",
         "name": "Moldeadora 1 (192.168.1.11)",
         "info": "",
-        "x": 180,
-        "y": 480,
+        "x": 160,
+        "y": 180,
         "wires": []
     },
     {
@@ -1076,8 +981,8 @@
         "z": "f788a78067227a65",
         "name": "Moldeadora 2 (192.168.1.12)",
         "info": "",
-        "x": 180,
-        "y": 560,
+        "x": 160,
+        "y": 260,
         "wires": []
     },
     {
@@ -1086,8 +991,8 @@
         "z": "f788a78067227a65",
         "name": "Moldeadora 3 (192.168.1.13)",
         "info": "",
-        "x": 180,
-        "y": 640,
+        "x": 160,
+        "y": 340,
         "wires": []
     },
     {
@@ -1097,8 +1002,8 @@
         "name": "",
         "target": "tratamiento de datos",
         "outputs": 1,
-        "x": 680,
-        "y": 520,
+        "x": 660,
+        "y": 220,
         "wires": [
             [
                 "1c1f2f5327c479dd"
@@ -1116,8 +1021,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 390,
-        "y": 820,
+        "x": 370,
+        "y": 520,
         "wires": [
             [
                 "5d1666b3b8dffeae"
@@ -1131,8 +1036,8 @@
         "name": "Agrupación Pre-Exp",
         "info": "Agrupa los datos en msg.payload.results\npara facilitar su lectura y uso dentro \ndel frontend",
         "scope": "local",
-        "x": 160,
-        "y": 820,
+        "x": 140,
+        "y": 520,
         "wires": [
             [
                 "dbb5a6ef24d70f28"
@@ -1145,8 +1050,8 @@
         "z": "f788a78067227a65",
         "name": "Return",
         "position": 1,
-        "x": 570,
-        "y": 820,
+        "x": 550,
+        "y": 520,
         "wires": []
     },
     {
@@ -1156,8 +1061,8 @@
         "name": "",
         "target": "agrupación pre-exp",
         "outputs": 1,
-        "x": 960,
-        "y": 440,
+        "x": 940,
+        "y": 140,
         "wires": [
             [
                 "fea47e9b6f760b88"
@@ -1171,8 +1076,8 @@
         "name": "",
         "target": "tratamiento de datos",
         "outputs": 1,
-        "x": 760,
-        "y": 440,
+        "x": 740,
+        "y": 140,
         "wires": [
             [
                 "bda79a52d1fe9da0"
@@ -1190,8 +1095,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 360,
-        "y": 880,
+        "x": 340,
+        "y": 580,
         "wires": [
             [
                 "fc132773c9a4c54c"
@@ -1205,8 +1110,8 @@
         "name": "Agrupación Mold",
         "info": "describe your reusable flow here",
         "scope": "local",
-        "x": 150,
-        "y": 880,
+        "x": 130,
+        "y": 580,
         "wires": [
             [
                 "1176d39ec00c2984"
@@ -1219,8 +1124,8 @@
         "z": "f788a78067227a65",
         "name": "Return",
         "position": 1,
-        "x": 530,
-        "y": 880,
+        "x": 510,
+        "y": 580,
         "wires": []
     },
     {
@@ -1230,8 +1135,8 @@
         "name": "",
         "target": "agrupación mold",
         "outputs": 1,
-        "x": 870,
-        "y": 520,
+        "x": 850,
+        "y": 220,
         "wires": [
             [
                 "7239477c6929c7d6"
@@ -1250,8 +1155,8 @@
         "activateFilters": false,
         "negateFilter": false,
         "filters": [],
-        "x": 590,
-        "y": 440,
+        "x": 570,
+        "y": 140,
         "wires": [
             [
                 "04c2c84c348d23e1"
@@ -1272,8 +1177,8 @@
         "showErrors": false,
         "parseStrings": false,
         "historyDays": "",
-        "x": 430,
-        "y": 440,
+        "x": 410,
+        "y": 140,
         "wires": [
             [
                 "842d4ba0218704ed"
@@ -1292,8 +1197,8 @@
         "activateFilters": false,
         "negateFilter": false,
         "filters": [],
-        "x": 510,
-        "y": 520,
+        "x": 490,
+        "y": 220,
         "wires": [
             [
                 "ee2ecfafe970f877"
@@ -1314,8 +1219,8 @@
         "showErrors": false,
         "parseStrings": false,
         "historyDays": "",
-        "x": 370,
-        "y": 520,
+        "x": 350,
+        "y": 220,
         "wires": [
             [
                 "3baff4093480de2c"
@@ -1329,8 +1234,8 @@
         "name": "",
         "target": "tratamiento de datos",
         "outputs": 1,
-        "x": 680,
-        "y": 600,
+        "x": 660,
+        "y": 300,
         "wires": [
             [
                 "01f83fd1a4b4618d"
@@ -1344,8 +1249,8 @@
         "name": "",
         "target": "agrupación mold",
         "outputs": 1,
-        "x": 870,
-        "y": 600,
+        "x": 850,
+        "y": 300,
         "wires": [
             [
                 "b4c4bb515871ae9e"
@@ -1364,8 +1269,8 @@
         "activateFilters": false,
         "negateFilter": false,
         "filters": [],
-        "x": 510,
-        "y": 600,
+        "x": 490,
+        "y": 300,
         "wires": [
             [
                 "d9bfa48aab3999b7"
@@ -1386,8 +1291,8 @@
         "showErrors": false,
         "parseStrings": false,
         "historyDays": "",
-        "x": 370,
-        "y": 600,
+        "x": 350,
+        "y": 300,
         "wires": [
             [
                 "6f648194f80684bd"
@@ -1401,8 +1306,8 @@
         "name": "",
         "target": "tratamiento de datos",
         "outputs": 1,
-        "x": 680,
-        "y": 680,
+        "x": 660,
+        "y": 380,
         "wires": [
             [
                 "d97ba50a7d3ce12d"
@@ -1416,8 +1321,8 @@
         "name": "",
         "target": "agrupación mold",
         "outputs": 1,
-        "x": 870,
-        "y": 680,
+        "x": 850,
+        "y": 380,
         "wires": [
             [
                 "f2c5484ba01b02f4"
@@ -1436,8 +1341,8 @@
         "activateFilters": false,
         "negateFilter": false,
         "filters": [],
-        "x": 510,
-        "y": 680,
+        "x": 490,
+        "y": 380,
         "wires": [
             [
                 "6986bf2477d007d4"
@@ -1458,8 +1363,8 @@
         "showErrors": false,
         "parseStrings": false,
         "historyDays": "",
-        "x": 370,
-        "y": 680,
+        "x": 350,
+        "y": 380,
         "wires": [
             [
                 "982214f4b173a523"
@@ -1791,8 +1696,8 @@
                 "datatypeName": ""
             }
         ],
-        "x": 210,
-        "y": 1140,
+        "x": 190,
+        "y": 840,
         "wires": [
             [
                 "eb6ba52308d3d59f"
@@ -1806,8 +1711,8 @@
         "name": "",
         "target": "agrupación pre-exp",
         "outputs": 1,
-        "x": 920,
-        "y": 1140,
+        "x": 900,
+        "y": 840,
         "wires": [
             [
                 "df35c13dcc92abe8"
@@ -1824,8 +1729,8 @@
         "name": "",
         "target": "tratamiento de datos",
         "outputs": 1,
-        "x": 720,
-        "y": 1140,
+        "x": 700,
+        "y": 840,
         "wires": [
             [
                 "714ab741b280a5a1"
@@ -1844,8 +1749,8 @@
         "activateFilters": false,
         "negateFilter": false,
         "filters": [],
-        "x": 550,
-        "y": 1140,
+        "x": 530,
+        "y": 840,
         "wires": [
             [
                 "4476bc6c3b989481"
@@ -1866,8 +1771,8 @@
         "showErrors": false,
         "parseStrings": false,
         "historyDays": "",
-        "x": 410,
-        "y": 1140,
+        "x": 390,
+        "y": 840,
         "wires": [
             [
                 "e9d8c25addbcd69f"
@@ -1883,8 +1788,8 @@
         "links": [
             "40bef421bf8595c1"
         ],
-        "x": 1165,
-        "y": 1060,
+        "x": 1145,
+        "y": 760,
         "wires": []
     },
     {
@@ -1894,8 +1799,8 @@
         "name": "",
         "target": "tratamiento de datos",
         "outputs": 1,
-        "x": 680,
-        "y": 1220,
+        "x": 660,
+        "y": 920,
         "wires": [
             [
                 "fb281aac4b4b66e2"
@@ -1914,8 +1819,8 @@
         "activateFilters": false,
         "negateFilter": false,
         "filters": [],
-        "x": 510,
-        "y": 1220,
+        "x": 490,
+        "y": 920,
         "wires": [
             [
                 "3e2de41d696ef804"
@@ -1936,8 +1841,8 @@
         "showErrors": false,
         "parseStrings": false,
         "historyDays": "",
-        "x": 370,
-        "y": 1220,
+        "x": 350,
+        "y": 920,
         "wires": [
             [
                 "bf771d5271d7de80"
@@ -2079,8 +1984,8 @@
                 "datatypeName": ""
             }
         ],
-        "x": 190,
-        "y": 1220,
+        "x": 170,
+        "y": 920,
         "wires": [
             [
                 "ff43309ea7a136c3"
@@ -2094,8 +1999,8 @@
         "name": "",
         "target": "agrupación mold",
         "outputs": 1,
-        "x": 870,
-        "y": 1220,
+        "x": 850,
+        "y": 920,
         "wires": [
             [
                 "df35c13dcc92abe8",
@@ -2110,8 +2015,8 @@
         "name": "",
         "target": "tratamiento de datos",
         "outputs": 1,
-        "x": 680,
-        "y": 1300,
+        "x": 660,
+        "y": 1000,
         "wires": [
             [
                 "5e5f1ad45488a670"
@@ -2125,8 +2030,8 @@
         "name": "",
         "target": "agrupación mold",
         "outputs": 1,
-        "x": 870,
-        "y": 1300,
+        "x": 850,
+        "y": 1000,
         "wires": [
             [
                 "c7aba6c639708e4f",
@@ -2146,8 +2051,8 @@
         "activateFilters": false,
         "negateFilter": false,
         "filters": [],
-        "x": 510,
-        "y": 1300,
+        "x": 490,
+        "y": 1000,
         "wires": [
             [
                 "d19e6c5210a5cd11"
@@ -2168,8 +2073,8 @@
         "showErrors": false,
         "parseStrings": false,
         "historyDays": "",
-        "x": 370,
-        "y": 1300,
+        "x": 350,
+        "y": 1000,
         "wires": [
             [
                 "65f7d96ecc2c5512"
@@ -2311,8 +2216,8 @@
                 "datatypeName": ""
             }
         ],
-        "x": 190,
-        "y": 1300,
+        "x": 170,
+        "y": 1000,
         "wires": [
             [
                 "2ae8630a808acda0"
@@ -2454,8 +2359,8 @@
                 "datatypeName": ""
             }
         ],
-        "x": 190,
-        "y": 1380,
+        "x": 170,
+        "y": 1080,
         "wires": [
             [
                 "50118b0d19f57f4c"
@@ -2469,8 +2374,8 @@
         "name": "",
         "target": "tratamiento de datos",
         "outputs": 1,
-        "x": 680,
-        "y": 1380,
+        "x": 660,
+        "y": 1080,
         "wires": [
             [
                 "1021f0a01f47506c"
@@ -2489,8 +2394,8 @@
         "activateFilters": false,
         "negateFilter": false,
         "filters": [],
-        "x": 510,
-        "y": 1380,
+        "x": 490,
+        "y": 1080,
         "wires": [
             [
                 "73ac6707b521b986"
@@ -2511,8 +2416,8 @@
         "showErrors": false,
         "parseStrings": false,
         "historyDays": "",
-        "x": 370,
-        "y": 1380,
+        "x": 350,
+        "y": 1080,
         "wires": [
             [
                 "0dc06a94cc206927"
@@ -2526,8 +2431,8 @@
         "name": "",
         "target": "agrupación mold",
         "outputs": 1,
-        "x": 870,
-        "y": 1380,
+        "x": 850,
+        "y": 1080,
         "wires": [
             [
                 "c7aba6c639708e4f",
@@ -2670,8 +2575,8 @@
                 "datatypeName": ""
             }
         ],
-        "x": 190,
-        "y": 600,
+        "x": 170,
+        "y": 300,
         "wires": [
             [
                 "f7c6fe9b14f9417f"
@@ -2813,8 +2718,8 @@
                 "datatypeName": ""
             }
         ],
-        "x": 190,
-        "y": 680,
+        "x": 170,
+        "y": 380,
         "wires": [
             [
                 "3f489858a7e03298"
@@ -2832,8 +2737,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1450,
-        "y": 1360,
+        "x": 1430,
+        "y": 1060,
         "wires": [
             [
                 "d051f82c7b88d9d8"
@@ -2852,8 +2757,8 @@
         "septopics": true,
         "property": "payload.results.life_cycles",
         "topi": "topic",
-        "x": 1200,
-        "y": 1360,
+        "x": 1180,
+        "y": 1060,
         "wires": [
             []
         ]
@@ -2871,8 +2776,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1980,
-        "y": 1360,
+        "x": 1960,
+        "y": 1060,
         "wires": []
     },
     {
@@ -2893,8 +2798,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 1640,
-        "y": 1360,
+        "x": 1620,
+        "y": 1060,
         "wires": [
             [
                 "4e66b32a294bc965"
@@ -2912,8 +2817,8 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 1820,
-        "y": 1360,
+        "x": 1800,
+        "y": 1060,
         "wires": [
             [
                 "528a9824339e4f6a"
@@ -2931,8 +2836,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1130,
-        "y": 440,
+        "x": 1110,
+        "y": 140,
         "wires": [
             [
                 "2f0f6c4b717be0aa"
@@ -2944,14 +2849,14 @@
         "type": "function",
         "z": "f788a78067227a65",
         "name": "Query Pre Exp msg",
-        "func": "// node-red function node, with msg.payload = {\"results\":{\"life_auto_working\":{\"hours\":5261,\"minutes\":5261,\"seconds\":5261},\"life_manual_working\":{\"hours\":5261,\"minutes\":5261,\"seconds\":5261},\"life_total_working\":{\"hours\":5261,\"minutes\":5261,\"seconds\":5261},\"life_start_time\":{\"year\":5261,\"month\":5261,\"day\":5261,\"hour\":5261,\"minute\":5261,\"second\":5261},\"life_cycles\":5261,\"last_recipe\":5261,\"machine_serial_number\":\"PE0001\"}} set to individual msg properties\nvar querymsg = {};\n\nquerymsg.machine_serial_number = msg.payload.results.machine_serial_number;\n// TODO: handle the connection state\nquerymsg.is_connected = true;\nquerymsg.is_disconnected = false;\nquerymsg.last_recipe_name = msg.payload.results.last_recipe;\nquerymsg.life_cycles = msg.payload.results.life_cycles;\n// working times are in seconds\nquerymsg.working_time_auto = msg.payload.results.life_auto_working.hours * 3600 + msg.payload.results.life_auto_working.minutes * 60 + msg.payload.results.life_auto_working.seconds;\nquerymsg.working_time_manual = msg.payload.results.life_manual_working.hours * 3600 + msg.payload.results.life_manual_working.minutes * 60 + msg.payload.results.life_manual_working.seconds;\nquerymsg.working_time_total = msg.payload.results.life_total_working.hours * 3600 + msg.payload.results.life_total_working.minutes * 60 + msg.payload.results.life_total_working.seconds;\n// machine working times are in seconds\nquerymsg.m01_working_time = msg.payload.results.machine_working_time.m01.hours * 3600 + msg.payload.results.machine_working_time.m01.minutes * 60 + msg.payload.results.machine_working_time.m01.seconds;\nquerymsg.m02_working_time = msg.payload.results.machine_working_time.m02.hours * 3600 + msg.payload.results.machine_working_time.m02.minutes * 60 + msg.payload.results.machine_working_time.m02.seconds;\nquerymsg.m03_working_time = msg.payload.results.machine_working_time.m03.hours * 3600 + msg.payload.results.machine_working_time.m03.minutes * 60 + msg.payload.results.machine_working_time.m03.seconds;\nquerymsg.m04_working_time = msg.payload.results.machine_working_time.m04.hours * 3600 + msg.payload.results.machine_working_time.m04.minutes * 60 + msg.payload.results.machine_working_time.m04.seconds;\nquerymsg.m05_working_time = msg.payload.results.machine_working_time.m05.hours * 3600 + msg.payload.results.machine_working_time.m05.minutes * 60 + msg.payload.results.machine_working_time.m05.seconds;\nquerymsg.m06_working_time = msg.payload.results.machine_working_time.m06.hours * 3600 + msg.payload.results.machine_working_time.m06.minutes * 60 + msg.payload.results.machine_working_time.m06.seconds;\nquerymsg.m07_working_time = msg.payload.results.machine_working_time.m07.hours * 3600 + msg.payload.results.machine_working_time.m07.minutes * 60 + msg.payload.results.machine_working_time.m07.seconds;\nquerymsg.m08_working_time = msg.payload.results.machine_working_time.m08.hours * 3600 + msg.payload.results.machine_working_time.m08.minutes * 60 + msg.payload.results.machine_working_time.m08.seconds;\nquerymsg.m09_working_time = msg.payload.results.machine_working_time.m09.hours * 3600 + msg.payload.results.machine_working_time.m09.minutes * 60 + msg.payload.results.machine_working_time.m09.seconds;\nquerymsg.m10_working_time = msg.payload.results.machine_working_time.m10.hours * 3600 + msg.payload.results.machine_working_time.m10.minutes * 60 + msg.payload.results.machine_working_time.m10.seconds;\nquerymsg.m11_working_time = msg.payload.results.machine_working_time.m11.hours * 3600 + msg.payload.results.machine_working_time.m11.minutes * 60 + msg.payload.results.machine_working_time.m11.seconds;\nquerymsg.m12_working_time = msg.payload.results.machine_working_time.m12.hours * 3600 + msg.payload.results.machine_working_time.m12.minutes * 60 + msg.payload.results.machine_working_time.m12.seconds;\nquerymsg.m13_working_time = msg.payload.results.machine_working_time.m13.hours * 3600 + msg.payload.results.machine_working_time.m13.minutes * 60 + msg.payload.results.machine_working_time.m13.seconds;\nquerymsg.m14_working_time = msg.payload.results.machine_working_time.m14.hours * 3600 + msg.payload.results.machine_working_time.m14.minutes * 60 + msg.payload.results.machine_working_time.m14.seconds;\nquerymsg.m15_working_time = msg.payload.results.machine_working_time.m15.hours * 3600 + msg.payload.results.machine_working_time.m15.minutes * 60 + msg.payload.results.machine_working_time.m15.seconds;\n\nreturn querymsg;\n",
+        "func": "// node-red function node, with msg.payload = {\"results\":{\"life_auto_working\":{\"hours\":5261,\"minutes\":5261,\"seconds\":5261},\"life_manual_working\":{\"hours\":5261,\"minutes\":5261,\"seconds\":5261},\"life_total_working\":{\"hours\":5261,\"minutes\":5261,\"seconds\":5261},\"life_start_time\":{\"year\":5261,\"month\":5261,\"day\":5261,\"hour\":5261,\"minute\":5261,\"second\":5261},\"life_cycles\":5261,\"last_recipe\":5261,\"machine_serial_number\":\"PE0001\"}} set to individual msg properties\nvar querymsg = {};\n\nquerymsg.machine_serial_number = msg.payload.results.machine_serial_number;\n// TODO: handle the connection state\nquerymsg.is_connected = true;\nquerymsg.is_disconnected = false;\nquerymsg.last_recipe_name = msg.payload.results.last_recipe;\nquerymsg.life_cycles = msg.payload.results.life_cycles;\n// working times are in seconds\nquerymsg.working_time_auto = msg.payload.results.life_auto_working.hours * 3600 + msg.payload.results.life_auto_working.minutes * 60 + msg.payload.results.life_auto_working.seconds;\nquerymsg.working_time_manual = msg.payload.results.life_manual_working.hours * 3600 + msg.payload.results.life_manual_working.minutes * 60 + msg.payload.results.life_manual_working.seconds;\nquerymsg.working_time_total = msg.payload.results.life_total_working.hours * 3600 + msg.payload.results.life_total_working.minutes * 60 + msg.payload.results.life_total_working.seconds;\n// machine working times are in seconds\nquerymsg.m01_working_time = msg.payload.results.machine_working_time.m01.hours * 3600 + msg.payload.results.machine_working_time.m01.minutes * 60 + msg.payload.results.machine_working_time.m01.seconds;\nquerymsg.m02_working_time = msg.payload.results.machine_working_time.m02.hours * 3600 + msg.payload.results.machine_working_time.m02.minutes * 60 + msg.payload.results.machine_working_time.m02.seconds;\nquerymsg.m03_working_time = msg.payload.results.machine_working_time.m03.hours * 3600 + msg.payload.results.machine_working_time.m03.minutes * 60 + msg.payload.results.machine_working_time.m03.seconds;\nquerymsg.m04_working_time = msg.payload.results.machine_working_time.m04.hours * 3600 + msg.payload.results.machine_working_time.m04.minutes * 60 + msg.payload.results.machine_working_time.m04.seconds;\nquerymsg.m05_working_time = msg.payload.results.machine_working_time.m05.hours * 3600 + msg.payload.results.machine_working_time.m05.minutes * 60 + msg.payload.results.machine_working_time.m05.seconds;\nquerymsg.m06_working_time = msg.payload.results.machine_working_time.m06.hours * 3600 + msg.payload.results.machine_working_time.m06.minutes * 60 + msg.payload.results.machine_working_time.m06.seconds;\nquerymsg.m07_working_time = msg.payload.results.machine_working_time.m07.hours * 3600 + msg.payload.results.machine_working_time.m07.minutes * 60 + msg.payload.results.machine_working_time.m07.seconds;\nquerymsg.m08_working_time = msg.payload.results.machine_working_time.m08.hours * 3600 + msg.payload.results.machine_working_time.m08.minutes * 60 + msg.payload.results.machine_working_time.m08.seconds;\nquerymsg.m09_working_time = msg.payload.results.machine_working_time.m09.hours * 3600 + msg.payload.results.machine_working_time.m09.minutes * 60 + msg.payload.results.machine_working_time.m09.seconds;\nquerymsg.m10_working_time = msg.payload.results.machine_working_time.m10.hours * 3600 + msg.payload.results.machine_working_time.m10.minutes * 60 + msg.payload.results.machine_working_time.m10.seconds;\nquerymsg.m11_working_time = msg.payload.results.machine_working_time.m11.hours * 3600 + msg.payload.results.machine_working_time.m11.minutes * 60 + msg.payload.results.machine_working_time.m11.seconds;\nquerymsg.m12_working_time = msg.payload.results.machine_working_time.m12.hours * 3600 + msg.payload.results.machine_working_time.m12.minutes * 60 + msg.payload.results.machine_working_time.m12.seconds;\nquerymsg.m13_working_time = msg.payload.results.machine_working_time.m13.hours * 3600 + msg.payload.results.machine_working_time.m13.minutes * 60 + msg.payload.results.machine_working_time.m13.seconds;\nquerymsg.m14_working_time = msg.payload.results.machine_working_time.m14.hours * 3600 + msg.payload.results.machine_working_time.m14.minutes * 60 + msg.payload.results.machine_working_time.m14.seconds;\nquerymsg.m15_working_time = msg.payload.results.machine_working_time.m15.hours * 3600 + msg.payload.results.machine_working_time.m15.minutes * 60 + msg.payload.results.machine_working_time.m15.seconds;\n\nif (msg.payload.results.machine_serial_number!==null){\n    querymsg.post = true;\n}\nelse{\n    querymsg.post = false;\n}\n\nreturn querymsg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 370,
-        "y": 940,
+        "x": 350,
+        "y": 640,
         "wires": [
             [
                 "85dc0acb5b97de28"
@@ -2963,14 +2868,14 @@
         "type": "function",
         "z": "f788a78067227a65",
         "name": "Query Mold msg",
-        "func": "// node-red function node, with msg.payload = {\"results\":{\"status\":{\"auto\":true,\"manual\":true,\"running\":true,\"stop\":true},\"working_time_auto\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"working_time_manual\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"working_time_total\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"working_time_hydraulic\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"alarm_00\":{\"id\":452091,\"description\":452091},\"last_recipe\":\"cissors - lizard - spock *** rock - paper - s\",\"life_cycles\":452091,\"mold_distance\":452091,\"last_cycle_time\":452091,\"cycle_time\":452091,\"machine_serial_number\":\"cissors - lizard - spock *** rock - paper - s\"}}var querymsg = {};\nvar querymsg = {};\n\nquerymsg.machine_serial_number = msg.payload.results.machine_serial_number;\nquerymsg.is_running = msg.payload.results.status.running;\nquerymsg.is_stopped = msg.payload.results.status.stop;\nquerymsg.is_automatic = msg.payload.results.status.auto;\nquerymsg.is_manual = msg.payload.results.status.manual;\n// TODO: handle the disconnection state\nquerymsg.is_disconnected = false;\nquerymsg.last_recipe_name = msg.payload.results.last_recipe;\nquerymsg.life_cycles = msg.payload.results.life_cycles;\nquerymsg.mold_distance = msg.payload.results.mold_distance;\nquerymsg.last_cycle_time = msg.payload.results.last_cycle_time;\n// working times are in seconds\nquerymsg.working_time_auto = msg.payload.results.working_time_auto.hours * 3600 + msg.payload.results.working_time_auto.minutes * 60 + msg.payload.results.working_time_auto.seconds;\nquerymsg.working_time_manual = msg.payload.results.working_time_manual.hours * 3600 + msg.payload.results.working_time_manual.minutes * 60 + msg.payload.results.working_time_manual.seconds;\nquerymsg.working_time_total = msg.payload.results.working_time_total.hours * 3600 + msg.payload.results.working_time_total.minutes * 60 + msg.payload.results.working_time_total.seconds;\nquerymsg.working_time_hydraulic = msg.payload.results.working_time_hydraulic.hours * 3600 + msg.payload.results.working_time_hydraulic.minutes * 60 + msg.payload.results.working_time_hydraulic.seconds;\n// alarms are string descriptions\nquerymsg.alarm_00_description = msg.payload.results.alarm_00.description;\n\nreturn querymsg;\n",
+        "func": "// node-red function node, with msg.payload = {\"results\":{\"status\":{\"auto\":true,\"manual\":true,\"running\":true,\"stop\":true},\"working_time_auto\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"working_time_manual\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"working_time_total\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"working_time_hydraulic\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"alarm_00\":{\"id\":452091,\"description\":452091},\"last_recipe\":\"cissors - lizard - spock *** rock - paper - s\",\"life_cycles\":452091,\"mold_distance\":452091,\"last_cycle_time\":452091,\"cycle_time\":452091,\"machine_serial_number\":\"cissors - lizard - spock *** rock - paper - s\"}}var querymsg = {};\nvar querymsg = {};\n\nquerymsg.machine_serial_number = msg.payload.results.machine_serial_number;\nquerymsg.is_running = msg.payload.results.status.running;\nquerymsg.is_stopped = msg.payload.results.status.stop;\nquerymsg.is_automatic = msg.payload.results.status.auto;\nquerymsg.is_manual = msg.payload.results.status.manual;\n// TODO: handle the disconnection state\nquerymsg.is_disconnected = false;\nquerymsg.last_recipe_name = msg.payload.results.last_recipe;\nquerymsg.life_cycles = msg.payload.results.life_cycles;\nquerymsg.mold_distance = msg.payload.results.mold_distance;\nquerymsg.last_cycle_time = msg.payload.results.last_cycle_time;\n// working times are in seconds\nquerymsg.working_time_auto = msg.payload.results.working_time_auto.hours * 3600 + msg.payload.results.working_time_auto.minutes * 60 + msg.payload.results.working_time_auto.seconds;\nquerymsg.working_time_manual = msg.payload.results.working_time_manual.hours * 3600 + msg.payload.results.working_time_manual.minutes * 60 + msg.payload.results.working_time_manual.seconds;\nquerymsg.working_time_total = msg.payload.results.working_time_total.hours * 3600 + msg.payload.results.working_time_total.minutes * 60 + msg.payload.results.working_time_total.seconds;\nquerymsg.working_time_hydraulic = msg.payload.results.working_time_hydraulic.hours * 3600 + msg.payload.results.working_time_hydraulic.minutes * 60 + msg.payload.results.working_time_hydraulic.seconds;\n// alarms are string descriptions\nquerymsg.alarm_00_description = msg.payload.results.alarm_00.description;\n\nif (msg.payload.results.machine_serial_number !== null) {\n    querymsg.post = true;\n}\nelse {\n    querymsg.post = false;\n}\n\nreturn querymsg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 360,
-        "y": 1000,
+        "x": 340,
+        "y": 700,
         "wires": [
             [
                 "6f120917c60379e1"
@@ -2987,8 +2892,8 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 1560,
-        "y": 440,
+        "x": 1720,
+        "y": 140,
         "wires": [
             [
                 "4afa4e43ab6a6de1"
@@ -3005,8 +2910,8 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 1440,
-        "y": 600,
+        "x": 1620,
+        "y": 220,
         "wires": [
             [
                 "4afa4e43ab6a6de1"
@@ -3020,8 +2925,8 @@
         "name": "Query Pre Exp State msg",
         "info": "describe your reusable flow here",
         "scope": "local",
-        "x": 170,
-        "y": 940,
+        "x": 150,
+        "y": 640,
         "wires": [
             [
                 "de80e6d13219b1c4"
@@ -3034,8 +2939,8 @@
         "z": "f788a78067227a65",
         "name": "reusable out",
         "position": 1,
-        "x": 530,
-        "y": 940,
+        "x": 510,
+        "y": 640,
         "wires": []
     },
     {
@@ -3045,8 +2950,8 @@
         "name": "Query Molding State msg",
         "info": "describe your reusable flow here",
         "scope": "local",
-        "x": 170,
-        "y": 1000,
+        "x": 150,
+        "y": 700,
         "wires": [
             [
                 "bf815ceaf950e167"
@@ -3059,8 +2964,8 @@
         "z": "f788a78067227a65",
         "name": "reusable out",
         "position": 1,
-        "x": 510,
-        "y": 1000,
+        "x": 490,
+        "y": 700,
         "wires": []
     },
     {
@@ -3070,11 +2975,11 @@
         "name": "",
         "target": "query pre exp state msg",
         "outputs": 1,
-        "x": 1310,
-        "y": 440,
+        "x": 1290,
+        "y": 140,
         "wires": [
             [
-                "e266963cc18647b2"
+                "c602c4ee69ebd178"
             ]
         ]
     },
@@ -3085,11 +2990,12 @@
         "name": "",
         "target": "query molding state msg",
         "outputs": 1,
-        "x": 1070,
-        "y": 520,
+        "x": 1050,
+        "y": 220,
         "wires": [
             [
-                "39ef70c9e6c407ac"
+                "c5d42490808b0607",
+                "10b690ec7a43c61f"
             ]
         ]
     },
@@ -3100,11 +3006,12 @@
         "name": "",
         "target": "query molding state msg",
         "outputs": 1,
-        "x": 1070,
-        "y": 600,
+        "x": 1050,
+        "y": 300,
         "wires": [
             [
-                "39ef70c9e6c407ac"
+                "c5d42490808b0607",
+                "10b690ec7a43c61f"
             ]
         ]
     },
@@ -3115,12 +3022,67 @@
         "name": "",
         "target": "query molding state msg",
         "outputs": 1,
-        "x": 1070,
-        "y": 680,
+        "x": 1050,
+        "y": 380,
+        "wires": [
+            [
+                "c5d42490808b0607",
+                "10b690ec7a43c61f"
+            ]
+        ]
+    },
+    {
+        "id": "c602c4ee69ebd178",
+        "type": "switch",
+        "z": "f788a78067227a65",
+        "name": "Shoult Post?",
+        "property": "post",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 1470,
+        "y": 140,
+        "wires": [
+            [
+                "e266963cc18647b2"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "c5d42490808b0607",
+        "type": "switch",
+        "z": "f788a78067227a65",
+        "name": "Shoult Post?",
+        "property": "post",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 1370,
+        "y": 220,
         "wires": [
             [
                 "39ef70c9e6c407ac"
-            ]
+            ],
+            []
         ]
     },
     {
@@ -9034,11 +8996,11 @@
         "sourceFolder": "src",
         "deployedVersion": "6.4.1",
         "showMsgUib": false,
-        "x": 1130,
-        "y": 180,
+        "x": 1010,
+        "y": 400,
         "wires": [
             [
-                "d06b83ab0fabd619"
+                "82fe1a41ba5b76de"
             ],
             [
                 "7d81552ad7db1474"
@@ -9057,8 +9019,8 @@
         "name": "",
         "storeContext": "context",
         "varName": "uib_cache",
-        "x": 870,
-        "y": 260,
+        "x": 1030,
+        "y": 540,
         "wires": [
             [
                 "001c871e90622580"
@@ -9078,8 +9040,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 2170,
-        "y": 200,
+        "x": 2050,
+        "y": 600,
         "wires": []
     },
     {
@@ -9169,9 +9131,7 @@
         "x": 2130,
         "y": 100,
         "wires": [
-            [
-                "001c871e90622580"
-            ]
+            []
         ]
     },
     {
@@ -9188,8 +9148,7 @@
         "y": 40,
         "wires": [
             [
-                "545f814de989fd23",
-                "6f7a991c58788ad1"
+                "545f814de989fd23"
             ]
         ]
     },
@@ -9207,8 +9166,7 @@
         "y": 100,
         "wires": [
             [
-                "545f814de989fd23",
-                "6f7a991c58788ad1"
+                "545f814de989fd23"
             ]
         ]
     },
@@ -9226,8 +9184,7 @@
         "y": 160,
         "wires": [
             [
-                "545f814de989fd23",
-                "6f7a991c58788ad1"
+                "545f814de989fd23"
             ]
         ]
     },
@@ -9245,8 +9202,7 @@
         "y": 220,
         "wires": [
             [
-                "545f814de989fd23",
-                "6f7a991c58788ad1"
+                "545f814de989fd23"
             ]
         ]
     },
@@ -9290,9 +9246,7 @@
         "x": 570,
         "y": 140,
         "wires": [
-            [
-                "7d81552ad7db1474"
-            ]
+            []
         ]
     },
     {
@@ -9333,7 +9287,9 @@
         "x": 350,
         "y": 80,
         "wires": [
-            []
+            [
+                "85ee7346e6887665"
+            ]
         ]
     },
     {
@@ -9358,9 +9314,7 @@
         "x": 570,
         "y": 80,
         "wires": [
-            [
-                "7d81552ad7db1474"
-            ]
+            []
         ]
     },
     {
@@ -9404,9 +9358,7 @@
         "x": 570,
         "y": 200,
         "wires": [
-            [
-                "7d81552ad7db1474"
-            ]
+            []
         ]
     },
     {
@@ -9472,10 +9424,7 @@
         "x": 1640,
         "y": 340,
         "wires": [
-            [
-                "6f7a991c58788ad1",
-                "d3996b824198eef2"
-            ]
+            []
         ]
     },
     {
@@ -9509,9 +9458,7 @@
         "x": 1660,
         "y": 280,
         "wires": [
-            [
-                "6f7a991c58788ad1"
-            ]
+            []
         ]
     },
     {
@@ -9536,9 +9483,7 @@
         "x": 570,
         "y": 260,
         "wires": [
-            [
-                "7d81552ad7db1474"
-            ]
+            []
         ]
     },
     {
@@ -9575,8 +9520,8 @@
         "links": [
             "2c533314146b5599"
         ],
-        "x": 1815,
-        "y": 340,
+        "x": 1785,
+        "y": 780,
         "wires": []
     },
     {
@@ -9587,8 +9532,8 @@
         "links": [
             "d3996b824198eef2"
         ],
-        "x": 45,
-        "y": 300,
+        "x": 95,
+        "y": 820,
         "wires": [
             [
                 "21359e64ebc07ac2"
@@ -9614,11 +9559,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 130,
-        "y": 300,
+        "x": 180,
+        "y": 820,
         "wires": [
             [
-                "9e1d53b46113b047"
+                "96a87b53c564d09a"
             ]
         ]
     },
@@ -9640,8 +9585,8 @@
         "sourceFolder": "src",
         "deployedVersion": "6.4.1",
         "showMsgUib": false,
-        "x": 1160,
-        "y": 460,
+        "x": 840,
+        "y": 160,
         "wires": [
             [],
             []
@@ -9653,8 +9598,8 @@
         "z": "a2bc427f0d400003",
         "name": "Manual de Usuario",
         "info": "",
-        "x": 1130,
-        "y": 420,
+        "x": 810,
+        "y": 120,
         "wires": []
     },
     {
@@ -9663,8 +9608,8 @@
         "z": "a2bc427f0d400003",
         "name": "Aplicación Principal",
         "info": "",
-        "x": 1130,
-        "y": 140,
+        "x": 1010,
+        "y": 360,
         "wires": []
     },
     {
@@ -9678,9 +9623,7 @@
         "x": 625,
         "y": 320,
         "wires": [
-            [
-                "7d81552ad7db1474"
-            ]
+            []
         ]
     },
     {
@@ -9696,8 +9639,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 640,
-        "y": 440,
+        "x": 660,
+        "y": 360,
         "wires": []
     },
     {
@@ -9710,12 +9653,11 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 350,
-        "y": 440,
+        "x": 370,
+        "y": 360,
         "wires": [
             [
-                "58115752e200ab6e",
-                "85ee7346e6887665"
+                "58115752e200ab6e"
             ]
         ]
     },
@@ -9736,8 +9678,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 90,
-        "y": 440,
+        "x": 110,
+        "y": 360,
         "wires": [
             [
                 "e67b5004f7ff0c38"
@@ -9895,9 +9837,12 @@
         "rowsPerMsg": 1,
         "outputs": 1,
         "x": 1630,
-        "y": 500,
+        "y": 480,
         "wires": [
-            []
+            [
+                "c161ef63fbeba0bc",
+                "6f7a991c58788ad1"
+            ]
         ]
     },
     {
@@ -9921,9 +9866,12 @@
         "rowsPerMsg": 1,
         "outputs": 1,
         "x": 1630,
-        "y": 560,
+        "y": 540,
         "wires": [
-            []
+            [
+                "c161ef63fbeba0bc",
+                "6f7a991c58788ad1"
+            ]
         ]
     },
     {
@@ -9937,9 +9885,12 @@
         "rowsPerMsg": 1,
         "outputs": 1,
         "x": 1640,
-        "y": 620,
+        "y": 600,
         "wires": [
-            []
+            [
+                "c161ef63fbeba0bc",
+                "6f7a991c58788ad1"
+            ]
         ]
     },
     {
@@ -9953,9 +9904,12 @@
         "rowsPerMsg": 1,
         "outputs": 1,
         "x": 1670,
-        "y": 680,
+        "y": 660,
         "wires": [
-            []
+            [
+                "c161ef63fbeba0bc",
+                "6f7a991c58788ad1"
+            ]
         ]
     },
     {
@@ -9969,9 +9923,11 @@
         "rowsPerMsg": 1,
         "outputs": 1,
         "x": 1660,
-        "y": 740,
+        "y": 720,
         "wires": [
-            []
+            [
+                "6f7a991c58788ad1"
+            ]
         ]
     },
     {
@@ -9985,9 +9941,12 @@
         "rowsPerMsg": 1,
         "outputs": 1,
         "x": 1640,
-        "y": 800,
+        "y": 780,
         "wires": [
-            []
+            [
+                "d3996b824198eef2",
+                "6f7a991c58788ad1"
+            ]
         ]
     },
     {
@@ -10048,7 +10007,8 @@
         "y": 940,
         "wires": [
             [
-                "0712982076a96d35"
+                "0712982076a96d35",
+                "7d81552ad7db1474"
             ]
         ]
     },
@@ -10075,7 +10035,8 @@
         "y": 880,
         "wires": [
             [
-                "1bea93ea68669e65"
+                "1bea93ea68669e65",
+                "7d81552ad7db1474"
             ]
         ]
     },
@@ -10102,7 +10063,8 @@
         "y": 660,
         "wires": [
             [
-                "b93fc4f02d6016ce"
+                "b93fc4f02d6016ce",
+                "7d81552ad7db1474"
             ]
         ]
     },
@@ -10129,7 +10091,8 @@
         "y": 600,
         "wires": [
             [
-                "c1e54cc9c0b91cb0"
+                "c1e54cc9c0b91cb0",
+                "7d81552ad7db1474"
             ]
         ]
     },
@@ -10156,7 +10119,8 @@
         "y": 720,
         "wires": [
             [
-                "eb5ee99b5d458f52"
+                "eb5ee99b5d458f52",
+                "7d81552ad7db1474"
             ]
         ]
     },
@@ -10183,7 +10147,8 @@
         "y": 780,
         "wires": [
             [
-                "00cf02484f42e547"
+                "00cf02484f42e547",
+                "7d81552ad7db1474"
             ]
         ]
     },
@@ -10221,5 +10186,247 @@
         "x": 1050,
         "y": 940,
         "wires": []
+    },
+    {
+        "id": "82fe1a41ba5b76de",
+        "type": "switch",
+        "z": "a2bc427f0d400003",
+        "name": "Filter Database Queries",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "GET LAST N",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "GET FIRST N",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "GET FROM DATE RANGE",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "GET FROM DATE AND TIME RANGE",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "SET CYCLE MAINTENANCE",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "UPDATE CONTROL VALUES",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 6,
+        "x": 1330,
+        "y": 460,
+        "wires": [
+            [
+                "35ad3f8fba2db178"
+            ],
+            [
+                "63f2ed01b3a51949"
+            ],
+            [
+                "bce45ef24c49e8b6"
+            ],
+            [
+                "880aeb0c7bdf199b"
+            ],
+            [
+                "d547a3ef97a5fd10"
+            ],
+            [
+                "8f9439d5967e1035"
+            ]
+        ]
+    },
+    {
+        "id": "c161ef63fbeba0bc",
+        "type": "change",
+        "z": "a2bc427f0d400003",
+        "name": "Send back",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "SQL Response",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1930,
+        "y": 480,
+        "wires": [
+            [
+                "001c871e90622580"
+            ]
+        ]
+    },
+    {
+        "id": "4e4b9b9dc58bb695",
+        "type": "inject",
+        "z": "a2bc427f0d400003",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 660,
+        "wires": [
+            [
+                "86aeab5add841933"
+            ]
+        ]
+    },
+    {
+        "id": "8319458d2f1e3a91",
+        "type": "inject",
+        "z": "a2bc427f0d400003",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "15",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 600,
+        "wires": [
+            [
+                "179acf09e7e7512e"
+            ]
+        ]
+    },
+    {
+        "id": "5a4f5c27b919fbab",
+        "type": "inject",
+        "z": "a2bc427f0d400003",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5.5",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 720,
+        "wires": [
+            [
+                "2ee939a4e0b45316"
+            ]
+        ]
+    },
+    {
+        "id": "beb03b3a899f5c3e",
+        "type": "inject",
+        "z": "a2bc427f0d400003",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 780,
+        "wires": [
+            [
+                "96a87b53c564d09a"
+            ]
+        ]
+    },
+    {
+        "id": "e5f8e708fcd2e7fb",
+        "type": "inject",
+        "z": "a2bc427f0d400003",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "3",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 880,
+        "wires": [
+            [
+                "3275ae810a9bfc7f"
+            ]
+        ]
+    },
+    {
+        "id": "152fdb89b5650207",
+        "type": "inject",
+        "z": "a2bc427f0d400003",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "4",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 940,
+        "wires": [
+            [
+                "c7566a5bac82984d"
+            ]
+        ]
     }
 ]

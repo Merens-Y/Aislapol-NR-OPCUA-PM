@@ -93,7 +93,7 @@
         "outdated": {
           "current": "5.1.0",
           "wanted": "5.1.2",
-          "latest": "9.1.5"
+          "latest": "9.1.6"
         }
       },
       "vue": {
