@@ -279,43 +279,29 @@
         "maxBadSessionRequests": "10"
     },
     {
-        "id": "8dcfe0fe921ca3b5",
-        "type": "function",
-        "z": "f788a78067227a65",
-        "name": "Machine 15 JSON Formating",
-        "func": "function formatDuration(duration) {\n    var hours = Math.floor(duration / 3600);\n    var minutes = Math.floor((duration - (hours * 3600)) / 60);\n    var seconds = duration - (hours * 3600) - (minutes * 60);\n\n    if (hours < 10) { hours = \"0\" + hours; }\n    if (minutes < 10) { minutes = \"0\" + minutes; }\n    if (seconds < 10) { seconds = \"0\" + seconds; }\n    seconds=Math.floor(seconds);\n\n    return hours + ':' + minutes + ':' + seconds;\n}\nfunction round(value, decimals) {\n    return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);\n}\n\n//Setting latest values\n//LifeCycles[0]\nvar numCycles = msg.payload.value.results[0].value.value;\nnumCycles = numCycles - global.get(\"todayCyclesMac15\");\n//LastRecipe[1]\nvar recipe = msg.payload.value.results[1].value.value;\n\n//Running[3]\nvar running = msg.payload.value.results[3].value.value;\n\n//LastCycleTime[4]\nvar lastCycleTime = msg.payload.value.results[4].value.value / 1000;\nvar lastCycleTimePost = lastCycleTime;\n//LastCycleTimePost for post to Database.\nlastCycleTimePost = round(lastCycleTimePost, 2)\nlastCycleTime = Math.floor(lastCycleTime);\nvar warning = false;\n\n//Checking for warning state\nif (running !== global.get(\"bLastStateMac15\")) {\n    global.set(\"bLastStateMac15\", running);\n    global.set(\"dLastChangedTimeMac15Prev\", global.get(\"dLastChangedTimeMac15\"));\n    global.set(\"dLastChangedTimeMac15\", new Date().getTime());\n} else {\n    let currentTime = new Date().getTime();\n    if (running === false && (currentTime - global.get(\"dLastChangedTimeMac15\") > 7200000)) {\n        warning = true;\n    }\n};\n\n\nvar minCycleTime = \"N/A\";\nvar maxCycleTime = \"N/A\";\n\n\n// set min time\nif (global.get(\"minCycleTimeMac15\")) {\n    minCycleTime = Math.min(lastCycleTime, global.get(\"minCycleTimeMac15\"));\n    global.set(\"minCycleTimeMac15\", minCycleTime);\n} else {\n    global.set(\"minCycleTimeMac15\", lastCycleTime);\n};\n//set max time\nif (global.get(\"maxCycleTimeMac15\")) {\n    maxCycleTime = Math.max(lastCycleTime, global.get(\"maxCycleTimeMac15\"));\n    global.set(\"maxCycleTimeMac15\", maxCycleTime);\n} else {\n    global.set(\"maxCycleTimeMac15\", lastCycleTime);\n};\n//set production times\nif(running===true){\n    var timeProducing = global.get(\"statusTimeProxyMac15\");\n    var timeStopped = global.get(\"totalDurationFalseMac15\");\n}else{\n    var timeProducing = global.get(\"totalDurationTrueMac15\");\n    var timeStopped = global.get(\"statusTimeProxyMac15\");\n}\n\nvar perUtilization = timeProducing / (timeProducing + timeStopped);\nperUtilization = round(perUtilization * 100, 1);\ntimeProducing = formatDuration(timeProducing);\ntimeStopped = formatDuration(timeStopped);\n\nvar machine = {\n    \"recipe\": recipe,\n    \"numCycles\": numCycles,\n    \"minCycleTime\": minCycleTime,\n    \"maxCycleTime\": maxCycleTime,\n    \"isRunning\": running,\n    \"warning\": warning,\n    \"timeProducing\": timeProducing,\n    \"timeStopped\": timeStopped,\n    \"perUtilization\": perUtilization,\n    \"lastCycleTime\": lastCycleTimePost\n};\nmsg.payload = machine;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 720,
-        "y": 340,
-        "wires": [
-            [
-                "01da6e515dc345cf",
-                "3ea352ee56317e8d"
-            ]
-        ]
-    },
-    {
-        "id": "0c8551918bfe32e2",
-        "type": "function",
-        "z": "f788a78067227a65",
-        "name": "Machine 15 JSON Formating",
-        "func": "var lastCycleTime = msg.payload.value.value.value / 1000;\nif(!global.get(\"lastCycleTimeMac15\")){\n    global.set(\"lastCycleTimeMac15\",lastCycleTime);\n}else{\n    if (global.get(\"lastCycleTimeMac15\") === lastCycleTime){\n        msg.payload=\"\";\n        msg.topic=\"\";\n        return msg;\n    }\n}\n\nglobal.set(\"lastCycleTimeMac15\", lastCycleTime);\nmsg.payload=lastCycleTime;\nmsg.topic=\"Tiempo de ciclo\"\nreturn msg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 760,
-        "y": 460,
-        "wires": [
-            [
-                "9af8176f55e26f0e"
-            ]
-        ]
+        "id": "6d7e6326d0c1b658",
+        "type": "postgreSQLConfig",
+        "name": "AislapolScada",
+        "host": "127.0.0.1",
+        "hostFieldType": "str",
+        "port": "5432",
+        "portFieldType": "num",
+        "database": "AislapolScada",
+        "databaseFieldType": "str",
+        "ssl": "false",
+        "sslFieldType": "bool",
+        "applicationName": "Aislapol Scada",
+        "applicationNameType": "str",
+        "max": "10",
+        "maxFieldType": "num",
+        "idle": "1000",
+        "idleFieldType": "num",
+        "connectionTimeout": "10000",
+        "connectionTimeoutFieldType": "num",
+        "user": "aislapol-scada-backend",
+        "userFieldType": "str",
+        "password": "aislapol12345",
+        "passwordFieldType": "str"
     },
     {
         "id": "f6f54112.c9ed4",
@@ -349,136 +335,6 @@
         "wires": []
     },
     {
-        "id": "6f9c72ab1239b008",
-        "type": "function",
-        "z": "f788a78067227a65",
-        "name": "Notificar Correo",
-        "func": "var bWarning = msg.payload[\"warning\"];\nvar currentTime = new Date().getTime();\nvar message = \"\";\nvar content = \"\";\n\nif (!(global.get(\"dLastSentMailMac15\"))){\n    global.set(\"dLastSentMailMac15\", global.get(\"dLastChangedTimeMac15\"));\n}\n\nif (bWarning === true && (currentTime - global.get(\"dLastChangedTimeMac15\") > 7200000) && (currentTime - global.get(\"dLastSentMailMac15\") > 7200000)){\n    var bSendMail = true;\n    global.set(\"dLastSentMailMac15\", currentTime);\n}else{\n    var bSendMail = false;\n}\n\nif(bSendMail===true){\n    message = \"Máquina 15 no ha funcionado por 2 horas. Esta es una notificación, no necesita responder.\";\n    content = \"Notificación - Aislapol Dashboard\";\n    msg.payload = message;\n    msg.topic = content;\n    msg.bSend = bSendMail;\n    return msg;\n}else{\n    message = \"Máquina 15 lleva menos de 2 horas continuas sin funcionar.\";\n    content = \"Notificación - Aislapol Dashboard\";\n    msg.payload = message;\n    msg.topic = content;\n    msg.bSend = bSendMail;\n    return msg;\n}\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1480,
-        "y": 360,
-        "wires": [
-            [
-                "0a6035fd3041b079"
-            ]
-        ]
-    },
-    {
-        "id": "adbc765917d71f4b",
-        "type": "switch",
-        "z": "f788a78067227a65",
-        "name": "",
-        "property": "bSend",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "true"
-            },
-            {
-                "t": "false"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 1770,
-        "y": 360,
-        "wires": [
-            [
-                "a0176ace469c1bb9"
-            ],
-            [
-                "6e638d8907d9567c"
-            ]
-        ]
-    },
-    {
-        "id": "6e638d8907d9567c",
-        "type": "delay",
-        "z": "f788a78067227a65",
-        "name": "",
-        "pauseType": "rate",
-        "timeout": "15",
-        "timeoutUnits": "minutes",
-        "rate": "1",
-        "nbRateUnits": "15",
-        "rateUnits": "minute",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": true,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 1980,
-        "y": 400,
-        "wires": [
-            [
-                "c3a48b8715ec94a2"
-            ]
-        ]
-    },
-    {
-        "id": "c3a48b8715ec94a2",
-        "type": "debug",
-        "z": "f788a78067227a65",
-        "name": "debug 1",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 2140,
-        "y": 400,
-        "wires": []
-    },
-    {
-        "id": "9af8176f55e26f0e",
-        "type": "debug",
-        "z": "f788a78067227a65",
-        "name": "debug 2",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 980,
-        "y": 520,
-        "wires": []
-    },
-    {
-        "id": "01da6e515dc345cf",
-        "type": "delay",
-        "z": "f788a78067227a65",
-        "name": "",
-        "pauseType": "rate",
-        "timeout": "15",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "5",
-        "rateUnits": "minute",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": true,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 980,
-        "y": 400,
-        "wires": [
-            [
-                "a93e3a27cbf71aaf"
-            ]
-        ]
-    },
-    {
         "id": "6f43828525797a13",
         "type": "function",
         "z": "f788a78067227a65",
@@ -489,8 +345,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1160,
-        "y": 140,
+        "x": 560,
+        "y": 200,
         "wires": [
             []
         ]
@@ -506,8 +362,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 810,
-        "y": 140,
+        "x": 150,
+        "y": 200,
         "wires": [
             [
                 "a99cb87c02f0fc0c"
@@ -515,256 +371,13 @@
         ]
     },
     {
-        "id": "1ea9e654b8e8df62",
-        "type": "delay",
-        "z": "f788a78067227a65",
-        "name": "",
-        "pauseType": "rate",
-        "timeout": "1",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": true,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 1490,
-        "y": 280,
-        "wires": [
-            [
-                "6d14cc8fe37e77ba"
-            ]
-        ]
-    },
-    {
-        "id": "6d14cc8fe37e77ba",
-        "type": "function",
-        "z": "f788a78067227a65",
-        "name": "isRunning",
-        "func": "if (msg.payload[\"isRunning\"]){\n    msg.payload = msg.payload[\"isRunning\"];\n}\nelse{\n    msg.payload=false\n}\nmsg.topic=\"Running Status\"\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1660,
-        "y": 280,
-        "wires": [
-            [
-                "e4cc40628d5b4f87",
-                "f4fd67fabed421fc"
-            ]
-        ]
-    },
-    {
-        "id": "e4cc40628d5b4f87",
-        "type": "switch",
-        "z": "f788a78067227a65",
-        "name": "",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "true"
-            },
-            {
-                "t": "false"
-            },
-            {
-                "t": "null"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 3,
-        "x": 1830,
-        "y": 280,
-        "wires": [
-            [
-                "78701a193601b1de"
-            ],
-            [
-                "432e25fa3f0a2d9d"
-            ],
-            [
-                "432e25fa3f0a2d9d"
-            ]
-        ]
-    },
-    {
-        "id": "78701a193601b1de",
-        "type": "function",
-        "z": "f788a78067227a65",
-        "name": "isTrue",
-        "func": "global.set(\"statusTimeProxyMac15\", global.get(\"statusTimeProxyMac15\")+1);\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1990,
-        "y": 260,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "432e25fa3f0a2d9d",
-        "type": "function",
-        "z": "f788a78067227a65",
-        "name": "isFalse",
-        "func": "global.set(\"statusTimeProxyMac15\", global.get(\"statusTimeProxyMac15\")+1);\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 2000,
-        "y": 300,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "a93e3a27cbf71aaf",
-        "type": "debug",
-        "z": "f788a78067227a65",
-        "name": "debug 3",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1160,
-        "y": 400,
-        "wires": []
-    },
-    {
-        "id": "0a6035fd3041b079",
-        "type": "delay",
-        "z": "f788a78067227a65",
-        "name": "",
-        "pauseType": "rate",
-        "timeout": "15",
-        "timeoutUnits": "minutes",
-        "rate": "1",
-        "nbRateUnits": "5",
-        "rateUnits": "minute",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": true,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 1640,
-        "y": 360,
-        "wires": [
-            [
-                "adbc765917d71f4b"
-            ]
-        ]
-    },
-    {
-        "id": "3ea352ee56317e8d",
-        "type": "link out",
-        "z": "f788a78067227a65",
-        "name": "Formato Máquina 15",
-        "mode": "link",
-        "links": [
-            "ecc4310e14c5a4c0"
-        ],
-        "x": 905,
-        "y": 340,
-        "wires": []
-    },
-    {
-        "id": "ecc4310e14c5a4c0",
-        "type": "link in",
-        "z": "f788a78067227a65",
-        "name": "Formato Máquina 15",
-        "links": [
-            "3ea352ee56317e8d"
-        ],
-        "x": 1315,
-        "y": 120,
-        "wires": [
-            [
-                "1ea9e654b8e8df62",
-                "10b690ec7a43c61f"
-            ]
-        ]
-    },
-    {
-        "id": "f4fd67fabed421fc",
-        "type": "rbe",
-        "z": "f788a78067227a65",
-        "name": "",
-        "func": "rbe",
-        "gap": "",
-        "start": "",
-        "inout": "out",
-        "septopics": true,
-        "property": "payload",
-        "topi": "topic",
-        "x": 1990,
-        "y": 220,
-        "wires": [
-            [
-                "9a41d879560d4f39"
-            ]
-        ]
-    },
-    {
-        "id": "9a41d879560d4f39",
-        "type": "function",
-        "z": "f788a78067227a65",
-        "name": "Proper Time Set",
-        "func": "var runningStatus = msg.payload;\nvar currentTime = new Date().getTime();\ncurrentTime = currentTime/1000;\nif (runningStatus===true){\n    global.set(\"totalDurationFalseMac15\", global.get(\"totalDurationFalseMac15\") + currentTime - global.get(\"dLastChangedTimeMac15Prev\")/1000);\n    global.set(\"statusTimeProxyMac15\", global.get(\"totalDurationTrueMac15\"));\n}else{\n    global.set(\"totalDurationTrueMac15\", global.get(\"totalDurationTrueMac15\") + currentTime - global.get(\"dLastChangedTimeMac15Prev\")/1000);\n    global.set(\"statusTimeProxyMac15\", global.get(\"totalDurationFalseMac15\"));\n}\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 2160,
-        "y": 220,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "c487ed6c0c360f55",
-        "type": "comment",
-        "z": "f788a78067227a65",
-        "name": "Último tiempo de ciclo",
-        "info": "Último tiempo de ciclo obtenido mediante\nun cliente con el método \"Listen\",\nse actualiza sólo cuando el valor de la\nvariable cambia en la máquina, vale decir,\ncuando un ciclo nuevo termina.",
-        "x": 220,
-        "y": 420,
-        "wires": []
-    },
-    {
-        "id": "6d3cb0e8816d4522",
-        "type": "comment",
-        "z": "f788a78067227a65",
-        "name": "Datos de Máquina en tiempo real",
-        "info": "Todos los datos que se necesiten en tiempo real se obtiene acá, a través del cliente OPC UA\nse puede configurar para que se soliciten cada x cantidad de milisegundos,\nactualmente 1000, se puede reducir de ser necesario. Cualquier valor bajo 250ms\npodría afectar considerablemente el rendimiento.\n",
-        "x": 250,
-        "y": 280,
-        "wires": []
-    },
-    {
         "id": "20a4e0fe08692a1f",
         "type": "comment",
         "z": "f788a78067227a65",
         "name": "Inicialización de Valores",
         "info": "Todas las variables globales que necesitan ser reiniciadas a las 7AM todos los días, se reinician en esta sección.\n\nUn timer se preocupa de que se realice al tiempo exacto solicitado, se puede ejecutar manualmente de ser necesario.",
-        "x": 720,
-        "y": 80,
+        "x": 160,
+        "y": 140,
         "wires": []
     },
     {
@@ -778,8 +391,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1510,
-        "y": 580,
+        "x": 170,
+        "y": 280,
         "wires": [
             [
                 "8fad20c2952a0f89"
@@ -798,8 +411,8 @@
         "septopics": false,
         "property": "cycle",
         "topi": "topic",
-        "x": 1870,
-        "y": 580,
+        "x": 530,
+        "y": 280,
         "wires": [
             [
                 "8d39eb2f8d2950d1"
@@ -819,8 +432,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 2220,
-        "y": 580,
+        "x": 880,
+        "y": 280,
         "wires": []
     },
     {
@@ -841,28 +454,14 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 1720,
-        "y": 580,
+        "x": 380,
+        "y": 280,
         "wires": [
             [
                 "82e8a27928857d05"
             ],
             []
         ]
-    },
-    {
-        "id": "a0176ace469c1bb9",
-        "type": "e-mail",
-        "z": "f788a78067227a65",
-        "server": "smtp.gmail.com",
-        "port": "465",
-        "secure": true,
-        "tls": true,
-        "name": "david.sanmartin@styropek.com",
-        "dname": "",
-        "x": 2030,
-        "y": 360,
-        "wires": []
     },
     {
         "id": "8d39eb2f8d2950d1",
@@ -874,170 +473,11 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 2060,
-        "y": 580,
+        "x": 720,
+        "y": 280,
         "wires": [
             [
                 "64a82e4147f4fd45"
-            ]
-        ]
-    },
-    {
-        "id": "7813d7832b20707f",
-        "type": "OPCUA-IIoT-Inject",
-        "z": "f788a78067227a65",
-        "injectType": "read",
-        "payload": "",
-        "payloadType": "date",
-        "topic": "",
-        "repeat": "1",
-        "crontab": "",
-        "once": true,
-        "startDelay": "",
-        "name": "",
-        "addressSpaceItems": [
-            {
-                "name": "LifeCycles",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_cycles",
-                "datatypeName": ""
-            },
-            {
-                "name": "LastRecipe",
-                "nodeId": "ns=6;s=::OpcUA_IF:last_recipe",
-                "datatypeName": ""
-            },
-            {
-                "name": "CycleTime",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.actual_cycle_time",
-                "datatypeName": ""
-            },
-            {
-                "name": "Running",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.running",
-                "datatypeName": ""
-            },
-            {
-                "name": "LastCycleTime",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.last_cycle_time",
-                "datatypeName": ""
-            }
-        ],
-        "x": 190,
-        "y": 340,
-        "wires": [
-            [
-                "a067caa19d25d48d"
-            ]
-        ]
-    },
-    {
-        "id": "51d7fa0e28d66e16",
-        "type": "OPCUA-IIoT-Inject",
-        "z": "f788a78067227a65",
-        "injectType": "listen",
-        "payload": "{ \"interval\": 1500, \"queueSize\": 10 }",
-        "payloadType": "json",
-        "topic": "",
-        "repeat": "300",
-        "crontab": "",
-        "once": true,
-        "startDelay": "",
-        "name": "Listen Machine 15",
-        "addressSpaceItems": [
-            {
-                "name": "LastCycleTime",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.last_cycle_time",
-                "datatypeName": ""
-            }
-        ],
-        "x": 220,
-        "y": 460,
-        "wires": [
-            [
-                "3e734995f3a4807c"
-            ]
-        ]
-    },
-    {
-        "id": "3e734995f3a4807c",
-        "type": "OPCUA-IIoT-Listener",
-        "z": "f788a78067227a65",
-        "connector": "aaaff17d2a6ea9c9",
-        "action": "subscribe",
-        "queueSize": 10,
-        "name": "",
-        "topic": "",
-        "justValue": true,
-        "useGroupItems": false,
-        "showStatusActivities": false,
-        "showErrors": false,
-        "x": 380,
-        "y": 460,
-        "wires": [
-            [
-                "8e87cb09fb42b6b2"
-            ]
-        ]
-    },
-    {
-        "id": "a067caa19d25d48d",
-        "type": "OPCUA-IIoT-Read",
-        "z": "f788a78067227a65",
-        "attributeId": "13",
-        "maxAge": 1,
-        "depth": 1,
-        "connector": "aaaff17d2a6ea9c9",
-        "name": "Read Value",
-        "justValue": false,
-        "showStatusActivities": false,
-        "showErrors": false,
-        "parseStrings": false,
-        "historyDays": "",
-        "x": 330,
-        "y": 340,
-        "wires": [
-            [
-                "039f8eb9e82ae5cf"
-            ]
-        ]
-    },
-    {
-        "id": "039f8eb9e82ae5cf",
-        "type": "OPCUA-IIoT-Response",
-        "z": "f788a78067227a65",
-        "name": "",
-        "compressStructure": false,
-        "showStatusActivities": false,
-        "showErrors": false,
-        "activateUnsetFilter": false,
-        "activateFilters": false,
-        "negateFilter": false,
-        "filters": [],
-        "x": 470,
-        "y": 340,
-        "wires": [
-            [
-                "91960a139f015b45"
-            ]
-        ]
-    },
-    {
-        "id": "8e87cb09fb42b6b2",
-        "type": "OPCUA-IIoT-Response",
-        "z": "f788a78067227a65",
-        "name": "",
-        "compressStructure": true,
-        "showStatusActivities": false,
-        "showErrors": false,
-        "activateUnsetFilter": false,
-        "activateFilters": false,
-        "negateFilter": false,
-        "filters": [],
-        "x": 510,
-        "y": 460,
-        "wires": [
-            [
-                "1412f418dff146fd"
             ]
         ]
     },
@@ -1065,138 +505,11 @@
                 "solarEvents": "sunrise,sunset"
             }
         ],
-        "x": 980,
-        "y": 140,
+        "x": 380,
+        "y": 200,
         "wires": [
             [
                 "6f43828525797a13"
-            ]
-        ]
-    },
-    {
-        "id": "91960a139f015b45",
-        "type": "link out",
-        "z": "f788a78067227a65",
-        "name": "link out 1",
-        "mode": "link",
-        "links": [],
-        "x": 625,
-        "y": 260,
-        "wires": []
-    },
-    {
-        "id": "1412f418dff146fd",
-        "type": "link out",
-        "z": "f788a78067227a65",
-        "name": "link out 2",
-        "mode": "link",
-        "links": [],
-        "x": 625,
-        "y": 500,
-        "wires": []
-    },
-    {
-        "id": "818c63c4bf6ea634",
-        "type": "comment",
-        "z": "f788a78067227a65",
-        "name": "Datos de Máquina en tiempo real",
-        "info": "Todos los datos que se necesiten en tiempo real se obtiene acá, a través del cliente OPC UA\nse puede configurar para que se soliciten cada x cantidad de milisegundos,\nactualmente 1000, se puede reducir de ser necesario. Cualquier valor bajo 250ms\npodría afectar considerablemente el rendimiento.\n",
-        "x": 250,
-        "y": 140,
-        "wires": []
-    },
-    {
-        "id": "1e86b5e2f8042b64",
-        "type": "OPCUA-IIoT-Inject",
-        "z": "f788a78067227a65",
-        "injectType": "read",
-        "payload": "",
-        "payloadType": "date",
-        "topic": "",
-        "repeat": "5",
-        "crontab": "",
-        "once": true,
-        "startDelay": "",
-        "name": "",
-        "addressSpaceItems": [
-            {
-                "name": "nombre_receta",
-                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Double",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_on",
-                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Boolean",
-                "datatypeName": ""
-            },
-            {
-                "name": "Receta",
-                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.String",
-                "datatypeName": ""
-            },
-            {
-                "name": "Milisegundo",
-                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.UInt16",
-                "datatypeName": ""
-            },
-            {
-                "name": "Segundos",
-                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
-                "datatypeName": ""
-            },
-            {
-                "name": "Minuto",
-                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Byte",
-                "datatypeName": ""
-            }
-        ],
-        "x": 190,
-        "y": 200,
-        "wires": [
-            [
-                "a2e1f11d7ebadbb0"
-            ]
-        ]
-    },
-    {
-        "id": "a2e1f11d7ebadbb0",
-        "type": "OPCUA-IIoT-Read",
-        "z": "f788a78067227a65",
-        "attributeId": "13",
-        "maxAge": 1,
-        "depth": 1,
-        "connector": "769f4b2574699083",
-        "name": "Read Value",
-        "justValue": false,
-        "showStatusActivities": false,
-        "showErrors": false,
-        "parseStrings": false,
-        "historyDays": "",
-        "x": 330,
-        "y": 200,
-        "wires": [
-            [
-                "18afef2070f04693"
-            ]
-        ]
-    },
-    {
-        "id": "18afef2070f04693",
-        "type": "OPCUA-IIoT-Response",
-        "z": "f788a78067227a65",
-        "name": "",
-        "compressStructure": true,
-        "showStatusActivities": false,
-        "showErrors": false,
-        "activateUnsetFilter": false,
-        "activateFilters": false,
-        "negateFilter": false,
-        "filters": [],
-        "x": 470,
-        "y": 200,
-        "wires": [
-            [
-                "f329415dbfd89426"
             ]
         ]
     },
@@ -1213,34 +526,9 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1200,
-        "y": 1640,
+        "x": 1780,
+        "y": 540,
         "wires": []
-    },
-    {
-        "id": "f329415dbfd89426",
-        "type": "delay",
-        "z": "f788a78067227a65",
-        "name": "",
-        "pauseType": "rate",
-        "timeout": "5",
-        "timeoutUnits": "seconds",
-        "rate": "1",
-        "nbRateUnits": "10",
-        "rateUnits": "second",
-        "randomFirst": "1",
-        "randomLast": "5",
-        "randomUnits": "seconds",
-        "drop": true,
-        "allowrate": false,
-        "outputs": 1,
-        "x": 620,
-        "y": 200,
-        "wires": [
-            [
-                "78c6a8b736df4c2e"
-            ]
-        ]
     },
     {
         "id": "e123a8a30fb92ddd",
@@ -1253,8 +541,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 340,
-        "y": 1180,
+        "x": 360,
+        "y": 760,
         "wires": [
             [
                 "588fc5a102ed4ae6"
@@ -1268,25 +556,12 @@
         "name": "Tratamiento de Datos",
         "info": "Espera datos tratados por un nodo Response de IIoT OPC UA. Simplifica a sólo una estampilla de tiempo de la obtención del dato, y los datos en cuestión con sus nombres como propiedades para fácil lectura",
         "scope": "local",
-        "x": 140,
-        "y": 1180,
+        "x": 160,
+        "y": 760,
         "wires": [
             [
                 "e123a8a30fb92ddd"
             ]
-        ]
-    },
-    {
-        "id": "78c6a8b736df4c2e",
-        "type": "reusable",
-        "z": "f788a78067227a65",
-        "name": "",
-        "target": "tratamiento de datos",
-        "outputs": 1,
-        "x": 800,
-        "y": 200,
-        "wires": [
-            []
         ]
     },
     {
@@ -1295,8 +570,8 @@
         "z": "f788a78067227a65",
         "name": "Return",
         "position": 1,
-        "x": 490,
-        "y": 1180,
+        "x": 510,
+        "y": 760,
         "wires": []
     },
     {
@@ -1624,8 +899,8 @@
                 "datatypeName": ""
             }
         ],
-        "x": 190,
-        "y": 860,
+        "x": 210,
+        "y": 440,
         "wires": [
             [
                 "1e5c22c13122c970"
@@ -1638,8 +913,8 @@
         "z": "f788a78067227a65",
         "name": "Pre-Expansor 1 (192.168.1.21)",
         "info": "",
-        "x": 170,
-        "y": 820,
+        "x": 190,
+        "y": 400,
         "wires": []
     },
     {
@@ -1653,7 +928,7 @@
         "repeat": "5",
         "crontab": "",
         "once": true,
-        "startDelay": "",
+        "startDelay": "1",
         "name": "",
         "addressSpaceItems": [
             {
@@ -1770,10 +1045,15 @@
                 "name": "alarm_00_description",
                 "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].description",
                 "datatypeName": ""
+            },
+            {
+                "name": "machine_serial_number",
+                "nodeId": "ns=6;s=::OpcUA_IF:MachineSerialNumber",
+                "datatypeName": ""
             }
         ],
-        "x": 170,
-        "y": 940,
+        "x": 190,
+        "y": 520,
         "wires": [
             [
                 "b8e939a60bfdca3e"
@@ -1786,8 +1066,8 @@
         "z": "f788a78067227a65",
         "name": "Moldeadora 1 (192.168.1.11)",
         "info": "",
-        "x": 160,
-        "y": 900,
+        "x": 180,
+        "y": 480,
         "wires": []
     },
     {
@@ -1796,8 +1076,8 @@
         "z": "f788a78067227a65",
         "name": "Moldeadora 2 (192.168.1.12)",
         "info": "",
-        "x": 160,
-        "y": 980,
+        "x": 180,
+        "y": 560,
         "wires": []
     },
     {
@@ -1806,8 +1086,8 @@
         "z": "f788a78067227a65",
         "name": "Moldeadora 3 (192.168.1.13)",
         "info": "",
-        "x": 160,
-        "y": 1060,
+        "x": 180,
+        "y": 640,
         "wires": []
     },
     {
@@ -1817,8 +1097,8 @@
         "name": "",
         "target": "tratamiento de datos",
         "outputs": 1,
-        "x": 660,
-        "y": 940,
+        "x": 680,
+        "y": 520,
         "wires": [
             [
                 "1c1f2f5327c479dd"
@@ -1829,15 +1109,15 @@
         "id": "dbb5a6ef24d70f28",
         "type": "function",
         "z": "f788a78067227a65",
-        "name": "Agrupación de Datos",
+        "name": "Agrupación de Datos pre exp",
         "func": "// Function to process the payload and group properties\nfunction processPayload(msg) {\n    // Get the results object from the payload\n    const results = msg.payload.results;\n\n    // Create an empty object to store the grouped properties\n    const groupedResults = {};\n\n    // Iterate through each property in the results object\n    for (const property in results) {\n        // Find the last underscore in the property name\n        const lastUnderscoreIndex = property.lastIndexOf(\"_\");\n\n        // Check if the property has at least one underscore\n        if (lastUnderscoreIndex !== -1) {\n            // Extract the property name before the last underscore\n            const propName = property.substring(0, lastUnderscoreIndex);\n\n            // Check if the property name already exists in the groupedResults object\n            if (!groupedResults[propName]) {\n                // If not, create a new object for that property name\n                groupedResults[propName] = {};\n            }\n\n            // Determine if it's a time property and set the corresponding short name\n            if (property.endsWith(\"_hours\")) {\n                groupedResults[propName].hours = results[property];\n            } else if (property.endsWith(\"_minutes\")) {\n                groupedResults[propName].minutes = results[property];\n            } else if (property.endsWith(\"_seconds\")) {\n                groupedResults[propName].seconds = results[property];\n            } else if  (property.endsWith(\"_hour\")) {\n                groupedResults[propName].hour = results[property];\n            } else if (property.endsWith(\"_minute\")) {\n                groupedResults[propName].minute = results[property];\n            } else if (property.endsWith(\"_second\")) {\n                groupedResults[propName].second = results[property];\n            } else if (property.endsWith(\"_day\")) {\n                groupedResults[propName].day = results[property];\n            } else if (property.endsWith(\"_month\")) {\n                groupedResults[propName].month = results[property];\n            } else if (property.endsWith(\"_year\")) {\n                groupedResults[propName].year = results[property];\n            } else {\n                // Add the property and its value to the corresponding groupedResults object\n                groupedResults[propName][property] = results[property];\n            }\n        } else {\n            // If the property has no underscore, just copy it as is\n            groupedResults[property] = results[property];\n        }\n    }\n\n    // Update the payload with the organized results\n    msg.payload.results = groupedResults;\n\n    // Return the modified message object\n    return msg;\n}\n\nfunction promoteSubProperties(msg) {\n    // Get the results object from the payload\n    const results = msg.payload.results;\n\n    // Iterate through each property in the results object\n    for (const property in results) {\n        // Check if the property is an object and has only one sub-property\n        if (typeof results[property] === \"object\" && Object.keys(results[property]).length === 1) {\n            const subProperty = Object.keys(results[property])[0];\n\n            // Determine the longer name between the original property and the sub-property\n            const longerName = property.length >= subProperty.length ? property : subProperty;\n\n            // Set the sub-property as a top-level property using the longer name\n            results[longerName] = results[property][subProperty];\n\n            // Delete the original property (either the sub-property name or the longer name)\n            delete results[property];\n        }\n    }\n\n    // Update the payload with the modified results\n    msg.payload.results = results;\n\n    // Return the modified message object\n    return msg;\n}\n\n// Function to group properties with nomenclature \"m´n´_working\" into \"machine_working_time\"\nfunction groupMachineWorkingTime(msg) {\n    // Get the results object from the payload\n    const results = msg.payload.results;\n\n    // Create an object to store the \"machine_working_time\" properties\n    let machineWorkingTime = {};\n\n    // Iterate through each property in the results object\n    for (const property in results) {\n        // Check if the property has the nomenclature \"m´n´_working\"\n        if (/^m\\d{2}_working$/.test(property)) {\n            // Add the sub-property without the \"_working\" part to the corresponding machine number object\n            const subPropertyName = property.replace(\"_working\", \"\");\n            machineWorkingTime[subPropertyName] = results[property];\n\n            // Delete the original property\n            delete results[property];\n        }\n    }\n\n    // Add the \"machine_working_time\" object to the results\n    results.machine_working_time = machineWorkingTime;\n\n    // Update the payload with the modified results\n    msg.payload.results = results;\n\n    // Return the modified message object\n    return msg;\n}\n\n// Call the function and pass the payload from the msg object\nmsg = processPayload(msg);\nmsg = promoteSubProperties(msg);\nmsg = groupMachineWorkingTime(msg);\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 340,
-        "y": 1240,
+        "x": 390,
+        "y": 820,
         "wires": [
             [
                 "5d1666b3b8dffeae"
@@ -1851,8 +1131,8 @@
         "name": "Agrupación Pre-Exp",
         "info": "Agrupa los datos en msg.payload.results\npara facilitar su lectura y uso dentro \ndel frontend",
         "scope": "local",
-        "x": 140,
-        "y": 1240,
+        "x": 160,
+        "y": 820,
         "wires": [
             [
                 "dbb5a6ef24d70f28"
@@ -1865,8 +1145,8 @@
         "z": "f788a78067227a65",
         "name": "Return",
         "position": 1,
-        "x": 490,
-        "y": 1240,
+        "x": 570,
+        "y": 820,
         "wires": []
     },
     {
@@ -1876,11 +1156,11 @@
         "name": "",
         "target": "agrupación pre-exp",
         "outputs": 1,
-        "x": 900,
-        "y": 860,
+        "x": 960,
+        "y": 440,
         "wires": [
             [
-                "df35c13dcc92abe8"
+                "fea47e9b6f760b88"
             ]
         ]
     },
@@ -1891,8 +1171,8 @@
         "name": "",
         "target": "tratamiento de datos",
         "outputs": 1,
-        "x": 700,
-        "y": 860,
+        "x": 760,
+        "y": 440,
         "wires": [
             [
                 "bda79a52d1fe9da0"
@@ -1910,8 +1190,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 340,
-        "y": 1300,
+        "x": 360,
+        "y": 880,
         "wires": [
             [
                 "fc132773c9a4c54c"
@@ -1925,8 +1205,8 @@
         "name": "Agrupación Mold",
         "info": "describe your reusable flow here",
         "scope": "local",
-        "x": 130,
-        "y": 1300,
+        "x": 150,
+        "y": 880,
         "wires": [
             [
                 "1176d39ec00c2984"
@@ -1939,8 +1219,8 @@
         "z": "f788a78067227a65",
         "name": "Return",
         "position": 1,
-        "x": 510,
-        "y": 1300,
+        "x": 530,
+        "y": 880,
         "wires": []
     },
     {
@@ -1950,11 +1230,11 @@
         "name": "",
         "target": "agrupación mold",
         "outputs": 1,
-        "x": 850,
-        "y": 940,
+        "x": 870,
+        "y": 520,
         "wires": [
             [
-                "df35c13dcc92abe8"
+                "7239477c6929c7d6"
             ]
         ]
     },
@@ -1970,8 +1250,8 @@
         "activateFilters": false,
         "negateFilter": false,
         "filters": [],
-        "x": 530,
-        "y": 860,
+        "x": 590,
+        "y": 440,
         "wires": [
             [
                 "04c2c84c348d23e1"
@@ -1986,14 +1266,14 @@
         "maxAge": 1,
         "depth": 1,
         "connector": "8b2b62213294404a",
-        "name": "Read Value",
+        "name": "Read Value PE01",
         "justValue": false,
         "showStatusActivities": false,
         "showErrors": false,
         "parseStrings": false,
         "historyDays": "",
-        "x": 390,
-        "y": 860,
+        "x": 430,
+        "y": 440,
         "wires": [
             [
                 "842d4ba0218704ed"
@@ -2012,8 +1292,8 @@
         "activateFilters": false,
         "negateFilter": false,
         "filters": [],
-        "x": 490,
-        "y": 940,
+        "x": 510,
+        "y": 520,
         "wires": [
             [
                 "ee2ecfafe970f877"
@@ -2034,8 +1314,8 @@
         "showErrors": false,
         "parseStrings": false,
         "historyDays": "",
-        "x": 350,
-        "y": 940,
+        "x": 370,
+        "y": 520,
         "wires": [
             [
                 "3baff4093480de2c"
@@ -2049,8 +1329,8 @@
         "name": "",
         "target": "tratamiento de datos",
         "outputs": 1,
-        "x": 660,
-        "y": 1020,
+        "x": 680,
+        "y": 600,
         "wires": [
             [
                 "01f83fd1a4b4618d"
@@ -2064,11 +1344,11 @@
         "name": "",
         "target": "agrupación mold",
         "outputs": 1,
-        "x": 850,
-        "y": 1020,
+        "x": 870,
+        "y": 600,
         "wires": [
             [
-                "df35c13dcc92abe8"
+                "b4c4bb515871ae9e"
             ]
         ]
     },
@@ -2084,8 +1364,8 @@
         "activateFilters": false,
         "negateFilter": false,
         "filters": [],
-        "x": 490,
-        "y": 1020,
+        "x": 510,
+        "y": 600,
         "wires": [
             [
                 "d9bfa48aab3999b7"
@@ -2106,8 +1386,8 @@
         "showErrors": false,
         "parseStrings": false,
         "historyDays": "",
-        "x": 350,
-        "y": 1020,
+        "x": 370,
+        "y": 600,
         "wires": [
             [
                 "6f648194f80684bd"
@@ -2121,8 +1401,8 @@
         "name": "",
         "target": "tratamiento de datos",
         "outputs": 1,
-        "x": 660,
-        "y": 1100,
+        "x": 680,
+        "y": 680,
         "wires": [
             [
                 "d97ba50a7d3ce12d"
@@ -2136,11 +1416,11 @@
         "name": "",
         "target": "agrupación mold",
         "outputs": 1,
-        "x": 850,
-        "y": 1100,
+        "x": 870,
+        "y": 680,
         "wires": [
             [
-                "df35c13dcc92abe8"
+                "f2c5484ba01b02f4"
             ]
         ]
     },
@@ -2156,8 +1436,8 @@
         "activateFilters": false,
         "negateFilter": false,
         "filters": [],
-        "x": 490,
-        "y": 1100,
+        "x": 510,
+        "y": 680,
         "wires": [
             [
                 "6986bf2477d007d4"
@@ -2178,8 +1458,8 @@
         "showErrors": false,
         "parseStrings": false,
         "historyDays": "",
-        "x": 350,
-        "y": 1100,
+        "x": 370,
+        "y": 680,
         "wires": [
             [
                 "982214f4b173a523"
@@ -2194,7 +1474,7 @@
         "payload": "",
         "payloadType": "date",
         "topic": "pre-expander_01",
-        "repeat": "5",
+        "repeat": "60",
         "crontab": "",
         "once": true,
         "startDelay": "",
@@ -2511,8 +1791,8 @@
                 "datatypeName": ""
             }
         ],
-        "x": 190,
-        "y": 1560,
+        "x": 210,
+        "y": 1140,
         "wires": [
             [
                 "eb6ba52308d3d59f"
@@ -2526,13 +1806,15 @@
         "name": "",
         "target": "agrupación pre-exp",
         "outputs": 1,
-        "x": 900,
-        "y": 1560,
+        "x": 920,
+        "y": 1140,
         "wires": [
             [
-                "4afa4e43ab6a6de1",
                 "df35c13dcc92abe8"
             ]
+        ],
+        "outputLabels": [
+            "Return"
         ]
     },
     {
@@ -2542,8 +1824,8 @@
         "name": "",
         "target": "tratamiento de datos",
         "outputs": 1,
-        "x": 700,
-        "y": 1560,
+        "x": 720,
+        "y": 1140,
         "wires": [
             [
                 "714ab741b280a5a1"
@@ -2562,8 +1844,8 @@
         "activateFilters": false,
         "negateFilter": false,
         "filters": [],
-        "x": 530,
-        "y": 1560,
+        "x": 550,
+        "y": 1140,
         "wires": [
             [
                 "4476bc6c3b989481"
@@ -2584,8 +1866,8 @@
         "showErrors": false,
         "parseStrings": false,
         "historyDays": "",
-        "x": 390,
-        "y": 1560,
+        "x": 410,
+        "y": 1140,
         "wires": [
             [
                 "e9d8c25addbcd69f"
@@ -2601,8 +1883,8 @@
         "links": [
             "40bef421bf8595c1"
         ],
-        "x": 1185,
-        "y": 1020,
+        "x": 1165,
+        "y": 1060,
         "wires": []
     },
     {
@@ -2612,8 +1894,8 @@
         "name": "",
         "target": "tratamiento de datos",
         "outputs": 1,
-        "x": 660,
-        "y": 1640,
+        "x": 680,
+        "y": 1220,
         "wires": [
             [
                 "fb281aac4b4b66e2"
@@ -2632,8 +1914,8 @@
         "activateFilters": false,
         "negateFilter": false,
         "filters": [],
-        "x": 490,
-        "y": 1640,
+        "x": 510,
+        "y": 1220,
         "wires": [
             [
                 "3e2de41d696ef804"
@@ -2654,8 +1936,8 @@
         "showErrors": false,
         "parseStrings": false,
         "historyDays": "",
-        "x": 350,
-        "y": 1640,
+        "x": 370,
+        "y": 1220,
         "wires": [
             [
                 "bf771d5271d7de80"
@@ -2670,7 +1952,7 @@
         "payload": "",
         "payloadType": "date",
         "topic": "molding_01",
-        "repeat": "5",
+        "repeat": "60",
         "crontab": "",
         "once": true,
         "startDelay": "",
@@ -2790,10 +2072,15 @@
                 "name": "cycle_time",
                 "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
                 "datatypeName": ""
+            },
+            {
+                "name": "machine_serial_number",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.String",
+                "datatypeName": ""
             }
         ],
-        "x": 170,
-        "y": 1640,
+        "x": 190,
+        "y": 1220,
         "wires": [
             [
                 "ff43309ea7a136c3"
@@ -2807,11 +2094,10 @@
         "name": "",
         "target": "agrupación mold",
         "outputs": 1,
-        "x": 850,
-        "y": 1640,
+        "x": 870,
+        "y": 1220,
         "wires": [
             [
-                "4afa4e43ab6a6de1",
                 "df35c13dcc92abe8",
                 "c7aba6c639708e4f"
             ]
@@ -2824,8 +2110,8 @@
         "name": "",
         "target": "tratamiento de datos",
         "outputs": 1,
-        "x": 660,
-        "y": 1720,
+        "x": 680,
+        "y": 1300,
         "wires": [
             [
                 "5e5f1ad45488a670"
@@ -2839,11 +2125,12 @@
         "name": "",
         "target": "agrupación mold",
         "outputs": 1,
-        "x": 850,
-        "y": 1720,
+        "x": 870,
+        "y": 1300,
         "wires": [
             [
-                "c7aba6c639708e4f"
+                "c7aba6c639708e4f",
+                "df35c13dcc92abe8"
             ]
         ]
     },
@@ -2859,8 +2146,8 @@
         "activateFilters": false,
         "negateFilter": false,
         "filters": [],
-        "x": 490,
-        "y": 1720,
+        "x": 510,
+        "y": 1300,
         "wires": [
             [
                 "d19e6c5210a5cd11"
@@ -2881,8 +2168,8 @@
         "showErrors": false,
         "parseStrings": false,
         "historyDays": "",
-        "x": 350,
-        "y": 1720,
+        "x": 370,
+        "y": 1300,
         "wires": [
             [
                 "65f7d96ecc2c5512"
@@ -2897,7 +2184,7 @@
         "payload": "",
         "payloadType": "date",
         "topic": "molding_02",
-        "repeat": "5",
+        "repeat": "60",
         "crontab": "",
         "once": true,
         "startDelay": "",
@@ -3017,10 +2304,15 @@
                 "name": "cycle_time",
                 "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
                 "datatypeName": ""
+            },
+            {
+                "name": "machine_serial_number",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.String",
+                "datatypeName": ""
             }
         ],
-        "x": 170,
-        "y": 1720,
+        "x": 190,
+        "y": 1300,
         "wires": [
             [
                 "2ae8630a808acda0"
@@ -3035,7 +2327,7 @@
         "payload": "",
         "payloadType": "date",
         "topic": "molding_03",
-        "repeat": "5",
+        "repeat": "60",
         "crontab": "",
         "once": true,
         "startDelay": "",
@@ -3155,10 +2447,15 @@
                 "name": "cycle_time",
                 "nodeId": "ns=2;s=Demo.Dynamic.Scalar.Int32",
                 "datatypeName": ""
+            },
+            {
+                "name": "machine_serial_number",
+                "nodeId": "ns=2;s=Demo.Dynamic.Scalar.String",
+                "datatypeName": ""
             }
         ],
-        "x": 170,
-        "y": 1800,
+        "x": 190,
+        "y": 1380,
         "wires": [
             [
                 "50118b0d19f57f4c"
@@ -3172,8 +2469,8 @@
         "name": "",
         "target": "tratamiento de datos",
         "outputs": 1,
-        "x": 660,
-        "y": 1800,
+        "x": 680,
+        "y": 1380,
         "wires": [
             [
                 "1021f0a01f47506c"
@@ -3192,8 +2489,8 @@
         "activateFilters": false,
         "negateFilter": false,
         "filters": [],
-        "x": 490,
-        "y": 1800,
+        "x": 510,
+        "y": 1380,
         "wires": [
             [
                 "73ac6707b521b986"
@@ -3214,8 +2511,8 @@
         "showErrors": false,
         "parseStrings": false,
         "historyDays": "",
-        "x": 350,
-        "y": 1800,
+        "x": 370,
+        "y": 1380,
         "wires": [
             [
                 "0dc06a94cc206927"
@@ -3229,11 +2526,12 @@
         "name": "",
         "target": "agrupación mold",
         "outputs": 1,
-        "x": 850,
-        "y": 1800,
+        "x": 870,
+        "y": 1380,
         "wires": [
             [
-                "c7aba6c639708e4f"
+                "c7aba6c639708e4f",
+                "df35c13dcc92abe8"
             ]
         ]
     },
@@ -3248,7 +2546,7 @@
         "repeat": "5",
         "crontab": "",
         "once": true,
-        "startDelay": "",
+        "startDelay": "2",
         "name": "",
         "addressSpaceItems": [
             {
@@ -3365,10 +2663,15 @@
                 "name": "alarm_00_description",
                 "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].description",
                 "datatypeName": ""
+            },
+            {
+                "name": "machine_serial_number",
+                "nodeId": "ns=6;s=::OpcUA_IF:MachineSerialNumber",
+                "datatypeName": ""
             }
         ],
-        "x": 170,
-        "y": 1020,
+        "x": 190,
+        "y": 600,
         "wires": [
             [
                 "f7c6fe9b14f9417f"
@@ -3386,7 +2689,7 @@
         "repeat": "5",
         "crontab": "",
         "once": true,
-        "startDelay": "",
+        "startDelay": "3",
         "name": "",
         "addressSpaceItems": [
             {
@@ -3503,10 +2806,15 @@
                 "name": "alarm_00_description",
                 "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].description",
                 "datatypeName": ""
+            },
+            {
+                "name": "machine_serial_number",
+                "nodeId": "ns=6;s=::OpcUA_IF:MachineSerialNumber",
+                "datatypeName": ""
             }
         ],
-        "x": 170,
-        "y": 1100,
+        "x": 190,
+        "y": 680,
         "wires": [
             [
                 "3f489858a7e03298"
@@ -3524,8 +2832,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1430,
-        "y": 1780,
+        "x": 1450,
+        "y": 1360,
         "wires": [
             [
                 "d051f82c7b88d9d8"
@@ -3544,8 +2852,8 @@
         "septopics": true,
         "property": "payload.results.life_cycles",
         "topi": "topic",
-        "x": 1180,
-        "y": 1780,
+        "x": 1200,
+        "y": 1360,
         "wires": [
             []
         ]
@@ -3563,8 +2871,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1960,
-        "y": 1780,
+        "x": 1980,
+        "y": 1360,
         "wires": []
     },
     {
@@ -3585,8 +2893,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 1620,
-        "y": 1780,
+        "x": 1640,
+        "y": 1360,
         "wires": [
             [
                 "4e66b32a294bc965"
@@ -3604,11 +2912,214 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 1800,
-        "y": 1780,
+        "x": 1820,
+        "y": 1360,
         "wires": [
             [
                 "528a9824339e4f6a"
+            ]
+        ]
+    },
+    {
+        "id": "fea47e9b6f760b88",
+        "type": "function",
+        "z": "f788a78067227a65",
+        "name": "SN: PE0001",
+        "func": "let msg2 = msg;\nmsg2.payload.results.machine_serial_number = \"PE0001\"\nmsg = msg2;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1130,
+        "y": 440,
+        "wires": [
+            [
+                "2f0f6c4b717be0aa"
+            ]
+        ]
+    },
+    {
+        "id": "de80e6d13219b1c4",
+        "type": "function",
+        "z": "f788a78067227a65",
+        "name": "Query Pre Exp msg",
+        "func": "// node-red function node, with msg.payload = {\"results\":{\"life_auto_working\":{\"hours\":5261,\"minutes\":5261,\"seconds\":5261},\"life_manual_working\":{\"hours\":5261,\"minutes\":5261,\"seconds\":5261},\"life_total_working\":{\"hours\":5261,\"minutes\":5261,\"seconds\":5261},\"life_start_time\":{\"year\":5261,\"month\":5261,\"day\":5261,\"hour\":5261,\"minute\":5261,\"second\":5261},\"life_cycles\":5261,\"last_recipe\":5261,\"machine_serial_number\":\"PE0001\"}} set to individual msg properties\nvar querymsg = {};\n\nquerymsg.machine_serial_number = msg.payload.results.machine_serial_number;\n// TODO: handle the connection state\nquerymsg.is_connected = true;\nquerymsg.is_disconnected = false;\nquerymsg.last_recipe_name = msg.payload.results.last_recipe;\nquerymsg.life_cycles = msg.payload.results.life_cycles;\n// working times are in seconds\nquerymsg.working_time_auto = msg.payload.results.life_auto_working.hours * 3600 + msg.payload.results.life_auto_working.minutes * 60 + msg.payload.results.life_auto_working.seconds;\nquerymsg.working_time_manual = msg.payload.results.life_manual_working.hours * 3600 + msg.payload.results.life_manual_working.minutes * 60 + msg.payload.results.life_manual_working.seconds;\nquerymsg.working_time_total = msg.payload.results.life_total_working.hours * 3600 + msg.payload.results.life_total_working.minutes * 60 + msg.payload.results.life_total_working.seconds;\n// machine working times are in seconds\nquerymsg.m01_working_time = msg.payload.results.machine_working_time.m01.hours * 3600 + msg.payload.results.machine_working_time.m01.minutes * 60 + msg.payload.results.machine_working_time.m01.seconds;\nquerymsg.m02_working_time = msg.payload.results.machine_working_time.m02.hours * 3600 + msg.payload.results.machine_working_time.m02.minutes * 60 + msg.payload.results.machine_working_time.m02.seconds;\nquerymsg.m03_working_time = msg.payload.results.machine_working_time.m03.hours * 3600 + msg.payload.results.machine_working_time.m03.minutes * 60 + msg.payload.results.machine_working_time.m03.seconds;\nquerymsg.m04_working_time = msg.payload.results.machine_working_time.m04.hours * 3600 + msg.payload.results.machine_working_time.m04.minutes * 60 + msg.payload.results.machine_working_time.m04.seconds;\nquerymsg.m05_working_time = msg.payload.results.machine_working_time.m05.hours * 3600 + msg.payload.results.machine_working_time.m05.minutes * 60 + msg.payload.results.machine_working_time.m05.seconds;\nquerymsg.m06_working_time = msg.payload.results.machine_working_time.m06.hours * 3600 + msg.payload.results.machine_working_time.m06.minutes * 60 + msg.payload.results.machine_working_time.m06.seconds;\nquerymsg.m07_working_time = msg.payload.results.machine_working_time.m07.hours * 3600 + msg.payload.results.machine_working_time.m07.minutes * 60 + msg.payload.results.machine_working_time.m07.seconds;\nquerymsg.m08_working_time = msg.payload.results.machine_working_time.m08.hours * 3600 + msg.payload.results.machine_working_time.m08.minutes * 60 + msg.payload.results.machine_working_time.m08.seconds;\nquerymsg.m09_working_time = msg.payload.results.machine_working_time.m09.hours * 3600 + msg.payload.results.machine_working_time.m09.minutes * 60 + msg.payload.results.machine_working_time.m09.seconds;\nquerymsg.m10_working_time = msg.payload.results.machine_working_time.m10.hours * 3600 + msg.payload.results.machine_working_time.m10.minutes * 60 + msg.payload.results.machine_working_time.m10.seconds;\nquerymsg.m11_working_time = msg.payload.results.machine_working_time.m11.hours * 3600 + msg.payload.results.machine_working_time.m11.minutes * 60 + msg.payload.results.machine_working_time.m11.seconds;\nquerymsg.m12_working_time = msg.payload.results.machine_working_time.m12.hours * 3600 + msg.payload.results.machine_working_time.m12.minutes * 60 + msg.payload.results.machine_working_time.m12.seconds;\nquerymsg.m13_working_time = msg.payload.results.machine_working_time.m13.hours * 3600 + msg.payload.results.machine_working_time.m13.minutes * 60 + msg.payload.results.machine_working_time.m13.seconds;\nquerymsg.m14_working_time = msg.payload.results.machine_working_time.m14.hours * 3600 + msg.payload.results.machine_working_time.m14.minutes * 60 + msg.payload.results.machine_working_time.m14.seconds;\nquerymsg.m15_working_time = msg.payload.results.machine_working_time.m15.hours * 3600 + msg.payload.results.machine_working_time.m15.minutes * 60 + msg.payload.results.machine_working_time.m15.seconds;\n\nreturn querymsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 940,
+        "wires": [
+            [
+                "85dc0acb5b97de28"
+            ]
+        ]
+    },
+    {
+        "id": "bf815ceaf950e167",
+        "type": "function",
+        "z": "f788a78067227a65",
+        "name": "Query Mold msg",
+        "func": "// node-red function node, with msg.payload = {\"results\":{\"status\":{\"auto\":true,\"manual\":true,\"running\":true,\"stop\":true},\"working_time_auto\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"working_time_manual\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"working_time_total\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"working_time_hydraulic\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"alarm_00\":{\"id\":452091,\"description\":452091},\"last_recipe\":\"cissors - lizard - spock *** rock - paper - s\",\"life_cycles\":452091,\"mold_distance\":452091,\"last_cycle_time\":452091,\"cycle_time\":452091,\"machine_serial_number\":\"cissors - lizard - spock *** rock - paper - s\"}}var querymsg = {};\nvar querymsg = {};\n\nquerymsg.machine_serial_number = msg.payload.results.machine_serial_number;\nquerymsg.is_running = msg.payload.results.status.running;\nquerymsg.is_stopped = msg.payload.results.status.stop;\nquerymsg.is_automatic = msg.payload.results.status.auto;\nquerymsg.is_manual = msg.payload.results.status.manual;\n// TODO: handle the disconnection state\nquerymsg.is_disconnected = false;\nquerymsg.last_recipe_name = msg.payload.results.last_recipe;\nquerymsg.life_cycles = msg.payload.results.life_cycles;\nquerymsg.mold_distance = msg.payload.results.mold_distance;\nquerymsg.last_cycle_time = msg.payload.results.last_cycle_time;\n// working times are in seconds\nquerymsg.working_time_auto = msg.payload.results.working_time_auto.hours * 3600 + msg.payload.results.working_time_auto.minutes * 60 + msg.payload.results.working_time_auto.seconds;\nquerymsg.working_time_manual = msg.payload.results.working_time_manual.hours * 3600 + msg.payload.results.working_time_manual.minutes * 60 + msg.payload.results.working_time_manual.seconds;\nquerymsg.working_time_total = msg.payload.results.working_time_total.hours * 3600 + msg.payload.results.working_time_total.minutes * 60 + msg.payload.results.working_time_total.seconds;\nquerymsg.working_time_hydraulic = msg.payload.results.working_time_hydraulic.hours * 3600 + msg.payload.results.working_time_hydraulic.minutes * 60 + msg.payload.results.working_time_hydraulic.seconds;\n// alarms are string descriptions\nquerymsg.alarm_00_description = msg.payload.results.alarm_00.description;\n\nreturn querymsg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 1000,
+        "wires": [
+            [
+                "6f120917c60379e1"
+            ]
+        ]
+    },
+    {
+        "id": "e266963cc18647b2",
+        "type": "postgresql",
+        "z": "f788a78067227a65",
+        "name": "Post Latest Molding Machine State",
+        "query": "SELECT public.handle_insert_molding_status(\n    '{{{ msg.machine_serial_number }}}',\n    {{{ msg.is_running }}},\n    {{{ msg.is_stopped }}},\n    {{{ msg.is_automatic }}},\n    {{{ msg.is_manual }}},\n    {{{ msg.is_disconnected }}},\n    '{{{ msg.last_recipe_name }}}',\n    {{{ msg.life_cycles }}},\n    {{{ msg.mold_distance }}},\n    {{{ msg.current_cycle_time }}},\n    {{{ msg.last_cycle_time }}},\n    {{{ msg.working_time_auto }}},\n    {{{ msg.working_time_manual }}},\n    {{{ msg.working_time_total }}},\n    {{{ msg.working_time_hydraulic }}},\n    '{{{ msg.alarm_00_description }}}'\n);\n",
+        "postgreSQLConfig": "6d7e6326d0c1b658",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 1560,
+        "y": 440,
+        "wires": [
+            [
+                "4afa4e43ab6a6de1"
+            ]
+        ]
+    },
+    {
+        "id": "39ef70c9e6c407ac",
+        "type": "postgresql",
+        "z": "f788a78067227a65",
+        "name": "Post Latest Pre Exp Machine State",
+        "query": "SELECT public.handle_insert_pre_exp_status(\n    '{{{ msg.machine_serial_number }}}',\n    {{{ msg.is_connected }}},\n    {{{ msg.is_stopped }}},\n    '{{{ msg.last_recipe_name }}}',\n    {{{ msg.life_cycles }}},\n    {{{ msg.working_time_auto }}},\n    {{{ msg.working_time_manual }}},\n    {{{ msg.working_time_total }}},\n    {{{ msg.m01_working_time }}},\n    {{{ msg.m02_working_time }}},\n    {{{ msg.m03_working_time }}},\n    {{{ msg.m04_working_time }}},\n    {{{ msg.m05_working_time }}},\n    {{{ msg.m06_working_time }}},\n    {{{ msg.m07_working_time }}},\n    {{{ msg.m08_working_time }}},\n    {{{ msg.m09_working_time }}},\n    {{{ msg.m10_working_time }}},\n    {{{ msg.m11_working_time }}},\n    {{{ msg.m12_working_time }}},\n    {{{ msg.m13_working_time }}},\n    {{{ msg.m14_working_time }}},\n    {{{ msg.m15_working_time }}}\n);\n",
+        "postgreSQLConfig": "6d7e6326d0c1b658",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 1440,
+        "y": 600,
+        "wires": [
+            [
+                "4afa4e43ab6a6de1"
+            ]
+        ]
+    },
+    {
+        "id": "544c9e89446ec2ba",
+        "type": "reusable-in",
+        "z": "f788a78067227a65",
+        "name": "Query Pre Exp State msg",
+        "info": "describe your reusable flow here",
+        "scope": "local",
+        "x": 170,
+        "y": 940,
+        "wires": [
+            [
+                "de80e6d13219b1c4"
+            ]
+        ]
+    },
+    {
+        "id": "85dc0acb5b97de28",
+        "type": "reusable-out",
+        "z": "f788a78067227a65",
+        "name": "reusable out",
+        "position": 1,
+        "x": 530,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "69b8335115698621",
+        "type": "reusable-in",
+        "z": "f788a78067227a65",
+        "name": "Query Molding State msg",
+        "info": "describe your reusable flow here",
+        "scope": "local",
+        "x": 170,
+        "y": 1000,
+        "wires": [
+            [
+                "bf815ceaf950e167"
+            ]
+        ]
+    },
+    {
+        "id": "6f120917c60379e1",
+        "type": "reusable-out",
+        "z": "f788a78067227a65",
+        "name": "reusable out",
+        "position": 1,
+        "x": 510,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "2f0f6c4b717be0aa",
+        "type": "reusable",
+        "z": "f788a78067227a65",
+        "name": "",
+        "target": "query pre exp state msg",
+        "outputs": 1,
+        "x": 1310,
+        "y": 440,
+        "wires": [
+            [
+                "e266963cc18647b2"
+            ]
+        ]
+    },
+    {
+        "id": "7239477c6929c7d6",
+        "type": "reusable",
+        "z": "f788a78067227a65",
+        "name": "",
+        "target": "query molding state msg",
+        "outputs": 1,
+        "x": 1070,
+        "y": 520,
+        "wires": [
+            [
+                "39ef70c9e6c407ac"
+            ]
+        ]
+    },
+    {
+        "id": "b4c4bb515871ae9e",
+        "type": "reusable",
+        "z": "f788a78067227a65",
+        "name": "",
+        "target": "query molding state msg",
+        "outputs": 1,
+        "x": 1070,
+        "y": 600,
+        "wires": [
+            [
+                "39ef70c9e6c407ac"
+            ]
+        ]
+    },
+    {
+        "id": "f2c5484ba01b02f4",
+        "type": "reusable",
+        "z": "f788a78067227a65",
+        "name": "",
+        "target": "query molding state msg",
+        "outputs": 1,
+        "x": 1070,
+        "y": 680,
+        "wires": [
+            [
+                "39ef70c9e6c407ac"
             ]
         ]
     },
@@ -9822,9 +9333,7 @@
         "x": 350,
         "y": 80,
         "wires": [
-            [
-                "85ee7346e6887665"
-            ]
+            []
         ]
     },
     {
@@ -9868,7 +9377,8 @@
         "y": 200,
         "wires": [
             [
-                "abeb1e39e0619c7e"
+                "abeb1e39e0619c7e",
+                "58115752e200ab6e"
             ]
         ]
     },
@@ -10165,12 +9675,551 @@
         "links": [
             "df35c13dcc92abe8"
         ],
-        "x": 425,
-        "y": 360,
+        "x": 625,
+        "y": 320,
         "wires": [
             [
                 "7d81552ad7db1474"
             ]
         ]
+    },
+    {
+        "id": "58115752e200ab6e",
+        "type": "debug",
+        "z": "a2bc427f0d400003",
+        "name": "debug x",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "e67b5004f7ff0c38",
+        "type": "postgresql",
+        "z": "a2bc427f0d400003",
+        "name": "Get Monitor Chart Data",
+        "query": "SELECT *\nFROM aislapol_table LIMIT 10",
+        "postgreSQLConfig": "a1fb71ced63ef518",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 350,
+        "y": 440,
+        "wires": [
+            [
+                "58115752e200ab6e",
+                "85ee7346e6887665"
+            ]
+        ]
+    },
+    {
+        "id": "b2a77d47b42998d8",
+        "type": "inject",
+        "z": "a2bc427f0d400003",
+        "name": "Test",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 90,
+        "y": 440,
+        "wires": [
+            [
+                "e67b5004f7ff0c38"
+            ]
+        ]
+    },
+    {
+        "id": "179acf09e7e7512e",
+        "type": "postgresql",
+        "z": "a2bc427f0d400003",
+        "name": "Get Monitor Chart Data",
+        "query": "SELECT *\n\tFROM public.molding_machine_cycle_time_series;",
+        "postgreSQLConfig": "6d7e6326d0c1b658",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 410,
+        "y": 600,
+        "wires": [
+            [
+                "357ed287e8755a6f"
+            ]
+        ]
+    },
+    {
+        "id": "c1e54cc9c0b91cb0",
+        "type": "debug",
+        "z": "a2bc427f0d400003",
+        "name": "Chart Data",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 990,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "86aeab5add841933",
+        "type": "postgresql",
+        "z": "a2bc427f0d400003",
+        "name": "Get Monitor Table 24H Data",
+        "query": "SELECT *\n\tFROM public.mold_recipe_cycle_count;",
+        "postgreSQLConfig": "6d7e6326d0c1b658",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 420,
+        "y": 660,
+        "wires": [
+            [
+                "c45e5ec615e1a71f"
+            ]
+        ]
+    },
+    {
+        "id": "b93fc4f02d6016ce",
+        "type": "debug",
+        "z": "a2bc427f0d400003",
+        "name": "Table Data 24H",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "2ee939a4e0b45316",
+        "type": "postgresql",
+        "z": "a2bc427f0d400003",
+        "name": "Get Monitor Maintenance Table Data",
+        "query": "SELECT *\n\tFROM public.machine_recipe_cycle_counts;",
+        "postgreSQLConfig": "6d7e6326d0c1b658",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 450,
+        "y": 720,
+        "wires": [
+            [
+                "dbc7083b2d28df0a"
+            ]
+        ]
+    },
+    {
+        "id": "eb5ee99b5d458f52",
+        "type": "debug",
+        "z": "a2bc427f0d400003",
+        "name": "Table Data Maintenance",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "96a87b53c564d09a",
+        "type": "postgresql",
+        "z": "a2bc427f0d400003",
+        "name": "Get Control Values 24H",
+        "query": "SELECT *\n\tFROM public.matching_molds;",
+        "postgreSQLConfig": "6d7e6326d0c1b658",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 410,
+        "y": 780,
+        "wires": [
+            [
+                "4b16c8b9f018acd4"
+            ]
+        ]
+    },
+    {
+        "id": "00cf02484f42e547",
+        "type": "debug",
+        "z": "a2bc427f0d400003",
+        "name": "Control Values 24H",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1010,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "35ad3f8fba2db178",
+        "type": "postgresql",
+        "z": "a2bc427f0d400003",
+        "name": "Get latest N entries",
+        "query": "SELECT *\n    FROM public.\"MoldingMachinesCycles\"\n    ORDER BY cycle_id DESC LIMIT {{{ msg.n }}}",
+        "postgreSQLConfig": "6d7e6326d0c1b658",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 1630,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "585e957f5cb18085",
+        "type": "comment",
+        "z": "a2bc427f0d400003",
+        "name": "New DB Queries",
+        "info": "",
+        "x": 1630,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "63f2ed01b3a51949",
+        "type": "postgresql",
+        "z": "a2bc427f0d400003",
+        "name": "Get first N entries",
+        "query": "SELECT * FROM public.\"MoldingMachinesCycles\"\nORDER BY cycle_id ASC LIMIT {{{ msg.n }}}",
+        "postgreSQLConfig": "6d7e6326d0c1b658",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 1630,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bce45ef24c49e8b6",
+        "type": "postgresql",
+        "z": "a2bc427f0d400003",
+        "name": "Get from date range",
+        "query": "SELECT *\nFROM public.\"MoldingMachinesCycles\"\nWHERE time_stamp BETWEEN '{{{ msg.fromDate }}}'::date AND '{{{ msg.toDate }}}'::date;\n",
+        "postgreSQLConfig": "6d7e6326d0c1b658",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 1640,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "880aeb0c7bdf199b",
+        "type": "postgresql",
+        "z": "a2bc427f0d400003",
+        "name": "Get from date and time range",
+        "query": "SELECT * FROM \"MoldingMachinesCycles\"\n\tWHERE time_stamp >= to_timestamp('{{{ msg.fromTimestamp }}}', 'YYYY-MM-DD HH24:MI:SS')\n\tAND time_stamp <= to_timestamp('{{{ msg.toTimestamp }}}', 'YYYY-MM-DD HH24:MI:SS')\n",
+        "postgreSQLConfig": "6d7e6326d0c1b658",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 1670,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d547a3ef97a5fd10",
+        "type": "postgresql",
+        "z": "a2bc427f0d400003",
+        "name": "Set Cycle Maintenance State",
+        "query": "UPDATE \"MoldingMachinesCycles\"\nSET is_maintenance = NOT is_maintenance\nWHERE cycle_id = {{{ msg.cycleID }}};",
+        "postgreSQLConfig": "6d7e6326d0c1b658",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 1660,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8f9439d5967e1035",
+        "type": "postgresql",
+        "z": "a2bc427f0d400003",
+        "name": "Update Control Values",
+        "query": "UPDATE \"Molds\"\nSET nc_ideal = {{{ msg.newNCIdeal }}},\n    nc_max = {{{ msg.newNCMax }}},\n    tc_ideal = {{{ msg.newTCIdeal }}},\n    tc_max = {{{ msg.newTCMax }}}\nWHERE mold_recipe_name = '{{{ msg.existingMoldName }}}';",
+        "postgreSQLConfig": "6d7e6326d0c1b658",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 1640,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3275ae810a9bfc7f",
+        "type": "postgresql",
+        "z": "a2bc427f0d400003",
+        "name": "Latest Molding Machines States",
+        "query": "SELECT *\n\tFROM public.latestmoldingmachinesstates;",
+        "postgreSQLConfig": "6d7e6326d0c1b658",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 430,
+        "y": 880,
+        "wires": [
+            [
+                "16b0e09427ba8a40"
+            ]
+        ]
+    },
+    {
+        "id": "1bea93ea68669e65",
+        "type": "debug",
+        "z": "a2bc427f0d400003",
+        "name": "Latest Molding Machines States",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "ec3bf6b0b8537270",
+        "type": "change",
+        "z": "a2bc427f0d400003",
+        "name": "Send back",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Pre Exp Machine State",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 710,
+        "y": 940,
+        "wires": [
+            [
+                "0712982076a96d35"
+            ]
+        ]
+    },
+    {
+        "id": "16b0e09427ba8a40",
+        "type": "change",
+        "z": "a2bc427f0d400003",
+        "name": "Send back",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Molding Machine State",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 710,
+        "y": 880,
+        "wires": [
+            [
+                "1bea93ea68669e65"
+            ]
+        ]
+    },
+    {
+        "id": "c45e5ec615e1a71f",
+        "type": "change",
+        "z": "a2bc427f0d400003",
+        "name": "Send back",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Monitor Table Data",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 710,
+        "y": 660,
+        "wires": [
+            [
+                "b93fc4f02d6016ce"
+            ]
+        ]
+    },
+    {
+        "id": "357ed287e8755a6f",
+        "type": "change",
+        "z": "a2bc427f0d400003",
+        "name": "Send back",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Monitor Chart Data",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 710,
+        "y": 600,
+        "wires": [
+            [
+                "c1e54cc9c0b91cb0"
+            ]
+        ]
+    },
+    {
+        "id": "dbc7083b2d28df0a",
+        "type": "change",
+        "z": "a2bc427f0d400003",
+        "name": "Send back",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Monitor Table Data M",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 710,
+        "y": 720,
+        "wires": [
+            [
+                "eb5ee99b5d458f52"
+            ]
+        ]
+    },
+    {
+        "id": "4b16c8b9f018acd4",
+        "type": "change",
+        "z": "a2bc427f0d400003",
+        "name": "Send back",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Control Values",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 710,
+        "y": 780,
+        "wires": [
+            [
+                "00cf02484f42e547"
+            ]
+        ]
+    },
+    {
+        "id": "c7566a5bac82984d",
+        "type": "postgresql",
+        "z": "a2bc427f0d400003",
+        "name": "Latest Pre Exp Machines States",
+        "query": "SELECT *\n\tFROM public.latestpreexpmachinesstates;",
+        "postgreSQLConfig": "6d7e6326d0c1b658",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 430,
+        "y": 940,
+        "wires": [
+            [
+                "ec3bf6b0b8537270"
+            ]
+        ]
+    },
+    {
+        "id": "0712982076a96d35",
+        "type": "debug",
+        "z": "a2bc427f0d400003",
+        "name": "Latest Pre Exp Machines States",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 940,
+        "wires": []
     }
 ]
