@@ -423,7 +423,7 @@
         "type": "debug",
         "z": "f788a78067227a65",
         "name": "OPC UA Data Debug",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
