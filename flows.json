@@ -2829,7 +2829,7 @@
         "id": "fea47e9b6f760b88",
         "type": "function",
         "z": "f788a78067227a65",
-        "name": "SN: PE0001",
+        "name": "SN: P01233",
         "func": "let msg2 = msg;\nmsg2.payload.results.machine_serial_number = \"P01233\";\n\nreturn msg2;",
         "outputs": 1,
         "noerr": 0,
