@@ -405,35 +405,18 @@
         "type": "postgresql",
         "z": "f788a78067227a65",
         "name": "Post Last Molding Machine Cycle",
-        "query": "SELECT public.insert_molding_machine_cycle(\n    '{{{msg.machine_serial_number}}}',\n    '{{{msg.mold_recipe_name}}}',\n    {{{msg.cycle_number}}},\n    {{{msg.cycle_time}}},\n    False\n);",
+        "query": "SELECT public.insert_molding_cycle(\n    '{{{msg.machine_serial_number}}}',\n    '{{{msg.mold_recipe_name}}}',\n    {{{msg.cycle_number}}},\n    {{{msg.cycle_time}}}\n);",
         "postgreSQLConfig": "6d7e6326d0c1b658",
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 2000,
+        "x": 2020,
         "y": 300,
         "wires": [
             [
-                "4afa4e43ab6a6de1"
+                "a3f30e442a8ce012"
             ]
         ]
-    },
-    {
-        "id": "4afa4e43ab6a6de1",
-        "type": "debug",
-        "z": "f788a78067227a65",
-        "name": "OPC UA Data Debug",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 2180,
-        "y": 180,
-        "wires": []
     },
     {
         "id": "e123a8a30fb92ddd",
@@ -1021,7 +1004,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 370,
+        "x": 360,
         "y": 520,
         "wires": [
             [
@@ -1050,7 +1033,7 @@
         "z": "f788a78067227a65",
         "name": "Return",
         "position": 1,
-        "x": 550,
+        "x": 530,
         "y": 520,
         "wires": []
     },
@@ -1696,12 +1679,10 @@
                 "datatypeName": ""
             }
         ],
-        "x": 190,
+        "x": 170,
         "y": 840,
         "wires": [
-            [
-                "eb6ba52308d3d59f"
-            ]
+            []
         ]
     },
     {
@@ -1984,12 +1965,10 @@
                 "datatypeName": ""
             }
         ],
-        "x": 170,
+        "x": 150,
         "y": 920,
         "wires": [
-            [
-                "ff43309ea7a136c3"
-            ]
+            []
         ]
     },
     {
@@ -2216,12 +2195,10 @@
                 "datatypeName": ""
             }
         ],
-        "x": 170,
+        "x": 150,
         "y": 1000,
         "wires": [
-            [
-                "2ae8630a808acda0"
-            ]
+            []
         ]
     },
     {
@@ -2359,12 +2336,10 @@
                 "datatypeName": ""
             }
         ],
-        "x": 170,
+        "x": 150,
         "y": 1080,
         "wires": [
-            [
-                "50118b0d19f57f4c"
-            ]
+            []
         ]
     },
     {
@@ -2849,7 +2824,7 @@
         "type": "function",
         "z": "f788a78067227a65",
         "name": "Query Pre Exp msg",
-        "func": "// node-red function node, with msg.payload = {\"results\":{\"life_auto_working\":{\"hours\":5261,\"minutes\":5261,\"seconds\":5261},\"life_manual_working\":{\"hours\":5261,\"minutes\":5261,\"seconds\":5261},\"life_total_working\":{\"hours\":5261,\"minutes\":5261,\"seconds\":5261},\"life_start_time\":{\"year\":5261,\"month\":5261,\"day\":5261,\"hour\":5261,\"minute\":5261,\"second\":5261},\"life_cycles\":5261,\"last_recipe\":5261,\"machine_serial_number\":\"PE0001\"}} set to individual msg properties\nvar querymsg = {};\n\nquerymsg.machine_serial_number = msg.payload.results.machine_serial_number;\n// TODO: handle the connection state\nquerymsg.is_connected = true;\nquerymsg.is_disconnected = false;\nquerymsg.last_recipe_name = msg.payload.results.last_recipe;\nquerymsg.life_cycles = msg.payload.results.life_cycles;\n// working times are in seconds\nquerymsg.working_time_auto = msg.payload.results.life_auto_working.hours * 3600 + msg.payload.results.life_auto_working.minutes * 60 + msg.payload.results.life_auto_working.seconds;\nquerymsg.working_time_manual = msg.payload.results.life_manual_working.hours * 3600 + msg.payload.results.life_manual_working.minutes * 60 + msg.payload.results.life_manual_working.seconds;\nquerymsg.working_time_total = msg.payload.results.life_total_working.hours * 3600 + msg.payload.results.life_total_working.minutes * 60 + msg.payload.results.life_total_working.seconds;\n// machine working times are in seconds\nquerymsg.m01_working_time = msg.payload.results.machine_working_time.m01.hours * 3600 + msg.payload.results.machine_working_time.m01.minutes * 60 + msg.payload.results.machine_working_time.m01.seconds;\nquerymsg.m02_working_time = msg.payload.results.machine_working_time.m02.hours * 3600 + msg.payload.results.machine_working_time.m02.minutes * 60 + msg.payload.results.machine_working_time.m02.seconds;\nquerymsg.m03_working_time = msg.payload.results.machine_working_time.m03.hours * 3600 + msg.payload.results.machine_working_time.m03.minutes * 60 + msg.payload.results.machine_working_time.m03.seconds;\nquerymsg.m04_working_time = msg.payload.results.machine_working_time.m04.hours * 3600 + msg.payload.results.machine_working_time.m04.minutes * 60 + msg.payload.results.machine_working_time.m04.seconds;\nquerymsg.m05_working_time = msg.payload.results.machine_working_time.m05.hours * 3600 + msg.payload.results.machine_working_time.m05.minutes * 60 + msg.payload.results.machine_working_time.m05.seconds;\nquerymsg.m06_working_time = msg.payload.results.machine_working_time.m06.hours * 3600 + msg.payload.results.machine_working_time.m06.minutes * 60 + msg.payload.results.machine_working_time.m06.seconds;\nquerymsg.m07_working_time = msg.payload.results.machine_working_time.m07.hours * 3600 + msg.payload.results.machine_working_time.m07.minutes * 60 + msg.payload.results.machine_working_time.m07.seconds;\nquerymsg.m08_working_time = msg.payload.results.machine_working_time.m08.hours * 3600 + msg.payload.results.machine_working_time.m08.minutes * 60 + msg.payload.results.machine_working_time.m08.seconds;\nquerymsg.m09_working_time = msg.payload.results.machine_working_time.m09.hours * 3600 + msg.payload.results.machine_working_time.m09.minutes * 60 + msg.payload.results.machine_working_time.m09.seconds;\nquerymsg.m10_working_time = msg.payload.results.machine_working_time.m10.hours * 3600 + msg.payload.results.machine_working_time.m10.minutes * 60 + msg.payload.results.machine_working_time.m10.seconds;\nquerymsg.m11_working_time = msg.payload.results.machine_working_time.m11.hours * 3600 + msg.payload.results.machine_working_time.m11.minutes * 60 + msg.payload.results.machine_working_time.m11.seconds;\nquerymsg.m12_working_time = msg.payload.results.machine_working_time.m12.hours * 3600 + msg.payload.results.machine_working_time.m12.minutes * 60 + msg.payload.results.machine_working_time.m12.seconds;\nquerymsg.m13_working_time = msg.payload.results.machine_working_time.m13.hours * 3600 + msg.payload.results.machine_working_time.m13.minutes * 60 + msg.payload.results.machine_working_time.m13.seconds;\nquerymsg.m14_working_time = msg.payload.results.machine_working_time.m14.hours * 3600 + msg.payload.results.machine_working_time.m14.minutes * 60 + msg.payload.results.machine_working_time.m14.seconds;\nquerymsg.m15_working_time = msg.payload.results.machine_working_time.m15.hours * 3600 + msg.payload.results.machine_working_time.m15.minutes * 60 + msg.payload.results.machine_working_time.m15.seconds;\n\nif (msg.payload.results.machine_serial_number!==null){\n    querymsg.post = true;\n}\nelse{\n    querymsg.post = false;\n}\n\nreturn querymsg;\n",
+        "func": "// node-red function node, with msg.payload = {\"results\":{\"life_auto_working\":{\"hours\":5261,\"minutes\":5261,\"seconds\":5261},\"life_manual_working\":{\"hours\":5261,\"minutes\":5261,\"seconds\":5261},\"life_total_working\":{\"hours\":5261,\"minutes\":5261,\"seconds\":5261},\"life_start_time\":{\"year\":5261,\"month\":5261,\"day\":5261,\"hour\":5261,\"minute\":5261,\"second\":5261},\"life_cycles\":5261,\"last_recipe\":5261,\"machine_serial_number\":\"PE0001\"}} set to individual msg properties\nlet querymsg = msg;\n\nquerymsg.machine_serial_number = msg.payload.results.machine_serial_number;\n// TODO: handle the connection state\nquerymsg.is_connected = true;\nquerymsg.is_disconnected = false;\nquerymsg.last_recipe_name = msg.payload.results.last_recipe;\nquerymsg.life_cycles = msg.payload.results.life_cycles;\n// working times are in seconds\nquerymsg.working_time_auto = msg.payload.results.life_auto_working.hours * 3600 + msg.payload.results.life_auto_working.minutes * 60 + msg.payload.results.life_auto_working.seconds;\nquerymsg.working_time_manual = msg.payload.results.life_manual_working.hours * 3600 + msg.payload.results.life_manual_working.minutes * 60 + msg.payload.results.life_manual_working.seconds;\nquerymsg.working_time_total = msg.payload.results.life_total_working.hours * 3600 + msg.payload.results.life_total_working.minutes * 60 + msg.payload.results.life_total_working.seconds;\n// machine working times are in seconds\nquerymsg.m01_working_time = msg.payload.results.machine_working_time.m01.hours * 3600 + msg.payload.results.machine_working_time.m01.minutes * 60 + msg.payload.results.machine_working_time.m01.seconds;\nquerymsg.m02_working_time = msg.payload.results.machine_working_time.m02.hours * 3600 + msg.payload.results.machine_working_time.m02.minutes * 60 + msg.payload.results.machine_working_time.m02.seconds;\nquerymsg.m03_working_time = msg.payload.results.machine_working_time.m03.hours * 3600 + msg.payload.results.machine_working_time.m03.minutes * 60 + msg.payload.results.machine_working_time.m03.seconds;\nquerymsg.m04_working_time = msg.payload.results.machine_working_time.m04.hours * 3600 + msg.payload.results.machine_working_time.m04.minutes * 60 + msg.payload.results.machine_working_time.m04.seconds;\nquerymsg.m05_working_time = msg.payload.results.machine_working_time.m05.hours * 3600 + msg.payload.results.machine_working_time.m05.minutes * 60 + msg.payload.results.machine_working_time.m05.seconds;\nquerymsg.m06_working_time = msg.payload.results.machine_working_time.m06.hours * 3600 + msg.payload.results.machine_working_time.m06.minutes * 60 + msg.payload.results.machine_working_time.m06.seconds;\nquerymsg.m07_working_time = msg.payload.results.machine_working_time.m07.hours * 3600 + msg.payload.results.machine_working_time.m07.minutes * 60 + msg.payload.results.machine_working_time.m07.seconds;\nquerymsg.m08_working_time = msg.payload.results.machine_working_time.m08.hours * 3600 + msg.payload.results.machine_working_time.m08.minutes * 60 + msg.payload.results.machine_working_time.m08.seconds;\nquerymsg.m09_working_time = msg.payload.results.machine_working_time.m09.hours * 3600 + msg.payload.results.machine_working_time.m09.minutes * 60 + msg.payload.results.machine_working_time.m09.seconds;\nquerymsg.m10_working_time = msg.payload.results.machine_working_time.m10.hours * 3600 + msg.payload.results.machine_working_time.m10.minutes * 60 + msg.payload.results.machine_working_time.m10.seconds;\nquerymsg.m11_working_time = msg.payload.results.machine_working_time.m11.hours * 3600 + msg.payload.results.machine_working_time.m11.minutes * 60 + msg.payload.results.machine_working_time.m11.seconds;\nquerymsg.m12_working_time = msg.payload.results.machine_working_time.m12.hours * 3600 + msg.payload.results.machine_working_time.m12.minutes * 60 + msg.payload.results.machine_working_time.m12.seconds;\nquerymsg.m13_working_time = msg.payload.results.machine_working_time.m13.hours * 3600 + msg.payload.results.machine_working_time.m13.minutes * 60 + msg.payload.results.machine_working_time.m13.seconds;\n//m14 devuelve null, por lo que no se puede formatear, hardcode única\nquerymsg.m14_working_time = 0;\nquerymsg.m15_working_time = msg.payload.results.machine_working_time.m15.hours * 3600 + msg.payload.results.machine_working_time.m15.minutes * 60 + msg.payload.results.machine_working_time.m15.seconds;\n\nif (msg.payload.results.machine_serial_number !== null && msg.payload.results.machine_serial_number !== undefined){\n    querymsg.post = true;\n}\nelse{\n    querymsg.post = false;\n}\n\nreturn querymsg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2868,7 +2843,7 @@
         "type": "function",
         "z": "f788a78067227a65",
         "name": "Query Mold msg",
-        "func": "// node-red function node, with msg.payload = {\"results\":{\"status\":{\"auto\":true,\"manual\":true,\"running\":true,\"stop\":true},\"working_time_auto\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"working_time_manual\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"working_time_total\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"working_time_hydraulic\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"alarm_00\":{\"id\":452091,\"description\":452091},\"last_recipe\":\"cissors - lizard - spock *** rock - paper - s\",\"life_cycles\":452091,\"mold_distance\":452091,\"last_cycle_time\":452091,\"cycle_time\":452091,\"machine_serial_number\":\"cissors - lizard - spock *** rock - paper - s\"}}var querymsg = {};\nvar querymsg = {};\n\nquerymsg.machine_serial_number = msg.payload.results.machine_serial_number;\nquerymsg.is_running = msg.payload.results.status.running;\nquerymsg.is_stopped = msg.payload.results.status.stop;\nquerymsg.is_automatic = msg.payload.results.status.auto;\nquerymsg.is_manual = msg.payload.results.status.manual;\n// TODO: handle the disconnection state\nquerymsg.is_disconnected = false;\nquerymsg.last_recipe_name = msg.payload.results.last_recipe;\nquerymsg.life_cycles = msg.payload.results.life_cycles;\nquerymsg.mold_distance = msg.payload.results.mold_distance;\nquerymsg.last_cycle_time = msg.payload.results.last_cycle_time;\n// working times are in seconds\nquerymsg.working_time_auto = msg.payload.results.working_time_auto.hours * 3600 + msg.payload.results.working_time_auto.minutes * 60 + msg.payload.results.working_time_auto.seconds;\nquerymsg.working_time_manual = msg.payload.results.working_time_manual.hours * 3600 + msg.payload.results.working_time_manual.minutes * 60 + msg.payload.results.working_time_manual.seconds;\nquerymsg.working_time_total = msg.payload.results.working_time_total.hours * 3600 + msg.payload.results.working_time_total.minutes * 60 + msg.payload.results.working_time_total.seconds;\nquerymsg.working_time_hydraulic = msg.payload.results.working_time_hydraulic.hours * 3600 + msg.payload.results.working_time_hydraulic.minutes * 60 + msg.payload.results.working_time_hydraulic.seconds;\n// alarms are string descriptions\nquerymsg.alarm_00_description = msg.payload.results.alarm_00.description;\n\nif (msg.payload.results.machine_serial_number !== null) {\n    querymsg.post = true;\n}\nelse {\n    querymsg.post = false;\n}\n\nreturn querymsg;\n",
+        "func": "// node-red function node, with msg.payload = {\"results\":{\"status\":{\"auto\":true,\"manual\":true,\"running\":true,\"stop\":true},\"working_time_auto\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"working_time_manual\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"working_time_total\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"working_time_hydraulic\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"alarm_00\":{\"id\":452091,\"description\":452091},\"last_recipe\":\"cissors - lizard - spock *** rock - paper - s\",\"life_cycles\":452091,\"mold_distance\":452091,\"last_cycle_time\":452091,\"cycle_time\":452091,\"machine_serial_number\":\"cissors - lizard - spock *** rock - paper - s\"}}var querymsg = {};\nlet querymsg = msg;\n\nquerymsg.machine_serial_number = msg.payload.results.machine_serial_number;\nquerymsg.is_running = msg.payload.results.status.running;\nquerymsg.is_stopped = msg.payload.results.status.stop;\nquerymsg.is_automatic = msg.payload.results.status.auto;\nquerymsg.is_manual = msg.payload.results.status.manual;\n// TODO: handle the disconnection state\nquerymsg.is_disconnected = false;\nquerymsg.last_recipe_name = msg.payload.results.last_recipe;\nquerymsg.life_cycles = msg.payload.results.life_cycles;\nquerymsg.mold_distance = msg.payload.results.mold_distance;\nquerymsg.last_cycle_time = msg.payload.results.last_cycle_time;\nquerymsg.current_cycle_time = msg.payload.results.cycle_time\n// working times are in seconds\nquerymsg.working_time_auto = msg.payload.results.working_time_auto.hours * 3600 + msg.payload.results.working_time_auto.minutes * 60 + msg.payload.results.working_time_auto.seconds;\nquerymsg.working_time_manual = msg.payload.results.working_time_manual.hours * 3600 + msg.payload.results.working_time_manual.minutes * 60 + msg.payload.results.working_time_manual.seconds;\nquerymsg.working_time_total = msg.payload.results.working_time_total.hours * 3600 + msg.payload.results.working_time_total.minutes * 60 + msg.payload.results.working_time_total.seconds;\nquerymsg.working_time_hydraulic = msg.payload.results.working_time_hydraulic.hours * 3600 + msg.payload.results.working_time_hydraulic.minutes * 60 + msg.payload.results.working_time_hydraulic.seconds;\n// alarms are string descriptions\nquerymsg.alarm_00_description = msg.payload.results.alarm_00.description;\n\nif (msg.payload.results.machine_serial_number !== null) {\n    querymsg.post = true;\n}\nelse {\n    querymsg.post = false;\n}\n\nreturn querymsg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2893,11 +2868,9 @@
         "rowsPerMsg": 1,
         "outputs": 1,
         "x": 1720,
-        "y": 140,
+        "y": 220,
         "wires": [
-            [
-                "4afa4e43ab6a6de1"
-            ]
+            []
         ]
     },
     {
@@ -2905,17 +2878,15 @@
         "type": "postgresql",
         "z": "f788a78067227a65",
         "name": "Post Latest Pre Exp Machine State",
-        "query": "SELECT public.handle_insert_pre_exp_status(\n    '{{{ msg.machine_serial_number }}}',\n    {{{ msg.is_connected }}},\n    {{{ msg.is_stopped }}},\n    '{{{ msg.last_recipe_name }}}',\n    {{{ msg.life_cycles }}},\n    {{{ msg.working_time_auto }}},\n    {{{ msg.working_time_manual }}},\n    {{{ msg.working_time_total }}},\n    {{{ msg.m01_working_time }}},\n    {{{ msg.m02_working_time }}},\n    {{{ msg.m03_working_time }}},\n    {{{ msg.m04_working_time }}},\n    {{{ msg.m05_working_time }}},\n    {{{ msg.m06_working_time }}},\n    {{{ msg.m07_working_time }}},\n    {{{ msg.m08_working_time }}},\n    {{{ msg.m09_working_time }}},\n    {{{ msg.m10_working_time }}},\n    {{{ msg.m11_working_time }}},\n    {{{ msg.m12_working_time }}},\n    {{{ msg.m13_working_time }}},\n    {{{ msg.m14_working_time }}},\n    {{{ msg.m15_working_time }}}\n);\n",
+        "query": "SELECT public.handle_insert_pre_exp_status(\n    '{{{ msg.machine_serial_number }}}',\n    '{{{ msg.is_connected }}}',\n    '{{{ msg.is_disconnected }}}',\n    '{{{ msg.last_recipe_name }}}',\n    {{{ msg.life_cycles }}},\n    {{{ msg.working_time_auto }}},\n    {{{ msg.working_time_manual }}},\n    {{{ msg.working_time_total }}},\n    {{{ msg.m01_working_time }}},\n    {{{ msg.m02_working_time }}},\n    {{{ msg.m03_working_time }}},\n    {{{ msg.m04_working_time }}},\n    {{{ msg.m05_working_time }}},\n    {{{ msg.m06_working_time }}},\n    {{{ msg.m07_working_time }}},\n    {{{ msg.m08_working_time }}},\n    {{{ msg.m09_working_time }}},\n    {{{ msg.m10_working_time }}},\n    {{{ msg.m11_working_time }}},\n    {{{ msg.m12_working_time }}},\n    {{{ msg.m13_working_time }}},\n    {{{ msg.m14_working_time }}},\n    {{{ msg.m15_working_time }}}\n);\n",
         "postgreSQLConfig": "6d7e6326d0c1b658",
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 1620,
-        "y": 220,
+        "x": 1720,
+        "y": 140,
         "wires": [
-            [
-                "4afa4e43ab6a6de1"
-            ]
+            []
         ]
     },
     {
@@ -2937,9 +2908,9 @@
         "id": "85dc0acb5b97de28",
         "type": "reusable-out",
         "z": "f788a78067227a65",
-        "name": "reusable out",
+        "name": "Return",
         "position": 1,
-        "x": 510,
+        "x": 490,
         "y": 640,
         "wires": []
     },
@@ -2962,9 +2933,9 @@
         "id": "6f120917c60379e1",
         "type": "reusable-out",
         "z": "f788a78067227a65",
-        "name": "reusable out",
+        "name": "Return",
         "position": 1,
-        "x": 490,
+        "x": 470,
         "y": 700,
         "wires": []
     },
@@ -3049,11 +3020,11 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 1470,
+        "x": 1490,
         "y": 140,
         "wires": [
             [
-                "e266963cc18647b2"
+                "39ef70c9e6c407ac"
             ],
             []
         ]
@@ -3080,10 +3051,27 @@
         "y": 220,
         "wires": [
             [
-                "39ef70c9e6c407ac"
+                "e266963cc18647b2"
             ],
             []
         ]
+    },
+    {
+        "id": "a3f30e442a8ce012",
+        "type": "debug",
+        "z": "f788a78067227a65",
+        "name": "debug 11",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2140,
+        "y": 140,
+        "wires": []
     },
     {
         "id": "ef4a1a03bf1a794e",
@@ -9032,7 +9020,7 @@
         "type": "debug",
         "z": "a2bc427f0d400003",
         "name": "PostgreSQL Response",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
