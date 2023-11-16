@@ -180,9 +180,9 @@
           <b-container v-if="isLoggedIn">
             <b-tabs lazy content-class="mt-3" align="center">
               <b-tab title="Estado de Maquinarias" active>
-                <!-- <machinedata :pre_exp_arr="pre_exp_arr" :mold_arr="mold_arr" :mold_control_values="mold_control_values" :time_stamps="time_stamps" :last_running_time="last_running_time"
+                <machinedata :pre_exp_arr="pre_exp_arr" :mold_arr="mold_arr" :mold_control_values="mold_control_values" :time_stamps="time_stamps" :last_running_time="last_running_time"
                   @cachereplay-event="cacheReplay">
-                </machinedata> -->
+                </machinedata>
               </b-tab>
               <b-tab title="Base de Datos">
                 <database :query_results="query_results" :query_options="query_options" @lastn-event="getLastN"

@@ -196,22 +196,6 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 .join('\n');
             return newUsersList;
         },
-        // getRecipeData(array) {
-        //     const recipe_data = [];
-        //     // Collect recipe data from all machines
-        //     array.forEach((machine) => {
-        //         for (const [recipe, count] of Object.entries(machine.recipe_counts)) {
-        //             if (recipe_data.some((item) => item.recipe === recipe)) {
-        //                 const existingRecipe = recipe_data.find((item) => item.recipe === recipe);
-        //                 existingRecipe.total += count;
-        //             } else {
-        //                 recipe_data.push({ recipe, total: count });
-        //             }
-        //         }
-        //     });
-
-        //     return recipe_data;
-        // },
         parseTimeStamp(string_timestamp) {
             const s_timestamp = string_timestamp;
             const adjustedTimestamp = Date.parse(s_timestamp);
@@ -899,34 +883,39 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
             // Workaround to show "toast" notifications dynamically. See methods above.
             this.showToast(msg);
             // Message handling code goes here            
-            if (msg.topic.includes('pre-expander')) {
-                const idIndex = msg.topic.indexOf('_') + 1;
-                if (idIndex > 0 && idIndex < msg.topic.length) {
-                    const preExpanderId = msg.topic.substring(idIndex);
-                    this.pre_exp_arr = this.pre_exp_arr || {};
-                    if (msg.payload && msg.payload.results && msg.payload.timestamp) {
-                        this.time_stamps = this.time_stamps || {};
-                        this.time_stamps['pre_exp_' + preExpanderId] = msg.payload.timestamp;
-                    }
-                    const total_working_seconds = this.pre_exp_arr['pre_exp_' + preExpanderId] ? (this.pre_exp_arr['pre_exp_' + preExpanderId].life_total_working.seconds + this.pre_exp_arr['pre_exp_' + preExpanderId].life_total_working.minutes * 60 + this.pre_exp_arr['pre_exp_' + preExpanderId].life_total_working.hours * 3600):(msg.payload.results.life_total_working.seconds + msg.payload.results.life_total_working.minutes * 60 + msg.payload.results.life_total_working.hours * 3600);
-                    this.last_running_time['pre_exp_' + preExpanderId] = total_working_seconds;
-                    this.$set(this.pre_exp_arr, 'pre_exp_' + preExpanderId, msg.payload.results);
-                    this.cleanMachineArrays();
-                }
-            }
-            if (msg.topic.includes('molding')) {
-                const idIndex = msg.topic.indexOf('_') + 1;
-                if (idIndex > 0 && idIndex < msg.topic.length) {
-                    const moldId = msg.topic.substring(idIndex);
-                    this.mold_arr = this.mold_arr || {};
-                    if (msg.payload && msg.payload.results && msg.payload.timestamp) {
-                        this.time_stamps = this.time_stamps || {};
-                        this.time_stamps['mold_' + moldId] = msg.payload.timestamp;
-                    }
-                    this.$set(this.mold_arr, 'mold_' + moldId, msg.payload.results);
-                    this.cleanMoldMachineArrays();
-                    // console.log(this.mold_arr);
-                }
+            // if (msg.topic.includes('pre-expander')) {
+            //     const idIndex = msg.topic.indexOf('_') + 1;
+            //     if (idIndex > 0 && idIndex < msg.topic.length) {
+            //         const preExpanderId = msg.topic.substring(idIndex);
+            //         this.pre_exp_arr = this.pre_exp_arr || {};
+            //         if (msg.payload && msg.payload.results && msg.payload.timestamp) {
+            //             this.time_stamps = this.time_stamps || {};
+            //             this.time_stamps['pre_exp_' + preExpanderId] = msg.payload.timestamp;
+            //         }
+            //         const total_working_seconds = this.pre_exp_arr['pre_exp_' + preExpanderId] ? (this.pre_exp_arr['pre_exp_' + preExpanderId].life_total_working.seconds + this.pre_exp_arr['pre_exp_' + preExpanderId].life_total_working.minutes * 60 + this.pre_exp_arr['pre_exp_' + preExpanderId].life_total_working.hours * 3600):(msg.payload.results.life_total_working.seconds + msg.payload.results.life_total_working.minutes * 60 + msg.payload.results.life_total_working.hours * 3600);
+            //         this.last_running_time['pre_exp_' + preExpanderId] = total_working_seconds;
+            //         this.$set(this.pre_exp_arr, 'pre_exp_' + preExpanderId, msg.payload.results);
+            //         this.cleanMachineArrays();
+            //     }
+            // }
+            // if (msg.topic.includes('molding')) {
+            //     const idIndex = msg.topic.indexOf('_') + 1;
+            //     if (idIndex > 0 && idIndex < msg.topic.length) {
+            //         const moldId = msg.topic.substring(idIndex);
+            //         this.mold_arr = this.mold_arr || {};
+            //         if (msg.payload && msg.payload.results && msg.payload.timestamp) {
+            //             this.time_stamps = this.time_stamps || {};
+            //             this.time_stamps['mold_' + moldId] = msg.payload.timestamp;
+            //         }
+            //         this.$set(this.mold_arr, 'mold_' + moldId, msg.payload.results);
+            //         this.cleanMoldMachineArrays();
+            //         // console.log(this.mold_arr);
+            //     }
+            //     return;
+            // }
+            if (msg.topic === 'Molding Machine State') {
+                const molding_machines_array = msg.payload;
+                this.mold_arr = molding_machines_array;
                 return;
             }
             if (msg.topic === 'SQL Response') {

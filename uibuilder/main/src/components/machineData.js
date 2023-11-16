@@ -30,16 +30,16 @@ export default {
             </b-card>
             <b-card style="cursor: pointer;" class="col-12 col-md-5 col-lg-3 p-1 m-1" v-for="(mold, mold_key, index) in mold_arr" v-bind:class="determineMoldMachineState(mold_key, false)" @click="moldInfo(mold, mold_key)">
                 <div class="row">
-                    <p class="col p-1 m-1">{{mold_key}}</p> <div class="col-" v-bind:class="determineMoldMachineState(mold_key, true)"></div>
+                    <p class="col p-1 m-1">{{mold.machine_serial_number}}</p> <div class="col-" v-bind:class="determineMoldMachineState(mold, true)"></div>
                     <div class="w-100"></div>
-                    <div class="col-sm"><p><b>Molde:</b></p></div>
-                    <div class="col-md value-field text-center">{{ mold.last_recipe.replace('.xml', '').toUpperCase() }}</div>
+                    <div class="col-sm"><p><b>Receta molde:</b></p></div>
+                    <div class="col-md value-field text-center">{{ mold.last_recipe_name.replace('.xml', '').toUpperCase() }}</div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>Ciclos/H:</b></p></div>
                     <div class="col-md value-field text-center">Needs function</div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>T. de Ciclo:</b></p></div>
-                    <div class="col-md align-items-center text-center" :class="getVariantClassbyTC(mold.cycle_time, mold.last_recipe)">{{mold.cycle_time}}</div>
+                    <div class="col-md align-items-center text-center" :class="getVariantClassbyTC(mold.current_cycle_time/1000, mold.last_recipe_name)">{{mold.current_cycle_time/1000}}</div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>Tot. ciclos:</b></p></div>
                     <div class="col-md text-center" :class="getVariantClassbyNC(mold.life_cycles, mold.last_recipe)">{{mold.life_cycles}}</div>                                                       
@@ -216,23 +216,15 @@ export default {
 
       return is_led ? "led green" : "";
     },
-    determineMoldMachineState(mold_key, is_led) {
-      const disconnectedThreshold = 15000; // 15 seconds threshold for disconnection
+    determineMoldMachineState(mold, is_led) {
+      const is_running = mold.is_running;
+      const is_disconnected = mold.is_disconnected;
 
-      if (!this.time_stamps || !this.time_stamps[mold_key]) {
+      if (is_disconnected) {
         return is_led ? "led gray" : "text-secondary";
       }
 
-      const currentTime = new Date().getTime();
-      const lastMsgTime = this.time_stamps[mold_key];
-
-      if (currentTime - lastMsgTime >= disconnectedThreshold) {
-        return is_led ? "led gray" : "text-secondary";
-      }
-
-      const isRunning = this.mold_arr[mold_key].status.running;
-
-      if (isRunning === false) {
+      if (!is_running) {
         return is_led ? "led red" : "";
       }
 
