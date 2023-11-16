@@ -191,18 +191,18 @@
                 </database>
               </b-tab>
               <b-tab title="Monitor de Variables productivas">
-                <!-- <b-row>
+                <b-row>
                   <b-col lg="5">
                     <variablemonitor :chart_data="chart_data" :chart_options="chart_options"></variablemonitor>
                   </b-col>
                   <b-col lg="7">
-                    <variabletables :table_data="table_data" :recipe_data="recipe_data"></variabletables>
+                    <!-- <variabletables :table_data="table_data" :recipe_data="recipe_data"></variabletables> -->
                   </b-col>
-                </b-row> -->
+                </b-row>
               </b-tab>
               <b-tab title="Límites de Control" v-if="showAdminTools">
-                <!-- <controlvalues :mold_control_values="mold_control_values"
-                  @trigger-updatecontrolvalues="updateControlValues"></controlvalues> -->
+                <controlvalues :mold_control_values="mold_control_values"
+                  @trigger-updatecontrolvalues="updateControlValues"></controlvalues>
               </b-tab>
             </b-tabs>
           </b-container>

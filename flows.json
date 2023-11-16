@@ -9020,7 +9020,7 @@
         "type": "debug",
         "z": "a2bc427f0d400003",
         "name": "PostgreSQL Response",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,

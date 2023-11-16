@@ -45,7 +45,7 @@ export default {
             modalVisible: false,
             // Table data
             fields: [
-                { key: "mold_name", label: "Molde" },
+                { key: "mold_recipe_name", label: "Receta" },
                 { key: "nc_ideal", label: "N° Ciclos Ideal", variant: 'success' },
                 { key: "nc_max", label: "N° Ciclos Max", variant: 'danger' },
                 { key: "tc_ideal", label: "Tiempo de Ciclo Ideal (s)", variant: 'success' },
@@ -61,7 +61,7 @@ export default {
         // Utility methods
         showModal(item) {
             // Custom logic to handle button click with the selected item
-            this.existingMoldName = item.mold_name;
+            this.existingMoldName = item.mold_recipe_name;
             this.newNCIdeal = item.nc_ideal;
             this.newNCMax = item.nc_max;
             this.newTCIdeal = item.tc_ideal;
