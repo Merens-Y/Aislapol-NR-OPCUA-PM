@@ -154,7 +154,7 @@ export default {
                     </b-form-group>
                 </b-col>
 
-                <b-col lg="6" class="my-1">
+                <!-- <b-col lg="6" class="my-1">
                     <b-form-group
                     v-model="sortDirection"
                     label="Filtrar por"
@@ -170,11 +170,11 @@ export default {
                         :aria-describedby="ariaDescribedby"
                         class="mt-1"
                     >
-                        <b-form-checkbox value="machine_name">Máquina</b-form-checkbox>
-                        <b-form-checkbox value="mold_name">Receta</b-form-checkbox>
+                        <b-form-checkbox value="machine_serial_number">Máquina</b-form-checkbox>
+                        <b-form-checkbox value="mold_recipe_name">Receta</b-form-checkbox>
                     </b-form-checkbox-group>
                     </b-form-group>
-                </b-col>
+                </b-col> -->
 
                 <b-col sm="5" md="6" class="my-1">
                     <b-form-group
@@ -214,7 +214,7 @@ export default {
             stacked="md" show-empty small @filtered="onFiltered" striped empty-text="No hay datos que mostrar">
                 <template #cell(actions)="row">
                     <b-button size="sm" :variant="row.item.is_maintenance ? 'primary' : 'outline-success'" @click="triggerMaintenanceToggle(row.item.ID)" class="mr-1">
-                    Cambiar a {{ row.item.is_maintenance ? 'Ciclo Normal' : 'Mantenimiento' }}
+                    Es {{ row.item.is_maintenance ? 'Ciclo Normal' : 'Mantenimiento' }}
                     </b-button>
                     <b-button size="sm" @click="row.toggleDetails">
                     {{ row.detailsShowing ? 'Esconder' : 'Mostrar' }} Detalles
@@ -239,10 +239,10 @@ export default {
     data() {
         return {
             fields: [
-                { key: 'ID', label: '#', sortable: true, sortDirection: 'desc', class: 'text-center' },
-                { key: 'machine_name', label: 'Nombre Máquina', sortable: true, sortDirection: 'desc', class: 'text-center' },
+                { key: 'cycle_id', label: '#', sortable: true, sortDirection: 'desc', class: 'text-center' },
+                { key: 'machine_serial_number', label: 'Número de Serie', sortable: true, sortDirection: 'desc', class: 'text-center' },
                 {
-                    key: 'mold_name',
+                    key: 'mold_recipe_name',
                     label: 'Receta',
                     formatter: (value) => {
                         if (value.includes('.xml')) {
@@ -257,10 +257,14 @@ export default {
                     filterByFormatted: true,
                     class: 'text-center'
                 },
-                { key: 'cycle', label: 'Número de Ciclo', sortable: true, class: 'text-center' },
-                { key: 'cycle_time', label: 'Tiempo de Ciclo', sortable: true, class: 'text-center' },
-                { key: 'date', label: 'Fecha', formatter: 'formatDate', sortable: true, class: 'text-center' },
-                { key: 'timestamp', label: 'Hora', formatter: 'formatTime', sortable: true, class: 'text-center' },
+                { key: 'cycle_number', label: 'Número de Ciclo', sortable: true, class: 'text-center' },
+                { key: 'cycle_time', label: 'Tiempo de Ciclo (s)',
+                    formatter: (value) => {
+                            // convert cycle time from miliseconds to seconds with two decimal places
+                            return (value / 1000).toFixed(2);
+                        },
+                    sortable: true, class: 'text-center' },
+                { key: 'time_stamp', label: 'Marca de Tiempo', formatter: 'formatTime', sortable: true, class: 'text-center' },
                 { key: 'actions', label: 'Acciones' }
             ],
             totalRows: 1,
@@ -392,8 +396,8 @@ export default {
             else {
                 const filteredData = this.query_results.filter((row) => {
                     const { name, id } = row;
-                    const filterName = this.filterOn.includes('machine_name') || false;
-                    const filterRecipe = this.filterOn.includes('mold_name') || false;
+                    const filterName = this.filterOn.includes('machine_serial_number') || false;
+                    const filterRecipe = this.filterOn.includes('mold_recipe_name') || false;
                     const nameMatch = filterName && name.toLowerCase().includes(this.filter.toLowerCase());
                     const idMatch = filterRecipe && id.toLowerCase().includes(this.filter.toLowerCase());
 

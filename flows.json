@@ -8984,8 +8984,8 @@
         "sourceFolder": "src",
         "deployedVersion": "6.4.1",
         "showMsgUib": false,
-        "x": 1010,
-        "y": 400,
+        "x": 990,
+        "y": 100,
         "wires": [
             [
                 "82fe1a41ba5b76de"
@@ -9007,8 +9007,8 @@
         "name": "",
         "storeContext": "context",
         "varName": "uib_cache",
-        "x": 1030,
-        "y": 540,
+        "x": 1010,
+        "y": 240,
         "wires": [
             [
                 "001c871e90622580"
@@ -9028,476 +9028,9 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 2050,
-        "y": 600,
+        "x": 2030,
+        "y": 300,
         "wires": []
-    },
-    {
-        "id": "d06b83ab0fabd619",
-        "type": "switch",
-        "z": "a2bc427f0d400003",
-        "name": "Filter Database Queries",
-        "property": "topic",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "GET LAST N",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "GET FIRST N",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "GET FROM DATE RANGE",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "GET FROM DATE AND TIME RANGE",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "SET CYCLE MAINTENANCE",
-                "vt": "str"
-            },
-            {
-                "t": "eq",
-                "v": "UPDATE CONTROL VALUES",
-                "vt": "str"
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 6,
-        "x": 1350,
-        "y": 80,
-        "wires": [
-            [
-                "8cb2280155702e66"
-            ],
-            [
-                "3b4638d433774793"
-            ],
-            [
-                "19ad9ebed5106c09"
-            ],
-            [
-                "42c25fba9004138b"
-            ],
-            [
-                "20f9c58f200774e7"
-            ],
-            [
-                "d2cada45c5b0ee61"
-            ]
-        ]
-    },
-    {
-        "id": "545f814de989fd23",
-        "type": "change",
-        "z": "a2bc427f0d400003",
-        "name": "Send back",
-        "rules": [
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "SQL Response",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 2130,
-        "y": 100,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "8cb2280155702e66",
-        "type": "postgresql",
-        "z": "a2bc427f0d400003",
-        "name": "Get latest N entries",
-        "query": "SELECT * FROM public.aislapol_table\nORDER BY \"ID\" DESC LIMIT {{{ msg.n }}}",
-        "postgreSQLConfig": "a1fb71ced63ef518",
-        "split": false,
-        "rowsPerMsg": 1,
-        "outputs": 1,
-        "x": 1630,
-        "y": 40,
-        "wires": [
-            [
-                "545f814de989fd23"
-            ]
-        ]
-    },
-    {
-        "id": "3b4638d433774793",
-        "type": "postgresql",
-        "z": "a2bc427f0d400003",
-        "name": "Get first N entries",
-        "query": "SELECT * FROM public.aislapol_table\nORDER BY \"ID\" ASC LIMIT {{{ msg.n }}}",
-        "postgreSQLConfig": "a1fb71ced63ef518",
-        "split": false,
-        "rowsPerMsg": 1,
-        "outputs": 1,
-        "x": 1630,
-        "y": 100,
-        "wires": [
-            [
-                "545f814de989fd23"
-            ]
-        ]
-    },
-    {
-        "id": "19ad9ebed5106c09",
-        "type": "postgresql",
-        "z": "a2bc427f0d400003",
-        "name": "Get from date range",
-        "query": "SELECT *\nFROM public.aislapol_table\nWHERE date BETWEEN '{{{ msg.fromDate }}}'::date AND '{{{ msg.toDate }}}'::date;\n",
-        "postgreSQLConfig": "a1fb71ced63ef518",
-        "split": false,
-        "rowsPerMsg": 1,
-        "outputs": 1,
-        "x": 1640,
-        "y": 160,
-        "wires": [
-            [
-                "545f814de989fd23"
-            ]
-        ]
-    },
-    {
-        "id": "42c25fba9004138b",
-        "type": "postgresql",
-        "z": "a2bc427f0d400003",
-        "name": "Get from date and time range",
-        "query": "SELECT *\nFROM public.aislapol_table\nWHERE date BETWEEN '{{{ msg.fromDate }}}'::date AND '{{{ msg.toDate }}}'::date\n  AND timestamp >= '{{{ msg.fromTime }}}'::time with time zone\n  AND timestamp <= '{{{ msg.toTime }}}'::time with time zone;",
-        "postgreSQLConfig": "a1fb71ced63ef518",
-        "split": false,
-        "rowsPerMsg": 1,
-        "outputs": 1,
-        "x": 1670,
-        "y": 220,
-        "wires": [
-            [
-                "545f814de989fd23"
-            ]
-        ]
-    },
-    {
-        "id": "438469c00a896f34",
-        "type": "postgresql",
-        "z": "a2bc427f0d400003",
-        "name": "Get Monitor Table Data",
-        "query": "SELECT * FROM get_cycle_counts();\n",
-        "postgreSQLConfig": "a1fb71ced63ef518",
-        "split": false,
-        "rowsPerMsg": 1,
-        "outputs": 1,
-        "x": 350,
-        "y": 140,
-        "wires": [
-            [
-                "b3172edb7847e87e"
-            ]
-        ]
-    },
-    {
-        "id": "b3172edb7847e87e",
-        "type": "change",
-        "z": "a2bc427f0d400003",
-        "name": "Send back",
-        "rules": [
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "Monitor Table Data",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 570,
-        "y": 140,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "9674f4bce6742ab4",
-        "type": "inject",
-        "z": "a2bc427f0d400003",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "5",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "0.5",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 110,
-        "y": 140,
-        "wires": [
-            [
-                "438469c00a896f34"
-            ]
-        ]
-    },
-    {
-        "id": "afe58ebdb761afcf",
-        "type": "postgresql",
-        "z": "a2bc427f0d400003",
-        "name": "Get Monitor Chart Data",
-        "query": "SELECT *\nFROM aislapol_table\nWHERE\n      (\n        (date >= (current_timestamp - interval '24 hours')::date AND timestamp::time >= (current_timestamp - interval '24 hours')::time)\n        OR date = current_timestamp::date\n      )\nORDER BY \"ID\"",
-        "postgreSQLConfig": "a1fb71ced63ef518",
-        "split": false,
-        "rowsPerMsg": 1,
-        "outputs": 1,
-        "x": 350,
-        "y": 80,
-        "wires": [
-            [
-                "85ee7346e6887665"
-            ]
-        ]
-    },
-    {
-        "id": "85ee7346e6887665",
-        "type": "change",
-        "z": "a2bc427f0d400003",
-        "name": "Send back",
-        "rules": [
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "Monitor Chart Data",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 570,
-        "y": 80,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "b5252c8d327b0e26",
-        "type": "postgresql",
-        "z": "a2bc427f0d400003",
-        "name": "Get Monitor Table Data M",
-        "query": "SELECT * FROM get_cycle_counts_maintenance();",
-        "postgreSQLConfig": "a1fb71ced63ef518",
-        "split": false,
-        "rowsPerMsg": 1,
-        "outputs": 1,
-        "x": 350,
-        "y": 200,
-        "wires": [
-            [
-                "abeb1e39e0619c7e",
-                "58115752e200ab6e"
-            ]
-        ]
-    },
-    {
-        "id": "abeb1e39e0619c7e",
-        "type": "change",
-        "z": "a2bc427f0d400003",
-        "name": "Send back",
-        "rules": [
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "Monitor Table Data M",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 570,
-        "y": 200,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "e6774fe6e1e5c025",
-        "type": "inject",
-        "z": "a2bc427f0d400003",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "15",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "1",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 110,
-        "y": 80,
-        "wires": [
-            [
-                "afe58ebdb761afcf"
-            ]
-        ]
-    },
-    {
-        "id": "849302bc5843d098",
-        "type": "inject",
-        "z": "a2bc427f0d400003",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "5.5",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "0.5",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 110,
-        "y": 200,
-        "wires": [
-            [
-                "b5252c8d327b0e26"
-            ]
-        ]
-    },
-    {
-        "id": "d2cada45c5b0ee61",
-        "type": "postgresql",
-        "z": "a2bc427f0d400003",
-        "name": "Update Control Values",
-        "query": "UPDATE aislapol_mold\nSET nc_ideal = {{{ msg.newNCIdeal }}},\n    nc_max = {{{ msg.newNCMax }}},\n    tc_ideal = {{{ msg.newTCIdeal }}},\n    tc_max = {{{ msg.newTCMax }}}\nWHERE mold_name = '{{{ msg.existingMoldName }}}';",
-        "postgreSQLConfig": "a1fb71ced63ef518",
-        "split": false,
-        "rowsPerMsg": 1,
-        "outputs": 1,
-        "x": 1640,
-        "y": 340,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "9e1d53b46113b047",
-        "type": "postgresql",
-        "z": "a2bc427f0d400003",
-        "name": "Get Control Values",
-        "query": "SELECT mold_name, nc_ideal, nc_max, tc_ideal, tc_max\n\tFROM public.aislapol_mold;",
-        "postgreSQLConfig": "a1fb71ced63ef518",
-        "split": false,
-        "rowsPerMsg": 1,
-        "outputs": 1,
-        "x": 370,
-        "y": 260,
-        "wires": [
-            [
-                "49cc058c4e20fc91"
-            ]
-        ]
-    },
-    {
-        "id": "20f9c58f200774e7",
-        "type": "postgresql",
-        "z": "a2bc427f0d400003",
-        "name": "Set Cycle Maintenance State",
-        "query": "SELECT switch_maintenance_state({{{ msg.cycleID }}});",
-        "postgreSQLConfig": "a1fb71ced63ef518",
-        "split": false,
-        "rowsPerMsg": 1,
-        "outputs": 1,
-        "x": 1660,
-        "y": 280,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "49cc058c4e20fc91",
-        "type": "change",
-        "z": "a2bc427f0d400003",
-        "name": "Send back",
-        "rules": [
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "Control Values",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 570,
-        "y": 260,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "736ae321386b0bb5",
-        "type": "inject",
-        "z": "a2bc427f0d400003",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "10",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "0.5",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 110,
-        "y": 260,
-        "wires": [
-            [
-                "9e1d53b46113b047"
-            ]
-        ]
     },
     {
         "id": "d3996b824198eef2",
@@ -9508,8 +9041,8 @@
         "links": [
             "2c533314146b5599"
         ],
-        "x": 1785,
-        "y": 780,
+        "x": 1765,
+        "y": 480,
         "wires": []
     },
     {
@@ -9520,8 +9053,8 @@
         "links": [
             "d3996b824198eef2"
         ],
-        "x": 95,
-        "y": 820,
+        "x": 75,
+        "y": 520,
         "wires": [
             [
                 "21359e64ebc07ac2"
@@ -9547,8 +9080,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 180,
-        "y": 820,
+        "x": 160,
+        "y": 520,
         "wires": [
             [
                 "96a87b53c564d09a"
@@ -9573,8 +9106,8 @@
         "sourceFolder": "src",
         "deployedVersion": "6.4.1",
         "showMsgUib": false,
-        "x": 840,
-        "y": 160,
+        "x": 160,
+        "y": 100,
         "wires": [
             [],
             []
@@ -9586,8 +9119,8 @@
         "z": "a2bc427f0d400003",
         "name": "Manual de Usuario",
         "info": "",
-        "x": 810,
-        "y": 120,
+        "x": 130,
+        "y": 60,
         "wires": []
     },
     {
@@ -9596,83 +9129,9 @@
         "z": "a2bc427f0d400003",
         "name": "Aplicación Principal",
         "info": "",
-        "x": 1010,
-        "y": 360,
+        "x": 990,
+        "y": 60,
         "wires": []
-    },
-    {
-        "id": "40bef421bf8595c1",
-        "type": "link in",
-        "z": "a2bc427f0d400003",
-        "name": "Machine Data",
-        "links": [
-            "df35c13dcc92abe8"
-        ],
-        "x": 625,
-        "y": 320,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "58115752e200ab6e",
-        "type": "debug",
-        "z": "a2bc427f0d400003",
-        "name": "debug x",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 660,
-        "y": 360,
-        "wires": []
-    },
-    {
-        "id": "e67b5004f7ff0c38",
-        "type": "postgresql",
-        "z": "a2bc427f0d400003",
-        "name": "Get Monitor Chart Data",
-        "query": "SELECT *\nFROM aislapol_table LIMIT 10",
-        "postgreSQLConfig": "a1fb71ced63ef518",
-        "split": false,
-        "rowsPerMsg": 1,
-        "outputs": 1,
-        "x": 370,
-        "y": 360,
-        "wires": [
-            [
-                "58115752e200ab6e"
-            ]
-        ]
-    },
-    {
-        "id": "b2a77d47b42998d8",
-        "type": "inject",
-        "z": "a2bc427f0d400003",
-        "name": "Test",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": "1",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 110,
-        "y": 360,
-        "wires": [
-            [
-                "e67b5004f7ff0c38"
-            ]
-        ]
     },
     {
         "id": "179acf09e7e7512e",
@@ -9684,8 +9143,8 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 410,
-        "y": 600,
+        "x": 390,
+        "y": 300,
         "wires": [
             [
                 "357ed287e8755a6f"
@@ -9705,8 +9164,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 990,
-        "y": 600,
+        "x": 970,
+        "y": 300,
         "wires": []
     },
     {
@@ -9719,8 +9178,8 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 420,
-        "y": 660,
+        "x": 400,
+        "y": 360,
         "wires": [
             [
                 "c45e5ec615e1a71f"
@@ -9740,8 +9199,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1000,
-        "y": 660,
+        "x": 980,
+        "y": 360,
         "wires": []
     },
     {
@@ -9754,8 +9213,8 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 450,
-        "y": 720,
+        "x": 430,
+        "y": 420,
         "wires": [
             [
                 "dbc7083b2d28df0a"
@@ -9775,8 +9234,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1030,
-        "y": 720,
+        "x": 1010,
+        "y": 420,
         "wires": []
     },
     {
@@ -9789,8 +9248,8 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 410,
-        "y": 780,
+        "x": 390,
+        "y": 480,
         "wires": [
             [
                 "4b16c8b9f018acd4"
@@ -9810,8 +9269,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1010,
-        "y": 780,
+        "x": 990,
+        "y": 480,
         "wires": []
     },
     {
@@ -9824,8 +9283,8 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 1630,
-        "y": 480,
+        "x": 1610,
+        "y": 180,
         "wires": [
             [
                 "c161ef63fbeba0bc",
@@ -9839,8 +9298,8 @@
         "z": "a2bc427f0d400003",
         "name": "New DB Queries",
         "info": "",
-        "x": 1630,
-        "y": 440,
+        "x": 1610,
+        "y": 140,
         "wires": []
     },
     {
@@ -9853,8 +9312,8 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 1630,
-        "y": 540,
+        "x": 1610,
+        "y": 240,
         "wires": [
             [
                 "c161ef63fbeba0bc",
@@ -9872,8 +9331,8 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 1640,
-        "y": 600,
+        "x": 1620,
+        "y": 300,
         "wires": [
             [
                 "c161ef63fbeba0bc",
@@ -9891,8 +9350,8 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 1670,
-        "y": 660,
+        "x": 1650,
+        "y": 360,
         "wires": [
             [
                 "c161ef63fbeba0bc",
@@ -9910,8 +9369,8 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 1660,
-        "y": 720,
+        "x": 1640,
+        "y": 420,
         "wires": [
             [
                 "6f7a991c58788ad1"
@@ -9928,8 +9387,8 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 1640,
-        "y": 780,
+        "x": 1620,
+        "y": 480,
         "wires": [
             [
                 "d3996b824198eef2",
@@ -9947,8 +9406,8 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 430,
-        "y": 880,
+        "x": 410,
+        "y": 580,
         "wires": [
             [
                 "16b0e09427ba8a40"
@@ -9968,8 +9427,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1050,
-        "y": 880,
+        "x": 1030,
+        "y": 580,
         "wires": []
     },
     {
@@ -9991,8 +9450,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 710,
-        "y": 940,
+        "x": 690,
+        "y": 640,
         "wires": [
             [
                 "0712982076a96d35",
@@ -10019,8 +9478,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 710,
-        "y": 880,
+        "x": 690,
+        "y": 580,
         "wires": [
             [
                 "1bea93ea68669e65",
@@ -10047,8 +9506,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 710,
-        "y": 660,
+        "x": 690,
+        "y": 360,
         "wires": [
             [
                 "b93fc4f02d6016ce",
@@ -10075,8 +9534,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 710,
-        "y": 600,
+        "x": 690,
+        "y": 300,
         "wires": [
             [
                 "c1e54cc9c0b91cb0",
@@ -10103,8 +9562,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 710,
-        "y": 720,
+        "x": 690,
+        "y": 420,
         "wires": [
             [
                 "eb5ee99b5d458f52",
@@ -10131,8 +9590,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 710,
-        "y": 780,
+        "x": 690,
+        "y": 480,
         "wires": [
             [
                 "00cf02484f42e547",
@@ -10150,8 +9609,8 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 430,
-        "y": 940,
+        "x": 410,
+        "y": 640,
         "wires": [
             [
                 "ec3bf6b0b8537270"
@@ -10171,8 +9630,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1050,
-        "y": 940,
+        "x": 1030,
+        "y": 640,
         "wires": []
     },
     {
@@ -10217,8 +9676,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 6,
-        "x": 1330,
-        "y": 460,
+        "x": 1310,
+        "y": 160,
         "wires": [
             [
                 "35ad3f8fba2db178"
@@ -10259,8 +9718,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1930,
-        "y": 480,
+        "x": 1910,
+        "y": 180,
         "wires": [
             [
                 "001c871e90622580"
@@ -10284,8 +9743,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 150,
-        "y": 660,
+        "x": 130,
+        "y": 360,
         "wires": [
             [
                 "86aeab5add841933"
@@ -10309,8 +9768,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 150,
-        "y": 600,
+        "x": 130,
+        "y": 300,
         "wires": [
             [
                 "179acf09e7e7512e"
@@ -10334,8 +9793,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 150,
-        "y": 720,
+        "x": 130,
+        "y": 420,
         "wires": [
             [
                 "2ee939a4e0b45316"
@@ -10359,8 +9818,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 150,
-        "y": 780,
+        "x": 130,
+        "y": 480,
         "wires": [
             [
                 "96a87b53c564d09a"
@@ -10384,8 +9843,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 150,
-        "y": 880,
+        "x": 130,
+        "y": 580,
         "wires": [
             [
                 "3275ae810a9bfc7f"
@@ -10409,8 +9868,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 150,
-        "y": 940,
+        "x": 130,
+        "y": 640,
         "wires": [
             [
                 "c7566a5bac82984d"
