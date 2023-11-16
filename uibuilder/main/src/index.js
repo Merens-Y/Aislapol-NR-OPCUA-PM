@@ -196,44 +196,21 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 .join('\n');
             return newUsersList;
         },
-        getRecipeData(array) {
-            const recipe_data = [];
-            // Collect recipe data from all machines
-            array.forEach((machine) => {
-                for (const [recipe, count] of Object.entries(machine.recipe_counts)) {
-                    if (recipe_data.some((item) => item.recipe === recipe)) {
-                        const existingRecipe = recipe_data.find((item) => item.recipe === recipe);
-                        existingRecipe.total += count;
-                    } else {
-                        recipe_data.push({ recipe, total: count });
-                    }
-                }
-            });
+        // getRecipeData(array) {
+        //     const recipe_data = [];
+        //     // Collect recipe data from all machines
+        //     array.forEach((machine) => {
+        //         for (const [recipe, count] of Object.entries(machine.recipe_counts)) {
+        //             if (recipe_data.some((item) => item.recipe === recipe)) {
+        //                 const existingRecipe = recipe_data.find((item) => item.recipe === recipe);
+        //                 existingRecipe.total += count;
+        //             } else {
+        //                 recipe_data.push({ recipe, total: count });
+        //             }
+        //         }
+        //     });
 
-            return recipe_data;
-        },
-        // timestampFromDateTime(actualDate, actualTime) {
-        //     const date = actualDate;
-        //     const time = actualTime;
-
-        //     // Parse the date and time strings
-        //     const year = parseInt(date.substr(0, 4));
-        //     const month = parseInt(date.substr(5, 2)) - 1; // Months are zero-based in JavaScript Date
-        //     const day = parseInt(date.substr(8, 2));
-        //     const hour = parseInt(time.substr(0, 2));
-        //     const minute = parseInt(time.substr(3, 2));
-        //     const second = parseInt(time.substr(6, 2));
-
-        //     // Extract the timezone deviation
-        //     const timezoneDeviation = parseInt(time.substr(-3));
-
-        //     // Create a new Date object using the parsed components
-        //     const timestamp = new Date(year, month, day, hour, minute, second).getTime();
-
-        //     // Adjust the timestamp based on the timezone deviation
-        //     const adjustedTimestamp = timestamp + (timezoneDeviation * 60 * 60 * 1000); // Convert deviation to milliseconds
-
-        //     return adjustedTimestamp;
+        //     return recipe_data;
         // },
         parseTimeStamp(string_timestamp) {
             const s_timestamp = string_timestamp;
@@ -957,7 +934,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 return;
             }
             if (msg.topic === 'Monitor Table Data') {
-                this.recipe_data = this.getRecipeData(msg.payload);
+                this.recipe_data = msg.payload;
                 return;
             }
             if (msg.topic === 'Monitor Table Data M') {

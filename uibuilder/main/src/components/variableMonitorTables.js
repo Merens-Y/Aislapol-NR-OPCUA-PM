@@ -29,10 +29,10 @@ export default {
                 <b-table :items="recipe_data" :fields="recipeFields" caption-top small striped>
                     <template #table-caption>PRODUCCIÓN ÚLTIMAS 24HRS</template>
                     <template v-slot:cell(recipe)="row">
-                        {{ row.item.recipe }}
+                        {{ row.item.mold_recipe_name }}
                     </template>
                     <template v-slot:cell(total)="row">
-                        {{ row.item.total }}
+                        {{ row.item.cycle_count }}
                     </template>
                 </b-table>
             </b-col>

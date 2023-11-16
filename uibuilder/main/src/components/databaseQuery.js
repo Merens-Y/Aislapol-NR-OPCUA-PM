@@ -213,7 +213,7 @@ export default {
             :filter-included-fields="filterOn" :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :sort-direction="sortDirection"
             stacked="md" show-empty small @filtered="onFiltered" striped empty-text="No hay datos que mostrar">
                 <template #cell(actions)="row">
-                    <b-button size="sm" :variant="row.item.is_maintenance ? 'primary' : 'outline-success'" @click="triggerMaintenanceToggle(row.item.ID)" class="mr-1">
+                    <b-button size="sm" :variant="row.item.is_maintenance ? 'primary' : 'outline-success'" @click="triggerMaintenanceToggle(row.item.cycle_id)" class="mr-1">
                     Es {{ row.item.is_maintenance ? 'Ciclo Normal' : 'Mantenimiento' }}
                     </b-button>
                     <b-button size="sm" @click="row.toggleDetails">
