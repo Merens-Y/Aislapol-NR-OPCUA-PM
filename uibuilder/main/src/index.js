@@ -212,27 +212,33 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
 
             return recipe_data;
         },
-        timestampFromDateTime(actualDate, actualTime) {
-            const date = actualDate;
-            const time = actualTime;
+        // timestampFromDateTime(actualDate, actualTime) {
+        //     const date = actualDate;
+        //     const time = actualTime;
 
-            // Parse the date and time strings
-            const year = parseInt(date.substr(0, 4));
-            const month = parseInt(date.substr(5, 2)) - 1; // Months are zero-based in JavaScript Date
-            const day = parseInt(date.substr(8, 2));
-            const hour = parseInt(time.substr(0, 2));
-            const minute = parseInt(time.substr(3, 2));
-            const second = parseInt(time.substr(6, 2));
+        //     // Parse the date and time strings
+        //     const year = parseInt(date.substr(0, 4));
+        //     const month = parseInt(date.substr(5, 2)) - 1; // Months are zero-based in JavaScript Date
+        //     const day = parseInt(date.substr(8, 2));
+        //     const hour = parseInt(time.substr(0, 2));
+        //     const minute = parseInt(time.substr(3, 2));
+        //     const second = parseInt(time.substr(6, 2));
 
-            // Extract the timezone deviation
-            const timezoneDeviation = parseInt(time.substr(-3));
+        //     // Extract the timezone deviation
+        //     const timezoneDeviation = parseInt(time.substr(-3));
 
-            // Create a new Date object using the parsed components
-            const timestamp = new Date(year, month, day, hour, minute, second).getTime();
+        //     // Create a new Date object using the parsed components
+        //     const timestamp = new Date(year, month, day, hour, minute, second).getTime();
 
-            // Adjust the timestamp based on the timezone deviation
-            const adjustedTimestamp = timestamp + (timezoneDeviation * 60 * 60 * 1000); // Convert deviation to milliseconds
+        //     // Adjust the timestamp based on the timezone deviation
+        //     const adjustedTimestamp = timestamp + (timezoneDeviation * 60 * 60 * 1000); // Convert deviation to milliseconds
 
+        //     return adjustedTimestamp;
+        // },
+        parseTimeStamp(string_timestamp) {
+            const s_timestamp = string_timestamp;
+            const adjustedTimestamp = Date.parse(s_timestamp);
+            
             return adjustedTimestamp;
         },
         processChartData(data) {
@@ -240,8 +246,8 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
 
             // Process each data object
             data.forEach((item) => {
-                const timestamp = this.timestampFromDateTime(item.date, item.timestamp); // Convert timestamp to milliseconds
-                const cycleTime = item.cycle_time;
+                const timestamp = this.parseTimeStamp(item.time_stamp); // Convert timestamp to milliseconds
+                const cycleTime = item.cycle_time/1000; // Convert cycle time to seconds
 
                 // Add data point for cycle time
                 series.push({
@@ -966,10 +972,10 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 var temp_options_array = [];
                 var temp_options = {};
                 msg.payload.forEach((element) => {
-                    if (temp_obj[element.machine_name] === undefined) {
-                        temp_obj[element.machine_name] = [];
+                    if (temp_obj[element.machine_serial_number] === undefined) {
+                        temp_obj[element.machine_serial_number] = [];
                     }
-                    temp_obj[element.machine_name].push(element);
+                    temp_obj[element.machine_serial_number].push(element);
                 });
                 for (const property in temp_obj) {
                     if (temp_obj.hasOwnProperty(property)) {
@@ -983,8 +989,8 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                             data: this.processChartData(element),
                         },
                     ],);
-                    var idealTC = this.mold_control_values.find((obj) => obj.mold_name === element[0].mold_name)["tc_ideal"] || 100;
-                    var maxTC = this.mold_control_values.find((obj) => obj.mold_name === element[0].mold_name)["tc_max"] || 120;
+                    var idealTC = this.mold_control_values.find((obj) => obj.mold_recipe_name === element[0].mold_recipe_name)["tc_ideal"] || 100;
+                    var maxTC = this.mold_control_values.find((obj) => obj.mold_recipe_name === element[0].mold_recipe_name)["tc_max"] || 120;
 
                     temp_options = {
                         chart: {
@@ -1098,7 +1104,7 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                             enabled: false,
                         },
                         title: {
-                            text: `${element[0].machine_name}`,
+                            text: `${element[0].machine_recipe_combination}`,
                             align: 'left',
                             margin: 10,
                             offsetX: 0,
