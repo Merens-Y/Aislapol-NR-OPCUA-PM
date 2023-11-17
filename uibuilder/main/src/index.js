@@ -918,6 +918,11 @@ const app = new Vue({ // eslint-disable-line no-unused-vars
                 this.mold_arr = molding_machines_array;
                 return;
             }
+            if (msg.topic === 'Pre Exp Machine State') {
+                const preexp_machines_array = msg.payload;
+                this.pre_exp_arr = preexp_machines_array;
+                return;
+            }
             if (msg.topic === 'SQL Response') {
                 this.query_results = msg.payload;
                 return;

@@ -5,9 +5,9 @@ export default {
     <b-container fluid>
         <div class="row">
             <div>{{ triggerCacheReplay() }}</div>
-            <b-card style="cursor: pointer;" class="col-12 col-lg-5 col-xl-4 p-1 m-1" v-for="(pre_exp, pre_exp_key, index) in pre_exp_arr" v-bind:class="determineMachineState(pre_exp_key, false)" @click="preexpInfo(pre_exp, pre_exp_key)">
+            <b-card style="cursor: pointer;" class="col-12 col-lg-5 col-xl-4 p-1 m-1" v-for="(pre_exp, pre_exp_key, index) in pre_exp_arr" v-bind:class="determineMachineState(pre_exp, false)" @click="preexpInfo(pre_exp)">
                 <div class="row">
-                    <p class="col p-1 m-1">{{pre_exp_key}}</p> <div class="col-" v-bind:class="determineMachineState(pre_exp_key, true)"></div>
+                    <p class="col p-1 m-1">{{pre_exp.machine_serial_number}}</p> <div class="col-" v-bind:class="determineMachineState(pre_exp, true)"></div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>Material:</b></p></div>
                     <div class="col-md value-field text-center">Null</div>
@@ -16,7 +16,10 @@ export default {
                     <div class="col-md value-field text-center">Null</div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>Tiempo:</b></p></div>
-                    <div class="col-md value-field text-center">{{pre_exp.life_total_working.hours}}:{{pre_exp.life_total_working.minutes}}:{{pre_exp.life_total_working.seconds}}</div>
+                    <div class="col-md value-field text-center">{{formatDuration(pre_exp.working_time_total)}}</div>
+                    <div class="w-100"></div>
+                    <div class="col-sm"><p><b>Tot. ciclos:</b></p></div>
+                    <div class="col-md value-field text-center">{{pre_exp.life_cycles}}</div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>Densidad:</b></p></div>
                     <b-col class="col-md value-field text-center">
@@ -28,21 +31,24 @@ export default {
                     </b-col>
                 </div>
             </b-card>
-            <b-card style="cursor: pointer;" class="col-12 col-md-5 col-lg-3 p-1 m-1" v-for="(mold, mold_key, index) in mold_arr" v-bind:class="determineMoldMachineState(mold_key, false)" @click="moldInfo(mold, mold_key)">
+            <b-card style="cursor: pointer;" class="col-12 col-md-5 col-lg-3 p-1 m-1" v-for="(mold, mold_key, index) in mold_arr" v-bind:class="determineMoldMachineState(mold, false)" @click="moldInfo(mold)">
                 <div class="row">
-                    <p class="col p-1 m-1">{{mold.machine_serial_number}}</p> <div class="col-" v-bind:class="determineMoldMachineState(mold, true)"></div>
+                    <p class="col p-1 m-1">{{mold.machine_serial_number}} <b-badge variant="primary" v-if="mold.is_automatic">AUTO</b-badge><b-badge variant="light" v-if="mold.is_automatic">MANUAL</b-badge><b-badge variant="light" v-if="mold.is_manual">AUTO</b-badge><b-badge variant="danger" v-if="mold.is_manual">MANUAL</b-badge></p> <div class="col-" v-bind:class="determineMoldMachineState(mold, true)"></div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>Receta molde:</b></p></div>
                     <div class="col-md value-field text-center">{{ mold.last_recipe_name.replace('.xml', '').toUpperCase() }}</div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>Ciclos/H:</b></p></div>
-                    <div class="col-md value-field text-center">Needs function</div>
+                    <div class="col-md value-field text-center"><!--TODO: Change database view so that the cycles per hour are calculated and given--></div>
+                    <div class="w-100"></div>
+                    <div class="col-sm"><p><b>Dist. Molde:</b></p></div>
+                    <div class="col-md value-field align-items-center text-center">{{mold.mold_distance.toFixed(2)}}</div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>T. de Ciclo:</b></p></div>
-                    <div class="col-md align-items-center text-center" :class="getVariantClassbyTC(mold.current_cycle_time/1000, mold.last_recipe_name)">{{mold.current_cycle_time/1000}}</div>
+                    <div class="col-md value-field align-items-center text-center" :class="getVariantClassbyTC(mold.current_cycle_time/1000, mold.last_recipe_name)">{{(mold.current_cycle_time/1000).toFixed(2)}}</div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>Tot. ciclos:</b></p></div>
-                    <div class="col-md text-center" :class="getVariantClassbyNC(mold.life_cycles, mold.last_recipe)">{{mold.life_cycles}}</div>                                                       
+                    <div class="col-md value-field text-center" :class="getVariantClassbyNC(mold.life_cycles, mold.last_recipe)">{{mold.life_cycles}}</div>
                 </div>
             </b-card>
         </div>
@@ -52,8 +58,8 @@ export default {
               <b-col lg="2" class="my-1"><b>Fecha:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">{{this.currentDate}}</b-col>
               <b-col lg="2" class="my-1"><b>Receta:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.moldModal.content.last_recipe)}}</b-col>
-              <b-col lg="2" class="my-1"><b>Turno:</b></b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.moldModal.content.last_recipe_name}}</b-col>
+              <!-- <b-col lg="2" class="my-1"><b>Turno:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
               <b-col lg="2" class="my-1"><b>Encargado de Turno:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
@@ -64,17 +70,17 @@ export default {
               <b-col lg="2" class="my-1"><b>Término de Ciclo:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
               <b-col lg="2" class="my-1"><b>Lote:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
-              <b-col lg="2" class="my-1"><b>Código de Molde:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col> -->
               <b-col lg="2" class="my-1"><b>Horómetro Automático:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.moldModal.content.working_time_auto.hours)}}:{{this.checkReturn(this.moldModal.content.working_time_auto.minutes)}}:{{this.checkReturn(this.moldModal.content.working_time_auto.seconds)}}</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.formatDuration(this.moldModal.content.working_time_auto)}}</b-col>
               <b-col lg="2" class="my-1"><b>Horómetro Manual:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.moldModal.content.working_time_manual.hours)}}:{{this.checkReturn(this.moldModal.content.working_time_manual.minutes)}}:{{this.checkReturn(this.moldModal.content.working_time_manual.seconds)}}</b-col>
-              <b-col lg="2" class="my-1"><b>Horómetro Hidráulico:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.moldModal.content.working_time_hydraulic.hours)}}:{{this.checkReturn(this.moldModal.content.working_time_hydraulic.minutes)}}:{{this.checkReturn(this.moldModal.content.working_time_hydraulic.seconds)}}</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.formatDuration(this.moldModal.content.working_time_manual)}}</b-col>
               <b-col lg="2" class="my-1"><b>Horómetro Total:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.moldModal.content.working_time_total.hours)}}:{{this.checkReturn(this.moldModal.content.working_time_total.minutes)}}:{{this.checkReturn(this.moldModal.content.working_time_total.seconds)}}</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.formatDuration(this.moldModal.content.working_time_total)}}</b-col>
+              <b-col lg="2" class="my-1"><b>Horómetro Hidráulico:</b></b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.formatDuration(this.moldModal.content.working_time_hydraulic)}}</b-col>
+              <b-col lg="2" class="my-1"><b>Alarma:</b></b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.moldModal.content.alarm_00_description}}</b-col>
             </b-row>
             <template #modal-footer="{ ok, cancel, hide }">
                 <!-- Emulate built in modal footer ok and cancel button actions -->
@@ -88,22 +94,22 @@ export default {
               <b-col lg="2" class="my-1"><b>Fecha:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">{{this.currentDate}}</b-col>
               <b-col lg="2" class="my-1"><b>Receta:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.preexpModal.content.last_recipe)}}</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.preexpModal.content.last_recipe_name}}</b-col>
               <b-col lg="2" class="my-1"><b>Encargado de Turno:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
               <b-col lg="2" class="my-1"><b>Operador:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
               <b-col lg="2" class="my-1"><b>Cantidad Producida:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
-              <b-col lg="2" class="my-1"><b>Fecha de Inicio:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.preexpModal.content.life_start_time.day)}}/{{this.checkReturn(this.preexpModal.content.life_start_time.month)}}/{{this.checkReturn(this.preexpModal.content.life_start_time.year)}} a las {{this.checkReturn(this.preexpModal.content.life_start_time.hour)}}:{{this.checkReturn(this.preexpModal.content.life_start_time.minute)}}:{{this.checkReturn(this.preexpModal.content.life_start_time.second)}}</b-col>
               <b-col lg="2" class="my-1"><b>Horómetro Automático:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.preexpModal.content.life_auto_working.hours)}}:{{this.checkReturn(this.preexpModal.content.life_auto_working.minutes)}}:{{this.checkReturn(this.preexpModal.content.life_auto_working.seconds)}}</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.formatDuration(this.preexpModal.content.working_time_auto)}}</b-col>
               <b-col lg="2" class="my-1"><b>Horómetro Manual:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.preexpModal.content.life_manual_working.hours)}}:{{this.checkReturn(this.preexpModal.content.life_manual_working.minutes)}}:{{this.checkReturn(this.preexpModal.content.life_manual_working.seconds)}}</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.formatDuration(this.preexpModal.content.working_time_manual)}}</b-col>
               <b-col lg="2" class="my-1"><b>Horómetro Total:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">{{this.checkReturn(this.preexpModal.content.life_total_working.hours)}}:{{this.checkReturn(this.preexpModal.content.life_total_working.minutes)}}:{{this.checkReturn(this.preexpModal.content.life_total_working.seconds)}}</b-col>
-              <b-col lg="2" class="my-1"><b>Tiempo de Término:</b></b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.formatDuration(this.preexpModal.content.working_time_total)}}</b-col>
+              <b-col lg="2" class="my-1"><b>Tot. ciclos:</b></b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{this.preexpModal.content.life_cycles}}</b-col>
+              <!-- <b-col lg="2" class="my-1"><b>Tiempo de Término:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
               <b-col lg="2" class="my-1"><b>Espumado total (Kg):</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
@@ -116,7 +122,7 @@ export default {
               <b-col lg="2" class="my-1"><b>Densidad Media:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
               <b-col lg="2" class="my-1"><b>Tiempo de descanso Silo:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col>
+              <b-col lg="2" class="my-1 value-field text-center">Placeholder</b-col> -->
               
             </b-row>
             <template #modal-footer="{ ok, cancel, hide }">
@@ -191,27 +197,12 @@ export default {
     triggerCacheReplay() {
       this.$emit("cachereplay-event");
     },
-    determineMachineState(pre_exp_key, is_led) {
-      const disconnectedThreshold = 15000; // 15 seconds threshold for disconnection
+    determineMachineState(pre_exp, is_led) {
+      const is_connected = pre_exp.is_connected;
+      const is_disconnected = pre_exp.is_disconnected;
 
-      if (!this.time_stamps || !this.last_running_time || !this.time_stamps[pre_exp_key] || !this.last_running_time[pre_exp_key]) {
+      if (is_disconnected) {
         return is_led ? "led gray" : "text-secondary";
-      }
-
-      const currentTime = new Date().getTime();
-      const lastMsgTime = this.time_stamps[pre_exp_key];
-      const lastRunningTime = this.last_running_time[pre_exp_key];
-
-      if (currentTime - lastMsgTime >= disconnectedThreshold) {
-        return is_led ? "led gray" : "text-secondary";
-      }
-
-      const total_working_seconds = this.pre_exp_arr[pre_exp_key].life_total_working.seconds +
-        this.pre_exp_arr[pre_exp_key].life_total_working.minutes * 60 +
-        this.pre_exp_arr[pre_exp_key].life_total_working.hours * 3600;
-
-      if (total_working_seconds === lastRunningTime) {
-        return is_led ? "led red" : "";
       }
 
       return is_led ? "led green" : "";
@@ -230,14 +221,14 @@ export default {
 
       return is_led ? "led green" : "";
     },
-    moldInfo(machine_obj, machine_key) {
-      this.moldModal.title = `${machine_key}`;
+    moldInfo(machine_obj) {
+      this.moldModal.title = `${machine_obj.machine_serial_number}`;
       this.$root.$emit("bv::show::modal", this.moldModal.id);
       this.moldModal.content = machine_obj;
-      console.log(this.mold_arr[String(moldModal.id)].working_time_auto.hours);
+      // console.log(this.mold_arr[String(moldModal.id)].working_time_auto.hours);
     },
-    preexpInfo(machine_obj, machine_key) {
-      this.preexpModal.title = `${machine_key}`;
+    preexpInfo(machine_obj) {
+      this.preexpModal.title = `${machine_obj.machine_serial_number}`;
       this.$root.$emit("bv::show::modal", this.preexpModal.id);
       this.preexpModal.content = machine_obj;
     },
@@ -275,6 +266,15 @@ export default {
       } else {
         return obj;
       }
+    },
+    formatDuration(seconds) {
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      const remainingSeconds = seconds % 60;
+    
+      const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+    
+      return formattedTime;
     },
   },
 };
