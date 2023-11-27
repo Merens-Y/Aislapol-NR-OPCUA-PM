@@ -1,6 +1,26 @@
 export default {
   props: ["pre_exp_arr", "mold_arr", "mold_control_values", "time_stamps", "last_running_time"],
-  watch: {},
+  watch: {
+    mold_arr(newValue) {
+      // Whenever the value of 'mold_arr' changes, look for this.moldModal.content.machine_serial_number and see if it matches any of the machine_serial_number values in the new array:
+      newValue.forEach((mold) => {
+        if (this.moldModal.content.machine_serial_number === mold.machine_serial_number) {
+          // If it does, update this.moldModal.content with the new values:
+          this.moldModal.content = mold;
+        }
+      });
+      // console.log("mold_arr changed");
+    },
+    // same as above but for pre_exp_arr:
+    pre_exp_arr(newValue) {
+      newValue.forEach((pre_exp) => {
+        if (this.preexpModal.content.machine_serial_number === pre_exp.machine_serial_number) {
+          this.preexpModal.content = pre_exp;
+        }
+      });
+      // console.log("pre_exp_arr changed");
+    },
+  },
   template: `
     <b-container fluid>
         <div class="row">
@@ -39,7 +59,7 @@ export default {
                     <div class="col-md value-field text-center">{{ mold.last_recipe_name.replace('.xml', '').toUpperCase() }}</div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>Ciclos/H:</b></p></div>
-                    <div class="col-md value-field text-center"><!--TODO: Change database view so that the cycles per hour are calculated and given--></div>
+                    <div class="col-md value-field text-center">{{mold.cycles_per_second}}</div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>Dist. Molde:</b></p></div>
                     <div class="col-md value-field align-items-center text-center">{{mold.mold_distance.toFixed(2)}}</div>

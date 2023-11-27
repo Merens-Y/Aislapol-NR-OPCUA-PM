@@ -345,7 +345,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1430,
+        "x": 1510,
         "y": 300,
         "wires": [
             [
@@ -365,7 +365,7 @@
         "septopics": true,
         "property": "cycle_number",
         "topi": "machine_serial_number",
-        "x": 1810,
+        "x": 1890,
         "y": 300,
         "wires": [
             [
@@ -391,7 +391,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 1660,
+        "x": 1740,
         "y": 300,
         "wires": [
             [
@@ -410,7 +410,7 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 2020,
+        "x": 2100,
         "y": 300,
         "wires": [
             [
@@ -429,7 +429,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 340,
+        "x": 420,
         "y": 460,
         "wires": [
             [
@@ -444,7 +444,7 @@
         "name": "Tratamiento de Datos",
         "info": "Espera datos tratados por un nodo Response de IIoT OPC UA. Simplifica a sólo una estampilla de tiempo de la obtención del dato, y los datos en cuestión con sus nombres como propiedades para fácil lectura",
         "scope": "local",
-        "x": 140,
+        "x": 220,
         "y": 460,
         "wires": [
             [
@@ -458,7 +458,7 @@
         "z": "f788a78067227a65",
         "name": "Return",
         "position": 1,
-        "x": 490,
+        "x": 570,
         "y": 460,
         "wires": []
     },
@@ -801,152 +801,9 @@
         "z": "f788a78067227a65",
         "name": "Pre-Expansor 1 (192.168.1.21)",
         "info": "",
-        "x": 170,
+        "x": 450,
         "y": 100,
         "wires": []
-    },
-    {
-        "id": "65f8f55dc146e8b1",
-        "type": "OPCUA-IIoT-Inject",
-        "z": "f788a78067227a65",
-        "injectType": "read",
-        "payload": "",
-        "payloadType": "date",
-        "topic": "molding_01",
-        "repeat": "5",
-        "crontab": "",
-        "once": true,
-        "startDelay": "1",
-        "name": "",
-        "addressSpaceItems": [
-            {
-                "name": "last_recipe",
-                "nodeId": "ns=6;s=::OpcUA_IF:last_recipe",
-                "datatypeName": ""
-            },
-            {
-                "name": "life_cycles",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_cycles",
-                "datatypeName": ""
-            },
-            {
-                "name": "mold_distance",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_mold_distance",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_auto",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.auto",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_manual",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.man",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_running",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.running",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_stop",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.stop",
-                "datatypeName": ""
-            },
-            {
-                "name": "cycle_time",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.actual_cycle_time",
-                "datatypeName": ""
-            },
-            {
-                "name": "last_cycle_time",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.last_cycle_time",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_auto_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_auto_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_auto_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_manual_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_manual_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_manual_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_total_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_total_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_total_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_hydraulic_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_hydraulic_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_hydraulic_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "alarm_00_id",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].id",
-                "datatypeName": ""
-            },
-            {
-                "name": "alarm_00_description",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].description",
-                "datatypeName": ""
-            },
-            {
-                "name": "machine_serial_number",
-                "nodeId": "ns=6;s=::OpcUA_IF:MachineSerialNumber",
-                "datatypeName": ""
-            }
-        ],
-        "x": 170,
-        "y": 220,
-        "wires": [
-            [
-                "b8e939a60bfdca3e"
-            ]
-        ]
     },
     {
         "id": "66114c41247dbe42",
@@ -954,7 +811,7 @@
         "z": "f788a78067227a65",
         "name": "Moldeadora 1 (192.168.1.11)",
         "info": "",
-        "x": 160,
+        "x": 480,
         "y": 180,
         "wires": []
     },
@@ -964,7 +821,7 @@
         "z": "f788a78067227a65",
         "name": "Moldeadora 2 (192.168.1.12)",
         "info": "",
-        "x": 160,
+        "x": 480,
         "y": 260,
         "wires": []
     },
@@ -974,7 +831,7 @@
         "z": "f788a78067227a65",
         "name": "Moldeadora 3 (192.168.1.13)",
         "info": "",
-        "x": 160,
+        "x": 480,
         "y": 340,
         "wires": []
     },
@@ -985,7 +842,7 @@
         "name": "",
         "target": "tratamiento de datos",
         "outputs": 1,
-        "x": 660,
+        "x": 740,
         "y": 220,
         "wires": [
             [
@@ -1004,7 +861,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 360,
+        "x": 440,
         "y": 520,
         "wires": [
             [
@@ -1019,7 +876,7 @@
         "name": "Agrupación Pre-Exp",
         "info": "Agrupa los datos en msg.payload.results\npara facilitar su lectura y uso dentro \ndel frontend",
         "scope": "local",
-        "x": 140,
+        "x": 220,
         "y": 520,
         "wires": [
             [
@@ -1033,7 +890,7 @@
         "z": "f788a78067227a65",
         "name": "Return",
         "position": 1,
-        "x": 530,
+        "x": 610,
         "y": 520,
         "wires": []
     },
@@ -1078,7 +935,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 340,
+        "x": 420,
         "y": 580,
         "wires": [
             [
@@ -1093,7 +950,7 @@
         "name": "Agrupación Mold",
         "info": "describe your reusable flow here",
         "scope": "local",
-        "x": 130,
+        "x": 210,
         "y": 580,
         "wires": [
             [
@@ -1107,7 +964,7 @@
         "z": "f788a78067227a65",
         "name": "Return",
         "position": 1,
-        "x": 510,
+        "x": 590,
         "y": 580,
         "wires": []
     },
@@ -1118,7 +975,7 @@
         "name": "",
         "target": "agrupación mold",
         "outputs": 1,
-        "x": 850,
+        "x": 930,
         "y": 220,
         "wires": [
             [
@@ -1180,7 +1037,7 @@
         "activateFilters": false,
         "negateFilter": false,
         "filters": [],
-        "x": 490,
+        "x": 570,
         "y": 220,
         "wires": [
             [
@@ -1202,7 +1059,7 @@
         "showErrors": false,
         "parseStrings": false,
         "historyDays": "",
-        "x": 350,
+        "x": 430,
         "y": 220,
         "wires": [
             [
@@ -1217,7 +1074,7 @@
         "name": "",
         "target": "tratamiento de datos",
         "outputs": 1,
-        "x": 660,
+        "x": 740,
         "y": 300,
         "wires": [
             [
@@ -1232,7 +1089,7 @@
         "name": "",
         "target": "agrupación mold",
         "outputs": 1,
-        "x": 850,
+        "x": 930,
         "y": 300,
         "wires": [
             [
@@ -1252,7 +1109,7 @@
         "activateFilters": false,
         "negateFilter": false,
         "filters": [],
-        "x": 490,
+        "x": 570,
         "y": 300,
         "wires": [
             [
@@ -1274,7 +1131,7 @@
         "showErrors": false,
         "parseStrings": false,
         "historyDays": "",
-        "x": 350,
+        "x": 430,
         "y": 300,
         "wires": [
             [
@@ -1289,7 +1146,7 @@
         "name": "",
         "target": "tratamiento de datos",
         "outputs": 1,
-        "x": 660,
+        "x": 740,
         "y": 380,
         "wires": [
             [
@@ -1304,7 +1161,7 @@
         "name": "",
         "target": "agrupación mold",
         "outputs": 1,
-        "x": 850,
+        "x": 930,
         "y": 380,
         "wires": [
             [
@@ -1324,7 +1181,7 @@
         "activateFilters": false,
         "negateFilter": false,
         "filters": [],
-        "x": 490,
+        "x": 570,
         "y": 380,
         "wires": [
             [
@@ -1346,7 +1203,7 @@
         "showErrors": false,
         "parseStrings": false,
         "historyDays": "",
-        "x": 350,
+        "x": 430,
         "y": 380,
         "wires": [
             [
@@ -1679,155 +1536,10 @@
                 "datatypeName": ""
             }
         ],
-        "x": 170,
-        "y": 840,
+        "x": 250,
+        "y": 960,
         "wires": [
             []
-        ]
-    },
-    {
-        "id": "714ab741b280a5a1",
-        "type": "reusable",
-        "z": "f788a78067227a65",
-        "name": "",
-        "target": "agrupación pre-exp",
-        "outputs": 1,
-        "x": 900,
-        "y": 840,
-        "wires": [
-            [
-                "df35c13dcc92abe8"
-            ]
-        ],
-        "outputLabels": [
-            "Return"
-        ]
-    },
-    {
-        "id": "4476bc6c3b989481",
-        "type": "reusable",
-        "z": "f788a78067227a65",
-        "name": "",
-        "target": "tratamiento de datos",
-        "outputs": 1,
-        "x": 700,
-        "y": 840,
-        "wires": [
-            [
-                "714ab741b280a5a1"
-            ]
-        ]
-    },
-    {
-        "id": "e9d8c25addbcd69f",
-        "type": "OPCUA-IIoT-Response",
-        "z": "f788a78067227a65",
-        "name": "",
-        "compressStructure": true,
-        "showStatusActivities": false,
-        "showErrors": false,
-        "activateUnsetFilter": false,
-        "activateFilters": false,
-        "negateFilter": false,
-        "filters": [],
-        "x": 530,
-        "y": 840,
-        "wires": [
-            [
-                "4476bc6c3b989481"
-            ]
-        ]
-    },
-    {
-        "id": "eb6ba52308d3d59f",
-        "type": "OPCUA-IIoT-Read",
-        "z": "f788a78067227a65",
-        "attributeId": "13",
-        "maxAge": 1,
-        "depth": 1,
-        "connector": "769f4b2574699083",
-        "name": "Read Value",
-        "justValue": false,
-        "showStatusActivities": false,
-        "showErrors": false,
-        "parseStrings": false,
-        "historyDays": "",
-        "x": 390,
-        "y": 840,
-        "wires": [
-            [
-                "e9d8c25addbcd69f"
-            ]
-        ]
-    },
-    {
-        "id": "df35c13dcc92abe8",
-        "type": "link out",
-        "z": "f788a78067227a65",
-        "name": "Machinedata",
-        "mode": "link",
-        "links": [
-            "40bef421bf8595c1"
-        ],
-        "x": 1145,
-        "y": 760,
-        "wires": []
-    },
-    {
-        "id": "3e2de41d696ef804",
-        "type": "reusable",
-        "z": "f788a78067227a65",
-        "name": "",
-        "target": "tratamiento de datos",
-        "outputs": 1,
-        "x": 660,
-        "y": 920,
-        "wires": [
-            [
-                "fb281aac4b4b66e2"
-            ]
-        ]
-    },
-    {
-        "id": "bf771d5271d7de80",
-        "type": "OPCUA-IIoT-Response",
-        "z": "f788a78067227a65",
-        "name": "",
-        "compressStructure": true,
-        "showStatusActivities": false,
-        "showErrors": false,
-        "activateUnsetFilter": false,
-        "activateFilters": false,
-        "negateFilter": false,
-        "filters": [],
-        "x": 490,
-        "y": 920,
-        "wires": [
-            [
-                "3e2de41d696ef804"
-            ]
-        ]
-    },
-    {
-        "id": "ff43309ea7a136c3",
-        "type": "OPCUA-IIoT-Read",
-        "z": "f788a78067227a65",
-        "attributeId": "13",
-        "maxAge": 1,
-        "depth": 1,
-        "connector": "769f4b2574699083",
-        "name": "Read Value",
-        "justValue": false,
-        "showStatusActivities": false,
-        "showErrors": false,
-        "parseStrings": false,
-        "historyDays": "",
-        "x": 350,
-        "y": 920,
-        "wires": [
-            [
-                "bf771d5271d7de80"
-            ]
         ]
     },
     {
@@ -1965,99 +1677,10 @@
                 "datatypeName": ""
             }
         ],
-        "x": 150,
-        "y": 920,
+        "x": 230,
+        "y": 1000,
         "wires": [
             []
-        ]
-    },
-    {
-        "id": "fb281aac4b4b66e2",
-        "type": "reusable",
-        "z": "f788a78067227a65",
-        "name": "",
-        "target": "agrupación mold",
-        "outputs": 1,
-        "x": 850,
-        "y": 920,
-        "wires": [
-            [
-                "df35c13dcc92abe8",
-                "c7aba6c639708e4f"
-            ]
-        ]
-    },
-    {
-        "id": "d19e6c5210a5cd11",
-        "type": "reusable",
-        "z": "f788a78067227a65",
-        "name": "",
-        "target": "tratamiento de datos",
-        "outputs": 1,
-        "x": 660,
-        "y": 1000,
-        "wires": [
-            [
-                "5e5f1ad45488a670"
-            ]
-        ]
-    },
-    {
-        "id": "5e5f1ad45488a670",
-        "type": "reusable",
-        "z": "f788a78067227a65",
-        "name": "",
-        "target": "agrupación mold",
-        "outputs": 1,
-        "x": 850,
-        "y": 1000,
-        "wires": [
-            [
-                "c7aba6c639708e4f",
-                "df35c13dcc92abe8"
-            ]
-        ]
-    },
-    {
-        "id": "65f7d96ecc2c5512",
-        "type": "OPCUA-IIoT-Response",
-        "z": "f788a78067227a65",
-        "name": "",
-        "compressStructure": true,
-        "showStatusActivities": false,
-        "showErrors": false,
-        "activateUnsetFilter": false,
-        "activateFilters": false,
-        "negateFilter": false,
-        "filters": [],
-        "x": 490,
-        "y": 1000,
-        "wires": [
-            [
-                "d19e6c5210a5cd11"
-            ]
-        ]
-    },
-    {
-        "id": "2ae8630a808acda0",
-        "type": "OPCUA-IIoT-Read",
-        "z": "f788a78067227a65",
-        "attributeId": "13",
-        "maxAge": 1,
-        "depth": 1,
-        "connector": "769f4b2574699083",
-        "name": "Read Value",
-        "justValue": false,
-        "showStatusActivities": false,
-        "showErrors": false,
-        "parseStrings": false,
-        "historyDays": "",
-        "x": 350,
-        "y": 1000,
-        "wires": [
-            [
-                "65f7d96ecc2c5512"
-            ]
         ]
     },
     {
@@ -2195,8 +1818,8 @@
                 "datatypeName": ""
             }
         ],
-        "x": 150,
-        "y": 1000,
+        "x": 230,
+        "y": 1040,
         "wires": [
             []
         ]
@@ -2336,468 +1959,10 @@
                 "datatypeName": ""
             }
         ],
-        "x": 150,
+        "x": 230,
         "y": 1080,
         "wires": [
             []
-        ]
-    },
-    {
-        "id": "73ac6707b521b986",
-        "type": "reusable",
-        "z": "f788a78067227a65",
-        "name": "",
-        "target": "tratamiento de datos",
-        "outputs": 1,
-        "x": 660,
-        "y": 1080,
-        "wires": [
-            [
-                "1021f0a01f47506c"
-            ]
-        ]
-    },
-    {
-        "id": "0dc06a94cc206927",
-        "type": "OPCUA-IIoT-Response",
-        "z": "f788a78067227a65",
-        "name": "",
-        "compressStructure": true,
-        "showStatusActivities": false,
-        "showErrors": false,
-        "activateUnsetFilter": false,
-        "activateFilters": false,
-        "negateFilter": false,
-        "filters": [],
-        "x": 490,
-        "y": 1080,
-        "wires": [
-            [
-                "73ac6707b521b986"
-            ]
-        ]
-    },
-    {
-        "id": "50118b0d19f57f4c",
-        "type": "OPCUA-IIoT-Read",
-        "z": "f788a78067227a65",
-        "attributeId": "13",
-        "maxAge": 1,
-        "depth": 1,
-        "connector": "769f4b2574699083",
-        "name": "Read Value",
-        "justValue": false,
-        "showStatusActivities": false,
-        "showErrors": false,
-        "parseStrings": false,
-        "historyDays": "",
-        "x": 350,
-        "y": 1080,
-        "wires": [
-            [
-                "0dc06a94cc206927"
-            ]
-        ]
-    },
-    {
-        "id": "1021f0a01f47506c",
-        "type": "reusable",
-        "z": "f788a78067227a65",
-        "name": "",
-        "target": "agrupación mold",
-        "outputs": 1,
-        "x": 850,
-        "y": 1080,
-        "wires": [
-            [
-                "c7aba6c639708e4f",
-                "df35c13dcc92abe8"
-            ]
-        ]
-    },
-    {
-        "id": "94fe9ee98cd0eaef",
-        "type": "OPCUA-IIoT-Inject",
-        "z": "f788a78067227a65",
-        "injectType": "read",
-        "payload": "",
-        "payloadType": "date",
-        "topic": "molding_02",
-        "repeat": "5",
-        "crontab": "",
-        "once": true,
-        "startDelay": "2",
-        "name": "",
-        "addressSpaceItems": [
-            {
-                "name": "last_recipe",
-                "nodeId": "ns=6;s=::OpcUA_IF:last_recipe",
-                "datatypeName": ""
-            },
-            {
-                "name": "life_cycles",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_cycles",
-                "datatypeName": ""
-            },
-            {
-                "name": "mold_distance",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_mold_distance",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_auto",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.auto",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_manual",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.man",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_running",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.running",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_stop",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.stop",
-                "datatypeName": ""
-            },
-            {
-                "name": "cycle_time",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.actual_cycle_time",
-                "datatypeName": ""
-            },
-            {
-                "name": "last_cycle_time",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.last_cycle_time",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_auto_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_auto_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_auto_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_manual_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_manual_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_manual_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_total_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_total_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_total_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_hydraulic_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_hydraulic_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_hydraulic_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "alarm_00_id",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].id",
-                "datatypeName": ""
-            },
-            {
-                "name": "alarm_00_description",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].description",
-                "datatypeName": ""
-            },
-            {
-                "name": "machine_serial_number",
-                "nodeId": "ns=6;s=::OpcUA_IF:MachineSerialNumber",
-                "datatypeName": ""
-            }
-        ],
-        "x": 170,
-        "y": 300,
-        "wires": [
-            [
-                "f7c6fe9b14f9417f"
-            ]
-        ]
-    },
-    {
-        "id": "c3fa117573467b38",
-        "type": "OPCUA-IIoT-Inject",
-        "z": "f788a78067227a65",
-        "injectType": "read",
-        "payload": "",
-        "payloadType": "date",
-        "topic": "molding_03",
-        "repeat": "5",
-        "crontab": "",
-        "once": true,
-        "startDelay": "3",
-        "name": "",
-        "addressSpaceItems": [
-            {
-                "name": "last_recipe",
-                "nodeId": "ns=6;s=::OpcUA_IF:last_recipe",
-                "datatypeName": ""
-            },
-            {
-                "name": "life_cycles",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_cycles",
-                "datatypeName": ""
-            },
-            {
-                "name": "mold_distance",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_mold_distance",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_auto",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.auto",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_manual",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.man",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_running",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.running",
-                "datatypeName": ""
-            },
-            {
-                "name": "status_stop",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.stop",
-                "datatypeName": ""
-            },
-            {
-                "name": "cycle_time",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.actual_cycle_time",
-                "datatypeName": ""
-            },
-            {
-                "name": "last_cycle_time",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.last_cycle_time",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_auto_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_auto_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_auto_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_manual_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_manual_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_manual_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_total_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_total_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_total_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_hydraulic_hours",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.hours",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_hydraulic_minutes",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.minutes",
-                "datatypeName": ""
-            },
-            {
-                "name": "working_time_hydraulic_seconds",
-                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.seconds",
-                "datatypeName": ""
-            },
-            {
-                "name": "alarm_00_id",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].id",
-                "datatypeName": ""
-            },
-            {
-                "name": "alarm_00_description",
-                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].description",
-                "datatypeName": ""
-            },
-            {
-                "name": "machine_serial_number",
-                "nodeId": "ns=6;s=::OpcUA_IF:MachineSerialNumber",
-                "datatypeName": ""
-            }
-        ],
-        "x": 170,
-        "y": 380,
-        "wires": [
-            [
-                "3f489858a7e03298"
-            ]
-        ]
-    },
-    {
-        "id": "910b5ddf4de1b338",
-        "type": "function",
-        "z": "f788a78067227a65",
-        "name": "DB INSERT Formatting",
-        "func": "let data = msg.payload.results;\nlet msg2 = {};\nif (data[\"life_cycles\"]!==null){\n    msg2.machine_name = msg.topic;\n    msg2.cycle = data[\"life_cycles\"];\n    msg2.cycle_time = data[\"last_cycle_time\"];\n    msg2.recipe_name = data[\"last_recipe\"];\n    msg2.post=true;\n}\nelse{\n    msg2.post=false\n}\n\nreturn msg2;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1430,
-        "y": 1060,
-        "wires": [
-            [
-                "d051f82c7b88d9d8"
-            ]
-        ]
-    },
-    {
-        "id": "c7aba6c639708e4f",
-        "type": "rbe",
-        "z": "f788a78067227a65",
-        "name": "Only New Data",
-        "func": "rbe",
-        "gap": "",
-        "start": "",
-        "inout": "out",
-        "septopics": true,
-        "property": "payload.results.life_cycles",
-        "topi": "topic",
-        "x": 1180,
-        "y": 1060,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "528a9824339e4f6a",
-        "type": "debug",
-        "z": "f788a78067227a65",
-        "name": "debug 10",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1960,
-        "y": 1060,
-        "wires": []
-    },
-    {
-        "id": "d051f82c7b88d9d8",
-        "type": "switch",
-        "z": "f788a78067227a65",
-        "name": "Data is defined",
-        "property": "post",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "true"
-            },
-            {
-                "t": "false"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 1620,
-        "y": 1060,
-        "wires": [
-            [
-                "4e66b32a294bc965"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "4e66b32a294bc965",
-        "type": "postgresql",
-        "z": "f788a78067227a65",
-        "name": "Post Last Cycle",
-        "query": "INSERT INTO aislapol_table (machine_name, cycle, cycle_time, mold_name)\nVALUES ('{{{ msg.machine_name }}}', {{{ msg.cycle }}}, {{{ msg.cycle_time }}}, '{{{ msg.recipe_name }}}');",
-        "postgreSQLConfig": "a1fb71ced63ef518",
-        "split": false,
-        "rowsPerMsg": 1,
-        "outputs": 1,
-        "x": 1800,
-        "y": 1060,
-        "wires": [
-            [
-                "528a9824339e4f6a"
-            ]
         ]
     },
     {
@@ -2830,7 +1995,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 350,
+        "x": 430,
         "y": 640,
         "wires": [
             [
@@ -2849,7 +2014,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 340,
+        "x": 420,
         "y": 700,
         "wires": [
             [
@@ -2867,7 +2032,7 @@
         "split": false,
         "rowsPerMsg": 1,
         "outputs": 1,
-        "x": 1720,
+        "x": 1800,
         "y": 220,
         "wires": [
             []
@@ -2896,7 +2061,7 @@
         "name": "Query Pre Exp State msg",
         "info": "describe your reusable flow here",
         "scope": "local",
-        "x": 150,
+        "x": 230,
         "y": 640,
         "wires": [
             [
@@ -2910,7 +2075,7 @@
         "z": "f788a78067227a65",
         "name": "Return",
         "position": 1,
-        "x": 490,
+        "x": 570,
         "y": 640,
         "wires": []
     },
@@ -2921,7 +2086,7 @@
         "name": "Query Molding State msg",
         "info": "describe your reusable flow here",
         "scope": "local",
-        "x": 150,
+        "x": 230,
         "y": 700,
         "wires": [
             [
@@ -2935,7 +2100,7 @@
         "z": "f788a78067227a65",
         "name": "Return",
         "position": 1,
-        "x": 470,
+        "x": 550,
         "y": 700,
         "wires": []
     },
@@ -2961,7 +2126,7 @@
         "name": "",
         "target": "query molding state msg",
         "outputs": 1,
-        "x": 1050,
+        "x": 1130,
         "y": 220,
         "wires": [
             [
@@ -2977,7 +2142,7 @@
         "name": "",
         "target": "query molding state msg",
         "outputs": 1,
-        "x": 1050,
+        "x": 1130,
         "y": 300,
         "wires": [
             [
@@ -2993,7 +2158,7 @@
         "name": "",
         "target": "query molding state msg",
         "outputs": 1,
-        "x": 1050,
+        "x": 1130,
         "y": 380,
         "wires": [
             [
@@ -3024,7 +2189,8 @@
         "y": 140,
         "wires": [
             [
-                "39ef70c9e6c407ac"
+                "39ef70c9e6c407ac",
+                "ecde5b326ff215d0"
             ],
             []
         ]
@@ -3047,11 +2213,12 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 1370,
+        "x": 1450,
         "y": 220,
         "wires": [
             [
-                "e266963cc18647b2"
+                "e266963cc18647b2",
+                "69bd886373b1fecf"
             ],
             []
         ]
@@ -3072,6 +2239,573 @@
         "x": 2140,
         "y": 140,
         "wires": []
+    },
+    {
+        "id": "87d063f5aecbd262",
+        "type": "inject",
+        "z": "f788a78067227a65",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1090,
+        "y": 780,
+        "wires": [
+            [
+                "83264b3862f0e93a"
+            ]
+        ]
+    },
+    {
+        "id": "be5ae98fabb8a58f",
+        "type": "debug",
+        "z": "f788a78067227a65",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1510,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "83264b3862f0e93a",
+        "type": "function",
+        "z": "f788a78067227a65",
+        "name": "Init Global Variables",
+        "func": "// Node-red Initial Function. runs once and creates the global variables and assigns them if they don't exist.\n// first one is mold_machines_states which is an array of objects that contain the machine serial number and the state of connection of the machine and the key of object is the machine serial number\n\nif ((global.get('mold_machines_states') === null) || global.get('mold_machines_states') === undefined) {\n    global.set('mold_machines_states', []);\n}\n\nif ((global.get('preexp_machines_states') === null) || global.get('preexp_machines_states') === undefined) {\n    global.set('preexp_machines_states', []);\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1300,
+        "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "69bd886373b1fecf",
+        "type": "function",
+        "z": "f788a78067227a65",
+        "name": "Update Molding Machine Global States",
+        "func": "// this function is meant to run after successful connection to the machine, it will update the state of the machine to connected and update the timestamp all necessary data comes in the msg object:\nconst machine_serial_number = msg.machine_serial_number;\nconst is_connected = true;\nconst time_stamp = Date.now();\n\n// create object to be pushed to the array remember to set its key to the machine serial number\nconst machine_state = {\n    machine_serial_number,\n    is_connected,\n    time_stamp\n};\n\n// get the array from the global context\nlet machines_states = global.get('mold_machines_states');\n\n// check if the machine already exists in the array\nconst index = machines_states.findIndex(machine => machine.machine_serial_number === machine_serial_number);\n\n// if it exists update it\nif (index !== -1) {\n    machines_states[index] = machine_state;\n} else {\n    // if it doesn't exist push it\n    machines_states.push(machine_state);\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1820,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "95665914720f2b53",
+        "type": "inject",
+        "z": "f788a78067227a65",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1090,
+        "y": 840,
+        "wires": [
+            [
+                "ecbb69e502d2fcec"
+            ]
+        ]
+    },
+    {
+        "id": "ecbb69e502d2fcec",
+        "type": "function",
+        "z": "f788a78067227a65",
+        "name": "Set Disconnection IF eligible",
+        "func": "// Get the array from the global context\nlet machines_states = global.get('mold_machines_states');\n\n// Check if the array exists and is not empty\nif (machines_states && machines_states.length > 0) {\n    const currentTimestamp = Date.now();\n    const disconnectedThreshold = 15000; // 15 seconds in milliseconds\n\n    // Iterate through the machines and update their state\n    machines_states.forEach((machine, index) => {\n        const timeDifference = currentTimestamp - machine.time_stamp;\n\n        // Check if the machine is disconnected\n        if (timeDifference > disconnectedThreshold) {\n            machines_states[index].is_connected = false;\n        } else {\n            machines_states[index].is_connected = true;\n        }\n\n        // Update the timestamp\n        machines_states[index].time_stamp = currentTimestamp;\n    });\n\n    // Update the global variable\n    global.set('mold_machines_states', machines_states);\n} else {\n    // If the array is empty or doesn't exist, do nothing\n    // You can choose to assign the global variable here if needed\n    // global.set('mold_machines_states', []);\n}\n\n// You can log the updated state or perform other actions if needed\n// console.log(machines_states);\nmsg.payload = machines_states;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1320,
+        "y": 840,
+        "wires": [
+            [
+                "a5289c8b42514b73"
+            ]
+        ]
+    },
+    {
+        "id": "a5289c8b42514b73",
+        "type": "function",
+        "z": "f788a78067227a65",
+        "name": "Set Disabled",
+        "func": "// Assuming machines_states is in msg.payload\nconst machines_states = msg.payload;\n\nconst disconnectedMachines = machines_states.filter(machine => !machine.is_connected);\n\nif (disconnectedMachines.length > 0) {\n    msg.payload = disconnectedMachines;\n} else {\n    // If no disconnected machines, set a property to indicate skipping\n    msg.disabled = true;\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1510,
+        "y": 840,
+        "wires": [
+            [
+                "5511d03678a407eb"
+            ]
+        ]
+    },
+    {
+        "id": "5511d03678a407eb",
+        "type": "switch",
+        "z": "f788a78067227a65",
+        "name": "Is Disabled",
+        "property": "disabled",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1650,
+        "y": 840,
+        "wires": [
+            [],
+            [
+                "8f514b77ebee565e"
+            ]
+        ]
+    },
+    {
+        "id": "8f514b77ebee565e",
+        "type": "function",
+        "z": "f788a78067227a65",
+        "name": "set query",
+        "func": "const disconnectedMachines = msg.payload;\n\n// Assuming you have the PostgreSQL query template\nconst queryTemplate = `\n    SELECT public.handle_insert_molding_status(\n        '{{{ machine_serial_number }}}',\n        'FALSE',\n        'FALSE',\n        'FALSE',\n        'FALSE',\n        'TRUE',\n        '',\n        0,\n        0,\n        0,\n        0,\n        0,\n        0,\n        0,\n        0,\n        ''\n    );\n`;\n\n// Function to replace placeholders in the query template\nconst replacePlaceholders = (query, machine) => {\n    return query.replace(/{{{ (.*?) }}}/g, (_, key) => machine[key]);\n};\n\n// Loop through disconnected machines and execute queries\ndisconnectedMachines.forEach(machine => {\n    const query = replacePlaceholders(queryTemplate, machine);\n\n    // Assuming you're using the PostgreSQL node to execute queries\n    msg.topic = \"post_disconnected\"; // Set the topic for your PostgreSQL node\n    msg.query = query;\n    msg.machine_serial_number = machine.machine_serial_number;\n\n    return msg;\n});\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1800,
+        "y": 840,
+        "wires": [
+            [
+                "281491791d293599"
+            ]
+        ]
+    },
+    {
+        "id": "281491791d293599",
+        "type": "postgresql",
+        "z": "f788a78067227a65",
+        "name": "Post Mold Disconnected State",
+        "query": "SELECT * FROM ;",
+        "postgreSQLConfig": "6d7e6326d0c1b658",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 2030,
+        "y": 840,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "042939b6fd99e3c3",
+        "type": "comment",
+        "z": "f788a78067227a65",
+        "name": "DEMO OPCUA",
+        "info": "",
+        "x": 180,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "ecde5b326ff215d0",
+        "type": "function",
+        "z": "f788a78067227a65",
+        "name": "Update Pre exp Machine Global States",
+        "func": "// this function is meant to run after successful connection to the machine, it will update the state of the machine to connected and update the timestamp all necessary data comes in the msg object:\nconst machine_serial_number = msg.machine_serial_number;\nconst is_connected = true;\nconst time_stamp = Date.now();\n\n// create object to be pushed to the array remember to set its key to the machine serial number\nconst machine_state = {\n    machine_serial_number,\n    is_connected,\n    time_stamp\n};\n\n// get the array from the global context\nlet machines_states = global.get('preexp_machines_states');\n\n// check if the machine already exists in the array\nconst index = machines_states.findIndex(machine => machine.machine_serial_number === machine_serial_number);\n\n// if it exists update it\nif (index !== -1) {\n    machines_states[index] = machine_state;\n} else {\n    // if it doesn't exist push it\n    machines_states.push(machine_state);\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1710,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1bb592df110892de",
+        "type": "inject",
+        "z": "f788a78067227a65",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1090,
+        "y": 900,
+        "wires": [
+            [
+                "2a1bd482cea4cafc"
+            ]
+        ]
+    },
+    {
+        "id": "2a1bd482cea4cafc",
+        "type": "function",
+        "z": "f788a78067227a65",
+        "name": "Set Disconnection IF eligible preexp",
+        "func": "// Get the array from the global context\nlet machines_states = global.get('preexp_machines_states');\n\n// Check if the array exists and is not empty\nif (machines_states && machines_states.length > 0) {\n    const currentTimestamp = Date.now();\n    const disconnectedThreshold = 15000; // 15 seconds in milliseconds\n\n    // Iterate through the machines and update their state\n    machines_states.forEach((machine, index) => {\n        const timeDifference = currentTimestamp - machine.time_stamp;\n\n        // Check if the machine is disconnected\n        if (timeDifference > disconnectedThreshold) {\n            machines_states[index].is_connected = false;\n        } else {\n            machines_states[index].is_connected = true;\n        }\n\n        // Update the timestamp\n        machines_states[index].time_stamp = currentTimestamp;\n    });\n\n    // Update the global variable\n    global.set('preexp_machines_states', machines_states);\n} else {\n    // If the array is empty or doesn't exist, do nothing\n    // You can choose to assign the global variable here if needed\n    // global.set('mold_machines_states', []);\n}\n\n// You can log the updated state or perform other actions if needed\n// console.log(machines_states);\nmsg.payload = machines_states;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1350,
+        "y": 900,
+        "wires": [
+            [
+                "41322ccf2541840d"
+            ]
+        ]
+    },
+    {
+        "id": "41322ccf2541840d",
+        "type": "function",
+        "z": "f788a78067227a65",
+        "name": "preexp Set Disabled",
+        "func": "// Assuming machines_states is in msg.payload\nconst machines_states = msg.payload;\n\nconst disconnectedMachines = machines_states.filter(machine => !machine.is_connected);\n\nif (disconnectedMachines.length > 0) {\n    msg.payload = disconnectedMachines;\n} else {\n    // If no disconnected machines, set a property to indicate skipping\n    msg.disabled = true;\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1600,
+        "y": 900,
+        "wires": [
+            [
+                "feb18464e4856c0f"
+            ]
+        ]
+    },
+    {
+        "id": "feb18464e4856c0f",
+        "type": "switch",
+        "z": "f788a78067227a65",
+        "name": "Is Disabled",
+        "property": "disabled",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1770,
+        "y": 900,
+        "wires": [
+            [],
+            [
+                "ac593ed4c74e973d"
+            ]
+        ]
+    },
+    {
+        "id": "ac593ed4c74e973d",
+        "type": "function",
+        "z": "f788a78067227a65",
+        "name": "pre exp set query",
+        "func": "const disconnectedMachines = msg.payload;\n\n// Assuming you have the PostgreSQL query template\nconst queryTemplate = `\n    SELECT public.handle_insert_pre_exp_status(\n        '{{{ machine_serial_number }}}',\n        'FALSE',\n        'TRUE',\n        '',\n        0,\n        0,\n        0,\n        0,\n        0,\n        0,\n        0,\n        0,\n        0,\n        0,\n        0,\n        0,\n        0,\n        0,\n        0,\n        0,\n        0,\n        0,\n        0\n    );\n`;\n\n// Function to replace placeholders in the query template\nconst replacePlaceholders = (query, machine) => {\n    return query.replace(/{{{ (.*?) }}}/g, (_, key) => machine[key]);\n};\n\n// Loop through disconnected machines and execute queries\ndisconnectedMachines.forEach(machine => {\n    const query = replacePlaceholders(queryTemplate, machine);\n\n    // Assuming you're using the PostgreSQL node to execute queries\n    msg.topic = \"post_disconnected\"; // Set the topic for your PostgreSQL node\n    msg.query = query;\n    msg.machine_serial_number = machine.machine_serial_number;\n\n    return msg;\n});\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1950,
+        "y": 900,
+        "wires": [
+            [
+                "321ac65205141bd0"
+            ]
+        ]
+    },
+    {
+        "id": "321ac65205141bd0",
+        "type": "postgresql",
+        "z": "f788a78067227a65",
+        "name": "Post preexp Disconnected State",
+        "query": "SELECT * FROM ;",
+        "postgreSQLConfig": "6d7e6326d0c1b658",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 2210,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5d14abbc6909b9f5",
+        "type": "comment",
+        "z": "f788a78067227a65",
+        "name": "Manejo desconexión de máquinas",
+        "info": "",
+        "x": 1340,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "55f32bc6769545a5",
+        "type": "function",
+        "z": "f788a78067227a65",
+        "name": "TODOs",
+        "func": "// TODO: Handle JSON column Insert for mold machines\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d477fcd6e64a6464",
+        "type": "OPCUA-IIoT-Inject",
+        "z": "f788a78067227a65",
+        "injectType": "read",
+        "payload": "",
+        "payloadType": "date",
+        "topic": "molding_machine",
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "startDelay": "1",
+        "name": "",
+        "addressSpaceItems": [
+            {
+                "name": "last_recipe",
+                "nodeId": "ns=6;s=::OpcUA_IF:last_recipe",
+                "datatypeName": ""
+            },
+            {
+                "name": "life_cycles",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_cycles",
+                "datatypeName": ""
+            },
+            {
+                "name": "mold_distance",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_mold_distance",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_auto",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.auto",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_manual",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.man",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_running",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.running",
+                "datatypeName": ""
+            },
+            {
+                "name": "status_stop",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.stop",
+                "datatypeName": ""
+            },
+            {
+                "name": "cycle_time",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.actual_cycle_time",
+                "datatypeName": ""
+            },
+            {
+                "name": "last_cycle_time",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.last_cycle_time",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_auto_hours",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.hours",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_auto_minutes",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.minutes",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_auto_seconds",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_auto_mode_wrk_time.seconds",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_manual_hours",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.hours",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_manual_minutes",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.minutes",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_manual_seconds",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_manu_mode_wrk_time.seconds",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_total_hours",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.hours",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_total_minutes",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.minutes",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_total_seconds",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_total_wrk_time.seconds",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_hydraulic_hours",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.hours",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_hydraulic_minutes",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.minutes",
+                "datatypeName": ""
+            },
+            {
+                "name": "working_time_hydraulic_seconds",
+                "nodeId": "ns=6;s=::OpcUA_IF:life_hydraulic_total_wrk_time.seconds",
+                "datatypeName": ""
+            },
+            {
+                "name": "alarm_00_id",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].id",
+                "datatypeName": ""
+            },
+            {
+                "name": "alarm_00_description",
+                "nodeId": "ns=6;s=::OpcUA_IF:mac_status.alarm_history[0].description",
+                "datatypeName": ""
+            },
+            {
+                "name": "machine_serial_number",
+                "nodeId": "ns=6;s=::OpcUA_IF:MachineSerialNumber",
+                "datatypeName": ""
+            },
+            {
+                "name": "recipe_running_t_vacuum_cooling",
+                "nodeId": "ns=6;s=::OpcUA_IF:recipe_running.cooling.t_vacuum_cooling",
+                "datatypeName": ""
+            },
+            {
+                "name": "recipe_running_t_air_cooling_fixed",
+                "nodeId": "ns=6;s=::OpcUA_IF:recipe_running.cooling.t_air_cooling_fix",
+                "datatypeName": ""
+            },
+            {
+                "name": "recipe_running_t_air_cooling_moving",
+                "nodeId": "ns=6;s=::OpcUA_IF:recipe_running.cooling.t_air_cooling_mov",
+                "datatypeName": ""
+            },
+            {
+                "name": "recipe_running_t_water_cooling_drain",
+                "nodeId": "ns=6;s=::OpcUA_IF:recipe_running.cooling.t_water_drain",
+                "datatypeName": ""
+            },
+            {
+                "name": "recipe_running_t_water_cooling_fixed",
+                "nodeId": "ns=6;s=::OpcUA_IF:recipe_running.cooling.t_water_fixed",
+                "datatypeName": ""
+            },
+            {
+                "name": "recipe_running_t_water_cooling_moving",
+                "nodeId": "ns=6;s=::OpcUA_IF:recipe_running.cooling.t_water_moving",
+                "datatypeName": ""
+            }
+        ],
+        "x": 190,
+        "y": 220,
+        "wires": [
+            [
+                "b8e939a60bfdca3e",
+                "f7c6fe9b14f9417f",
+                "3f489858a7e03298"
+            ]
+        ]
     },
     {
         "id": "ef4a1a03bf1a794e",

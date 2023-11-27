@@ -1,4 +1,3 @@
-// TODO: change view so that it counts since maintenance for each single machine.
 export default {
     props: ['table_data', 'recipe_data'],
     template: `
