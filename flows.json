@@ -292,7 +292,7 @@
         "sslFieldType": "bool",
         "applicationName": "Aislapol Scada",
         "applicationNameType": "str",
-        "max": "10",
+        "max": "100",
         "maxFieldType": "num",
         "idle": "1000",
         "idleFieldType": "num",
@@ -345,7 +345,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1510,
+        "x": 1500,
         "y": 300,
         "wires": [
             [
@@ -413,9 +413,7 @@
         "x": 2100,
         "y": 300,
         "wires": [
-            [
-                "a3f30e442a8ce012"
-            ]
+            []
         ]
     },
     {
@@ -976,7 +974,7 @@
         "target": "agrupación mold",
         "outputs": 1,
         "x": 930,
-        "y": 220,
+        "y": 200,
         "wires": [
             [
                 "7239477c6929c7d6"
@@ -2008,7 +2006,7 @@
         "type": "function",
         "z": "f788a78067227a65",
         "name": "Query Mold msg",
-        "func": "// node-red function node, with msg.payload = {\"results\":{\"status\":{\"auto\":true,\"manual\":true,\"running\":true,\"stop\":true},\"working_time_auto\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"working_time_manual\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"working_time_total\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"working_time_hydraulic\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"alarm_00\":{\"id\":452091,\"description\":452091},\"last_recipe\":\"cissors - lizard - spock *** rock - paper - s\",\"life_cycles\":452091,\"mold_distance\":452091,\"last_cycle_time\":452091,\"cycle_time\":452091,\"machine_serial_number\":\"cissors - lizard - spock *** rock - paper - s\"}}var querymsg = {};\nlet querymsg = msg;\n\nquerymsg.machine_serial_number = msg.payload.results.machine_serial_number;\nquerymsg.is_running = msg.payload.results.status.running;\nquerymsg.is_stopped = msg.payload.results.status.stop;\nquerymsg.is_automatic = msg.payload.results.status.auto;\nquerymsg.is_manual = msg.payload.results.status.manual;\n\nquerymsg.is_disconnected = false;\nquerymsg.last_recipe_name = msg.payload.results.last_recipe;\nquerymsg.life_cycles = msg.payload.results.life_cycles;\nquerymsg.mold_distance = msg.payload.results.mold_distance;\nquerymsg.last_cycle_time = msg.payload.results.last_cycle_time;\nquerymsg.current_cycle_time = msg.payload.results.cycle_time\n// working times are in seconds\nquerymsg.working_time_auto = msg.payload.results.working_time_auto.hours * 3600 + msg.payload.results.working_time_auto.minutes * 60 + msg.payload.results.working_time_auto.seconds;\nquerymsg.working_time_manual = msg.payload.results.working_time_manual.hours * 3600 + msg.payload.results.working_time_manual.minutes * 60 + msg.payload.results.working_time_manual.seconds;\nquerymsg.working_time_total = msg.payload.results.working_time_total.hours * 3600 + msg.payload.results.working_time_total.minutes * 60 + msg.payload.results.working_time_total.seconds;\nquerymsg.working_time_hydraulic = msg.payload.results.working_time_hydraulic.hours * 3600 + msg.payload.results.working_time_hydraulic.minutes * 60 + msg.payload.results.working_time_hydraulic.seconds;\n// alarms are string descriptions\nquerymsg.alarm_00_description = msg.payload.results.alarm_00.description;\n\nif (msg.payload.results.machine_serial_number !== null) {\n    querymsg.post = true;\n}\nelse {\n    querymsg.post = false;\n}\n\nreturn querymsg;\n",
+        "func": "// node-red function node, with msg.payload = {\"results\":{\"status\":{\"auto\":true,\"manual\":true,\"running\":true,\"stop\":true},\"working_time_auto\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"working_time_manual\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"working_time_total\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"working_time_hydraulic\":{\"hours\":452091,\"minutes\":452091,\"seconds\":452091},\"alarm_00\":{\"id\":452091,\"description\":452091},\"last_recipe\":\"cissors - lizard - spock *** rock - paper - s\",\"life_cycles\":452091,\"mold_distance\":452091,\"last_cycle_time\":452091,\"cycle_time\":452091,\"machine_serial_number\":\"cissors - lizard - spock *** rock - paper - s\"}}var querymsg = {};\nlet querymsg = msg;\n\nquerymsg.machine_serial_number = msg.payload.results.machine_serial_number;\nquerymsg.is_running = msg.payload.results.status.running;\nquerymsg.is_stopped = msg.payload.results.status.stop;\nquerymsg.is_automatic = msg.payload.results.status.auto;\nquerymsg.is_manual = msg.payload.results.status.manual;\n\nquerymsg.is_disconnected = false;\nquerymsg.last_recipe_name = msg.payload.results.last_recipe;\nquerymsg.life_cycles = msg.payload.results.life_cycles;\nquerymsg.mold_distance = msg.payload.results.mold_distance;\nquerymsg.last_cycle_time = msg.payload.results.last_cycle_time;\nquerymsg.current_cycle_time = msg.payload.results.cycle_time\n// working times are in seconds\nquerymsg.working_time_auto = msg.payload.results.working_time_auto.hours * 3600 + msg.payload.results.working_time_auto.minutes * 60 + msg.payload.results.working_time_auto.seconds;\nquerymsg.working_time_manual = msg.payload.results.working_time_manual.hours * 3600 + msg.payload.results.working_time_manual.minutes * 60 + msg.payload.results.working_time_manual.seconds;\nquerymsg.working_time_total = msg.payload.results.working_time_total.hours * 3600 + msg.payload.results.working_time_total.minutes * 60 + msg.payload.results.working_time_total.seconds;\nquerymsg.working_time_hydraulic = msg.payload.results.working_time_hydraulic.hours * 3600 + msg.payload.results.working_time_hydraulic.minutes * 60 + msg.payload.results.working_time_hydraulic.seconds;\n// alarms are string descriptions\nquerymsg.alarm_00_description = msg.payload.results.alarm_00.description;\n\n// Assuming msg.payload.results contains the objects you want to filter and group\nconst inputObjects = msg.payload.results;\n\n// Filter objects that start with \"recipe_running\"\nconst recipeRunningObjects = Object.keys(inputObjects)\n    .filter(key => key.startsWith('recipe_running'))\n    .reduce((result, key) => {\n        result[key] = inputObjects[key];\n        return result;\n    }, {});\n\n// Create the \"recipe_state\" object\nquerymsg.recipe_state = JSON.stringify(recipeRunningObjects);\n// querymsg.recipe_state = recipeRunningObjects;\nif (msg.payload.results.machine_serial_number !== null) {\n    querymsg.post = true;\n}\nelse {\n    querymsg.post = false;\n}\n\nreturn querymsg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2027,7 +2025,7 @@
         "type": "postgresql",
         "z": "f788a78067227a65",
         "name": "Post Latest Molding Machine State",
-        "query": "SELECT public.handle_insert_molding_status(\n    '{{{ msg.machine_serial_number }}}',\n    {{{ msg.is_running }}},\n    {{{ msg.is_stopped }}},\n    {{{ msg.is_automatic }}},\n    {{{ msg.is_manual }}},\n    {{{ msg.is_disconnected }}},\n    '{{{ msg.last_recipe_name }}}',\n    {{{ msg.life_cycles }}},\n    {{{ msg.mold_distance }}},\n    {{{ msg.current_cycle_time }}},\n    {{{ msg.last_cycle_time }}},\n    {{{ msg.working_time_auto }}},\n    {{{ msg.working_time_manual }}},\n    {{{ msg.working_time_total }}},\n    {{{ msg.working_time_hydraulic }}},\n    '{{{ msg.alarm_00_description }}}'\n);\n",
+        "query": "SELECT public.handle_insert_molding_status(\n    '{{{ msg.machine_serial_number }}}',\n    {{{ msg.is_running }}},\n    {{{ msg.is_stopped }}},\n    {{{ msg.is_automatic }}},\n    {{{ msg.is_manual }}},\n    {{{ msg.is_disconnected }}},\n    '{{{ msg.last_recipe_name }}}',\n    {{{ msg.life_cycles }}},\n    {{{ msg.mold_distance }}},\n    {{{ msg.current_cycle_time }}},\n    {{{ msg.last_cycle_time }}},\n    {{{ msg.working_time_auto }}},\n    {{{ msg.working_time_manual }}},\n    {{{ msg.working_time_total }}},\n    {{{ msg.working_time_hydraulic }}},\n    '{{{ msg.alarm_00_description }}}',\n    '{{{ msg.recipe_state }}}'\n);\n",
         "postgreSQLConfig": "6d7e6326d0c1b658",
         "split": false,
         "rowsPerMsg": 1,
@@ -2163,8 +2161,12 @@
         "wires": [
             [
                 "c5d42490808b0607",
-                "10b690ec7a43c61f"
+                "10b690ec7a43c61f",
+                "3415c0ad07873c07"
             ]
+        ],
+        "outputLabels": [
+            "Return"
         ]
     },
     {
@@ -2222,23 +2224,6 @@
             ],
             []
         ]
-    },
-    {
-        "id": "a3f30e442a8ce012",
-        "type": "debug",
-        "z": "f788a78067227a65",
-        "name": "debug 11",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 2140,
-        "y": 140,
-        "wires": []
     },
     {
         "id": "87d063f5aecbd262",
@@ -2419,7 +2404,7 @@
         "type": "function",
         "z": "f788a78067227a65",
         "name": "set query",
-        "func": "const disconnectedMachines = msg.payload;\n\n// Assuming you have the PostgreSQL query template\nconst queryTemplate = `\n    SELECT public.handle_insert_molding_status(\n        '{{{ machine_serial_number }}}',\n        'FALSE',\n        'FALSE',\n        'FALSE',\n        'FALSE',\n        'TRUE',\n        '',\n        0,\n        0,\n        0,\n        0,\n        0,\n        0,\n        0,\n        0,\n        ''\n    );\n`;\n\n// Function to replace placeholders in the query template\nconst replacePlaceholders = (query, machine) => {\n    return query.replace(/{{{ (.*?) }}}/g, (_, key) => machine[key]);\n};\n\n// Loop through disconnected machines and execute queries\ndisconnectedMachines.forEach(machine => {\n    const query = replacePlaceholders(queryTemplate, machine);\n\n    // Assuming you're using the PostgreSQL node to execute queries\n    msg.topic = \"post_disconnected\"; // Set the topic for your PostgreSQL node\n    msg.query = query;\n    msg.machine_serial_number = machine.machine_serial_number;\n\n    return msg;\n});\n",
+        "func": "const disconnectedMachines = msg.payload;\n\n// Assuming you have the PostgreSQL query template\nconst queryTemplate = `\n    SELECT public.handle_insert_molding_status(\n        '{{{ machine_serial_number }}}',\n        'FALSE',\n        'FALSE',\n        'FALSE',\n        'FALSE',\n        'TRUE',\n        '',\n        0,\n        0,\n        0,\n        0,\n        0,\n        0,\n        0,\n        0,\n        '',\n        '{}'\n    );\n`;\n\n// Function to replace placeholders in the query template\nconst replacePlaceholders = (query, machine) => {\n    return query.replace(/{{{ (.*?) }}}/g, (_, key) => machine[key]);\n};\n\n// Loop through disconnected machines and execute queries\ndisconnectedMachines.forEach(machine => {\n    const query = replacePlaceholders(queryTemplate, machine);\n\n    // Assuming you're using the PostgreSQL node to execute queries\n    msg.topic = \"post_disconnected\"; // Set the topic for your PostgreSQL node\n    msg.query = query;\n    msg.machine_serial_number = machine.machine_serial_number;\n\n    return msg;\n});\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2640,7 +2625,7 @@
         "payload": "",
         "payloadType": "date",
         "topic": "molding_machine",
-        "repeat": "5",
+        "repeat": "3",
         "crontab": "",
         "once": true,
         "startDelay": "1",
@@ -2806,6 +2791,23 @@
                 "3f489858a7e03298"
             ]
         ]
+    },
+    {
+        "id": "3415c0ad07873c07",
+        "type": "debug",
+        "z": "f788a78067227a65",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1390,
+        "y": 360,
+        "wires": []
     },
     {
         "id": "ef4a1a03bf1a794e",

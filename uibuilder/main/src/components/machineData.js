@@ -1,3 +1,4 @@
+// TODO: change view of mold to return the cycles since maintenance instead of the total cycles.
 export default {
   props: ["pre_exp_arr", "mold_arr", "mold_control_values", "time_stamps", "last_running_time"],
   watch: {
@@ -59,7 +60,7 @@ export default {
                     <div class="col-md value-field text-center">{{ mold.last_recipe_name.replace('.xml', '').toUpperCase() }}</div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>Ciclos/H:</b></p></div>
-                    <div class="col-md value-field text-center">{{mold.cycles_per_second}}</div>
+                    <div class="col-md value-field text-center">{{parseInt(Number(mold.cycles_per_second).toFixed(2))}}</div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>Dist. Molde:</b></p></div>
                     <div class="col-md value-field align-items-center text-center">{{mold.mold_distance.toFixed(2)}}</div>
