@@ -100,7 +100,7 @@ export default {
               <b-col lg="2" class="my-1"><b>Horómetro Hidráulico:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">{{this.formatDuration(this.moldModal.content.working_time_hydraulic)}}</b-col>
               <b-col lg="2" class="my-1"><b>Alarma:</b></b-col>
-              <b-col lg="2" class="my-1 value-field text-center">{{this.moldModal.content.alarm_00_description}}</b-col>
+              <b-col class="my-1 value-field text-center">{{this.moldModal.content.alarm_00_description}}</b-col>
             </b-row>
             <b-row>
               <b-col lg="2" class="my-1"><b>Enfriamiento</b></b-col>
