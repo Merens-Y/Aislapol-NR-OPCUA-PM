@@ -1,4 +1,3 @@
-// TODO: change view of mold to return the cycles since maintenance instead of the total cycles.
 export default {
   props: ["pre_exp_arr", "mold_arr", "mold_control_values", "time_stamps", "last_running_time"],
   watch: {
@@ -60,7 +59,7 @@ export default {
                     <div class="col-md value-field text-center">{{ mold.last_recipe_name.replace('.xml', '').toUpperCase() }}</div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>Ciclos/H:</b></p></div>
-                    <div class="col-md value-field text-center">{{parseInt(Number(mold.cycles_per_second).toFixed(2))}}</div>
+                    <div class="col-md value-field text-center">{{parseInt(Number(mold.cycles_per_second).toFixed(1))}}</div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>Dist. Molde:</b></p></div>
                     <div class="col-md value-field align-items-center text-center">{{mold.mold_distance.toFixed(2)}}</div>
@@ -69,7 +68,7 @@ export default {
                     <div class="col-md value-field align-items-center text-center" :class="getVariantClassbyTC(mold.current_cycle_time/1000, mold.last_recipe_name)">{{(mold.current_cycle_time/1000).toFixed(2)}}</div>
                     <div class="w-100"></div>
                     <div class="col-sm"><p><b>Tot. ciclos:</b></p></div>
-                    <div class="col-md value-field text-center" :class="getVariantClassbyNC(mold.life_cycles, mold.last_recipe)">{{mold.life_cycles}}</div>
+                    <div class="col-md value-field text-center" :class="getVariantClassbyNC(mold.total_cycles, mold.last_recipe)">{{mold.total_cycles}}</div>
                 </div>
             </b-card>
         </div>
@@ -102,6 +101,23 @@ export default {
               <b-col lg="2" class="my-1 value-field text-center">{{this.formatDuration(this.moldModal.content.working_time_hydraulic)}}</b-col>
               <b-col lg="2" class="my-1"><b>Alarma:</b></b-col>
               <b-col lg="2" class="my-1 value-field text-center">{{this.moldModal.content.alarm_00_description}}</b-col>
+            </b-row>
+            <b-row>
+              <b-col lg="2" class="my-1"><b>Enfriamiento</b></b-col>
+            </b-row>
+            <b-row>
+              <b-col lg="2" class="my-1"><b>Tiempo de Vacío:</b></b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{(this.moldModal.content.recipe_state.recipe_running_t_vacuum_cooling/1000).toFixed(2)}}</b-col>
+              <b-col lg="2" class="my-1"><b>Tiempo de Aire Fijo:</b></b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{(this.moldModal.content.recipe_state.recipe_running_t_air_cooling.fixed/1000).toFixed(2)}}</b-col>
+              <b-col lg="2" class="my-1"><b>Tiempo de Aire Móvil:</b></b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{(this.moldModal.content.recipe_state.recipe_running_t_air_cooling.moving/1000).toFixed(2)}}</b-col>
+              <b-col lg="2" class="my-1"><b>Tiempo de Agua Drenaje:</b></b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{(this.moldModal.content.recipe_state.recipe_running_t_water_cooling.drain/1000).toFixed(2)}}</b-col>
+              <b-col lg="2" class="my-1"><b>Tiempo de Agua Fijo:</b></b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{(this.moldModal.content.recipe_state.recipe_running_t_water_cooling.fixed/1000).toFixed(2)}}</b-col>
+              <b-col lg="2" class="my-1"><b>Tiempo de Agua Móvil:</b></b-col>
+              <b-col lg="2" class="my-1 value-field text-center">{{(this.moldModal.content.recipe_state.recipe_running_t_water_cooling.moving/1000).toFixed(2)}}</b-col>
             </b-row>
             <template #modal-footer="{ ok, cancel, hide }">
                 <!-- Emulate built in modal footer ok and cancel button actions -->
@@ -176,7 +192,8 @@ export default {
           "life_cycles":88,
           "mold_distance":88,
           "last_cycle_time":88,
-          "cycle_time":88
+          "cycle_time":88,
+          "recipe_state": {" recipe_running_t_vacuum_cooling": 99, "recipe_running_t_air_cooling": {"fixed": 99, "moving": 99}, "recipe_running_t_water_cooling": {"drain": 99, "fixed": 99, "moving": 99}}
         },
       },
       preexpModal: {

@@ -2605,7 +2605,7 @@
         "type": "function",
         "z": "f788a78067227a65",
         "name": "TODOs",
-        "func": "// TODO: Handle JSON column Insert for mold machines\n\nreturn msg;",
+        "func": "\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
