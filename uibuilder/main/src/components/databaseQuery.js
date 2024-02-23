@@ -1,11 +1,10 @@
-/* 
-TODO: Añadir a tabla y CSV:
--Tiempo vapor fijo
--Presión vapor fijo
--Tiempo descarga abierta fijo
--Tiempo vapor movil
--Presión vapor movil
--Tiempo descarga abierta movil
+/* TODO: Añadir a tabla y CSV:
+TODO: Tiempo vapor fijo
+TODO: Presión vapor fijo
+TODO: Tiempo descarga abierta fijo
+TODO: Tiempo vapor movil
+TODO: Presión vapor movil
+TODO: Tiempo descarga abierta movil
 */
 // TODO: Corregir en CSV el formato de la fecha y hora (3 horas adelantado)
 // Corregir Filtro por rango de fechas, considerar revamp de las funciones de filtrado y query.
