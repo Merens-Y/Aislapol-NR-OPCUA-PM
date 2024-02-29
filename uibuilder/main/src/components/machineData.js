@@ -1,11 +1,5 @@
-/* TODO: cambiar tiempo de ciclo por ultimo tiempo de ciclo.
-TODO: Añadir:
--Tiempo vapor fijo
--Presión vapor fijo
--Tiempo descarga abierta fijo
--Tiempo vapor movil
--Presión vapor movil
--Tiempo descarga abierta movil
+/*  TODO: cambiar tiempo de ciclo por ultimo tiempo de ciclo.
+    TODO: Añadir a detalles: Tiempo vapor fijo, Presión vapor fijo, Tiempo descarga abierta fijo, Tiempo vapor movil, Presión vapor movil, Tiempo descarga abierta movil
 */
 export default {
   props: ["pre_exp_arr", "mold_arr", "mold_control_values", "time_stamps", "last_running_time"],

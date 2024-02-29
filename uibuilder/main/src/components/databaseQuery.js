@@ -7,7 +7,8 @@ TODO: Presión vapor movil
 TODO: Tiempo descarga abierta movil
 */
 // TODO: Corregir en CSV el formato de la fecha y hora (3 horas adelantado)
-// Corregir Filtro por rango de fechas, considerar revamp de las funciones de filtrado y query.
+// TODO: Corregir Filtro por rango de fechas, considerar revamp de las funciones de filtrado y query.
+// TODO: Corregir generación de CSV para parsear json antes.
 export default {
     props: ["query_results", "query_options"],
     template: `
@@ -398,13 +399,43 @@ export default {
             this.timeFrom = '';
         },
         // methods for CSV export.
+        flattenObject(ob) {
+            var toReturn = {};
+            
+            for (var i in ob) {
+                if (!ob.hasOwnProperty(i)) continue;
+                
+                if ((typeof ob[i]) == 'object' && ob[i] !== null) {
+                    var flatObject = this.flattenObject(ob[i]);
+                    for (var x in flatObject) {
+                        if (!flatObject.hasOwnProperty(x)) continue;
+                        
+                        toReturn[i + '_' + x] = flatObject[x];
+                    }
+                } else {
+                    toReturn[i] = ob[i];
+                }
+            }
+            return toReturn;
+        },
         filterData() {
             // Apply filtering based on specific criteria
             if (this.filter === '' || this.filter === null) {
                 return this.query_results;
             }
             else {
-                const filteredData = this.query_results.filter((row) => {
+                const filteredData = this.query_results.map(row => {
+                    if (row.recipe_details) {
+                        // Flatten the recipe_details and add them to the row
+                        const flatDetails = this.flattenObject(row.recipe_details);
+                        for (let key in flatDetails) {
+                            row[key] = flatDetails[key];
+                        }
+                        // Remove the original recipe_details
+                        delete row.recipe_details;
+                    }
+                    return row;
+                }).filter((row) => {
                     const { name, id } = row;
                     const filterName = this.filterOn.includes('machine_serial_number') || false;
                     const filterRecipe = this.filterOn.includes('mold_recipe_name') || false;
