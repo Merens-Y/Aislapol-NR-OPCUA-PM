@@ -399,43 +399,23 @@ export default {
             this.timeFrom = '';
         },
         // methods for CSV export.
-        flattenObject(ob) {
-            var toReturn = {};
-            
-            for (var i in ob) {
-                if (!ob.hasOwnProperty(i)) continue;
-                
-                if ((typeof ob[i]) == 'object' && ob[i] !== null) {
-                    var flatObject = this.flattenObject(ob[i]);
-                    for (var x in flatObject) {
-                        if (!flatObject.hasOwnProperty(x)) continue;
-                        
-                        toReturn[i + '_' + x] = flatObject[x];
-                    }
-                } else {
-                    toReturn[i] = ob[i];
-                }
-            }
-            return toReturn;
-        },
         filterData() {
+            // Always stringify the recipe_details
+            const dataWithRecipeDetailsStringified = this.query_results.map(row => {
+                if (row.recipe_details) {
+                    // Stringify the recipe_details
+                    row.recipe_details = JSON.stringify(row.recipe_details);
+                }
+                return row;
+            });
+            console.log('Data after stringifying recipe_details:', dataWithRecipeDetailsStringified);
+
             // Apply filtering based on specific criteria
             if (this.filter === '' || this.filter === null) {
-                return this.query_results;
+                return dataWithRecipeDetailsStringified;
             }
             else {
-                const filteredData = this.query_results.map(row => {
-                    if (row.recipe_details) {
-                        // Flatten the recipe_details and add them to the row
-                        const flatDetails = this.flattenObject(row.recipe_details);
-                        for (let key in flatDetails) {
-                            row[key] = flatDetails[key];
-                        }
-                        // Remove the original recipe_details
-                        delete row.recipe_details;
-                    }
-                    return row;
-                }).filter((row) => {
+                const filteredData = dataWithRecipeDetailsStringified.filter((row) => {
                     const { name, id } = row;
                     const filterName = this.filterOn.includes('machine_serial_number') || false;
                     const filterRecipe = this.filterOn.includes('mold_recipe_name') || false;
@@ -454,6 +434,7 @@ export default {
                         return values.includes(this.filter.toLowerCase());
                     }
                 });
+                console.log('Data after applying filters:', filteredData);
 
                 return filteredData;
             }

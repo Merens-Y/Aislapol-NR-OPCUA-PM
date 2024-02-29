@@ -2,125 +2,99 @@
   "name": "uib-root",
   "version": "6.4.1",
   "dependencies": {
-    "@highlightjs/cdn-assets": "^11.8.0",
     "apexcharts": "^3.40.0",
     "bootstrap": "^4.6.1",
     "bootstrap-vue": "^2.23.1",
+    "highlight.js": "^11.9.0",
     "http-vue-loader": "^1.4.2",
+    "json-2-csv": "^5.4.0",
     "marked": "^5.1.0",
     "vue": "^2.7.14",
     "vue-apexcharts": "^1.6.2"
   },
   "uibuilder": {
     "packages": {
-      "@highlightjs/cdn-assets": {
-        "spec": "^11.8.0",
-        "installFolder": "C:\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\@highlightjs\\cdn-assets",
-        "installedVersion": "11.8.0",
-        "estimatedEntryPoint": "?",
-        "homepage": "https://www.npmjs.com/search?q=@highlightjs/cdn-assets",
-        "packageUrl": "/@highlightjs/cdn-assets",
-        "url": "../uibuilder/vendor/@highlightjs/cdn-assets/?",
-        "scope": "@highlightjs/cdn-assets",
-        "installedFrom": "npm",
-        "outdated": {
-          "current": "11.8.0",
-          "wanted": "11.9.0",
-          "latest": "11.9.0"
-        }
-      },
       "apexcharts": {
-        "spec": "^3.40.0",
-        "installFolder": "C:\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\apexcharts",
+        "installFolder": "\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\apexcharts",
         "installedVersion": "3.40.0",
-        "estimatedEntryPoint": "?",
-        "homepage": "https://www.npmjs.com/search?q=apexcharts",
+        "estimatedEntryPoint": "dist/apexcharts.js",
+        "homepage": "https://apexcharts.com",
         "packageUrl": "/apexcharts",
-        "url": "../uibuilder/vendor/apexcharts/?",
-        "installedFrom": "npm",
-        "outdated": {
-          "current": "3.40.0",
-          "wanted": "3.46.0",
-          "latest": "3.46.0"
-        }
+        "url": "../uibuilder/vendor/apexcharts/dist/apexcharts.js",
+        "spec": "^3.40.0"
       },
       "bootstrap": {
-        "spec": "^4.6.1",
-        "installFolder": "C:\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\bootstrap",
+        "installFolder": "\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\bootstrap",
         "installedVersion": "4.6.2",
-        "estimatedEntryPoint": "?",
-        "homepage": "https://www.npmjs.com/search?q=bootstrap",
+        "estimatedEntryPoint": "dist/js/bootstrap.js",
+        "homepage": "https://getbootstrap.com/",
         "packageUrl": "/bootstrap",
-        "url": "../uibuilder/vendor/bootstrap/?",
-        "installedFrom": "npm",
-        "outdated": {
-          "current": "4.6.2",
-          "wanted": "4.6.2",
-          "latest": "5.3.3"
-        }
+        "url": "../uibuilder/vendor/bootstrap/dist/js/bootstrap.js",
+        "spec": "^4.6.1"
       },
       "bootstrap-vue": {
-        "spec": "^2.23.1",
-        "installFolder": "C:\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\bootstrap-vue",
+        "installFolder": "\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\bootstrap-vue",
         "installedVersion": "2.23.1",
-        "estimatedEntryPoint": "?",
-        "homepage": "https://www.npmjs.com/search?q=bootstrap-vue",
+        "estimatedEntryPoint": "./dist/bootstrap-vue.common.js",
+        "homepage": "https://bootstrap-vue.org",
         "packageUrl": "/bootstrap-vue",
-        "url": "../uibuilder/vendor/bootstrap-vue/?",
-        "installedFrom": "npm",
-        "outdated": {}
+        "url": "../uibuilder/vendor/bootstrap-vue/./dist/bootstrap-vue.common.js",
+        "bootstrap": "^4.6.1",
+        "spec": "^2.23.1"
+      },
+      "highlight.js": {
+        "installFolder": "\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\highlight.js",
+        "installedVersion": "11.9.0",
+        "estimatedEntryPoint": "./lib/index.js",
+        "homepage": "https://highlightjs.org/",
+        "packageUrl": "/highlight.js",
+        "url": "../uibuilder/vendor/highlight.js/./lib/index.js",
+        "spec": "^11.9.0"
       },
       "http-vue-loader": {
-        "spec": "^1.4.2",
-        "installFolder": "C:\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\http-vue-loader",
+        "installFolder": "\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\http-vue-loader",
         "installedVersion": "1.4.2",
-        "estimatedEntryPoint": "?",
-        "homepage": "https://www.npmjs.com/search?q=http-vue-loader",
+        "estimatedEntryPoint": "./src/httpVueLoader.js",
+        "homepage": "https://github.com/FranckFreiburger/http-vue-loader#readme",
         "packageUrl": "/http-vue-loader",
-        "url": "../uibuilder/vendor/http-vue-loader/?",
-        "installedFrom": "npm",
-        "outdated": {}
+        "url": "../uibuilder/vendor/http-vue-loader/./src/httpVueLoader.js",
+        "spec": "^1.4.2"
+      },
+      "json-2-csv": {
+        "installFolder": "\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\json-2-csv",
+        "installedVersion": "5.4.0",
+        "estimatedEntryPoint": "./lib/converter.js",
+        "homepage": "https://mrodrig.github.io/json-2-csv",
+        "packageUrl": "/json-2-csv",
+        "url": "../uibuilder/vendor/json-2-csv/./lib/converter.js",
+        "spec": "^5.4.0"
       },
       "marked": {
-        "spec": "^5.1.0",
-        "installFolder": "C:\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\marked",
+        "installFolder": "\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\marked",
         "installedVersion": "5.1.0",
-        "estimatedEntryPoint": "?",
-        "homepage": "https://www.npmjs.com/search?q=marked",
+        "estimatedEntryPoint": "./lib/marked.umd.js",
+        "homepage": "https://marked.js.org",
         "packageUrl": "/marked",
-        "url": "../uibuilder/vendor/marked/?",
-        "installedFrom": "npm",
-        "outdated": {
-          "current": "5.1.0",
-          "wanted": "5.1.2",
-          "latest": "12.0.0"
-        }
+        "url": "../uibuilder/vendor/marked/./lib/marked.umd.js",
+        "spec": "^5.1.0"
       },
       "vue": {
-        "spec": "^2.7.14",
-        "installFolder": "C:\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vue",
+        "installFolder": "\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vue",
         "installedVersion": "2.7.14",
-        "estimatedEntryPoint": "?",
-        "homepage": "https://www.npmjs.com/search?q=vue",
+        "estimatedEntryPoint": "dist/vue.js",
+        "homepage": "https://github.com/vuejs/vue#readme",
         "packageUrl": "/vue",
-        "url": "../uibuilder/vendor/vue/?",
-        "installedFrom": "npm",
-        "outdated": {
-          "current": "2.7.14",
-          "wanted": "2.7.16",
-          "latest": "3.4.21"
-        }
+        "url": "../uibuilder/vendor/vue/dist/vue.js",
+        "spec": "^2.7.14"
       },
       "vue-apexcharts": {
-        "spec": "^1.6.2",
-        "installFolder": "C:\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vue-apexcharts",
+        "installFolder": "\\Users\\Merens\\.node-red\\projects\\Aislapol-NR-OPCUA-PM\\uibuilder\\node_modules\\vue-apexcharts",
         "installedVersion": "1.6.2",
-        "estimatedEntryPoint": "?",
+        "estimatedEntryPoint": "dist/vue-apexcharts.js",
         "homepage": "https://www.npmjs.com/search?q=vue-apexcharts",
         "packageUrl": "/vue-apexcharts",
-        "url": "../uibuilder/vendor/vue-apexcharts/?",
-        "installedFrom": "npm",
-        "outdated": {}
+        "url": "../uibuilder/vendor/vue-apexcharts/dist/vue-apexcharts.js",
+        "spec": "^1.6.2"
       }
     }
   }
